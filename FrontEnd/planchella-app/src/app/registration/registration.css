@@ -1,0 +1,215 @@
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+#registerContainer {
+  border: none;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: #FFFFFF;
+  width: fit-content;
+  height: fit-content;
+  margin: auto;
+  padding: 2.5rem;
+  border-radius: 1rem;
+  box-shadow: 0 8px 32px rgba(73, 16, 139, 0.3);
+}
+
+#registerContainer h2 {
+  margin: 0 0 1.5rem 0;
+  color: #49108B;
+  font-size: 2rem;
+  font-weight: 700;
+}
+
+#registerForm {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 22rem;
+  padding: 0;
+}
+
+#registerForm > * {
+  width: 100%;
+}
+
+label {
+  margin-top: 1.25rem;
+  font-size: 1rem;
+  color: #49108B;
+  font-weight: 600;
+}
+
+label:first-of-type {
+  margin-top: 0;
+}
+
+input {
+  border-radius: 0.5rem;
+  padding: 0.75rem;
+  margin: 0.5rem 0 0 0;
+  border: 2px solid #E0E0E0;
+  font-size: 1rem;
+  background-color: #F3F8FF;
+  transition: all 0.2s ease;
+}
+
+input:focus {
+  outline: none;
+  border-color: #7E30E1;
+  background-color: #FFFFFF;
+  box-shadow: 0 0 0 3px rgba(126, 48, 225, 0.1);
+}
+
+input::placeholder {
+  color: #9CA3AF;
+  opacity: 0.8;
+}
+
+/* Main register button */
+button[type="submit"]:not(.thirdParty) {
+  padding: 0.875rem;
+  margin-top: 2rem;
+  border: none;
+  border-radius: 0.5rem;
+  background: linear-gradient(135deg, #7E30E1 0%, #49108B 100%);
+  color: #FFFFFF;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+button[type="submit"]:not(.thirdParty):hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(126, 48, 225, 0.4);
+}
+
+.thirdPartyContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin: 1.5rem 0;
+  width: 100%;
+}
+
+/* Divider */
+.divider {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  margin: 1.5rem 0;
+  color: #6B7280;
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.divider::before,
+.divider::after {
+  content: '';
+  flex: 1;
+  border-bottom: 1px solid #E5E7EB;
+}
+
+.divider::before {
+  margin-right: 1rem;
+}
+
+.divider::after {
+  margin-left: 1rem;
+}
+
+hr {
+  border: none;
+  border-top: 1px solid #E5E7EB;
+  margin: 1.5rem 0;
+}
+
+/* Third party buttons - Common website style */
+.thirdParty {
+  padding: 0.75rem 1rem;
+  margin: 0;
+  border: 1.5px solid #D1D5DB;
+  border-radius: 0.5rem;
+  background-color: #FFFFFF;
+  color: #374151;
+  font-size: 0.95rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+}
+
+.relatedTagsContainer {
+  align-content: center;
+}
+
+.thirdParty:hover {
+  background-color: #F9FAFB;
+  border-color: #9CA3AF;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Google button specific styling */
+.thirdParty:first-child {
+  border-color: #DB4437;
+  color: #DB4437;
+}
+
+.thirdParty:first-child:hover {
+  background-color: #FEF2F2;
+  border-color: #B91C1C;
+}
+
+/* Microsoft button specific styling */
+.thirdParty:last-child {
+  border-color: #0078D4;
+  color: #0078D4;
+}
+
+.thirdParty:last-child:hover {
+  background-color: #F0F9FF;
+  border-color: #0369A1;
+}
+
+a {
+  margin-top: 1rem;
+  color: #7E30E1;
+  text-decoration: none;
+  text-align: center;
+  font-weight: 500;
+  transition: color 0.2s ease;
+}
+
+a:hover {
+  color: #49108B;
+  text-decoration: underline;
+}
+
+/* Responsive design */
+@media (max-width: 480px) {
+  body {
+    padding: 0.5rem;
+  }
+
+  #registerContainer {
+    padding: 2rem 1.5rem;
+    margin: 1rem;
+    width: 95%;
+  }
+
+  #registerForm {
+    width: 100%;
+  }
+
+  .thirdPartyContainer {
+    gap: 0.5rem;
+  }
+}
