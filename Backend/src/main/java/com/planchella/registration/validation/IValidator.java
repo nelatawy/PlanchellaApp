@@ -2,11 +2,11 @@ package com.planchella.registration.validation;
 
 public interface IValidator {
     
-    ValidationResult checkUsername(String userName);
+    boolean isValidUsername(String userName);
 
-    ValidationResult checkEmail(String email);
+    boolean isValidEmail(String email);
 
-    ValidationResult checkPassword(String password);
+    boolean isValidPassword(String password);
 
 
 }
