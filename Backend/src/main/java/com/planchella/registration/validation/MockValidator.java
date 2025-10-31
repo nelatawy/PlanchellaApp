@@ -3,18 +3,18 @@ package com.planchella.registration.validation;
 public class MockValidator implements IValidator {
 
     @Override
-    public boolean isValidEmail(String email) {
-        return true;
+    public ValidationResult checkEmail(String email) {
+        return ValidationResult.validResult();
     }
     @Override
 
-    public boolean isValidUsername(String userName) {
+    public ValidationResult checkPassword(String userName) {
 
-        return true;
+        return ValidationResult.validResult();
     }
     @Override
-    public boolean isValidPassword(String email) {
-        return true;
+    public ValidationResult checkUsername(String email) {
+        return ValidationResult.validResult();
     }
     
 }
