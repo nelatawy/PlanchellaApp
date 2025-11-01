@@ -3,6 +3,8 @@
 }
 
 #registerContainer {
+  font-family: "Montserrat", sans-serif;
+
   border: none;
   display: flex;
   flex-direction: column;
@@ -21,14 +23,15 @@
   margin: 0 0 1.5rem 0;
   color: #49108B;
   font-size: 2rem;
-  font-weight: 700;
+  font-weight: 800;
 }
+
 
 #registerForm {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  width: 22rem;
+  width: 30rem;
   padding: 0;
 }
 
@@ -44,7 +47,7 @@ label {
 }
 
 label:first-of-type {
-  margin-top: 0;
+  margin-top: 0.5rem;
 }
 
 input {
@@ -132,7 +135,7 @@ hr {
 .thirdParty {
   padding: 0.75rem 1rem;
   margin: 0;
-  border: 1.5px solid #D1D5DB;
+  border: 2px solid #D1D5DB;
   border-radius: 0.5rem;
   background-color: #FFFFFF;
   color: #374151;

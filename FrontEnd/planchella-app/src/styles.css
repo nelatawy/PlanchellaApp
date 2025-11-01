@@ -10,4 +10,21 @@ body {
   display: flex;
   flex-direction: column;
   padding: 1rem;
+  background-size: 200% 200%;
+  align-items: center;
+  justify-content: center;
+
+  animation: gradientAnimation 10s ease-in infinite ;
+}
+
+@keyframes gradientAnimation {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
 }
