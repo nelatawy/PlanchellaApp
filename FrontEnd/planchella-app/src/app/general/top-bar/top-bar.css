@@ -1,8 +1,7 @@
 #top-bar {
     width: 100vw;
     background-color: rgb(255, 255, 255);
-    padding: .5rem;
-    height: 5rem;
+    padding: .25rem;
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -11,10 +10,15 @@
 }
 #home {
     font-family: var(--font-main);
+    height: 3.5rem;
     font-weight: 600;
     font-size: 1.2rem;
     color: var(--primary-color-dark);
     text-decoration: none;
+    background-image: url('../../../../public/logo.png');
+    aspect-ratio: 27/9;
+    background-size: cover;
+    background-position: center;
 }
 
 #profile {
