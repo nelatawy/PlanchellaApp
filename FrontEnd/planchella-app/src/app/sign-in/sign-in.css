@@ -3,7 +3,7 @@
 }
 
 #registerContainer {
-  font-family: "Montserrat", sans-serif;
+  font-family: var(--font-main);
 
   border: none;
   display: flex;

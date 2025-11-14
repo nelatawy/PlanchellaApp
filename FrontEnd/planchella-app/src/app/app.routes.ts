@@ -2,7 +2,8 @@ import {RouterModule, Routes} from '@angular/router';
 import {SignIn} from './sign-in/sign-in';
 import { Registration } from './registration/registration';
 import {ForgotPassword} from './forgot-password/forgot-password';
-import {NgModule} from '@angular/core';
+import { TopBar } from './general/top-bar/top-bar';
+import {Component, NgModule} from '@angular/core';
 
 export const routes: Routes = [
   { path: '', redirectTo: '/signin', pathMatch: 'full' }, // default route
@@ -15,6 +16,8 @@ export const routes: Routes = [
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
+
+
 export class AppRoutingModule {
 
 }
