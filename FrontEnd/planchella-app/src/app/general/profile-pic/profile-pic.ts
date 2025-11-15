@@ -13,4 +13,6 @@ export class ProfilePic {
   @Input()
   hover_text: string = "";
 
+  @Input()
+  pic_href : string = "/profile_placeholder.png";
 }

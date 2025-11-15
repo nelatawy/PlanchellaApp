@@ -1,0 +1,43 @@
+
+#bottom-bar button {
+  cursor: pointer;
+  width: 100%;
+  padding: 10px;
+  border: none;
+}
+
+#top-bar, #bottom-bar {
+  display: flex;
+  padding: 1rem;
+  margin: 1rem;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  gap: 2px;
+  width: 100%;
+  font-weight: bold;
+}
+
+#top-bar p {
+  font-size: 1.5rem;
+  margin: 0.25rem;
+  color: #6B7280;
+}
+
+#content {
+  font-size: 1rem;
+  padding: 1rem;
+}
+
+#card {
+  background-color: var(--card-color-light);
+  border-radius: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-size: 0.5em;
+  padding: 0.5rem;
+  box-shadow: var(--card-shadow);
+}
+

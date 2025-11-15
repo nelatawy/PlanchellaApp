@@ -9,7 +9,7 @@
     /* height: 2.5rem; */
 }
 #home {
-    font-family: var(--font-main);
+    font-family: var(--font-main), sans-serif;
     height: 3.5rem;
     font-weight: 600;
     font-size: 1.2rem;

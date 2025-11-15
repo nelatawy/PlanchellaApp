@@ -54,6 +54,11 @@
         },
         "serve": {
           "builder": "@angular/build:dev-server",
+          "options" : {
+            "allowedHosts": ["boldhearted-nonbiliously-yong.ngrok-free.dev"],
+            "host" : "0.0.0.0",
+            "port" : 4200
+          },
           "configurations": {
             "production": {
               "buildTarget": "planchella-app:build:production"

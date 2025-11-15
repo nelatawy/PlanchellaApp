@@ -1,0 +1,15 @@
+#billboard {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  background-color: var(--billboard-bg-light);
+  width: 200px;
+  height: 200px;
+}
+
+#billboard button {
+  position: relative;
+  top: 5px;
+  right: 5px;
+  border-radius: 50%;
+}

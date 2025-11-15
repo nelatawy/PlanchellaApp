@@ -6,8 +6,12 @@
   --font-main :  "Montserrat", sans-serif;
   --primary-color-dark: rgb(73, 16, 139);
   --primary-color-light: rgb(126, 48, 225);
+  --card-color-light: rgb(255,255,255);
+  --billboard-bg-light : rgb(230,230,230);
   --circular-radius: 999rem;
   --blob-radius: 1.2rem;
+  --card-shadow : 0px 0px 0px 4px rgba(0, 0, 0, 0.2);
+
 }
 body {
   margin: 0;
