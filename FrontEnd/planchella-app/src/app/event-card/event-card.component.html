@@ -1,0 +1,55 @@
+<div #card [class]="eventSize" class="card" (pointermove)="onPointerMove($event)" (pointerleave)="onLeave()" (pointerenter)="onPointerEnter()" >
+  <div class="event-bar" [class]="eventType">{{eventType}}</div>
+
+  <div class = "top-bar" >
+    <p class="card-title">{{title}}</p>
+    <p class="creation-date">{{creationDate}}</p>
+    <app-profile-pic
+    [hover_text]="userName" [pic_href]="profile_pic_url"></app-profile-pic>
+  </div>
+
+  <div class = "content card-body">
+    <div class = "image-container">
+      <img src="/favicon.ico"
+           alt="hamada">
+    </div>
+    @if (eventSize == EventSize.SMALL) {
+    <div class = "description">{{description | slice : 0 : 50}}</div>
+    }
+    @if (eventSize == EventSize.MID) {
+      <div class = "description">{{description | slice : 0 : 70 }}</div>
+    }
+    @if (eventSize == EventSize.LARGE) {
+      <div class = "description">{{description | slice : 0 : 150}}</div>
+    }
+  </div>
+
+  <div class = "bottom-bar">
+    <button class="btn btn-outline-primary btn-lg fa-solid fa-thumbs-up"> {{ upVote }}</button>
+    <button class="btn btn-outline-danger btn-lg fa-solid fa-thumbs-down"> {{ downVote }}</button>
+    @if (star) {
+      <button class="btn btn-outline-warning btn-lg fa-star fa-solid" (click)="addStar()"></button>
+    } @else {
+      <button class="btn btn-outline-warning btn-lg fa-star fa-regular"(click)="removeStar()" ></button>
+    }
+  </div>
+
+</div>
+
+<!--<script>-->
+<!--  const card = document.querySelector('.card');-->
+<!--  const rect = card.getBoundingClientRect();-->
+<!--  card.addEventListener('pointermove', ()=> {-->
+<!--    const x = e.client - rect.left;-->
+<!--    const y = e.client - rect.top;-->
+
+<!--    const center_x = rect.width / 2;-->
+<!--    const center_y = rect.height / 2;-->
+
+<!--    const norm_x = (x - center_x)/ center_x;-->
+<!--    const norm_y = (y - center_y)/ center_y;-->
+<!--    // To be in range [-1,1]-->
+
+<!--    card.style.transform = `rotateX(${norm_x * 8}deg) rotateY(${norm_y * 4}deg)`;-->
+<!--  });-->
+<!--</script>-->

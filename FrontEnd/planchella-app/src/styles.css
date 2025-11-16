@@ -7,10 +7,13 @@
   --primary-color-dark: rgb(73, 16, 139);
   --primary-color-light: rgb(126, 48, 225);
   --card-color-light: rgb(255,255,255);
-  --billboard-bg-light : rgb(230,230,230);
+  --billboard-bg-light : rgb(190, 173, 219);
+  --secondary-text-color-mid: #6B7280;
   --circular-radius: 999rem;
   --blob-radius: 1.2rem;
-  --card-shadow : 0px 0px 0px 4px rgba(0, 0, 0, 0.2);
+  --card-shadow : 0px 0px 4px 1px rgba(0, 0, 0, 0.15);
+  --card-shadow-hover-color : rgba(0, 0, 0, 0.25);
+  --top-bar-shadow:  0px 4px 10px 3px rgba(0, 0, 0, 0.15)
 
 }
 body {
@@ -20,7 +23,6 @@ body {
   background: linear-gradient(135deg, #E26EE5 0%, var(--primary-color-light) 50%, var(--primary-color-dark) 100%);
   display: flex;
   flex-direction: column;
-  padding: 1rem;
   background-size: 200% 200%;
   align-items: center;
   justify-content: center;

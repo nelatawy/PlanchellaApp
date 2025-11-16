@@ -1,3 +1,17 @@
-<div id="billboard">
-  <button (click)="addCard()">+</button>
+<!--<div>-->
+<!--  <button (click)="addCard()" class="btn btn-primary">Add Event Card</button>-->
+<!--  <button (click)="clearAll()" class="btn btn-danger">Clear All</button>-->
+<!--</div>-->
+
+<!-- Container for dynamic cards -->
+<!--<ng-container #billboardContainer></ng-container>-->
+
+<div class="container">
+  @for (card of cardNums ; track $index) {
+    <app-event [eventSize]="EventSize.LARGE" [eventType]="EventType.HACKATHON" profile_pic_url="https://avatar.iran.liara.run/public/47" userName="John"></app-event>
+    <app-event [eventSize]="EventSize.MID" [eventType]="EventType.RELEASE" profile_pic_url="https://avatar.iran.liara.run/public/64" userName="Sarah"></app-event>
+    <app-event [eventSize]="EventSize.SMALL" [eventType]="EventType.CONTEST"></app-event>
+  }
+
 </div>
+<div #fillIt class="container"></div>

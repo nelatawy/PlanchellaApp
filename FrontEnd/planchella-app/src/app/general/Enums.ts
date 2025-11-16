@@ -1,6 +1,12 @@
 
 export enum EventSize{
-  SMALL,
-  MID,
-  LARGE
+  SMALL = "small",
+  MID = "medium",
+  LARGE = "large"
+}
+
+export enum EventType {
+  HACKATHON = "hackathon",
+  CONTEST = "contest",
+  RELEASE = "release"
 }

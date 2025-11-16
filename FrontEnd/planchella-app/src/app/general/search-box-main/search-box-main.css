@@ -1,6 +1,4 @@
-#container {
-
-    width: 20rem;
+.container {
     height: 3rem;
     display: flex;
     flex-direction: row;
@@ -8,7 +6,7 @@
     align-items: center;
     gap: 0.5rem;
     padding: 0.5rem;
-    
+
 }
 button {
     background-color: rgba(195, 195, 195, 0.202);
@@ -20,7 +18,7 @@ button {
     cursor: pointer;
     transition: all 0.1s ease-in-out;
     height: 3rem;
-    
+
 }
 button:hover {
     background-color: var(--primary-color-light);
