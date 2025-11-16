@@ -1,0 +1,12 @@
+<div class="card" id="verificationCard">
+    <p class="card-title">Verification Code</p>
+    <div class="card-body">
+        <form #f="ngForm" (ngSubmit)="onSubmit(f)">
+            <div class="form-group">
+                <label for="verificationCode">Enter the verification code sent to your email:</label>
+                <input type="number" id="verificationCode" name="verificationCode" ngModel required placeholder="Enter Verification Code Here" class="form-control">
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+    </div>
+</div>

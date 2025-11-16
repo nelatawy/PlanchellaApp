@@ -3,7 +3,7 @@
 
   <br>
 
-  <form id="registerForm">
+  <form id="registerForm" #f ="ngForm" (ngSubmit)="onSubmit(f.value)">
     <label for="email">Email:</label> <br>
     <input type="email" id="email" name="email" placeholder="AbdelWahab@example.com" required>
     <!-- <br> -->
@@ -14,7 +14,7 @@
     <!-- <br> -->
 
     <!--- add forgot password file link -->
-    <a routerLink="/forgot-password">Forgot Password?</a>
+    <a routerLink="/set-email">Forgot Password?</a>
     <!-- <br> -->
 
     <hr>
