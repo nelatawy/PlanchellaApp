@@ -1,12 +1,37 @@
-top-bar {
-  position: fixed;
+#main {
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+
+}
+
+.top-bar {
   z-index: 1000;
+  width: 100%;
   box-shadow: var(--top-bar-shadow);
 }
 .page-content{
-  padding-top: 5rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
 }
-#main {
-  width: 100vw;
-  margin-top: 0;
+
+.billboard{
+  height: 100vh;
+  overflow: auto;
+  flex: 2;
 }
+.comm_selector {
+  flex: 1;
+  max-width: 40rem;
+}
+
+@media (max-width: 1000px) {
+  .comm_selector{
+    display: none;
+  }
+}
+

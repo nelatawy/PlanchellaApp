@@ -1,7 +1,9 @@
-
+:host {
+  flex: 1;
+}
 .top-bar, .bottom-bar {
   display: flex;
-  padding: 1rem;
+  padding: var(--padding-sm);
   /*margin: 1rem;*/
   flex-direction: row;
   justify-content: space-between;
@@ -13,73 +15,78 @@
 .bottom-bar button {
   cursor: pointer;
   width: 100%;
-  padding: 1rem;
+  padding: var(--padding-med);
   margin: 0.25rem;
   border: none;
 }
 
 .card-title{
   font-weight: 800;
-  font-size: 1.5rem;
+  font-size: var(--font-size-med);
 }
 .creation-date {
-  font-size: 1.1rem;
+  font-size: var(--font-size-sm);
   margin: 0.25rem;
-  color: var(--secondary-text-color-mid);
+  color: var(--secondary-color-mid);
 }
 
 .content {
-  font-size: 1rem;
-  /*padding: 1rem;*/
+  font-size: var(--font-size-sm);
+  padding: var(--padding-med);
 }
 
 .card {
-  background-color: var(--card-color-light);
-  opacity: 85%;
-  border-radius: 0.5rem;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  font-size: 0.5em;
-  /*padding: 0.5rem;*/
-  height: fit-content;
+  background-color: var(--card-color-light);
+  opacity: 85%;
+  border-radius: var(--radius-med);
+  height: 100%;
   box-shadow: var(--card-shadow);
   overflow: hidden;
   will-change: transform;
+  min-width: 25rem;
 }
 .card:hover {
   opacity: 100%;
 }
 
 .hackathon {
-  background-color: #9160ed;
+  background-color: var(--hackathon-color);
 }
 .release {
-  background-color: #DB4437;
+  background-color: var(--release-color);
 }
 .contest {
-  background-color: #eaa703;
+  background-color: var(--contest-color);
 }
 .event-bar {
-  font-family: 'BBH Sans Hegarty', sans-serif;
+  font-family: var(--font-wide-bold), sans-serif;
   color: rgba(245, 245, 245, 0.68);
-  font-size: 1.12rem;
+  font-size: var(--event-type-font-size);
   font-weight: 300;
   width: 100%;
   text-align: start;
-  padding: 0.2rem;
+  padding: var(--padding-x-sm);
   border-radius: 0 0 1.5rem 0;
 }
-.small {
-  /*min-width: 20rem;*/
-  min-width: 40%;
+
+:host.small {
+  flex: 1;
+  /*grid-column: span 3;*/
+  /*min-width: 50rem;*/
 }
-.medium {
-  min-width: 60%;
+:host.medium {
+  flex: 2;
+  /*min-width: 50rem;*/
+  /*grid-column: span 2;*/
 }
-.large {
-  min-width: 100%;
+:host.large {
+  flex: 5;
+  /*min-width: 50rem;*/
+  /*grid-column: span 1;*/
 }
 
 
