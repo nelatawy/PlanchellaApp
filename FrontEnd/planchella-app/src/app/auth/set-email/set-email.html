@@ -1,14 +1,24 @@
-<div id="registerContainer">
-  <h2>Set you e-mail</h2>
-
-  <br>
+<div class="commonContainer" id="registerContainer">
+  <h2>Set your e-mail</h2>
 
   <form id="registerForm" #f="ngForm" (ngSubmit)="onSubmit(f)">
     <div id="getEmail">
-      <label for="email">Enter your Email:</label> <br>
-      <input type="email" name="email" ngModel [email]="true" id="email" placeholder="AbdelWahab@example.com" required>
-      <br>
-      <button type="submit">Submit</button>
+      <label for="email"
+             class="inputLabel">
+        Enter your Email:
+      </label>
+      <input type="email"
+             class="inputField"
+             name="email"
+             [(ngModel)]="email"
+             [email]="true"
+             id="email"
+             placeholder="AbdelWahab@example.com"
+             required>
+      <br><br>
+      <button type="submit"
+              [disabled]="isEmailNotValid(f)"
+              class="commonButtonTheme">Submit</button>
     </div>
     <a routerLink="[/signin]">Back to Login</a>
   </form>

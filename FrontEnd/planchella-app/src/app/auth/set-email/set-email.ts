@@ -1,8 +1,7 @@
 import { Component } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, NgForm } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { Router, RouterLink } from '@angular/router';
-import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-set-email',
@@ -16,7 +15,14 @@ import { NgForm } from '@angular/forms';
 })
 export class SetEmail {
 
+  email: string = '';
+
+  isEmailNotValid(form: NgForm) {
+    return !this.email || !this.email.trim() || !form || !form.valid;
+  }
+
   constructor(private router: Router) {}
+
 
   onSubmit(form: NgForm) {
     console.log('Form submitted with data:', form.value);
