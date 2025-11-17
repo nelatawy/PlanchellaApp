@@ -1,0 +1,35 @@
+<div id="event-builder" class="commonContainer">
+
+  <h2>Make Your Event</h2>
+
+  <form #f=ngForm (ngSubmit)="onSubmit(f)" id="event-form">
+
+    <div id="event-top">
+      <input type="text" class="inputField" id="title" [(ngModel)]="title" name="title" placeholder="Event Title">
+
+      <select id="flares" [(ngModel)]="selectedFlare" name="flare">
+        <option value="" disabled>Choose a flare</option>
+        <option value="Hackathon">Hackathon</option>
+        <option value="Contest">Contest</option>
+        <option value="Release">Release</option>
+      </select>
+    </div>
+
+    <textarea
+      id="descriptionField"
+      placeholder= "Write the Description"
+      [(ngModel)]="description"
+      name="description"
+      required
+      rows="1">
+    </textarea>
+
+    <div id="event-bottom">
+      <button type="button" class="commonButtonTheme" (click)="addImage()" id="addImage">add image</button>
+
+      <button type="submit" class="commonButtonTheme">Submit</button>
+    </div>
+
+  </form>
+
+</div>

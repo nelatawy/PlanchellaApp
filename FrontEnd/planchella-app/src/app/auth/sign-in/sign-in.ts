@@ -1,15 +1,12 @@
 import { Component } from '@angular/core';
-import {Router, RouterLink, RouterOutlet} from '@angular/router';
-import {CommonModule} from '@angular/common';
-import {FormsModule} from '@angular/forms';
-import { NgModule} from '@angular/core';
-import { NgForm } from '@angular/forms';
+import { Router, RouterLink } from '@angular/router';
+import { CommonModule } from '@angular/common';
+import { FormsModule, NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-sign-in',
   imports: [
     RouterLink,
-    RouterOutlet,
     CommonModule,
     FormsModule,
   ],
@@ -18,6 +15,13 @@ import { NgForm } from '@angular/forms';
   standalone: true
 })
 export class SignIn {
+
+  email: string = '';
+  password: string = '';
+
+  isNotValid(form: NgForm): boolean {
+    return !this.email || !this.password || !form || !form.valid
+  }
 
   constructor(private router: Router) {}
 

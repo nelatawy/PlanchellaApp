@@ -1,31 +1,60 @@
-<div id="registerContainer">
+<div class="commonContainer">
   <h2>Sign Up</h2>
 
-  <br>
+  <form #f=ngForm (ngSubmit)="onSubmit(f)"  id="registerForm">
+    <label for="name" class="inputLabel">Name:</label>
+    <input type="text"
+           id="name"
+           [(ngModel)]="name"
+           name="name"
+           class="inputField"
+           placeholder="AbdelGhafour"
+           required>
 
-  <form id="registerForm">
-    <label for="name">Name:</label> <br>
-    <input type="text" id="name" name="name" placeholder="AbdelGhafour" required>
-    <br>
-    <label for="email">Email:</label> <br>
-    <!-- email validation from Angular -->
-    <input type="email" name="email" ngModel [email]="true" id="email" placeholder="AbdoBora3y@example.com" required>
-    <br>
-    <label for="password">Password:</label> <br>
-    <input type="password" id="password" name="password" placeholder="FatmaKoshary" required>
-    <br>
-    <label for="confirmPassword">Confirm Password:</label> <br>
-    <input type="password" id="confirmPassword" name="confirmPassword" placeholder="FatmaKoshary" required>
-    <br>
-    <button type="submit">Register</button>
-    <br>
-    <hr>
+    <label for="email" class="inputLabel">Email:</label>
+    <input type="email"
+           name="email"
+           [(ngModel)]="email"
+           [email]="true"
+           id="email"
+           class="inputField"
+           placeholder="AbdoBora3y@example.com"
+           required>
+
+    <label for="password" class="inputLabel">Password:</label>
+    <input type="password"
+           id="password"
+           [(ngModel)]="password"
+           name="password"
+           class="inputField"
+           placeholder="FatmaKoshary"
+           required>
+
+    <label for="confirmPassword" class="inputLabel">Confirm Password:</label>
+    <input type="password"
+           id="confirmPassword"
+           class="inputField"
+           [(ngModel)]="confirmPassword"
+           name="confirmPassword"
+           placeholder="FatmaKoshary"
+           required>
+    @if (this.confirmPassword && passwordsDontMatch()){
+      <p style="color: red; margin: 0;">
+        Passwords don't match
+      </p>
+    }
+
+    <button type="submit"
+            [disabled]="isDataInvalid(f)"
+            class="commonButtonTheme"
+            id="RegisterButton">Register</button>
+
     <div class="relatedTagsContainer">
       <div class="thirdPartyContainer">
-        <button type="submit" class="thirdParty">Register with Google</button>
-        <button type="submit" class="thirdParty">Register with Microsoft</button>
+        <button type="submit" class="thirdParty">Google</button>
+        <button type="submit" class="thirdParty">Microsoft</button>
       </div>
-      <br>
+
       <a routerLink="/signin">Already have an account?</a>
     </div>
 
