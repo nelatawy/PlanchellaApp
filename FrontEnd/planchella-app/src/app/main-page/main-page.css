@@ -1,12 +1,28 @@
-top-bar {
+#main {
+  width: 100vw;
+  margin-top: 0;
+
+}
+
+.top-bar {
+  top: 0;
   position: fixed;
   z-index: 1000;
   box-shadow: var(--top-bar-shadow);
 }
 .page-content{
   padding-top: 5rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
 }
-#main {
-  width: 100vw;
-  margin-top: 0;
+
+.billboard{
+  height: 100vh;
+  overflow: auto;
+  flex: 2;
+}
+.comm_selector {
+  flex: 1;
+  max-width: 40rem;
 }

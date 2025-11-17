@@ -24,4 +24,5 @@
   justify-content: center;
   background-color: var(--billboard-bg-light);
   padding:5rem;
+  min-width: 40rem;
 }
