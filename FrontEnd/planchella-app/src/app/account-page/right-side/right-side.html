@@ -1,0 +1,39 @@
+<div class="nav-bar">
+  <button class="nav-button"
+          (click)="selectTab('posts')"
+          [class.active]="selectedTab === 'posts'">
+    <!-- Icon: File/Document -->
+    <img src="/my-post-icon.svg" alt="" width="18" height="18">
+    <span>Posts</span>
+  </button>
+
+  <button class="nav-button"
+          (click)="selectTab('settings')"
+          [class.active]="selectedTab === 'settings'">
+    <!-- Icon: Settings/Cog -->
+    <img src="/settings-icon.svg" width="18" height="18" alt="">
+    <span>Settings</span>
+  </button>
+
+  <button class="nav-button"
+          (click)="selectTab('stared')"
+          [class.active]="selectedTab === 'stared'">
+    <!-- Icon: Star -->
+    <img src="/star-icon.svg" alt="" width="18" height="18">
+    <span>Stared Posts</span>
+  </button>
+</div>
+
+  @switch (selectedTab){
+    @case ("posts"){
+      <app-posts-page></app-posts-page>
+    }
+
+    @case ("settings"){
+      <app-settings-page></app-settings-page>
+    }
+
+    @case ("stared"){
+      <app-stared-posts-page></app-stared-posts-page>
+    }
+  }

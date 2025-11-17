@@ -1,0 +1,17 @@
+<div class="empty-state-container">
+
+  <!--
+    I changed width and height to 60.
+    The 16x16 you had was too small for the style.
+  -->
+  <img [src]="iconSrc" alt="icon" height="60" width="60">
+
+  <h1>{{title}}</h1>
+
+  <!--
+    I changed <h3> to <p> because it's semantically
+    better for a description, but <h3> is fine too.
+  -->
+  <p>{{sub_title}}</p>
+
+</div>

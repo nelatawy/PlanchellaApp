@@ -1,0 +1,53 @@
+/* We use :host to make the component's container
+  fill its parent (like the right-side area).
+  This is CRITICAL for vertical centering.
+*/
+:host {
+  display: block;
+  height: 100%;
+  width: 100%;
+}
+
+.empty-state-container {
+  /* This is the magic for centering */
+  display: flex;
+  flex-direction: column;   /* Stack items vertically */
+  align-items: center;      /* Center horizontally */
+  /*justify-content: center;  !* Center vertically *!*/
+  padding-top: 80px;
+  /* This forces it to fill the :host */
+  height: 100%;
+  width: 100%;
+
+  padding: 40px;
+  box-sizing: border-box; /* Include padding in height/width */
+  text-align: center;
+}
+
+/* This styles your <img> tag.
+  The color must come from the image file itself.
+  The image shows a muted purple, like #9ca3af.
+*/
+img {
+  margin-bottom: 24px;
+  /* Optional: if your icons are just black,
+     you can use CSS to make them gray. */
+  /* opacity: 0.5; */
+}
+
+/* This styles the "Your Posts" title */
+h1 {
+  margin: 0 0 8px 0;
+  font-size: 1.5rem;   /* 24px */
+  font-weight: 600;  /* Semi-bold */
+  color: #374151;     /* Dark gray */
+}
+
+/* This styles the "Share your thoughts..." subtitle */
+p {
+  margin: 0;
+  font-size: 1rem;       /* 16px */
+  font-weight: 400;      /* Normal weight */
+  color: #9ca3af;         /* Muted, light gray */
+  max-width: 450px;      /* Keeps the text from getting too wide */
+}

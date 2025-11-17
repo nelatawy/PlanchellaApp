@@ -1,0 +1,78 @@
+:host{
+  border: 1px solid blue;
+  height: 100vh;
+  flex: 3;
+  background-color: white;
+  color: black;
+  padding: 20px;
+  /*display: flex;*/
+  /*width: 100%;*/
+  /*position: absolute;*/
+  /*width: 70%;*/
+  /*right: 10px;*/
+  /*top: 0;*/
+
+
+}
+
+/* This styles the nav bar itself */
+.nav-bar {
+  display: flex;
+  flex-direction: row; /* Align buttons in a row */
+  gap: 8px; /* Space between the buttons */
+  padding-bottom: 16px;
+  /* Faint border line like in the image */
+  border-bottom: 1px solid #e5e7eb;
+}
+
+/* This is the default style for all buttons (the INACTIVE state) */
+.nav-button {
+  /* This is key: use flex to align the icon and text */
+  display: flex;
+  align-items: center; /* Vertically center icon and text */
+  gap: 8px; /* Space between icon and text */
+
+  /* Styling */
+  background-color: transparent;
+  border: none;
+  border-radius: 8px; /* Rounded corners */
+  padding: 8px 16px;
+
+  /* Text & Color */
+  color: #6b7280; /* Muted gray text */
+  font-size: 15px;
+  font-weight: 500; /* Medium weight */
+
+  cursor: pointer;
+  transition: all 0.2s ease-in-out; /* Smooth transition */
+}
+
+/* This styles the icon inside the INACTIVE button */
+.nav-button img {
+  stroke: #6b7280; /* Muted gray icon */
+  transition: all 0.2s ease-in-out;
+}
+
+/* --- The ACTIVE State --- */
+
+/* This style is ONLY applied when [class.active] is true */
+.nav-button.active {
+  background-color: #f3e8ff; /* Light purple background */
+  color: #7c3aed; /* Dark purple text */
+  font-weight: 600; /* A bit bolder */
+}
+
+/* This styles the icon inside the ACTIVE button */
+.nav-button.active img {
+  stroke: #7c3aed; /* Dark purple icon */
+}
+
+/* (Optional) A nice hover effect for inactive buttons */
+.nav-button:not(.active):hover {
+  background-color: #f9fafb; /* Very light gray */
+}
+
+/*.nav-bar{*/
+/*  display: flex;*/
+/*  width: 100%;*/
+/*}*/
