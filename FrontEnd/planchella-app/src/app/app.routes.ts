@@ -7,6 +7,7 @@ import {MainPage} from './main-page/main-page';
 import { VerificationCode } from './auth/verification-code/verification-code';
 import { ResetPassword } from './auth/reset-password/reset-password';
 import { SetEmail } from './auth/set-email/set-email';
+import { AccountPage } from './account-page';
 
 export const routes: Routes = [
   { path: '', redirectTo: '/signin', pathMatch: 'full' }, // default route
@@ -16,6 +17,7 @@ export const routes: Routes = [
   { path: 'main', component: MainPage},
   { path: 'verification-code', component: VerificationCode },
   { path: 'reset-password', component: ResetPassword },
+  { path: 'account-page', component: AccountPage}
   { path: '**', redirectTo: '/signin' } // fallback
 ];
 @NgModule({
