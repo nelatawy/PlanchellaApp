@@ -1,4 +1,4 @@
-import {Component, ElementRef, HostListener, Input, ViewChild} from '@angular/core';
+import {Component, ElementRef, HostListener, Input, OnInit, SimpleChanges, ViewChild} from '@angular/core';
 import { EventSize } from '../general/Enums';
 import { ProfilePic } from '../general/profile-pic/profile-pic';
 import {SlicePipe} from '@angular/common';
@@ -11,12 +11,21 @@ import { EventType } from '../general/Enums';
   templateUrl: './event-card.component.html',
   styleUrls: ['./event-card.component.css'],
 })
-export class EventCard {
+export class EventCard implements OnInit {
 
   @ViewChild('card', { static: false }) card!: ElementRef<HTMLDivElement>;
 
+  constructor(private elementRef: ElementRef) {
+
+  }
+
   ngAfterViewInit() {
     // Element now exists!
+  }
+
+  ngOnInit() {
+    this.elementRef.nativeElement.classList.add(this.eventSize);
+    console.log(this.elementRef.nativeElement.classList)
   }
 
   onPointerEnter() {

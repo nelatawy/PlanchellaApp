@@ -4,32 +4,61 @@
 
 :root{
   --font-main :  "Montserrat", sans-serif;
+  --font-wide-bold : 'BBH Sans Hegarty';
+
+  --font-size-x-sm : 0.75rem;
+  --font-size-sm : 1.2rem;
+  --font-size-med : 1.5rem;
+  --font-size-lg : 2rem;
+  --font-size-x-lg : 2.5rem;
+  --event-type-font-size : 1.12rem;
+
   --primary-color-dark: rgb(73, 16, 139);
   --primary-color-light: rgb(126, 48, 225);
-  --card-color-light: rgb(255,255,255);
+  --secondary-color-mid: #6B7280;
   --billboard-bg-light : rgb(190, 173, 219);
-  --secondary-text-color-mid: #6B7280;
   --notification-color : #DB4437;
   --circular-radius: 999rem;
   --blob-radius: 1.2rem;
+  --radius-med : 0.5rem;
+
+  --card-color-light: rgb(255,255,255);
   --card-shadow : 0px 0px 4px 1px rgba(0, 0, 0, 0.15);
   --card-shadow-hover-color : rgba(0, 0, 0, 0.25);
+
   --top-bar-shadow:  0px 4px 10px 3px rgba(0, 0, 0, 0.15);
-  --font-wide-bold : 'BBH Sans Hegarty';
+  --top-bar-inline-margin : 0.75rem;
+  --top-bar-color : rgba(255,255,255);
+  --top-bar-btn-font-size : 2.5rem;
 
-}
-body {
-  margin: 0;
-  min-height: 100vh;
-  font-family: var(--font-main), sans-serif;
-  background: linear-gradient(135deg, #E26EE5 0%, var(--primary-color-light) 50%, var(--primary-color-dark) 100%);
-  display: flex;
-  flex-direction: column;
-  background-size: 200% 200%;
-  align-items: center;
-  justify-content: center;
+  --logo-height : 3.5rem;
+  --logo : url('../public/logo.png');
+  --logo-aspect-ratio : 27/9;
 
-  animation: gradientAnimation 10s ease-in infinite ;
+
+  --pic-hover-width : 11rem;
+  --pic-container-side : 5rem;
+
+  --inactive-color-light : rgba(195, 195, 195, 0.202);
+  --highlight-color : rgba(118, 118, 118, 0.178);
+  --textbox-hover-bg-color : rgba(255, 255, 255, 0.682);
+  --textbox-border : 2px solid var(--highlight-color);
+  --textbox-border-hover : 2px solid rgba(118, 118, 118, 0.418);
+  --box-focus-shadow : 0 0 0 3px rgba(126, 48, 225, 0.1);
+  --searchbox-height : 4rem;
+  --searchbox-width : 20rem;
+  --pic-border : 2px solid var(--primary-color-dark);
+
+  --padding-x-sm : 0.25rem;
+  --padding-sm : 0.5rem;
+  --padding-med : 0.75rem;
+  --padding-lg : 1.2rem;
+  --padding-x-lg : 2rem;
+  --billboard-padding : 4rem;
+
+  --hackathon-color : #9160ed;
+  --release-color : #DB4437;
+  --contest-color : #eaa703;
 }
 
 @keyframes gradientAnimation {
@@ -60,4 +89,46 @@ body {
     box-shadow: 0 0 0 3px rgba(126, 48, 225, 0.1);
   }
 }
+
+
+
+@media (max-width: 700px) {
+  :root{
+    --logo : url('../public/logo-no-txt.png');
+    --logo-aspect-ratio: 1;
+    --logo-height: 2.5rem;
+
+    --top-bar-shadow:  0px 4px 10px 3px rgba(0, 0, 0, 0.15);
+    --top-bar-inline-margin : 0.75rem;
+    --top-bar-color : rgba(255,255,255);
+    --top-bar-btn-font-size : 2rem;
+    --searchbox-width : 10rem;
+
+    --pic-container-side: 4.25rem;
+    --pic-hover-width: 4.25rem;
+    --billboard-padding : 2rem;
+
+    --font-size-x-sm : 0.5rem;
+    --font-size-sm : 1rem;
+    --font-size-med : 1.25rem;
+    --font-size-lg : 1.5rem;
+    --font-size-x-lg : 2rem;
+  }
+}
+
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: var(--font-main), sans-serif;
+  background: linear-gradient(135deg, #E26EE5 0%, var(--primary-color-light) 50%, var(--primary-color-dark) 100%);
+  display: flex;
+  flex-direction: column;
+  background-size: 200% 200%;
+  align-items: center;
+  justify-content: center;
+  animation: gradientAnimation 10s ease-in infinite ;
+}
+
+
 

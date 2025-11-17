@@ -1,47 +1,48 @@
 .container {
-    height: 3rem;
+    height: var(--searchbox-height);
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
     gap: 0.5rem;
-    padding: 0.5rem;
+    padding: var(--padding-sm);
 
 }
 button {
-    background-color: rgba(195, 195, 195, 0.202);
-    border: 2px solid rgba(118, 118, 118, 0.178);
-    font-size: 1.2rem;
+    background-color: var(--inactive-color-light);
+    border: var(--textbox-border);
     color: var(--primary-color-dark);
-    padding: 0.75rem;
+    padding: var(--padding-med);
     border-radius: var(--blob-radius);
     cursor: pointer;
     transition: all 0.1s ease-in-out;
-    height: 3rem;
+    height: 100%;
 
 }
 button:hover {
     background-color: var(--primary-color-light);
     color: whitesmoke;
-    box-shadow: 0 0 0 3px rgba(126, 48, 225, 0.1);
+    box-shadow: var(--box-focus-shadow);
 }
 input {
-    background-color: rgba(195, 195, 195, 0.202);
+    background-color: var(--inactive-color-light);
     border-radius: var(--blob-radius);
-    border: 2px solid rgba(118, 118, 118, 0.178);
+    border: var(--textbox-border);
     padding: 0.75rem;
     outline: none;
-    font-size: 1.2rem;
-    height: 3rem;
+    font-size: var(--font-size-sm);
+    height: 100%;
+    width: var(--searchbox-width);
+    /*flex: 1;*/
     transition: background-color 0.2s ease-in-out ,border 0.1s ease-in-out;
 }
 
 input:hover{
-    background-color: rgba(255, 255, 255, 0.682);
-    border: 2px solid rgba(118, 118, 118, 0.418);
+    background-color: var(--textbox-hover-bg-color);
+    border: var(--textbox-border-hover);
 }
 
 input:focus {
     border: 3px solid var(--primary-color-light);
-    box-shadow: 0 0 0 3px rgba(126, 48, 225, 0.1);
+    box-shadow: var(--box-focus-shadow);
 }

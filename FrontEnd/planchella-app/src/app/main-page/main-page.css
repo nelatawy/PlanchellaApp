@@ -1,20 +1,22 @@
 #main {
   width: 100vw;
-  margin-top: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
 
 }
 
 .top-bar {
-  top: 0;
-  position: fixed;
   z-index: 1000;
+  width: 100%;
   box-shadow: var(--top-bar-shadow);
 }
 .page-content{
-  padding-top: 5rem;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  width: 100%;
 }
 
 .billboard{
@@ -26,3 +28,10 @@
   flex: 1;
   max-width: 40rem;
 }
+
+@media (max-width: 1000px) {
+  .comm_selector{
+    display: none;
+  }
+}
+
