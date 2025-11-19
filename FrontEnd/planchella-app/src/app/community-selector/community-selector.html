@@ -1,9 +1,13 @@
 <div class="container">
   <h2 class="title">Communities</h2>
   <div class="communities">
-    <app-community-card class="comm-card" [currently_selected]="true"></app-community-card>
-    @for (num of nums; track $index) {
-      <app-community-card class="comm-card"></app-community-card>
+<!--    <app-community-card class="comm-card" (selection)="select($event)"></app-community-card>-->
+    @for (communityData of communities; track $index) {
+      <app-community-card  class="comm-card"
+                           [cardData]="communityData"
+                           (selection)="emit_selection($event)">
+
+      </app-community-card>
     }
   </div>
 

@@ -1,8 +1,9 @@
-import {Component, ElementRef, HostListener, Input, OnInit, SimpleChanges, ViewChild} from '@angular/core';
+import {Component, ElementRef, HostListener, Input, OnInit, Output, SimpleChanges, ViewChild} from '@angular/core';
 import { EventSize } from '../general/Enums';
 import { ProfilePic } from '../general/profile-pic/profile-pic';
 import {SlicePipe} from '@angular/common';
 import { EventType } from '../general/Enums';
+import {EventData} from '../models/event-data';
 
 @Component({
   selector: 'app-event',
@@ -19,13 +20,31 @@ export class EventCard implements OnInit {
 
   }
 
-  ngAfterViewInit() {
-    // Element now exists!
-  }
+
+
+
+  upVote: number = 0;
+  downVote: number = 0;
+  star: boolean = false;
+
+  @Input()
+  eventData? : EventData = undefined;
+
 
   ngOnInit() {
-    this.elementRef.nativeElement.classList.add(this.eventSize);
-    console.log(this.elementRef.nativeElement.classList)
+    // @ts-ignore
+    this.elementRef.nativeElement.classList.add(this.eventData.eventSize);
+  }
+
+
+
+  protected readonly EventSize = EventSize;
+
+  addStar() {
+    this.star = ! this.star;
+  }
+  removeStar() {
+    this.star = ! this.star;
   }
 
   onPointerEnter() {
@@ -65,39 +84,26 @@ export class EventCard implements OnInit {
     this.card.nativeElement.style.transition = 'all 0.2s ease-in-out ';
 
   }
-
-
-  @Input()
-  eventSize: string = 'MID';
-  // eventSize: EventSize = EventSizentSize.MID; // dynamic input
-
-  @Input()
-  eventType : string = EventType.HACKATHON;
-
-  @Input()
-  title: string = 'Event';
-
-  @Input()
-  creationDate: string = '2 days ago';
-
-  @Input()
-  userName: string = 'Mazen';
-
-  @Input()
-  profile_pic_url: string = "" ;
-
-  @Input()
-  description: string = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.";
-
-  upVote: number = 0;
-  downVote: number = 0;
-  star: boolean = false;
-  protected readonly EventSize = EventSize;
-
-  addStar() {
-    this.star = ! this.star;
-  }
-  removeStar() {
-    this.star = ! this.star;
-  }
 }
+  // @Input()
+  // eventSize: string = 'MID';
+  // // eventSize: EventSize = EventSizentSize.MID; // dynamic input
+  //
+  // @Input()
+  // eventType : string = EventType.HACKATHON;
+  //
+  // @Input()
+  // title: string = 'Event';
+  //
+  // @Input()
+  // creationDate: string = '2 days ago';
+  //
+  // @Input()
+  // userName: string = 'Mazen';
+  //
+  // @Input()
+  // profile_pic_url: string = "" ;
+  //
+  // @Input()
+  // description: string = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.";
+  //

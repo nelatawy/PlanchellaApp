@@ -1,17 +1,16 @@
 .container {
-  padding: 2rem;
+  padding:var(--padding-x-lg);
   background-color: #f1f1f1;
   min-width: 25rem;
   max-width: 50rem;
-  height: 100vh;
   display: flex;
   flex-direction: column;
 }
 .title {
-  font-size: 2.5rem;
+  font-size: var(--font-size-x-lg);
   font-weight: 600;
   text-align: center;
-  padding: 0.5rem;
+  padding: var(--padding-med);
 }
 .title::after {
   content: "";

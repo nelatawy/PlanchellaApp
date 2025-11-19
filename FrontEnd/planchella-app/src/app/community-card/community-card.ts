@@ -1,4 +1,6 @@
-import {Component, ElementRef, Input, ViewChild} from '@angular/core';
+import {Component, ElementRef, EventEmitter, Input, Output, ViewChild} from '@angular/core';
+import {CommunityData} from '../models/community-data';
+import {CommunityCardData} from '../models/community-card';
 
 @Component({
   selector: 'app-community-card',
@@ -11,16 +13,20 @@ export class CommunityCard {
   @ViewChild('highlight', { static: false }) highlight_text!: ElementRef<HTMLDivElement>;
 
   @Input()
-  name : string = "CSED";
+  cardData? : CommunityCardData = undefined;
 
   @Input()
-  community_id:string = "1214124";
+  currentlySelected : boolean = false;
 
-  @Input()
-  notification_count : number = 99;
+  @Output("selection")
+  selection_emitter : EventEmitter<CommunityData> = new EventEmitter<CommunityData>();
 
-  @Input()
-  currently_selected : boolean = false;
+  emit_selection(){
+    if (this.cardData && this.cardData.communityData){
+    this.selection_emitter.emit(this.cardData.communityData);
+    }
+  }
+
 
   show(){
     this.highlight_text.nativeElement.style.opacity = '0.5';
