@@ -1,4 +1,11 @@
-.account-page{
+#page {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+.content{
   border: 1px solid yellow;
   display: flex;
   /*justify-content: start;*/
@@ -8,4 +15,9 @@
   overflow: hidden;
   /*padding: 0 60px;*/
   /*padding: 40px;*/
+}
+.top-bar {
+  z-index: 1000;
+  width: 100%;
+  box-shadow: var(--top-bar-shadow);
 }
