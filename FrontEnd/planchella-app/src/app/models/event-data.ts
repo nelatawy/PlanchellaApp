@@ -1,5 +1,5 @@
 
-import {EventSize, EventType} from '../general/Enums';
+import {EventSize, EventType} from './Enums';
 import {EventAuthorData} from './event-author-data';
 
 

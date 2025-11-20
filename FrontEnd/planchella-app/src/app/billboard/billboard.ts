@@ -1,8 +1,10 @@
-import {Component, ViewChild, ViewContainerRef, ComponentRef, Input, ElementRef, HostListener} from '@angular/core';
-import { EventCard } from '../event-card/event-card.component';
-import {EventSize, EventType} from '../general/Enums';
+import {Component, ElementRef, HostListener, Input, SimpleChanges, ViewChild, ViewContainerRef} from '@angular/core';
+import {EventCard} from '../event-card/event-card.component';
+import {EventSize, EventType} from '../models/Enums';
 import {EventData} from '../models/event-data';
 import {CommunityData} from '../models/community-data';
+import {EventDataService} from '../services/event-data-service';
+
 
 @Component({
   selector: 'app-billboard',
@@ -25,40 +27,38 @@ export class Billboard {
      this.cards = [];
    }*/
   @Input()
-  communityData : CommunityData = {name : "", communitySrc : ""};
+  communityData : CommunityData = {name : ""};
 
 
   @ViewChild('container', { read: ViewContainerRef, static: true })
   container!: ViewContainerRef;
 
-  constructor(private elementRef : ElementRef) {
+  constructor(private elementRef : ElementRef, private eventDataService : EventDataService) {
+  }
+  async add_events(count : number){
+    let events : EventData[] | undefined = await this.eventDataService.fetch_events(count, this.communityData.name);
+    events?.forEach((event : EventData)=>{
+      this.cards.push(event);
+    });
   }
 
-  fetch_events(count : number){
-    let data : EventData = {eventType: EventType.HACKATHON,
-            eventSize : EventSize.LARGE,
-            authorData : {picUrl : "",
-                          name : "Nour",
-                          accountUrl : ""},
-            title : "Aloha",
-            description : "This is a placeholder description",
-            creationDate: new Date().toLocaleDateString()
-    };
-    for (let i = 0; i < count; i++){
-      // const componentRef = this.container.createComponent(EventCard);
-      // componentRef.setInput("eventData" , data);
-      this.cards.push(data);
+  async ngOnInit(){
+    await this.add_events(10);
+  }
+
+  async ngOnChanges(changes: SimpleChanges) {
+    // Check if the specific property you care about has changed
+    if (changes['communityData']) {
+      this.cards = [];
+      await this.add_events(10);
     }
   }
-    ngOnInit(){
-      this.fetch_events(10);
-    }
 
   @HostListener('scroll', ['$event'])
-  onScroll(e: any) {
+  async onScroll(e: any) {
     const el = e.target;
     if (el.scrollTop >= el.scrollHeight - el.clientHeight - 10) {
-      this.fetch_events(10);
+      await this.add_events(10);
     }
   }
 
@@ -90,4 +90,8 @@ export class Billboard {
   // }
   protected readonly EventSize = EventSize;
   protected readonly EventType = EventType;
+
+  private loadNewConfig(newId: any) {
+
+  }
 }

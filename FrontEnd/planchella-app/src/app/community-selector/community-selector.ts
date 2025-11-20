@@ -3,6 +3,7 @@ import {CommunityCard} from '../community-card/community-card';
 import {EventData} from '../models/event-data';
 import {CommunityCardData} from '../models/community-card';
 import {CommunityData} from '../models/community-data';
+import {CommunityDataService} from '../services/community-data-service';
 
 @Component({
   selector: 'app-community-selector',
@@ -13,6 +14,9 @@ import {CommunityData} from '../models/community-data';
   styleUrl: './community-selector.css',
 })
 export class CommunitySelector {
+
+    constructor(private communityDataService : CommunityDataService) {
+    }
     nums = Array.from({length : 4});
     communities : Array<CommunityCardData> = [];
 
@@ -24,26 +28,37 @@ export class CommunitySelector {
 
     }
 
-    fetch_communities(count : number){
-      let data : CommunityCardData = {
-        communityData : {name : "CSED", communitySrc : "", notificationCount : 81},
-        currentlySelected  : true
-      };
-      for (let i = 0; i < count; i++){
-        // const componentRef = this.container.createComponent(EventCard);
-        // componentRef.setInput("eventData" , data);
-        this.communities.push(data);
-      }
+    // async add_communities(count : number){
+    //   let data1 : CommunityCardData = {
+    //     communityData : {name : "CSED", notificationCount : 81},
+    //     currentlySelected  : true
+    //   };
+    //   let data2 : CommunityCardData = {
+    //     communityData : {name : "WATERLOO", notificationCount : 81},
+    //     currentlySelected  : true
+    //   };
+    //   for (let i = 0; i < count; i++){
+    //     // const componentRef = this.container.createComponent(EventCard);
+    //     // componentRef.setInput("eventData" , data);
+    //     this.communities.push(data1);
+    //     this.communities.push(data2);
+    //   }
+    // }
+    async add_communities(count : number){
+      let data : Array<CommunityData> | undefined = await this.communityDataService.fetch_communities(count, "");
+      data?.forEach((communityData)=>{
+        this.communities.push({communityData : communityData, currentlySelected : true});
+      });
     }
-    ngOnInit(){
-      this.fetch_communities(14);
+    async ngOnInit(){
+      await this.add_communities(14);
     }
 
     @HostListener('scroll', ['$event'])
-    onScroll(e: any) {
+    async onScroll(e: any) {
       const el = e.target;
       if (el.scrollTop >= el.scrollHeight - el.clientHeight - 10) {
-        this.fetch_communities(4);
+        await this.add_communities(4);
       }
     }
 

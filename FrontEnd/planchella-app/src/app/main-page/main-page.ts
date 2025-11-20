@@ -23,14 +23,13 @@ export class MainPage {
   @ViewChild('builder', {static : false, read : ElementRef})builder! : ElementRef;
 
 
-  communityData : CommunityData = {name : "CSED", communitySrc : ""};
+  communityData : CommunityData = {name : "CSED"};
 
   // ngAfterViewInit(){
   //   window.alert("picked");
   // }
   select_community(communityData : CommunityData){
     this.communityData = communityData;
-    window.alert("selected");
   }
 
   show_creation_page() {

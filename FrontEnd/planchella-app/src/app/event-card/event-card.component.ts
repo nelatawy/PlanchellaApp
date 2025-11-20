@@ -1,8 +1,8 @@
 import {Component, ElementRef, HostListener, Input, OnInit, Output, SimpleChanges, ViewChild} from '@angular/core';
-import { EventSize } from '../general/Enums';
+import { EventSize } from '../models/Enums';
 import { ProfilePic } from '../general/profile-pic/profile-pic';
 import {SlicePipe} from '@angular/common';
-import { EventType } from '../general/Enums';
+import { EventType } from '../models/Enums';
 import {EventData} from '../models/event-data';
 
 @Component({
