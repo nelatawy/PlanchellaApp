@@ -1,10 +1,15 @@
 import {Component, ElementRef, EventEmitter, Input, Output, ViewChild} from '@angular/core';
 import {CommunityData} from '../models/community-data';
 import {CommunityCardData} from '../models/community-card';
+import {RouterLink, RouterLinkActive, RouterOutlet} from '@angular/router';
 
 @Component({
   selector: 'app-community-card',
-  imports: [],
+  imports: [
+    RouterLink,
+    RouterOutlet,
+    RouterLinkActive
+  ],
   templateUrl: './community-card.html',
   styleUrl: './community-card.css',
 })

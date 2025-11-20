@@ -4,6 +4,8 @@ import {TopBar} from '../general/top-bar/top-bar';
 import {CommunitySelector} from '../community-selector/community-selector';
 import {CommunityData} from '../models/community-data';
 import {EventBuilder} from '../event-builder/event-builder';
+import {ActivatedRoute, Router, RouterOutlet} from '@angular/router';
+import {CommunityDataService} from '../services/community-data-service';
 
 @Component({
   selector: 'app-main-page',
@@ -11,25 +13,41 @@ import {EventBuilder} from '../event-builder/event-builder';
     Billboard,
     TopBar,
     CommunitySelector,
-    EventBuilder
+    EventBuilder,
+    RouterOutlet,
   ],
   templateUrl: './main-page.html',
   styleUrl: './main-page.css',
 })
 export class MainPage {
+  communityData : CommunityData = {name : "CSED"};
 
+  constructor(private route :ActivatedRoute ,private router : Router, private communityDataService : CommunityDataService){
+      route.paramMap.subscribe(map => {
+        if (map.has('name')) {
+          const community_name = map.get('name') || '';
+          // load events for the community name given..
+          // 1. Get the cached service names
+          this.communityData = this.communityDataService.get_community(community_name) || this.communityData;
+          // 2. If the name exists, fetch the events
+
+        }
+      })
+
+  }
   protected readonly window = window;
   @ViewChild('overlay', {static : false})overlay! : ElementRef<HTMLDivElement>;
   @ViewChild('builder', {static : false, read : ElementRef})builder! : ElementRef;
 
 
-  communityData : CommunityData = {name : "CSED"};
+
 
   // ngAfterViewInit(){
   //   window.alert("picked");
   // }
   select_community(communityData : CommunityData){
-    this.communityData = communityData;
+    // this.communityData = communityData;
+    this.router.navigate(['main',communityData.name]);
   }
 
   show_creation_page() {

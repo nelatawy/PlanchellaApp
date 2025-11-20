@@ -4,6 +4,8 @@ import {EventSize, EventType} from '../models/Enums';
 import {EventData} from '../models/event-data';
 import {CommunityData} from '../models/community-data';
 import {EventDataService} from '../services/event-data-service';
+import {ActivatedRoute} from '@angular/router';
+import {CommunityDataService} from '../services/community-data-service';
 
 
 @Component({
@@ -33,8 +35,23 @@ export class Billboard {
   @ViewChild('container', { read: ViewContainerRef, static: true })
   container!: ViewContainerRef;
 
-  constructor(private elementRef : ElementRef, private eventDataService : EventDataService) {
+  constructor(private elementRef : ElementRef,
+              // private route: ActivatedRoute,
+              private communityDataService: CommunityDataService,
+              private eventDataService : EventDataService) {
+
+    // route.paramMap.subscribe(map => {
+    //   if (map.has('name')) {
+    //     const community_name = map.get('name') || '';
+    //     // load events for the community name given..
+    //     // 1. Get the cached service names
+    //     this.communityData = this.communityDataService.get_community(community_name) || this.communityData;
+    //     // 2. If the name exists, fetch the events
+    //     this.add_events(5);
+    //   }
+    // })
   }
+
   async add_events(count : number){
     let events : EventData[] | undefined = await this.eventDataService.fetch_events(count, this.communityData.name);
     events?.forEach((event : EventData)=>{

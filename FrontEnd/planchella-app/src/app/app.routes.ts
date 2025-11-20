@@ -9,6 +9,7 @@ import { ResetPassword } from './auth/reset-password/reset-password';
 import { SetEmail } from './auth/set-email/set-email';
 import { AccountPage } from './account-page/account-page';
 import { EventBuilder } from './event-builder/event-builder';
+import {Billboard} from './billboard/billboard';
 
 export const routes: Routes = [
   { path: '', redirectTo: '/signin', pathMatch: 'full' }, // default route
@@ -16,11 +17,12 @@ export const routes: Routes = [
   { path: 'register', component: Registration },
   { path: 'set-email', component: SetEmail },
   { path: 'main', component: MainPage},
+  { path: 'main/:name', component: MainPage},
   { path: 'verification-code', component: VerificationCode },
   { path: 'reset-password', component: ResetPassword },
   { path: 'event-builder', component: EventBuilder },
   { path: 'account-page', component: AccountPage},
-  { path: '**', redirectTo: '/signin' } // fallback
+  // { path: '**', redirectTo: '/signin' } // fallback
 ];
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
