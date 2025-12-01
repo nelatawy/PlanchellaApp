@@ -15,8 +15,15 @@ import {CommunityDataService} from '../services/community-data-service';
 })
 export class CommunitySelector {
 
+
     constructor(private communityDataService : CommunityDataService) {
     }
+
+    async ngOnInit() {
+      // load communities
+      await this.add_communities(14);
+    }
+
     nums = Array.from({length : 4});
     communities : Array<CommunityCardData> = [];
 
@@ -49,9 +56,6 @@ export class CommunitySelector {
       data?.forEach((communityData)=>{
         this.communities.push({communityData : communityData, currentlySelected : true});
       });
-    }
-    async ngOnInit(){
-      await this.add_communities(14);
     }
 
     @HostListener('scroll', ['$event'])

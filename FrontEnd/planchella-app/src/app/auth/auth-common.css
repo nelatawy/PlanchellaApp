@@ -58,11 +58,15 @@
   align-items: center;
   background-color: #ffffff;
   width: 40vw;
+  min-width: 300px;
+  max-width: 600px;
   height: fit-content;
   margin: auto;
   padding: 2.5rem;
   border-radius: 1rem;
   box-shadow: 0 8px 32px rgba(73, 16, 139, 0.3);
+
+  transition: width 0.3s ease, padding 0.3s ease;
 }
 
 .commonContainer h2 {
@@ -137,39 +141,38 @@
 
 
 /* MEDIA QUERY FOR SMALL SCREENS */
-@media (max-width: 480px) {
-  /* Stop h2 from shrinking too small */
-  .commonContainer h2 {
-    font-size: 2rem; /* same as desktop size */
+@media (max-width: 800px) {
+  .commonContainer {
+    width: 90vw;      /* take almost full width of screen */
+    min-width: 300px; /* don't shrink below this */
+    padding: 1.5rem;  /* optional: reduce padding slightly */
   }
 
-  /* Stop input fields from shrinking */
+  .commonContainer h2 {
+    font-size: 2rem; /* keep heading readable */
+  }
+
   .inputField {
     font-size: 1rem;
     padding: 0.75rem;
-    min-width: 250px; /* ensures readability */
+    min-width: 250px; /* ensures input remains readable */
   }
 
-  .inputLabel {
-    font-size: 1rem;
-  }
-
-  /* Stop main button from shrinking */
   .commonButtonTheme {
     font-size: 1.1rem;
     padding: 0.875rem;
-    min-width: 250px;
+    min-width: 250px; /* prevent button from being too small */
   }
 
-  /* Third-party buttons: stack and same size */
   .thirdPartyContainer {
-    flex-direction: column; /* stack vertically */
+    flex-direction: column; /* stack buttons */
     gap: 0.5rem;
   }
 
   .thirdParty {
     width: 100%;
-    min-width: 250px;
+    min-width: 250px; /* prevent shrinking too much */
     font-size: 0.95rem;
   }
 }
+

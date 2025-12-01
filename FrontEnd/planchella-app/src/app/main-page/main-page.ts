@@ -6,6 +6,7 @@ import {CommunityData} from '../models/community-data';
 import {EventBuilder} from '../event-builder/event-builder';
 import {ActivatedRoute, Router, RouterOutlet} from '@angular/router';
 import {CommunityDataService} from '../services/community-data-service';
+import {SidebarService} from '../services/sidebar.service';
 
 @Component({
   selector: 'app-main-page',
@@ -22,7 +23,9 @@ import {CommunityDataService} from '../services/community-data-service';
 export class MainPage {
   communityData : CommunityData = {name : "CSED"};
 
-  constructor(private route :ActivatedRoute ,private router : Router, private communityDataService : CommunityDataService){
+  isOpen = false;
+
+  constructor(private route :ActivatedRoute ,private router : Router, private communityDataService : CommunityDataService, private sidebarService : SidebarService) {
       route.paramMap.subscribe(map => {
         if (map.has('name')) {
           const community_name = map.get('name') || '';
@@ -40,7 +43,11 @@ export class MainPage {
   @ViewChild('builder', {static : false, read : ElementRef})builder! : ElementRef;
 
 
-
+  ngOnInit() {
+      this.sidebarService.open$.subscribe(state => {
+        this.isOpen = state;
+      })
+  }
 
   // ngAfterViewInit(){
   //   window.alert("picked");

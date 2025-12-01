@@ -74,17 +74,18 @@ h1 {
 }
 
 #event-bottom {
-  height: 20%;
   margin-top: 0.5rem;
   display: flex;
-  flex-direction: row;
+  flex-wrap: wrap;
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
   width: 100%;
+  transition: all 0.4s ease;
 }
 
 #event-bottom button[type="submit"] {
+  flex: 0 1 auto;
   width: 70%;
 }
 
@@ -99,6 +100,7 @@ h1 {
 }
 
 #addImage {
+  flex: 1 1 auto;
   padding: 0.875rem 1.25rem;
   background: transparent;
   border: 2px solid magenta;
@@ -107,7 +109,10 @@ h1 {
   font-size: 1.1rem;
   font-weight: 600;
   cursor: pointer;
-  transition: all 0.25s ease;
+  transition: all 0.3s ease;
+
+  width: auto;
+  min-width: 120px;
 }
 
 #addImage:hover {
@@ -115,5 +120,30 @@ h1 {
   color: white;
   transform: translateY(-2px);
   box-shadow: 0 6px 20px rgba(255, 0, 255, 0.35);
+}
+
+
+#event-bottom button[type="submit"],
+#addImage {
+  transition: width 0.4s ease, flex 0.4s ease, transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+/* Small screens: stack vertically */
+@media (max-width: 800px) {
+  #event-bottom {
+    flex-direction: column;
+    gap: 0.5rem;
+    align-items: stretch;
+  }
+
+  #event-bottom button[type="submit"] {
+    width: 100%;
+    min-width: 0;
+  }
+  #addImage {
+    width: 100%;      /* full width on column layout */
+    min-width: 0;     /* allow full width */
+    flex: none;
+  }
 }
 
