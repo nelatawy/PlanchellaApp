@@ -6,20 +6,11 @@ h1 {
   margin: 1rem;
 }
 
-#event-builder {
-  background-color: white;
-  width: 80vh;
-  height: 90vh;
-  border-radius: 10px;
-  display: flex;
-  flex-direction: column;
-  overflow: hidden;
-  padding: 0.5rem;
-}
 
 #flares {
-  border: 3px solid darkslategrey;
-  border-radius: 10px;
+  font-size: var(--font-size-med);
+  border: 0.25rem solid rgba(47, 79, 79, 0.5);
+  border-radius: 0.5rem;
   margin-top: 0.5rem;
   outline: none;
   cursor: pointer;
@@ -28,13 +19,22 @@ h1 {
   background-color: white;
 }
 
-#flares:hover #flares::selection {
-  border: 3px solid darkmagenta;
+#flares:hover{
+  border: 0.25rem solid var(--primary-color-light);
+}
+
+#flares:focus {
+  border: 0.25rem solid var(--primary-color-dark);
+}
+
+#flares::selection {
+  border: 0.25rem solid var(--primary-color-dark);
 }
 
 #title {
   display: flex;
   width: 50%;
+  font-size: var(--font-size-med);
   background-color: #f7f7f7;
   color: #000;
   border: 1px solid #ccc;
@@ -46,7 +46,8 @@ h1 {
   margin: 0.5rem 0;
   display: flex;
   overflow-y: auto;
-  min-height: 50%;
+  min-height: 50vh;
+  font-size: var(--font-size-med);
   background-color: #f7f7f7;
   color: #000;
   border: 1px solid #ccc;
@@ -74,6 +75,7 @@ h1 {
 
 #event-bottom {
   height: 20%;
+  margin-top: 0.5rem;
   display: flex;
   flex-direction: row;
   align-items: center;

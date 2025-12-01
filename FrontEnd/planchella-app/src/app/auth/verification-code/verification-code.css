@@ -3,7 +3,16 @@
 }
 
 #verificationCard h2 {
-  text-align: center;
+  width: 100%;
+  overflow-wrap: break-word;
+}
+
+#formVer {
+  width: 100%;
+}
+
+#formVer * {
+  width: 100%;
 }
 
 button[type="submit"] {
@@ -12,6 +21,7 @@ button[type="submit"] {
 }
 
 #verificationCode {
+  display: block;
   height: 3rem;
   width: 100%;
   margin-bottom: 1rem; /* not working for some god forsaken reason*/
@@ -22,10 +32,3 @@ button[type="submit"] {
   width: 100%;
 }
 
-#formVer {
-  width: 100%;
-}
-
-#formVer * {
-  width: 100%;
-}

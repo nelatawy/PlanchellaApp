@@ -2,71 +2,12 @@
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  width: 30rem;
+  width: 100%;
   padding: 0;
 }
 
 #registerForm > * {
   width: 100%;
-}
-
-.thirdPartyContainer {
-  display: flex;
-  flex-direction: row;
-  gap: 0.75rem;
-  margin: 1.5rem 0;
-  width: 100%;
-}
-
-.thirdPartyContainer * {
-  width: 100%;
-}
-
-/* Third party buttons - Common website style */
-.thirdParty {
-  padding: 0.75rem 1rem;
-  border: 2px solid #D1D5DB;
-  border-radius: 0.5rem;
-  background-color: #FFFFFF;
-  color: #374151;
-  font-size: 0.95rem;
-  font-weight: 500;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.75rem;
-}
-
-
-.thirdParty:hover {
-  background-color: #F9FAFB;
-  border-color: #9CA3AF;
-  transform: translateY(-1px);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-}
-
-/* Google button specific styling */
-.thirdParty:first-child {
-  border-color: #DB4437;
-  color: #DB4437;
-}
-
-.thirdParty:first-child:hover {
-  background-color: #FEF2F2;
-  border-color: #B91C1C;
-}
-
-/* Microsoft button specific styling */
-.thirdParty:last-child {
-  border-color: #0078D4;
-  color: #0078D4;
-}
-
-.thirdParty:last-child:hover {
-  background-color: #F0F9FF;
-  border-color: #0369A1;
 }
 
 a {
@@ -86,6 +27,7 @@ a:hover {
 .noSignIn {
   display: flex;
   flex-direction: row;
+  flex-wrap: wrap;
   justify-content: space-around;
   align-items: center;
 }
@@ -101,17 +43,13 @@ a:hover {
     padding: 0.5rem;
   }
 
-  #registerContainer {
-    padding: 2rem 1.5rem;
-    margin: 1rem;
-    width: 95%;
-  }
 
   #registerForm {
     width: 100%;
   }
 
   .thirdPartyContainer {
+
     gap: 0.5rem;
   }
 }

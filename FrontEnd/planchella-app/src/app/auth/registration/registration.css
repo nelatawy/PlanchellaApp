@@ -3,7 +3,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 22rem;
+  width: 100%;
   padding: 0;
 }
 
@@ -11,65 +11,6 @@
   width: 100%;
 }
 
-.thirdPartyContainer {
-  display: flex;
-  flex-direction: row;
-  gap: 0.75rem;
-  width: 100%;
-  margin-bottom: 0.5rem;
-  margin-top: 0.5rem;
-}
-
-/* Third party buttons - Common website style */
-.thirdParty {
-  padding: 0.75rem 1rem;
-  width: 100%;
-  border: 2px solid #D1D5DB;
-  border-radius: 0.5rem;
-  background-color: #FFFFFF;
-  color: #374151;
-  font-size: 0.95rem;
-  font-weight: 500;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.75rem;
-}
-
-.relatedTagsContainer {
-  align-content: center;
-}
-
-.thirdParty:hover {
-  background-color: #F9FAFB;
-  border-color: #9CA3AF;
-  transform: translateY(-1px);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-}
-
-/* Google button specific styling */
-.thirdParty:first-child {
-  border-color: #DB4437;
-  color: #DB4437;
-}
-
-.thirdParty:first-child:hover {
-  background-color: #FEF2F2;
-  border-color: #B91C1C;
-}
-
-/* Microsoft button specific styling */
-.thirdParty:last-child {
-  border-color: #0078D4;
-  color: #0078D4;
-}
-
-.thirdParty:last-child:hover {
-  background-color: #F0F9FF;
-  border-color: #0369A1;
-}
 
 a {
   display: block;
