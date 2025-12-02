@@ -2,6 +2,8 @@ package com.planchella.entities;
 
 import jakarta.persistence.*;
 
+import java.util.List;
+
 @Entity
 public class UserEntity {
     @Id
@@ -12,28 +14,19 @@ public class UserEntity {
     private String picUrl ;
     private String accountUrl;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "membership_id")
-    private MembershipEntity membership;
+    private List<MembershipEntity> memberships;
 
-    public UserEntity(Long id, String picUrl, String name, String accountUrl, MembershipEntity membership) {
+    public UserEntity(Long id, String picUrl, String name, String accountUrl, List<MembershipEntity> memberships) {
         this.id = id;
         this.name = name;
         this.picUrl = picUrl;
         this.accountUrl = accountUrl;
-        this.membership = membership;
+        this.memberships = memberships;
     }
     public UserEntity() {}
 
-    @Override
-    public String toString() {
-        return "User{" +
-                "id=" + id +
-                ", picUrl='" + picUrl + '\'' +
-                ", name='" + name + '\'' +
-                ", accountUrl='" + accountUrl + '\'' +
-                '}';
-    }
 
     public Long getId() {
         return id;
@@ -52,8 +45,18 @@ public class UserEntity {
         return accountUrl;
     }
 
-    public MembershipEntity getMembership() {
-        return membership;
+    public List<MembershipEntity> getMemberships() {
+        return memberships;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", picUrl='" + picUrl + '\'' +
+                ", name='" + name + '\'' +
+                ", accountUrl='" + accountUrl + '\'' +
+                '}';
     }
 
 }

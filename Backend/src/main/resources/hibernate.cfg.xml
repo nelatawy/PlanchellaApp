@@ -9,9 +9,10 @@
 
         <property name="hibernate.hbm2ddl.auto">update</property>
 
-        <mapping class="com.planchella.domain.Event"/>
-        <mapping class="com.planchella.domain.User"/>
-        <mapping class="com.planchella.domain.Community"/>
+        <mapping class="com.planchella.entities.EventEntity"/>
+        <mapping class="com.planchella.entities.UserEntity"/>
+        <mapping class="com.planchella.entities.CommunityEntity"/>
+        <mapping class="com.planchella.entities.MembershipEntity"/>
 
     </session-factory>
 </hibernate-configuration>

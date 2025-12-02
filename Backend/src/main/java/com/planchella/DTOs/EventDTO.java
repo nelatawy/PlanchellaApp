@@ -1,8 +1,10 @@
 package com.planchella.DTOs;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.planchella.enums.EventSize;
 import com.planchella.enums.EventType;
 
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class EventDTO {
     public Long id;
     public EventType eventType;
@@ -12,4 +14,5 @@ public class EventDTO {
     public String title;
     public String description ;
     public String creationDate;
+    public  EventDTO() {}
 }

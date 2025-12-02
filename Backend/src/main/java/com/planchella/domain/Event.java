@@ -9,36 +9,100 @@ import java.util.Date;
 
 public class Event {
 
-    public Long id;
-    public EventType eventType;
-    public EventSize eventSize;
-    public User author;
-    public Community community;
-    public String title;
-    public String description ;
-    public String creationDate;
+    private Long id;
+    private EventType eventType;
+    private EventSize eventSize;
+    private Long author_id;
+    private Long community_id;
+    private String title;
+    private String description ;
+    private String creationDate;
 
-    public Event(EventType eventType, EventSize eventSize, User author,
+    public Event(EventType eventType, EventSize eventSize, Long author_id,
                  String title, String description,
-                 String creationDate, Community community) {
+                 String creationDate, Long community_id) {
         this.eventType = eventType;
         this.eventSize = eventSize;
         this.title = title;
-        this.author = author;
+        this.author_id = author_id;
         this.description = description;
         this.creationDate = creationDate;
-        this.community = community;
+        this.community_id = community_id;
     }
 
     public Event() {
         this.title = "";
     }
 
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public EventType getEventType() {
+        return eventType;
+    }
+
+    public void setEventType(EventType eventType) {
+        this.eventType = eventType;
+    }
+
+    public EventSize getEventSize() {
+        return eventSize;
+    }
+
+    public void setEventSize(EventSize eventSize) {
+        this.eventSize = eventSize;
+    }
+
+    public Long getAuthor_id() {
+        return author_id;
+    }
+
+    public void setAuthor_id(Long author_id) {
+        this.author_id = author_id;
+    }
+
+    public Long getCommunity_id() {
+        return community_id;
+    }
+
+    public void setCommunity_id(Long community_id) {
+        this.community_id = community_id;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getCreationDate() {
+        return creationDate;
+    }
+
+    public void setCreationDate(String creationDate) {
+        this.creationDate = creationDate;
+    }
     public static Event getMockData(){
         return new Event(EventType.HACKATHON, EventSize.LARGE,
-                new User("", "Nour", ""),
+                4L,
                 "Mock", "description",
-                new Date().toString(), new Community(""));
+                new Date().toString(), 1L);
     }
 
     @Override
@@ -47,14 +111,11 @@ public class Event {
                 "id=" + id +
                 ", eventType=" + eventType +
                 ", eventSize=" + eventSize +
-                ", author=" + author +
-                ", community=" + community +
+                ", author_id=" + author_id +
+                ", community_id=" + community_id +
                 ", title='" + title + '\'' +
                 ", description='" + description + '\'' +
                 ", creationDate='" + creationDate + '\'' +
                 '}';
     }
-
-
-
 }

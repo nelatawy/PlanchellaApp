@@ -28,14 +28,6 @@ public class MembershipEntity {
 
     public MembershipEntity() {}
 
-    @Override
-    public String toString() {
-        return "MembershipEntity{" +
-                "id=" + id +
-                ", user=" + user +
-                ", community=" + community +
-                '}';
-    }
 
     public Long getId(){
         return id;
@@ -44,11 +36,22 @@ public class MembershipEntity {
     public UserEntity getUser() {
         return user;
     }
+
     public CommunityEntity getCommunity() {
         return community;
     }
+
     public MembershipType getType(){
         return type;
+    }
+
+    @Override
+    public String toString() {
+        return "MembershipEntity{" +
+                "id=" + id +
+                ", user=" + user +
+                ", community=" + community +
+                '}';
     }
 
 }

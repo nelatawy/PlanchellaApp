@@ -48,19 +48,6 @@ public class EventEntity {
     public EventEntity() {}
 
 
-    @Override
-    public String toString() {
-        return "Event{" +
-                "id=" + id +
-                ", eventType=" + eventType +
-                ", eventSize=" + eventSize +
-                ", author=" + author +
-                ", community=" + community +
-                ", title='" + title + '\'' +
-                ", description='" + description + '\'' +
-                ", creationDate='" + creationDate + '\'' +
-                '}';
-    }
 
     public Long getId() {
         return id;
@@ -124,5 +111,20 @@ public class EventEntity {
 
     public void setCreationDate(String creationDate) {
         this.creationDate = creationDate;
+    }
+
+
+    @Override
+    public String toString() {
+        return "Event{" +
+                "id=" + id +
+                ", eventType=" + eventType +
+                ", eventSize=" + eventSize +
+                ", author=" + author +
+                ", community=" + community +
+                ", title='" + title + '\'' +
+                ", description='" + description + '\'' +
+                ", creationDate='" + creationDate + '\'' +
+                '}';
     }
 }

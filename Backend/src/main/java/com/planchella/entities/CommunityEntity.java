@@ -13,31 +13,21 @@ public class CommunityEntity {
 
     private String name;
 
-    @ManyToMany(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
+    @OneToMany(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
     @JoinColumn(name = "user_ids")
-    private List<UserEntity> users;
+    private List<MembershipEntity> memberships;
 
-    public List<UserEntity> getUsers() {
-        return users;
-    }
 
-    public CommunityEntity(Long id, String name, List<UserEntity> users) {
+    public CommunityEntity(Long id, String name, List<MembershipEntity> memberships) {
         this.id = id;
         this.name = name;
-        if(users != null){
-            this.users = users;
+        if(memberships != null){
+            this.memberships = memberships;
         }
     }
 
     public CommunityEntity() {}
 
-    @Override
-    public String toString() {
-        return "Community{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                '}';
-    }
 
     public Long getId() {
         return id;
@@ -55,7 +45,20 @@ public class CommunityEntity {
         this.name = name;
     }
 
-    public void setUsers(List<UserEntity> users) {
-        this.users = users;
+    public List<MembershipEntity> getMemberships() {
+        return memberships;
+    }
+
+    public void setMemberships(List<MembershipEntity> memberships) {
+        this.memberships = memberships;
+    }
+
+
+    @Override
+    public String toString() {
+        return "Community{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                '}';
     }
 }

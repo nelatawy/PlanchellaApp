@@ -6,38 +6,35 @@ import java.util.Objects;
 
 public class Membership {
 
-    private final User user;
-    private final Community community;
+    private final Long id;
+    private final Long user_id;
+    private final Long community_id;
     private MembershipType type;
 
     // Constructor
-    public Membership(User user, Community community, MembershipType type) {
-        this.user = Objects.requireNonNull(user, "User cannot be null");
-        this.community = Objects.requireNonNull(community, "Community cannot be null");
+    public Membership(Long id, Long user_id, Long community_id, MembershipType type) {
+        this.id = id;
+        this.user_id = Objects.requireNonNull(user_id, "User cannot be null");
+        this.community_id = Objects.requireNonNull(community_id, "Community cannot be null");
         this.type = Objects.requireNonNull(type, "Role cannot be null");
     }
 
-    @Override
-    public String toString(){
-        return "Membership{" +
-                "user=" + user.getName() +
-                ", community=" + community.getName() +
-                ", type=" + type +
-                '}';
-
+    public Long getId() {
+        return id;
     }
 
-    public User getUser() {
-        return user;
+    public Long getUserID() {
+        return user_id;
     }
 
-    public Community getCommunity() {
-        return community;
+    public Long getCommunityID() {
+        return community_id;
     }
 
     public MembershipType getRole() {
         return type;
     }
+
 
     // Change the role/authority of this membership
     public void changeRole(MembershipType type){
@@ -50,4 +47,13 @@ public class Membership {
         return type == MembershipType.MEMBER || type  == MembershipType.TOP_CONTRIBUTOR;
     }
 
+    @Override
+    public String toString(){
+        return "Membership{" +
+                "user=" + user_id +
+                ", community=" + community_id+
+                ", type=" + type +
+                '}';
+
+    }
 }
