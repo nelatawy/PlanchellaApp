@@ -1,8 +1,10 @@
 package com.planchella.repositories.events;
 
 import com.planchella.domain.Event;
+import com.planchella.entities.CommunityEntity;
 import com.planchella.entities.EventEntity;
 
+import com.planchella.entities.UserEntity;
 import com.planchella.mappers.EventMapper;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -53,10 +55,19 @@ public class DBEventRepository implements IEventRepository {
 
 
     @Override
-    public void updateEvent(Long event_id, Event event){
+    public void updateEvent(Long event_id, Event newEventData){
         Session session = this.sessionFactory.openSession();
         Transaction tx = session.beginTransaction();
-        EventEntity eventEntity = session.get(EventEntity.class, event_id);
+        EventEntity event = session.get(EventEntity.class, event_id);
+        if (newEventData != null) {
+            if (event.getDescription() != null) event.setDescription(newEventData.getDescription());
+            if (event.getTitle() != null) event.setTitle(newEventData.getTitle());
+            if (event.getEventSize() != null) event.setEventSize(newEventData.getEventSize());
+            if (event.getEventType() != null) event.setEventType(newEventData.getEventType());
+            if (event.getCreationDate() != null) event.setCreationDate(newEventData.getCreationDate());
+            if (event.getAuthor() != null) event.setAuthor(session.getReference(UserEntity.class, newEventData.getAuthor_id()));
+            if (event.getCommunity() != null) event.setCommunity(session.getReference(CommunityEntity.class, newEventData.getCommunity_id()));
+        }
         tx.commit();
         session.close();
     }

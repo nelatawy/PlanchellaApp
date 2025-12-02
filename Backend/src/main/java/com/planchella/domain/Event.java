@@ -34,6 +34,15 @@ public class Event {
         this.title = "";
     }
 
+    public void updateByDelta(Event event){
+        this.eventType    = event.eventType != null ? event.eventType : this.eventType;
+        this.eventSize    = event.eventSize != null ? event.eventSize : this.eventSize;
+        this.title        = event.title != null ? event.title : this.title;
+        this.author_id    = event.author_id != null ? event.author_id : this.author_id;
+        this.description  = event.description != null ? event.description : this.description;
+        this.creationDate = event.creationDate != null ? event.creationDate : this.creationDate;
+        this.community_id = event.community_id != null ? event.community_id : this.community_id;
+    }
 
     public Long getId() {
         return id;

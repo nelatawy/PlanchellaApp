@@ -5,7 +5,6 @@ import com.planchella.enums.EventSize;
 import com.planchella.enums.EventType;
 import jakarta.persistence.*;
 
-import java.util.Date;
 
 @Entity
 @JsonIgnoreProperties(ignoreUnknown = true)

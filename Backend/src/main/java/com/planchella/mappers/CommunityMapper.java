@@ -1,5 +1,6 @@
 package com.planchella.mappers;
 
+import com.planchella.DTOs.CommunityDTO;
 import com.planchella.domain.Community;
 import com.planchella.domain.Membership;
 import com.planchella.entities.CommunityEntity;
@@ -50,4 +51,19 @@ public class CommunityMapper {
         community.setMemberships(memberships);
         return community;
     }
+
+    public CommunityDTO domainToDTO(Community community) {
+        CommunityDTO communityDTO = new CommunityDTO();
+        communityDTO.id = community.getId();
+        communityDTO.name = community.getName();
+        return communityDTO;
+    }
+
+    public Community DTOtoEntity(CommunityDTO communityDTO) {
+        Community community = new Community();
+        community.setId(communityDTO.id);
+        community.setName(communityDTO.name);
+        return community;
+    }
+
 }

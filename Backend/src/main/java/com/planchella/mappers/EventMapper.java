@@ -1,5 +1,6 @@
 package com.planchella.mappers;
 
+import com.planchella.DTOs.EventDTO;
 import com.planchella.domain.Event;
 import com.planchella.entities.CommunityEntity;
 import com.planchella.entities.EventEntity;
@@ -32,7 +33,6 @@ public class EventMapper {
     }
 
     public Event EntityToDomain(EventEntity e){
-        Session session = factory.openSession();
 
         Event event = new Event();
 
@@ -45,7 +45,30 @@ public class EventMapper {
         event.setAuthor_id(e.getAuthor().getId());
         event.setCommunity_id(e.getCommunity().getId());
 
-        session.close();
+        return event;
+    }
+
+    public EventDTO domainToDTO(Event event){
+        EventDTO e = new EventDTO();
+        e.id = event.getId();
+        e.description = event.getDescription();
+        e.eventType = event.getEventType();
+        e.creationDate = event.getCreationDate();
+        e.eventSize = event.getEventSize();
+        e.title = event.getTitle();
+        e.community_id = event.getCommunity_id();
+        return e;
+    }
+
+    public Event DTOtoDomain(EventDTO e){
+        Event event = new Event();
+        event.setAuthor_id(e.author_id);
+        event.setTitle(e.title);
+        event.setEventType(e.eventType);
+        event.setCreationDate(e.creationDate);
+        event.setEventSize(e.eventSize);
+        event.setId(e.id);
+        event.setCommunity_id(e.community_id);
         return event;
     }
 
