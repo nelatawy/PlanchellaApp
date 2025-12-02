@@ -1,0 +1,17 @@
+/home/nelatawy/Planchella/Backend/src/main/java/com/planchella/DataRoutes.java
+/home/nelatawy/Planchella/Backend/src/main/java/com/planchella/PlanchellaApplication.java
+/home/nelatawy/Planchella/Backend/src/main/java/com/planchella/RegistrationRoutes.java
+/home/nelatawy/Planchella/Backend/src/main/java/com/planchella/enums/EventSize.java
+/home/nelatawy/Planchella/Backend/src/main/java/com/planchella/enums/EventType.java
+/home/nelatawy/Planchella/Backend/src/main/java/com/planchella/fetcher/communities/ICommunityFetcher.java
+/home/nelatawy/Planchella/Backend/src/main/java/com/planchella/fetcher/communities/MockCommunityFetcher.java
+/home/nelatawy/Planchella/Backend/src/main/java/com/planchella/fetcher/events/IEventFetcher.java
+/home/nelatawy/Planchella/Backend/src/main/java/com/planchella/fetcher/events/MockEventFetcher.java
+/home/nelatawy/Planchella/Backend/src/main/java/com/planchella/models/CommunityData.java
+/home/nelatawy/Planchella/Backend/src/main/java/com/planchella/models/EventAuthorData.java
+/home/nelatawy/Planchella/Backend/src/main/java/com/planchella/models/EventData.java
+/home/nelatawy/Planchella/Backend/src/main/java/com/planchella/registration/authentication/IAuthenticator.java
+/home/nelatawy/Planchella/Backend/src/main/java/com/planchella/registration/validation/IValidator.java
+/home/nelatawy/Planchella/Backend/src/main/java/com/planchella/registration/validation/MockValidator.java
+/home/nelatawy/Planchella/Backend/src/main/java/com/planchella/registration/validation/SimpleValidator.java
+/home/nelatawy/Planchella/Backend/src/main/java/com/planchella/registration/validation/ValidationResult.java

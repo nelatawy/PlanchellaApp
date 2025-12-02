@@ -2,19 +2,17 @@ package com.planchella;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.planchella.fetcher.communities.ICommunityFetcher;
-import com.planchella.fetcher.communities.MockCommunityFetcher;
-import com.planchella.fetcher.events.IEventFetcher;
-import com.planchella.fetcher.events.MockEventFetcher;
-import com.planchella.models.CommunityData;
-import com.planchella.models.EventData;
+import com.planchella.repositories.communities.ICommunityRepository;
+import com.planchella.repositories.communities.MockCommunityRepository;
+import com.planchella.repositories.events.IEventRepository;
+import com.planchella.repositories.events.MockEventRepository;
+import com.planchella.domain.CommunityData;
+import com.planchella.domain.Event;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 @RestController
 @RequestMapping("/data")
@@ -22,16 +20,16 @@ import java.util.Objects;
 public class DataRoutes {
 
     private static final ObjectMapper mapper = new ObjectMapper();
-    private static final IEventFetcher eventFetcher = new MockEventFetcher();
-    private static final ICommunityFetcher communityFetcher = new MockCommunityFetcher();
+    private static final IEventRepository eventFetcher = new MockEventRepository();
+    private static final ICommunityRepository communityFetcher = new MockCommunityRepository();
 
     @GetMapping("/community/events")
     public String fetchEvent(@RequestParam int count , @RequestParam String communityName) throws JsonProcessingException {
         try {
             JSONArray events_json = new JSONArray();
-            List<EventData> events = eventFetcher.getEvents(count, communityName);
+            List<Event> events = eventFetcher.getEvents(count, communityName);
 
-            for (EventData event : events) {
+            for (Event event : events) {
                 JSONObject event_json = new JSONObject(mapper.writeValueAsString(event));
                 events_json.put(event_json);
             }
@@ -59,4 +57,6 @@ public class DataRoutes {
         }
         return "";
     }
+
+
 }
