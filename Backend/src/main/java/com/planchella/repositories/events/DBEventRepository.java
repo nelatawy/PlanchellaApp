@@ -1,10 +1,7 @@
 package com.planchella.repositories.events;
 
 import com.planchella.domain.Event;
-import com.planchella.entities.CommunityEntity;
 import com.planchella.entities.EventEntity;
-
-import com.planchella.entities.UserEntity;
 import com.planchella.mappers.EventMapper;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -17,66 +14,59 @@ import java.util.List;
 
 public class DBEventRepository implements IEventRepository {
     SessionFactory sessionFactory;
-    EventMapper mapper;
     public DBEventRepository() {
         this.sessionFactory = new Configuration().configure().buildSessionFactory();
-        this.mapper = new EventMapper(this.sessionFactory);
 
     }
     @Override
     public List<Event> getEvents(int count, Long community_id) {
         Session session = this.sessionFactory.openSession();
 
-        String hql = "FROM EventEntity e WHERE e.community.id = :ID";
+        String hql = "from EventEntity e where e.community.id = :ID";
         Query<EventEntity> query = session.createQuery(hql, EventEntity.class);
         query.setParameter("ID", community_id);
 
         return getEventsHelper(session, query);
     }
 
-    @Override
-    public List<Event> getEvents(int count, String communityName) {
-        Session session = this.sessionFactory.openSession();
-
-        String hql = "FROM EventEntity e WHERE e.community.name = :NAME";
-        Query<EventEntity> query = session.createQuery(hql, EventEntity.class);
-        query.setParameter("NAME", communityName);
-
-        return getEventsHelper(session, query);
-    }
 
     @Override
     public Event getEvent(Long event_id){
         Session session = this.sessionFactory.openSession();
         EventEntity eventEntity = session.get(EventEntity.class, event_id);
+        Event event = EventMapper.entityToDomain(eventEntity);
         session.close();
-        return this.mapper.EntityToDomain(eventEntity);
+        return event;
     }
 
-
-    @Override
-    public void updateEvent(Long event_id, Event newEventData){
-        Session session = this.sessionFactory.openSession();
-        Transaction tx = session.beginTransaction();
-        EventEntity event = session.get(EventEntity.class, event_id);
-        if (newEventData != null) {
-            if (event.getDescription() != null) event.setDescription(newEventData.getDescription());
-            if (event.getTitle() != null) event.setTitle(newEventData.getTitle());
-            if (event.getEventSize() != null) event.setEventSize(newEventData.getEventSize());
-            if (event.getEventType() != null) event.setEventType(newEventData.getEventType());
-            if (event.getCreationDate() != null) event.setCreationDate(newEventData.getCreationDate());
-            if (event.getAuthor() != null) event.setAuthor(session.getReference(UserEntity.class, newEventData.getAuthor_id()));
-            if (event.getCommunity() != null) event.setCommunity(session.getReference(CommunityEntity.class, newEventData.getCommunity_id()));
-        }
-        tx.commit();
-        session.close();
-    }
+//    @Override
+//    public void updateEvent(Long event_id, Event newEventData){
+//        Session session = this.sessionFactory.openSession();
+//        Transaction tx = session.beginTransaction();
+//        EventEntity event = session.get(EventEntity.class, event_id);
+//        if (newEventData != null) {
+//            if (event.getDescription() != null) event.setDescription(newEventData.getDescription());
+//            if (event.getTitle() != null) event.setTitle(newEventData.getTitle());
+//            if (event.getEventSize() != null) event.setEventSize(newEventData.getEventSize());
+//            if (event.getEventType() != null) event.setEventType(newEventData.getEventType());
+//            if (event.getCreationDate() != null) event.setCreationDate(newEventData.getCreationDate());
+//            if (event.getAuthor() != null) event.setAuthor(session.getReference(UserEntity.class, newEventData.getAuthor_id()));
+//            if (event.getCommunity() != null) event.setCommunity(session.getReference(CommunityEntity.class, newEventData.getCommunity_id()));
+//        }
+//        tx.commit();
+//        session.close();
+//    }
 
     @Override
     public void saveEvent(Event event) {
         Session session = this.sessionFactory.openSession();
         Transaction tx = session.beginTransaction();
-        session.persist(this.mapper.domainToEntity(event));
+        EventEntity entity = EventMapper.domainToEntity(event, session);
+        if (event.getId() == null) {
+            session.persist(entity);
+        } else {
+            session.merge(entity);
+        }
         tx.commit();
         session.close();
     }
@@ -96,7 +86,7 @@ public class DBEventRepository implements IEventRepository {
         List<EventEntity> events = query.getResultList();
         List<Event> eventsList = new ArrayList<Event>();
         for (EventEntity e : events) {
-            Event event = this.mapper.EntityToDomain(e);
+            Event event = EventMapper.entityToDomain(e);
             eventsList.add(event);
         }
         session.close();
@@ -109,26 +99,4 @@ public class DBEventRepository implements IEventRepository {
         this.sessionFactory.close();
     }
 
-
-    //    @Override
-//    public List<Event> getEvents(int count, String communityName) {
-//        Session session = this.sessionFactory.openSession();
-//
-//        String hql = "FROM Event e WHERE e.community.name = :NAME";
-//        Query query = session.createQuery(hql, Event.class);
-//        query.setParameter("NAME", communityName);
-//        query.setMaxResults(count);
-//
-//        List<Event> events = query.getResultList();
-//        session.close();
-//        return events;
-//    }
-
-    public static void main(String[] args) {
-        DBEventRepository dbEventFetcher = new DBEventRepository();
-        List<Event> events = dbEventFetcher.getEvents(4, 1L);
-        for(Event event : events){
-            System.out.println(event);
-        }
-    }
 }

@@ -1,14 +1,23 @@
 package com.planchella.domain;
 
 import com.planchella.enums.MembershipType;
+import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.Objects;
 
+@Getter
+@Setter
 public class Membership {
 
+    @Setter(AccessLevel.NONE)
     private final Long id;
+
     private final Long user_id;
+
     private final Long community_id;
+
     private MembershipType type;
 
     // Constructor
@@ -19,31 +28,15 @@ public class Membership {
         this.type = Objects.requireNonNull(type, "Role cannot be null");
     }
 
-    public Long getId() {
-        return id;
-    }
-
-    public Long getUserID() {
-        return user_id;
-    }
-
-    public Long getCommunityID() {
-        return community_id;
-    }
-
-    public MembershipType getRole() {
-        return type;
-    }
-
 
     // Change the role/authority of this membership
-    public void changeRole(MembershipType type){
+    public void setType(MembershipType type){
         this.type = Objects.requireNonNull(type,"Role cannot be null");
     }
 
     // Check if user is eligible to post in this community
     public boolean canPost(){
-        //all roles can post but are adjustable based on future prefrence
+        //all roles can post but are adjustable based on future preference
         return type == MembershipType.MEMBER || type  == MembershipType.TOP_CONTRIBUTOR;
     }
 
@@ -56,4 +49,5 @@ public class Membership {
                 '}';
 
     }
+
 }

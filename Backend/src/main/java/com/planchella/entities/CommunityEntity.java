@@ -2,10 +2,15 @@ package com.planchella.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
+import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.List;
 @Entity
 @JsonIgnoreProperties(ignoreUnknown = true)
+@Getter
+@Setter
 public class CommunityEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -29,28 +34,8 @@ public class CommunityEntity {
     public CommunityEntity() {}
 
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
     public List<MembershipEntity> getMemberships() {
-        return memberships;
-    }
-
-    public void setMemberships(List<MembershipEntity> memberships) {
-        this.memberships = memberships;
+        return List.copyOf(memberships);
     }
 
 

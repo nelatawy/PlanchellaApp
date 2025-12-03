@@ -1,70 +1,74 @@
 package com.planchella.domain;
 
+import com.planchella.entities.CommunityEntity;
 import com.planchella.enums.MembershipType;
+import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.Setter;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
+@Getter
+@Setter
 public class Community {
 
+    @Setter(AccessLevel.NONE)
     private Long id;
+
     private String name;
-    private List<Membership> memberships = new ArrayList<>();
+
+    private List<Membership> memberships;
 
     // Constructor
-    public Community(String name){
+    public Community(Long id, String name){
+        this.id = id;
         this.name = Objects.requireNonNull(name, "Community name cannot be null");
+        this.memberships = new ArrayList<>();
     }
 
     public Community(){}
 
-    public Long getId(){
-        return id;
+    public void updateByDelta(Community newCommunityData) {
+        if (newCommunityData != null) {
+            this.id = newCommunityData.getId();
+            this.name = newCommunityData.getName();
+        }
     }
-    public void setId(Long id){
-        this.id = id;
-    }
-
-    public String getName(){return name; }
-    public void setName(String name) {
-        this.name = name;
-    }
-
 
     public List<Membership> getMemberships(){
         return List.copyOf(memberships); // return final unmodifiable list
     }
-    public void setMemberships(List<Membership> memberships) {
-        this.memberships = memberships;
-    }
 
     // Adding a user to this community with a specific role
-    public void addMember(Long user_id, MembershipType type){
+    public void addMembership(Long membership_id, Long user_id, MembershipType type){
         Objects.requireNonNull(user_id,"User cannot be null");
         Objects.requireNonNull(type,"Role cannot be null");
 
-        // check if user has an exisiting membership in this community
+        // check if user has an existing membership in this community
         boolean exists = memberships.stream()
-                .anyMatch(m -> m.getUserID().equals(user_id));
+                .anyMatch(m -> m.getUser_id().equals(user_id));
         if(exists){
             throw new IllegalStateException("User is already a member of this community");
         }
-
-        memberships.add(new Membership(0L, user_id, this.id, type));
+        memberships.add(new Membership(membership_id, user_id, this.id, type));
     }
+
 
     // Remove a user from a specific community
     public void removeMember(Long user_id) {
-        memberships.removeIf(m -> m.getUserID().equals(user_id));
+        memberships.removeIf(m -> m.getId().equals(user_id));
     }
 
     // fetch all members with a specific role
     public List<Long> getMemberIDsByRole(MembershipType type) {
         return memberships.stream()
-                .filter(m -> m.getRole() == type)
-                .map(Membership::getUserID)
+                .filter(m -> m.getType() == type)
+                .map(Membership::getUser_id)
                 .collect(Collectors.toList());
     }
 

@@ -4,23 +4,34 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.planchella.enums.EventSize;
 import com.planchella.enums.EventType;
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.Date;
 
+@Getter
 public class Event {
 
     private Long id;
+
+    @Setter
     private EventType eventType;
+
     private EventSize eventSize;
     private Long author_id;
     private Long community_id;
+
+    @Setter
     private String title;
+
+    @Setter
     private String description ;
     private String creationDate;
 
-    public Event(EventType eventType, EventSize eventSize, Long author_id,
+    public Event(Long id, EventType eventType, EventSize eventSize, Long author_id, Long community_id,
                  String title, String description,
-                 String creationDate, Long community_id) {
+                 String creationDate) {
+        this.id = id;
         this.eventType = eventType;
         this.eventSize = eventSize;
         this.title = title;
@@ -44,74 +55,15 @@ public class Event {
         this.community_id = event.community_id != null ? event.community_id : this.community_id;
     }
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public EventType getEventType() {
-        return eventType;
-    }
-
-    public void setEventType(EventType eventType) {
-        this.eventType = eventType;
-    }
-
-    public EventSize getEventSize() {
-        return eventSize;
-    }
-
-    public void setEventSize(EventSize eventSize) {
-        this.eventSize = eventSize;
-    }
-
-    public Long getAuthor_id() {
-        return author_id;
-    }
-
-    public void setAuthor_id(Long author_id) {
-        this.author_id = author_id;
-    }
-
-    public Long getCommunity_id() {
-        return community_id;
-    }
-
-    public void setCommunity_id(Long community_id) {
-        this.community_id = community_id;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public String getCreationDate() {
-        return creationDate;
-    }
-
-    public void setCreationDate(String creationDate) {
-        this.creationDate = creationDate;
-    }
     public static Event getMockData(){
-        return new Event(EventType.HACKATHON, EventSize.LARGE,
+        return new Event(4L,
+                EventType.HACKATHON,
+                EventSize.LARGE,
                 4L,
-                "Mock", "description",
-                new Date().toString(), 1L);
+                1L,
+                "sample test",
+                "Description",
+                new Date().toString());
     }
 
     @Override

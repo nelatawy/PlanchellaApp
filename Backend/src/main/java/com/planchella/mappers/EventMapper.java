@@ -6,17 +6,10 @@ import com.planchella.entities.CommunityEntity;
 import com.planchella.entities.EventEntity;
 import com.planchella.entities.UserEntity;
 import org.hibernate.Session;
-import org.hibernate.SessionFactory;
 
 public class EventMapper {
-    SessionFactory factory;
-    public EventMapper(SessionFactory factory) {
-        this.factory = factory;
-    }
 
-    public EventEntity domainToEntity(Event event){
-        Session session = factory.openSession();
-
+    public static EventEntity domainToEntity(Event event, Session session) {
         EventEntity e = new EventEntity();
 
         e.setId(event.getId());
@@ -27,28 +20,22 @@ public class EventMapper {
         e.setCreationDate(event.getCreationDate());
         e.setEventSize(event.getEventSize());
         e.setEventType(event.getEventType());
-
-        session.close();
         return e;
     }
 
-    public Event EntityToDomain(EventEntity e){
+    public static Event entityToDomain(EventEntity e){
 
-        Event event = new Event();
-
-        event.setId(e.getId());
-        event.setDescription(e.getDescription());
-        event.setEventType(e.getEventType());
-        event.setCreationDate(e.getCreationDate());
-        event.setEventSize(e.getEventSize());
-        event.setTitle(e.getTitle());
-        event.setAuthor_id(e.getAuthor().getId());
-        event.setCommunity_id(e.getCommunity().getId());
-
-        return event;
+        return new Event(e.getId(),
+                e.getEventType(),
+                e.getEventSize(),
+                e.getAuthor().getId(),
+                e.getCommunity().getId(),
+                e.getTitle(),
+                e.getDescription(),
+                e.getCreationDate());
     }
 
-    public EventDTO domainToDTO(Event event){
+    public static EventDTO domainToDTO(Event event){
         EventDTO e = new EventDTO();
         e.id = event.getId();
         e.description = event.getDescription();
@@ -60,16 +47,16 @@ public class EventMapper {
         return e;
     }
 
-    public Event DTOtoDomain(EventDTO e){
-        Event event = new Event();
-        event.setAuthor_id(e.author_id);
-        event.setTitle(e.title);
-        event.setEventType(e.eventType);
-        event.setCreationDate(e.creationDate);
-        event.setEventSize(e.eventSize);
-        event.setId(e.id);
-        event.setCommunity_id(e.community_id);
-        return event;
+    public static Event DTOtoDomain(EventDTO e){
+
+        return new Event(e.id,
+                e.eventType,
+                e.eventSize,
+                e.author_id,
+                e.community_id,
+                e.title,
+                e.description,
+                e.creationDate);
     }
 
 }

@@ -2,18 +2,22 @@ package com.planchella.entities;
 
 import com.planchella.enums.MembershipType;
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
 @Entity
+@Getter
+@Setter
 public class MembershipEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private  Long id;
 
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
     @JoinColumn(name = "user_id")
     private UserEntity user;
 
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
     @JoinColumn(name = "community_id")
     private CommunityEntity community;
 
@@ -28,22 +32,6 @@ public class MembershipEntity {
 
     public MembershipEntity() {}
 
-
-    public Long getId(){
-        return id;
-    }
-
-    public UserEntity getUser() {
-        return user;
-    }
-
-    public CommunityEntity getCommunity() {
-        return community;
-    }
-
-    public MembershipType getType(){
-        return type;
-    }
 
     @Override
     public String toString() {

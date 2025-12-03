@@ -4,9 +4,13 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.planchella.enums.EventSize;
 import com.planchella.enums.EventType;
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
 
 @Entity
+@Getter
+@Setter
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class EventEntity {
     @Id
@@ -21,11 +25,11 @@ public class EventEntity {
     @Column(name = "event_size")
     private EventSize eventSize;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
     @JoinColumn(name = "author_id")
     private UserEntity author;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
     @JoinColumn(name = "community_id")
     private CommunityEntity community;
 
@@ -45,72 +49,6 @@ public class EventEntity {
         this.community = community;
     }
     public EventEntity() {}
-
-
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public EventType getEventType() {
-        return eventType;
-    }
-
-    public void setEventType(EventType eventType) {
-        this.eventType = eventType;
-    }
-
-    public EventSize getEventSize() {
-        return eventSize;
-    }
-
-    public void setEventSize(EventSize eventSize) {
-        this.eventSize = eventSize;
-    }
-
-    public UserEntity getAuthor() {
-        return author;
-    }
-
-    public void setAuthor(UserEntity author) {
-        this.author = author;
-    }
-
-    public CommunityEntity getCommunity() {
-        return community;
-    }
-
-    public void setCommunity(CommunityEntity community) {
-        this.community = community;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public String getCreationDate() {
-        return creationDate;
-    }
-
-    public void setCreationDate(String creationDate) {
-        this.creationDate = creationDate;
-    }
 
 
     @Override

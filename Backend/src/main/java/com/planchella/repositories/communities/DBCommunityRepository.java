@@ -8,18 +8,16 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.query.Query;
+import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Repository
 public class DBCommunityRepository implements ICommunityRepository {
     SessionFactory sessionFactory;
-    CommunityMapper mapper;
-
     public DBCommunityRepository() {
         this.sessionFactory = new Configuration().configure().buildSessionFactory();
-        this.mapper = new CommunityMapper(this.sessionFactory);
-
     }
 
     @Override
@@ -30,9 +28,9 @@ public class DBCommunityRepository implements ICommunityRepository {
                                              "join c.memberships m " +
                                              "join m.user u where u.id = :user_id", CommunityEntity.class);
         List<CommunityEntity> results = query.getResultList();
-        List<Community> communities = new ArrayList<Community>();
+        List<Community> communities = new ArrayList<>();
         for (CommunityEntity communityEntity : results) {
-            Community community = mapper.entityToDomain(communityEntity);
+            Community community = CommunityMapper.entityToDomain(communityEntity);
             communities.add(community);
         }
         session.close();
@@ -45,30 +43,35 @@ public class DBCommunityRepository implements ICommunityRepository {
     public Community getCommunity(Long community_id){
         Session session = sessionFactory.openSession();
         CommunityEntity communityEntity = (CommunityEntity) session.get(CommunityEntity.class, community_id);
-        Community community = mapper.entityToDomain(communityEntity);
+        Community community = CommunityMapper.entityToDomain(communityEntity);
         session.close();
         return community;
     }
-
-    @Override
-    public void updateCommunity(Long community_id, Community community) {
-        Session session =  sessionFactory.openSession();
-        CommunityEntity communityEntity = (CommunityEntity) session.get(CommunityEntity.class, community_id);
-
-        Transaction tx = session.beginTransaction();
-        if (community != null) {
-            if(community.getName() != null && !community.getName().isEmpty())
-                communityEntity.setName(community.getName());
-        }
-        tx.commit();
-        session.close();
-    }
+//
+//    @Override
+//    public void updateCommunity(Long community_id, Community community) {
+//        Session session =  sessionFactory.openSession();
+//        CommunityEntity communityEntity = (CommunityEntity) session.get(CommunityEntity.class, community_id);
+//
+//        Transaction tx = session.beginTransaction();
+//        if (community != null) {
+//            if(community.getName() != null && !community.getName().isEmpty())
+//                communityEntity.setName(community.getName());
+//        }
+//        tx.commit();
+//        session.close();
+//    }
 
     @Override
     public void saveCommunity(Community community) {
         Session session = this.sessionFactory.openSession();
         Transaction tx = session.beginTransaction();
-        session.persist(mapper.domainToEntity(community));
+        CommunityEntity communityEntity = CommunityMapper.domainToEntity(community, session);
+        if (community.getId() != null) {
+            session.persist(communityEntity);
+        }else{
+            session.merge(communityEntity);
+        }
         tx.commit();
         session.close();
     }
@@ -81,7 +84,6 @@ public class DBCommunityRepository implements ICommunityRepository {
         tx.commit();
         session.close();
     }
-
 
 
     public void closeFetcher(){

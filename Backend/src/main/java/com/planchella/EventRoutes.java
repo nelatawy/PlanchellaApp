@@ -13,29 +13,27 @@ import org.springframework.web.bind.annotation.*;
 @CrossOrigin(origins = "http://localhost:4200")
 public class EventRoutes {
     IEventRepository eventRepository;
-    EventMapper mapper;
     public EventRoutes() {
         this.eventRepository = new DBEventRepository();
-        this.mapper = new EventMapper(new Configuration().configure().buildSessionFactory());
     }
 
     @GetMapping("/{event_id}")
     public EventDTO getEvent(@PathVariable Long event_id){
         Event event = this.eventRepository.getEvent(event_id);
-        return this.mapper.domainToDTO(event);
+        return EventMapper.domainToDTO(event);
     }
 
     @PatchMapping("/{event_id}")
     public void updateEvent(@PathVariable Long event_id, @RequestBody EventDTO data) {
-        Event event = this.mapper.DTOtoDomain(data);
-        event.setId(null);
-        this.eventRepository.updateEvent(event_id, event);
+        Event newEventData = EventMapper.DTOtoDomain(data);
+        Event event = this.eventRepository.getEvent(event_id);
+        event.updateByDelta(newEventData);
+        this.eventRepository.saveEvent(event);
     }
 
     @PutMapping
     public void addEvent(@RequestBody EventDTO data) {
-        Event event = this.mapper.DTOtoDomain(data);
-        event.setId(null);
+        Event event = EventMapper.DTOtoDomain(data);
         this.eventRepository.saveEvent(event);
     }
 
@@ -43,4 +41,5 @@ public class EventRoutes {
     public void deleteEvent(@PathVariable Long event_id) {
         this.eventRepository.deleteEvent(event_id);
     }
+
 }

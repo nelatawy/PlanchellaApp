@@ -1,11 +1,12 @@
 package com.planchella.repositories.communities;
 
 import com.planchella.domain.Community;
-import com.planchella.domain.CommunityData;
+import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Repository
 public class MockCommunityRepository implements ICommunityRepository {
 
     @Override
@@ -24,15 +25,9 @@ public class MockCommunityRepository implements ICommunityRepository {
 
     @Override
     public Community getCommunity(Long community_id) {
-        Community community = new Community();
-        community.setId(community_id);
-        community.setName("CSED");
-        return community;
-    }
-
-    @Override
-    public void updateCommunity(Long community_id, Community community) {
-        return;
+        return new Community(
+                community_id,
+                "CSED");
     }
 
     @Override

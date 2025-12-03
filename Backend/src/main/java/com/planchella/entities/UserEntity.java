@@ -1,10 +1,15 @@
 package com.planchella.entities;
 
 import jakarta.persistence.*;
+import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.List;
 
 @Entity
+@Getter
+@Setter
 public class UserEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -14,7 +19,7 @@ public class UserEntity {
     private String picUrl ;
     private String accountUrl;
 
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.MERGE)
     @JoinColumn(name = "membership_id")
     private List<MembershipEntity> memberships;
 
@@ -27,23 +32,6 @@ public class UserEntity {
     }
     public UserEntity() {}
 
-
-    public Long getId() {
-        return id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-
-    public String getPicUrl() {
-        return picUrl;
-    }
-
-    public String getAccountUrl() {
-        return accountUrl;
-    }
 
     public List<MembershipEntity> getMemberships() {
         return memberships;
