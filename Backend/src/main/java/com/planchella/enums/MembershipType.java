@@ -7,6 +7,7 @@ public enum MembershipType {
     Creator("creator");
 
     private final String val;
+
     MembershipType(String val) {
         this.val = val;
     }

@@ -1,8 +1,9 @@
 package com.planchella.repositories.users;
 
-import com.planchella.domain.User;
 import java.util.ArrayList;
 import java.util.List;
+
+import com.planchella.domain.User;
 
 public class MockUserRepository implements IUserRepository {
     @Override
@@ -32,8 +33,7 @@ public class MockUserRepository implements IUserRepository {
                 user_id,
                 "hamada",
                 "",
-                ""
-                );
+                "");
     }
 
     @Override

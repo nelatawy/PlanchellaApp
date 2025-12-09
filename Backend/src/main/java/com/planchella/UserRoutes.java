@@ -1,14 +1,20 @@
 package com.planchella;
 
-import com.planchella.DTOs.UserDTO;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
+import com.planchella.DTOs.UserDTO;
 import com.planchella.domain.User;
 import com.planchella.mappers.UserMapper;
-import org.hibernate.cfg.Configuration;
-import org.springframework.web.bind.annotation.*;
-import com.planchella.repositories.users.IUserRepository;
 import com.planchella.repositories.users.DBUserRepository;
-import com.planchella.repositories.users.MockUserRepository;
+import com.planchella.repositories.users.IUserRepository;
 
 @RestController
 @RequestMapping("/api/users")
@@ -16,12 +22,13 @@ import com.planchella.repositories.users.MockUserRepository;
 public class UserRoutes {
 
     IUserRepository userRepo;
+
     public UserRoutes() {
         this.userRepo = new DBUserRepository();
     }
 
     @GetMapping("/{user_id}")
-    public UserDTO getUser(@PathVariable Long user_id){
+    public UserDTO getUser(@PathVariable Long user_id) {
         User user = this.userRepo.getUser(user_id);
         return UserMapper.domainToDTO(user);
     }
@@ -47,6 +54,5 @@ public class UserRoutes {
     public void deleteUser(@PathVariable Long user_id) {
         this.userRepo.deleteUser(user_id);
     }
-
 
 }

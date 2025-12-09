@@ -1,4 +1,4 @@
-package com.planchella.models;
+package com.planchella.domain;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -7,14 +7,12 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import com.planchella.domain.User;
-
 public class UserPrincipal implements UserDetails {
 
-    private User user;
+    private AuthUser user;
 
-    public UserPrincipal(User user) {
-        // TODO Auto-generated constructor stub
+    public UserPrincipal(AuthUser user) {
+        this.user = user;
     }
 
     @Override

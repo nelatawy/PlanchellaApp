@@ -1,16 +1,14 @@
 package com.planchella.domain;
 
-import com.planchella.entities.UserEntity;
-import com.planchella.enums.MembershipType;
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.Setter;
-import org.hibernate.Session;
-import org.hibernate.Transaction;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+
+import com.planchella.enums.MembershipType;
+
+import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.Setter;
 
 @Getter
 @Setter
