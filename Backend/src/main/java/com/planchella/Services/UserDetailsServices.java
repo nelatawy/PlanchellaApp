@@ -1,14 +1,13 @@
 package com.planchella.Services;
 
+import com.planchella.domain.AuthUser;
+import com.planchella.domain.UserPrincipal;
+import com.planchella.repositories.users.AuthUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-
-import com.planchella.domain.AuthUser;
-import com.planchella.domain.UserPrincipal;
-import com.planchella.repositories.users.AuthUserRepository;
 
 @Service
 public class UserDetailsServices implements UserDetailsService {
@@ -18,14 +17,13 @@ public class UserDetailsServices implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        AuthUser user = userRepo.findByUsername(username); // making a repo layer
+        AuthUser users = userRepo.findByUsername(username);
 
-        if (user == null) {
-            System.out.println("User Not Found");
-            throw new UsernameNotFoundException("user not found");
+        if (users == null) {
+            System.out.println("User not found");
+            throw new UsernameNotFoundException(username+" not found");
         }
 
-        return new UserPrincipal(user);
+        return new UserPrincipal(users);
     }
-
 }

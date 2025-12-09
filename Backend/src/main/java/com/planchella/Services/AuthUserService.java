@@ -25,6 +25,7 @@ public class AuthUserService {
     private final BCryptPasswordEncoder encoder = new BCryptPasswordEncoder(12);
 
     public AuthUser register(AuthUser user) {
+        System.out.println("Lord have mercy");
         user.setPassword(encoder.encode(user.getPassword()));
         repo.save(user);
         return user;
