@@ -8,5 +8,4 @@ public interface IValidator {
 
     ValidationResult checkPassword(String password);
 
-
 }
