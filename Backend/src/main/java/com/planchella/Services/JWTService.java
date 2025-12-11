@@ -23,7 +23,7 @@ public class JWTService {
 
     private String secretKey;
 
-    public JWTService(){
+    public JWTService() {
         try {
             KeyGenerator keygen = KeyGenerator.getInstance("HmacSHA256");
             SecretKey sk = keygen.generateKey();
@@ -34,20 +34,20 @@ public class JWTService {
     }
 
     public String generateToken(String username) {
-        Map<String, Object> claims = new HashMap<String, Object>();
+        Map<String, Object> claims = new HashMap<>();
         return Jwts.builder()
                 .claims()
                 .add(claims)
                 .subject(username)
                 .issuedAt(new Date(System.currentTimeMillis()))
-                .expiration(new Date(System.currentTimeMillis()+60*60*60*24))
+                .expiration(new Date(System.currentTimeMillis() + 60 * 60 * 60 * 24))
                 .and()
                 .signWith(getKey())
                 .compact();
     }
 
     private SecretKey getKey() {
-        byte[] keyBytes= Decoders.BASE64.decode(secretKey);
+        byte[] keyBytes = Decoders.BASE64.decode(secretKey);
         return Keys.hmacShaKeyFor(keyBytes);
     }
 

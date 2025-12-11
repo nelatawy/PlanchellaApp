@@ -9,7 +9,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 public class UserPrincipal implements UserDetails {
 
-    private AuthUser user;
+    private final AuthUser user;
 
     public UserPrincipal(AuthUser user) {
         this.user = user;

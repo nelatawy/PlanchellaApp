@@ -6,6 +6,11 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import com.google.api.client.googleapis.auth.oauth2.GoogleIdTokenVerifier;
+import com.google.api.client.http.javanet.NetHttpTransport;
+import com.google.api.client.json.gson.GsonFactory;
+import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken;
+import java.util.Collections;
 
 import com.planchella.domain.AuthUser;
 import com.planchella.repositories.users.AuthUserRepository;
@@ -24,6 +29,14 @@ public class AuthUserService {
 
     private final BCryptPasswordEncoder encoder = new BCryptPasswordEncoder(12);
 
+    private static final String CLIENT_ID = "493505072228-l3nc8pvhbqjanr5gvmhepv4havsrr47u.apps.googleusercontent.com";
+
+    private final GoogleIdTokenVerifier verifier = new GoogleIdTokenVerifier.Builder(
+            new NetHttpTransport(),
+            GsonFactory.getDefaultInstance())
+            .setAudience(Collections.singletonList(CLIENT_ID))
+            .build();
+
     public AuthUser register(AuthUser user) {
         System.out.println("Lord have mercy");
         user.setPassword(encoder.encode(user.getPassword()));
@@ -41,4 +54,19 @@ public class AuthUserService {
         }
     }
 
+    public String handleGoogleAuth(String token) throws Exception {
+
+        GoogleIdToken idToken = verifier.verify(token);
+
+        if (idToken != null) {
+            GoogleIdToken.Payload payload = idToken.getPayload();
+            String email = payload.getEmail();
+            String name = (String) payload.get("name");
+
+            System.out.println(email);
+            System.out.println(name);
+        }
+
+        return null;
+    }
 }

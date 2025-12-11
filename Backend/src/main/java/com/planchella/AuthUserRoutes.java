@@ -23,11 +23,20 @@ public class AuthUserRoutes {
     }
 
     @PostMapping("/login")
-    public Map<String,String > login(@RequestBody AuthUser user) {
+    public Map<String, String> login(@RequestBody AuthUser user) {
         Map<String, String> response = new HashMap<>();
 
-        String auth_token =  service.verify(user);
+        String auth_token = service.verify(user);
         response.put("token", auth_token);
         return response;
     }
+
+    @PostMapping("/auth/google")
+    public String handleGoogleAuth(@RequestBody String token) {
+
+        String entity = service.handleGoogleAuth(token);
+
+        return entity;
+    }
+
 }

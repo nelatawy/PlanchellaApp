@@ -1,6 +1,5 @@
 package com.planchella.Configs;
 
-import com.planchella.Services.UserDetailsServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -13,12 +12,12 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import com.planchella.Filters.JWTFilter;
+import com.planchella.Services.UserDetailsServices;
 
 @Configuration
 @EnableWebSecurity
@@ -46,20 +45,22 @@ public class SecurityConfig {
                 .build();
 
     }
-//
-//
-//    @Bean
-//    CorsConfigurationSource corsConfigurationSource() {
-//        CorsConfiguration configuration = new CorsConfiguration();
-//        // Allow your specific origins, headers, and methods
-//        configuration.setAllowedOrigins(List.of("http://localhost:4200"));
-//        configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
-//        configuration.setAllowedHeaders(List.of("*"));
-//        configuration.setAllowCredentials(true);
-//        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-//        source.registerCorsConfiguration("/**", configuration);
-//        return source;
-//    }
+    //
+    //
+    // @Bean
+    // CorsConfigurationSource corsConfigurationSource() {
+    // CorsConfiguration configuration = new CorsConfiguration();
+    // // Allow your specific origins, headers, and methods
+    // configuration.setAllowedOrigins(List.of("http://localhost:4200"));
+    // configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE",
+    // "OPTIONS"));
+    // configuration.setAllowedHeaders(List.of("*"));
+    // configuration.setAllowCredentials(true);
+    // UrlBasedCorsConfigurationSource source = new
+    // UrlBasedCorsConfigurationSource();
+    // source.registerCorsConfiguration("/**", configuration);
+    // return source;
+    // }
 
     @Bean
     public AuthenticationProvider authenticationProvider() {
