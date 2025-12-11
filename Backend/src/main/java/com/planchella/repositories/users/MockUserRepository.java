@@ -31,6 +31,7 @@ public class MockUserRepository implements IUserRepository {
     public User getUser(Long user_id) {
         return new User(
                 user_id,
+                "hamada@example.com",
                 "hamada",
                 "",
                 "");
@@ -42,8 +43,8 @@ public class MockUserRepository implements IUserRepository {
     }
 
     @Override
-    public void saveUser(User user) {
-
+    public Long saveUser(User user) {
+        return 1L;
     }
 
 }

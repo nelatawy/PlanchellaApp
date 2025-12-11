@@ -3,15 +3,16 @@ package com.planchella.domain;
 import java.util.Collection;
 import java.util.Collections;
 
+import com.planchella.entities.AuthUserEntity;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 public class UserPrincipal implements UserDetails {
 
-    private final AuthUser user;
+    private final AuthUserEntity user;
 
-    public UserPrincipal(AuthUser user) {
+    public UserPrincipal(AuthUserEntity user) {
         this.user = user;
     }
 

@@ -143,7 +143,8 @@
   border-color: #0369A1;
 }
 
-
+#googleBtn {
+}
 /* MEDIA QUERY FOR SMALL SCREENS */
 @media (max-width: 800px) {
   .commonContainer {

@@ -15,6 +15,6 @@ public interface IUserRepository {
 
     void deleteUser(Long user_id);
 
-    void saveUser(User user);
+    Long saveUser(User user);
 
 }

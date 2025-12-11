@@ -19,15 +19,18 @@ public class User {
 
     private String name;
 
+    private String email;
+
     private String picUrl;
 
     private String accountUrl;
 
     private final List<Membership> memberships = new ArrayList<>();
 
-    public User(Long id, String name, String picUrl, String accountUrl) {
+    public User(Long id, String name, String email, String picUrl, String accountUrl) {
         this.id = id;
         this.name = name;
+        this.email = email;
         this.picUrl = picUrl;
         this.accountUrl = accountUrl;
     }
@@ -36,13 +39,19 @@ public class User {
     }
 
     public static User getMockData() {
-        return new User(1L, "John Smith", "www.pixabay.com/lol", "www.planchella.com/users/1");
+        return new User(1L,
+                "John Smith",
+                "john@example.com",
+                "www.pixabay.com/lol",
+                "www.planchella.com/users/1");
     }
 
     public void updateByDelta(User newUserData) {
         if (newUserData != null) {
             if (newUserData.getName() != null)
                 this.setName(newUserData.getName());
+            if (newUserData.getEmail() != null)
+                this.setEmail(newUserData.getEmail());
             if (newUserData.getPicUrl() != null)
                 this.setPicUrl(newUserData.getPicUrl());
             if (newUserData.getAccountUrl() != null)
@@ -107,6 +116,7 @@ public class User {
                 "id=" + id +
                 ", picUrl='" + picUrl + '\'' +
                 ", name='" + name + '\'' +
+                ", email='" + email + '\'' +
                 ", accountUrl='" + accountUrl + '\'' +
                 '}';
     }

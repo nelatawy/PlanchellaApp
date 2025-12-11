@@ -26,8 +26,11 @@ export class SignIn {
   ngAfterViewInit() {
     google.accounts.id.initialize({
       client_id: "493505072228-l3nc8pvhbqjanr5gvmhepv4havsrr47u.apps.googleusercontent.com",
-      callback: (response: any) => {
+
+      callback: async (response: any) => {
         console.log('ID Token:', response);
+        await this.authService.signInWithGoogle(response);
+        await this.router.navigate(["/main"]);
       }
     });
 

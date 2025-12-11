@@ -7,9 +7,11 @@ import com.planchella.entities.MembershipEntity;
 import com.planchella.entities.UserEntity;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.springframework.context.annotation.Bean;
 
 import java.util.ArrayList;
 import java.util.List;
+
 
 public class UserMapper {
 
@@ -33,6 +35,7 @@ public class UserMapper {
         User user = new User(
                 entity.getId(),
                 entity.getName(),
+                entity.getEmail(),
                 entity.getPicUrl(),
                 entity.getAccountUrl()
         );
@@ -56,6 +59,7 @@ public class UserMapper {
         return new User(
                 userDTO.id,
                 userDTO.name,
+                userDTO.email,
                 userDTO.picUrl,
                 userDTO.accountUrl
         );

@@ -12,7 +12,10 @@ import org.hibernate.query.Query;
 import com.planchella.domain.User;
 import com.planchella.entities.UserEntity;
 import com.planchella.mappers.UserMapper;
+import org.springframework.stereotype.Repository;
 
+
+@Repository
 public class DBUserRepository implements IUserRepository {
     SessionFactory sessionFactory;
 
@@ -60,17 +63,20 @@ public class DBUserRepository implements IUserRepository {
     // }
 
     @Override
-    public void saveUser(User user) {
+    public Long saveUser(User user) {
         Session session = this.sessionFactory.openSession();
         Transaction tx = session.beginTransaction();
         UserEntity entity = UserMapper.domainToEntity(user, session);
         if (user.getId() == null) {
             session.persist(entity);
+            session.flush();
+
         } else {
             session.merge(entity);
         }
         tx.commit();
         session.close();
+        return  entity.getId();
     }
 
     @Override

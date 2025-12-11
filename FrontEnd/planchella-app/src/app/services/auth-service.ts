@@ -11,8 +11,12 @@ class signInResponse {
 })
 export class AuthService {
   private baseUrl = "http://localhost:8080/account";
+
   private registerUrl = this.baseUrl + "/register";
   private loginUrl = this.baseUrl + "/login";
+
+  private googleRegisterUrl = this.baseUrl + "/auth/google/register";
+  private googleLoginUrl = this.baseUrl + "/auth/google/login";
 
   constructor(private http : HttpClient) {}
 
@@ -53,6 +57,41 @@ export class AuthService {
       return false;
     }
   }
+
+async signInWithGoogle(response : any): Promise<boolean>{
+    // let data = {
+    //   token : response.credential
+    // }
+    try {
+      console.log("data : " + response.credential);
+      const result : any = await firstValueFrom(
+        this.http.post(this.googleLoginUrl, response.credential, {responseType : 'text'})
+      );
+      console.log("sign in complete", result);
+      localStorage.setItem("authToken",result)
+      localStorage.setItem("isAuthenticated", String(true));
+      return true;
+    } catch (err) {
+      console.error("error while trying to sign in", err);
+      return false;
+    }
+  }
+
+  async registerWithGoogle(response : any): Promise<boolean>{
+
+    try {
+      const result  = await firstValueFrom(
+        this.http.post(this.googleRegisterUrl, response.credential ,{responseType : 'text'})
+      );
+
+      console.log("registration complete", result);
+      return true;
+    } catch (err) {
+      console.error("error while trying to register", err);
+      return false;
+    }
+  }
+
 
   getToken(): string | null {
     return localStorage.getItem('authToken');

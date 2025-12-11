@@ -34,7 +34,7 @@ public class SecurityConfig {
         return http
                 .csrf(customizer -> customizer.disable())
                 .authorizeHttpRequests(request -> request
-                        .requestMatchers("/account/login", "/account/register") // not auth
+                        .requestMatchers("/account/login", "/account/register", "/account/auth/google/login", "/account/auth/google/register") // not auth
                         .permitAll()
                         .anyRequest().authenticated())
                 .formLogin(AbstractHttpConfigurer::disable)

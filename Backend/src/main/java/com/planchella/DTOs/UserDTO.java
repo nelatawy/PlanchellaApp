@@ -13,6 +13,7 @@ public class UserDTO {
 
     public Long id;
     public String name;
+    public String email;
     public String picUrl;
     public String accountUrl;
     public List<Membership>  memberships;

@@ -6,7 +6,7 @@ import { HttpClient } from '@angular/common/http';
 import {AuthService} from '../../services/auth-service';
 import {firstValueFrom} from 'rxjs';
 
-
+declare const google: any;
 
 @Component({
   selector: 'app-registration',
@@ -22,6 +22,22 @@ export class Registration {
   email: string = '';
   password: string = '';
   confirmPassword :string = '';
+
+  ngAfterViewInit() {
+    google.accounts.id.initialize({
+      client_id: "493505072228-l3nc8pvhbqjanr5gvmhepv4havsrr47u.apps.googleusercontent.com",
+      callback: async (response: any) => {
+        console.log('ID Token:', response);
+        await this.authService.registerWithGoogle(response);
+        await this.router.navigate(["/signin"]);
+      }
+    });
+
+    google.accounts.id.renderButton(
+      document.getElementById("googleBtn"),
+      { theme: "outline", size: "large" }
+    );
+  }
 
   passwordsDontMatch() {
     return this.password !== this.confirmPassword;

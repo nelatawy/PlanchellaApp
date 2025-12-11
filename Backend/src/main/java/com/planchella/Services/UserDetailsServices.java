@@ -1,6 +1,6 @@
 package com.planchella.Services;
 
-import com.planchella.domain.AuthUser;
+import com.planchella.entities.AuthUserEntity;
 import com.planchella.domain.UserPrincipal;
 import com.planchella.repositories.users.AuthUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +17,7 @@ public class UserDetailsServices implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        AuthUser users = userRepo.findByUsername(username);
+        AuthUserEntity users = userRepo.findByUsername(username);
 
         if (users == null) {
             System.out.println("User not found");

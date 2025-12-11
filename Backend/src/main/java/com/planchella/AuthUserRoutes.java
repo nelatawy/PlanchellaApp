@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import com.planchella.Services.AuthUserService;
-import com.planchella.domain.AuthUser;
+import com.planchella.entities.AuthUserEntity;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -17,13 +17,13 @@ public class AuthUserRoutes {
     private AuthUserService service;
 
     @PostMapping("/register")
-    public AuthUser register(@RequestBody AuthUser user) {
+    public AuthUserEntity register(@RequestBody AuthUserEntity user) {
 
         return service.register(user);
     }
 
     @PostMapping("/login")
-    public Map<String, String> login(@RequestBody AuthUser user) {
+    public Map<String, String> login(@RequestBody AuthUserEntity user) {
         Map<String, String> response = new HashMap<>();
 
         String auth_token = service.verify(user);
@@ -31,12 +31,28 @@ public class AuthUserRoutes {
         return response;
     }
 
-    @PostMapping("/auth/google")
-    public String handleGoogleAuth(@RequestBody String token) {
+    @PostMapping("/auth/google/register")
+    public String handleGoogleAuthRegister(@RequestBody String token) {
+        try {
+            System.out.println(token);
+            return service.registerGoogleAuth(token);
+        }
+        catch (Exception e){
+            System.err.println(e.getMessage());
+            return "ERR";
+        }
+    }
 
-        String entity = service.handleGoogleAuth(token);
-
-        return entity;
+    @PostMapping("/auth/google/login")
+    public String handleGoogleAuthLogin(@RequestBody String token) {
+        try {
+            System.out.println(token);
+            return service.verifyGoogleAuth(token);
+        }
+        catch (Exception e){
+            System.err.println(e.getMessage());
+            return "ERR";
+        }
     }
 
 }
