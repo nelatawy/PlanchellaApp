@@ -22,10 +22,11 @@
            name="password"
            placeholder="Salamo3alekom"
            required>
-    <button type="submit"
-            [disabled]="isNotValid(f)"
+    <button type="button"
+
             class="commonButtonTheme"
-            id="LogInButton">Log In</button>
+            id="LogInButton"
+            (click)="signIn()">Log In</button>
 
 
     <div class="thirdPartyContainer">

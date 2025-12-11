@@ -11,18 +11,25 @@ import { AccountPage } from './account-page/account-page';
 import { EventBuilder } from './event-builder/event-builder';
 import {Billboard} from './billboard/billboard';
 
+import { AuthGuard } from './services/auth-guard';
+
 export const routes: Routes = [
   { path: '', redirectTo: '/signin', pathMatch: 'full' }, // default route
+
+
   { path: 'signin', component: SignIn },
   { path: 'register', component: Registration },
   { path: 'set-email', component: SetEmail },
-  { path: 'main', component: MainPage},
+  { path: 'main',
+    component: MainPage,
+    canActivate: [AuthGuard]
+  },
   { path: 'main/:name', component: MainPage},
   { path: 'verification-code', component: VerificationCode },
   { path: 'reset-password', component: ResetPassword },
   { path: 'event-builder', component: EventBuilder },
   { path: 'account-page', component: AccountPage},
-  // { path: '**', redirectTo: '/signin' } // fallback
+  { path: '**', redirectTo: '/signin' } // fallback
 ];
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

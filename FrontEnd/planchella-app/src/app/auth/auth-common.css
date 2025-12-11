@@ -48,6 +48,10 @@
   box-shadow: 0 6px 20px rgba(126, 48, 225, 0.4);
 }
 
+.commonButtonTheme.disabled {
+  background-color: red !important;
+}
+
 .commonContainer {
   font-family: var(--font-main);
 

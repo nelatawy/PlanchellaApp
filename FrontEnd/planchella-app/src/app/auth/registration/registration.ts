@@ -2,6 +2,10 @@ import { Component } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule, NgForm } from '@angular/forms';
+import { HttpClient } from '@angular/common/http';
+import {AuthService} from '../../services/auth-service';
+import {firstValueFrom} from 'rxjs';
+
 
 
 @Component({
@@ -12,7 +16,7 @@ import { FormsModule, NgForm } from '@angular/forms';
 })
 export class Registration {
 
-  constructor(private router: Router) {}
+  constructor(private router: Router, private http : HttpClient, private authService : AuthService) {}
 
   name: string = '';
   email: string = '';
@@ -26,13 +30,24 @@ export class Registration {
     return this.passwordsDontMatch() || !this.name || !this.email;
   }
 
-  onSubmit(form: NgForm) {
+  async onSubmit(form: NgForm) {
     if (form.valid) {
       console.log(form.value);
-      this.router.navigate(['/main'])
+      await this.router.navigate(['/main'])
     }
     else {
       console.log("Are you kidding me?");
+    }
+  }
+
+  async register(){
+    console.log("registeration is registering");
+    const isSuccessful : boolean = await this.authService.register(this.name, this.password, "");
+
+    if (isSuccessful){
+      await this.router.navigate(["/signin"]);
+    }else{
+
     }
   }
 

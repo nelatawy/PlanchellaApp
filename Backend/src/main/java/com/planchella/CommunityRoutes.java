@@ -1,14 +1,11 @@
 package com.planchella;
 
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PatchMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import com.planchella.DTOs.EventDTO;
+import com.planchella.mappers.EventMapper;
+import com.planchella.repositories.events.DBEventRepository;
+import com.planchella.repositories.events.IEventRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
 
 import com.planchella.DTOs.CommunityDTO;
 import com.planchella.domain.Community;
@@ -16,15 +13,19 @@ import com.planchella.mappers.CommunityMapper;
 import com.planchella.repositories.communities.DBCommunityRepository;
 import com.planchella.repositories.communities.ICommunityRepository;
 
+import java.util.List;
+
 @RestController
-@RequestMapping("/api/communities")
+@RequestMapping("/api/community")
 @CrossOrigin(origins = "http://localhost:4200")
 public class CommunityRoutes {
-    ICommunityRepository communityRepo;
+    @Autowired
+    DBCommunityRepository communityRepo;
 
-    public CommunityRoutes() {
-        this.communityRepo = new DBCommunityRepository();
-    }
+    @Autowired
+    DBEventRepository eventRepository;
+
+
 
     @GetMapping("/{community_id}")
     public CommunityDTO getCommunity(@PathVariable Long community_id) {
@@ -50,4 +51,9 @@ public class CommunityRoutes {
     public void deleteCommunity(@PathVariable Long community_id) {
         this.communityRepo.deleteCommunity(community_id);
     }
+
+//    @GetMapping("/{community_id}/events")
+//    public List<EventDTO> getEvents(@PathVariable Long community_id, @RequestParam int count){
+//
+//    }
 }

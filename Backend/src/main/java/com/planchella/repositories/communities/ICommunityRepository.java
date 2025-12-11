@@ -1,9 +1,11 @@
 package com.planchella.repositories.communities;
 
 import com.planchella.domain.Community;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+@Repository
 public interface ICommunityRepository {
 
     List<Community> getCommunities(int count, Long user_id);

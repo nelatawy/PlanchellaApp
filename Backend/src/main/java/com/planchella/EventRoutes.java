@@ -17,8 +17,8 @@ import com.planchella.repositories.events.DBEventRepository;
 import com.planchella.repositories.events.IEventRepository;
 
 @RestController
-@RequestMapping("/api/events")
-@CrossOrigin(origins = "http://localhost:4200")
+@RequestMapping("/api/event")
+@CrossOrigin(origins = "http://localhost:4200/")
 public class EventRoutes {
     IEventRepository eventRepository;
 
@@ -50,5 +50,6 @@ public class EventRoutes {
     public void deleteEvent(@PathVariable Long event_id) {
         this.eventRepository.deleteEvent(event_id);
     }
+
 
 }

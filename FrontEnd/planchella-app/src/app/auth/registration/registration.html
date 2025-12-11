@@ -44,10 +44,11 @@
       </p>
     }
 
-    <button type="submit"
+    <button type="button"
             [disabled]="isDataInvalid(f)"
             class="commonButtonTheme"
-            id="RegisterButton">Register</button>
+            id="RegisterButton"
+            (click)="register()">Register</button>
 
     <div class="relatedTagsContainer">
       <div class="thirdPartyContainer">
