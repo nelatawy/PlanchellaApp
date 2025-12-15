@@ -1,16 +1,38 @@
-<!--<div>-->
-<!--  <button (click)="addCard()" class="btn btn-primary">Add Event Card</button>-->
-<!--  <button (click)="clearAll()" class="btn btn-danger">Clear All</button>-->
-<!--</div>-->
+<div #container class="billboard-container">
+  <h1 class="billboard-title">{{communityData.name || 'Community Events'}}</h1>
 
-<!-- Container for dynamic cards -->
-<!--<ng-container #billboardContainer></ng-container>-->
+  <!-- Loading State -->
+  @if (isLoading && cards.length === 0) {
+  <div class="loading-state">
+    <div class="spinner"></div>
+    <p>Loading events...</p>
+  </div>
+  }
 
-<div #container class="container">
-  <h1 class="title">{{communityData.name}}</h1>
-  <div class="events">
-    @for (cardData of cards ; track $index) {
-      <app-event [eventData]="cardData"></app-event>
+  <!-- Empty State -->
+  @if (!isLoading && cards.length === 0) {
+  <div class="empty-state">
+    <i class="fa-regular fa-calendar-xmark empty-icon"></i>
+    <h2>No Events Yet</h2>
+    <p>There are no events scheduled for this community at the moment.</p>
+    <p class="empty-subtitle">Check back later for updates!</p>
+  </div>
+  }
+
+  <!-- Events List -->
+  @if (cards.length > 0) {
+  <div class="events-grid">
+    @for (cardData of cards; track $index) {
+    <app-event [eventData]="cardData"></app-event>
     }
   </div>
+
+  <!-- Loading More Indicator -->
+  @if (isLoading) {
+  <div class="loading-more">
+    <div class="spinner-small"></div>
+    <span>Loading more events...</span>
+  </div>
+  }
+  }
 </div>

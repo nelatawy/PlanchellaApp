@@ -1,14 +1,38 @@
 <div class="container">
   <h2 class="title">Communities</h2>
   <div class="communities">
-<!--    <app-community-card class="comm-card" (selection)="select($event)"></app-community-card>-->
-    @for (communityData of communities; track $index) {
-      <app-community-card  class="comm-card"
-                           [cardData]="communityData"
-                           (selection)="emit_selection($event)">
 
-      </app-community-card>
+    @if (isLoading && communities.length === 0) {
+    <div class="loading-state">
+      <div class="spinner"></div>
+      <p>Loading communities...</p>
+    </div>
     }
-  </div>
 
+    <!-- Empty State -->
+    @if (!isLoading && communities.length === 0) {
+    <div class="empty-state">
+      <i class="fa-regular fa-calendar-xmark empty-icon"></i>
+      <h2>No Communities Yet</h2>
+      <p class="empty-subtitle">Check back later for updates!</p>
+    </div>
+    }
+
+    @if (communities.length > 0) {
+    <div class="events-grid">
+      @for (communityData of communities; track $index) {
+      <app-community-card class="comm-card" [cardData]="communityData"
+        (selection)="emit_selection($event)"></app-community-card>
+      }
+    </div>
+
+    @if (isLoading) {
+    <div class="loading-more">
+      <div class="spinner-small"></div>
+      <span>Loading more communities...</span>
+    </div>
+    }
+    }
+
+  </div>
 </div>

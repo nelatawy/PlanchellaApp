@@ -21,12 +21,13 @@ public class DBCommunityRepository implements ICommunityRepository {
     }
 
     @Override
-    public List<Community> getCommunities(int count, Long user_id) {
+    public List<Community> getCommunitiesByAuthor(int count, Long user_id) {
         Session session = sessionFactory.openSession();
         Query<CommunityEntity> query = session.createQuery(
                                           "select c from CommunityEntity c " +
                                              "join c.memberships m " +
-                                             "join m.user u where u.id = :user_id", CommunityEntity.class);
+                                             "join m.user u where u.id = :ID", CommunityEntity.class);
+        query.setParameter("ID", user_id);
         List<CommunityEntity> results = query.getResultList();
         List<Community> communities = new ArrayList<>();
         for (CommunityEntity communityEntity : results) {

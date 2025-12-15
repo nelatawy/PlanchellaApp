@@ -1,0 +1,32 @@
+/* Container Styles */
+
+.commonContainer {
+    font-family: var(--font-main);
+    border: none;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #ffffff;
+    width: 40vw;
+    min-width: 300px;
+    max-width: 600px;
+    height: fit-content;
+    margin: auto;
+    padding: 2.5rem;
+    border-radius: 1rem;
+    box-shadow: 0 8px 32px rgba(73, 16, 139, 0.3);
+    transition: width 0.3s ease, padding 0.3s ease;
+}
+
+.commonContainer h2 {
+    margin: 0 0 1.5rem 0;
+    width: auto;
+    color: #49108B;
+    font-size: 2rem;
+    font-weight: 800;
+}
+
+.relatedTagsContainer {
+    align-content: center;
+}

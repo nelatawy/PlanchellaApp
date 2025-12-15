@@ -10,7 +10,7 @@ import java.util.List;
 public class MockCommunityRepository implements ICommunityRepository {
 
     @Override
-    public List<Community> getCommunities(int count, Long user_id) {
+    public List<Community> getCommunitiesByAuthor(int count, Long user_id) {
         List<Community> communities = new ArrayList<>();
         for (int i = 0; i < count/2; i++) {
             communities.add(new Community());

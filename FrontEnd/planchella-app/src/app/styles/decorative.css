@@ -1,0 +1,14 @@
+/* Decorative Elements */
+
+#logo {
+    width: 15rem;
+}
+
+.styled-separator {
+    border: none;
+    border-top: 1px solid #333;
+    width: 90%;
+    height: 1px;
+    background-color: #ccc;
+    margin: 2rem auto;
+}

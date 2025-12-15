@@ -8,7 +8,7 @@ import java.util.List;
 @Repository
 public interface ICommunityRepository {
 
-    List<Community> getCommunities(int count, Long user_id);
+    List<Community> getCommunitiesByAuthor(int count, Long user_id);
 
     Community getCommunity(Long community_id);
 

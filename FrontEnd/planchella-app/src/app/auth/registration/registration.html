@@ -1,58 +1,36 @@
 <div class="commonContainer">
-  <h2>Sign Up</h2>
+  <img id="logo" src="./logo.png">
+  <hr class="styled-separator">
 
-  <form #f=ngForm (ngSubmit)="onSubmit(f)"  id="registerForm">
+  <h2>Sign Up</h2>
+  <form #f=ngForm (ngSubmit)="onSubmit(f)" id="registerForm">
     <label for="name" class="inputLabel">Name:</label>
-    <input type="text"
-           id="name"
-           [(ngModel)]="name"
-           name="name"
-           class="inputField"
-           placeholder="AbdelGhafour"
-           required>
+    <input type="text" id="name" [(ngModel)]="name" name="name" class="inputField" placeholder="Enter your full name"
+      required>
 
     <label for="email" class="inputLabel">Email:</label>
-    <input type="email"
-           name="email"
-           [(ngModel)]="email"
-           [email]="true"
-           id="email"
-           class="inputField"
-           placeholder="AbdoBora3y@example.com"
-           required>
+    <input type="email" name="email" [(ngModel)]="email" [email]="true" id="email" class="inputField"
+      placeholder="Enter your email" required>
 
     <label for="password" class="inputLabel">Password:</label>
-    <input type="password"
-           id="password"
-           [(ngModel)]="password"
-           name="password"
-           class="inputField"
-           placeholder="FatmaKoshary"
-           required>
+    <input type="password" id="password" [(ngModel)]="password" name="password" class="inputField"
+      placeholder="Enter your password" required>
 
     <label for="confirmPassword" class="inputLabel">Confirm Password:</label>
-    <input type="password"
-           id="confirmPassword"
-           class="inputField"
-           [(ngModel)]="confirmPassword"
-           name="confirmPassword"
-           placeholder="FatmaKoshary"
-           required>
+    <input type="password" id="confirmPassword" class="inputField" [(ngModel)]="confirmPassword" name="confirmPassword"
+      placeholder="Confirm your password" required>
     @if (this.confirmPassword && passwordsDontMatch()){
-      <p style="color: red; margin: 0;">
-        Passwords don't match
-      </p>
+    <p style="color: red; margin: 0;">
+      Passwords don't match
+    </p>
     }
 
-    <button type="button"
-            [disabled]="isDataInvalid(f)"
-            class="commonButtonTheme"
-            id="RegisterButton"
-            (click)="register()">Register</button>
+    <button type="button" [disabled]="isDataInvalid(f)" class="commonButtonTheme" id="RegisterButton"
+      (click)="register()">Register</button>
 
     <div class="relatedTagsContainer">
       <div class="thirdPartyContainer">
-          <div id="googleBtn" class="thirdPartyButton">hello</div>
+        <div id="googleBtn" class="thirdPartyButton"></div>
       </div>
 
       <a routerLink="/signin">Already have an account?</a>

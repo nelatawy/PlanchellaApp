@@ -1,5 +1,7 @@
+@import '../auth-main.css';
+
 #verificationCard * {
-    margin: 0.5rem 0;
+  margin: 0.5rem 0;
 }
 
 #verificationCard h2 {
@@ -17,18 +19,19 @@
 
 button[type="submit"] {
   width: 100%;
-  margin-top: 1rem; /* not working for some god forsaken reason*/
+  margin-top: 1rem;
+  /* not working for some god forsaken reason*/
 }
 
 #verificationCode {
   display: block;
   height: 3rem;
   width: 100%;
-  margin-bottom: 1rem; /* not working for some god forsaken reason*/
+  margin-bottom: 1rem;
+  /* not working for some god forsaken reason*/
 }
 
 #labelVerification {
   text-align: left;
   width: 100%;
 }
-

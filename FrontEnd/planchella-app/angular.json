@@ -26,7 +26,7 @@
             ],
             "styles": [
               "src/styles.css",
-              "src/app/auth/auth-common.css"
+              "src/app/auth/auth-main.css"
             ]
           },
           "configurations": {
@@ -55,10 +55,12 @@
         },
         "serve": {
           "builder": "@angular/build:dev-server",
-          "options" : {
-            "allowedHosts": ["33ab3edb6e33.ngrok-free.app"],
-            "host" : "0.0.0.0",
-            "port" : 4200
+          "options": {
+            "allowedHosts": [
+              "33ab3edb6e33.ngrok-free.app"
+            ],
+            "host": "0.0.0.0",
+            "port": 4200
           },
           "configurations": {
             "production": {

@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule, NgForm } from '@angular/forms';
-import {AuthService} from '../../services/auth-service';
+import { AuthService } from '../../services/auth-service';
 
 
 declare const google: any;
@@ -26,17 +26,21 @@ export class SignIn {
   ngAfterViewInit() {
     google.accounts.id.initialize({
       client_id: "493505072228-l3nc8pvhbqjanr5gvmhepv4havsrr47u.apps.googleusercontent.com",
-
       callback: async (response: any) => {
         console.log('ID Token:', response);
         await this.authService.signInWithGoogle(response);
         await this.router.navigate(["/main"]);
-      }
+      },
+      locale: 'en'
     });
 
     google.accounts.id.renderButton(
       document.getElementById("googleBtn"),
-      { theme: "outline", size: "large" }
+      {
+        theme: "outline", size: "large",
+        text: "continue_with",
+        shape: "rectangular"
+      }
     );
   }
 
@@ -55,15 +59,15 @@ export class SignIn {
 
   async signIn() {
     console.log("calling now");
-      let isSuccess = await this.authService.signIn(this.username, this.password);
-      if(isSuccess){
-        console.log(isSuccess);
-        await this.router.navigate(['/main']);
-      }
+    let isSuccess = await this.authService.signIn(this.username, this.password);
+    if (isSuccess) {
+      console.log(isSuccess);
+      await this.router.navigate(['/main']);
+    }
 
   }
 
-  onSignIn(googleUser : any) {
+  onSignIn(googleUser: any) {
     let profile = googleUser.getBasicProfile();
     console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
     console.log('Name: ' + profile.getName());
@@ -71,7 +75,7 @@ export class SignIn {
     console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
   }
 
-    handleCredentialResponse(response: any) {
+  handleCredentialResponse(response: any) {
     console.log("Google credential JWT:", response.credential);
   }
 }

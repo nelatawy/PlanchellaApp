@@ -1,80 +1,98 @@
-*, *::before, *::after {
+*,
+*::before,
+*::after {
   box-sizing: border-box;
 }
 
-:root{
-  --font-main :  "Montserrat", sans-serif;
-  --font-wide-bold : 'BBH Sans Hegarty';
+:root {
+  --font-main: "Montserrat", sans-serif;
+  --font-wide-bold: 'BBH Sans Hegarty';
 
-  --font-size-x-sm : 0.75rem;
-  --font-size-sm : 1.2rem;
-  --font-size-med : 1.5rem;
-  --font-size-lg : 2rem;
-  --font-size-x-lg : 2.5rem;
-  --event-type-font-size : 1.12rem;
+  --font-size-x-sm: 0.75rem;
+  --font-size-sm: 1.2rem;
+  --font-size-med: 1.5rem;
+  --font-size-lg: 2rem;
+  --font-size-x-lg: 2.5rem;
+  --font-size-3xl: 3rem;
+  --event-type-font-size: 1.12rem;
 
   --primary-color-dark: rgb(73, 16, 139);
   --primary-color-light: rgb(126, 48, 225);
   --secondary-color-mid: #6B7280;
-  --billboard-bg-light : rgb(190, 173, 219);
-  --notification-color : #DB4437;
+  --text-color-dark: #1F2937;
+  --text-color-medium: #374151;
+  --text-color-light: #6B7280;
+  --text-color-muted: #9CA3AF;
+  --border-color-light: #E5E7EB;
+  --bg-white: #FFFFFF;
+  --bg-light: #FAFBFC;
+  --bg-gray: #F3F4F6;
+  --billboard-bg-light: rgb(190, 173, 219);
+  --notification-color: #DB4437;
   --circular-radius: 999rem;
   --blob-radius: 1.2rem;
-  --radius-med : 0.5rem;
+  --radius-med: 0.5rem;
+  --radius-lg: 1rem;
 
-  --card-color-light: rgb(255,255,255);
-  --card-shadow : 0px 0px 4px 1px rgba(0, 0, 0, 0.15);
-  --dark-shadow : 0 0 4px 2px rgba(0, 0, 0, 0.25);
-  --card-shadow-hover-color : rgba(0, 0, 0, 0.25);
-  --box-focus-shadow : 0 0 0 3px rgba(126, 48, 225, 0.1);
+  --card-color-light: rgb(255, 255, 255);
+  --card-shadow: 0px 0px 4px 1px rgba(0, 0, 0, 0.15);
+  --dark-shadow: 0 0 4px 2px rgba(0, 0, 0, 0.25);
+  --card-shadow-hover-color: rgba(0, 0, 0, 0.25);
+  --box-focus-shadow: 0 0 0 3px rgba(126, 48, 225, 0.1);
 
-  --top-bar-shadow:  0px 4px 10px 3px rgba(0, 0, 0, 0.15);
-  --top-bar-inline-margin : 0.75rem;
-  --top-bar-color : rgba(255,255,255);
-  --top-bar-btn-font-size : 2.5rem;
+  --top-bar-shadow: 0px 4px 10px 3px rgba(0, 0, 0, 0.15);
+  --top-bar-inline-margin: 0.75rem;
+  --top-bar-color: rgba(255, 255, 255);
+  --top-bar-btn-font-size: 2.5rem;
 
-  --logo-height : 3.5rem;
-  --logo : url('../public/logo.png');
-  --logo-aspect-ratio : 27/9;
-
-
-  --pic-hover-width : 11rem;
-  --pic-container-side : 5rem;
-
-  --inactive-color-light : rgba(195, 195, 195, 0.202);
-  --highlight-color : rgba(118, 118, 118, 0.178);
-  --textbox-hover-bg-color : rgba(255, 255, 255, 0.682);
-  --textbox-border : 2px solid var(--highlight-color);
-  --textbox-border-hover : 3px solid rgba(118, 118, 118, 0.418);
-
-  --button-border : 2px solid var(--highlight-color);
-  --button-border-hover : 2px solid rgba(82, 35, 172, 0.42);
-
-  --pic-border : 2px solid var(--primary-color-dark);
-
-  --searchbox-height : 4rem;
-  --searchbox-width : 20rem;
+  --logo-height: 3.5rem;
+  --logo: url('../public/logo.png');
+  --logo-aspect-ratio: 27/9;
 
 
-  --padding-x-sm : 0.25rem;
-  --padding-sm : 0.5rem;
-  --padding-med : 0.75rem;
-  --padding-lg : 1.2rem;
-  --padding-x-lg : 2rem;
-  --billboard-padding : 4rem;
+  --pic-hover-width: 11rem;
+  --pic-container-side: 5rem;
 
-  --hackathon-color : #9160ed;
-  --release-color : #DB4437;
-  --contest-color : #eaa703;
+  --inactive-color-light: rgba(195, 195, 195, 0.202);
+  --highlight-color: rgba(118, 118, 118, 0.178);
+  --textbox-hover-bg-color: rgba(255, 255, 255, 0.682);
+  --textbox-border: 2px solid var(--highlight-color);
+  --textbox-border-hover: 3px solid rgba(118, 118, 118, 0.418);
+
+  --button-border: 2px solid var(--highlight-color);
+  --button-border-hover: 2px solid rgba(82, 35, 172, 0.42);
+
+  --pic-border: 2px solid var(--primary-color-dark);
+
+  --searchbox-height: 4rem;
+  --searchbox-width: 20rem;
+
+
+  --padding-x-sm: 0.25rem;
+  --padding-sm: 0.5rem;
+  --padding-med: 0.75rem;
+  --padding-lg: 1.2rem;
+  --padding-x-lg: 2rem;
+  --gap-sm: 1rem;
+  --gap-md: 1.25rem;
+  --gap-lg: 1.5rem;
+  --gap-xl: 2rem;
+  --billboard-padding: 4rem;
+
+  --hackathon-color: #9160ed;
+  --release-color: #DB4437;
+  --contest-color: #eaa703;
 }
 
 @keyframes gradientAnimation {
   0% {
     background-position: 0% 50%;
   }
+
   50% {
     background-position: 100% 50%;
   }
+
   100% {
     background-position: 0% 50%;
   }
@@ -87,10 +105,12 @@
     transform: scale(1.0);
     box-shadow: 0 0 0 3px rgba(126, 48, 225, 0.1);
   }
+
   50% {
     transform: scale(1.04);
     box-shadow: 0 0 0 4px rgba(126, 48, 225, 0.25);
   }
+
   100% {
     transform: scale(1.0);
     box-shadow: 0 0 0 3px rgba(126, 48, 225, 0.1);
@@ -100,26 +120,26 @@
 
 
 @media (max-width: 700px) {
-  :root{
-    --logo : url('../public/logo-no-txt.png');
+  :root {
+    --logo: url('../public/logo-no-txt.png');
     --logo-aspect-ratio: 1;
     --logo-height: 2.5rem;
 
-    --top-bar-shadow:  0px 4px 10px 3px rgba(0, 0, 0, 0.15);
-    --top-bar-inline-margin : 0.75rem;
-    --top-bar-color : rgba(255,255,255);
-    --top-bar-btn-font-size : 2rem;
-    --searchbox-width : 10rem;
+    --top-bar-shadow: 0px 4px 10px 3px rgba(0, 0, 0, 0.15);
+    --top-bar-inline-margin: 0.75rem;
+    --top-bar-color: rgba(255, 255, 255);
+    --top-bar-btn-font-size: 2rem;
+    --searchbox-width: 10rem;
 
     --pic-container-side: 4.25rem;
     --pic-hover-width: 4.25rem;
-    --billboard-padding : 2rem;
+    --billboard-padding: 2rem;
 
-    --font-size-x-sm : 0.5rem;
-    --font-size-sm : 1rem;
-    --font-size-med : 1.25rem;
-    --font-size-lg : 1.5rem;
-    --font-size-x-lg : 2rem;
+    --font-size-x-sm: 0.5rem;
+    --font-size-sm: 1rem;
+    --font-size-med: 1.25rem;
+    --font-size-lg: 1.5rem;
+    --font-size-x-lg: 2rem;
   }
 }
 
@@ -134,10 +154,5 @@ body {
   background-size: 200% 200%;
   align-items: center;
   justify-content: center;
-  animation: gradientAnimation 10s ease-in infinite ;
+  animation: gradientAnimation 10s ease-in infinite;
 }
-
-
-
-
-

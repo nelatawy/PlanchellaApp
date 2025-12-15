@@ -2,30 +2,35 @@
 
   <h2>Make Your Event</h2>
 
-  <form #f=ngForm (ngSubmit)="onSubmit(f)" id="event-form">
+  <form #f=ngForm (ngSubmit)="onSubmit(f)" class="event-form">
 
-    <div id="event-top">
-      <input type="text" class="inputField" id="title" [(ngModel)]="title" name="title" placeholder="Event Title">
+    <div class="event-top">
+      <input type="text" class="inputField title-input" [(ngModel)]="title" name="title" placeholder="Event Title">
 
-      <select id="flares" [(ngModel)]="selectedFlare" name="flare">
-        <option value="" disabled>Choose a flare</option>
-        <option value="Hackathon">Hackathon</option>
-        <option value="Contest">Contest</option>
-        <option value="Release">Release</option>
-      </select>
+
+      <div class="custom-select-container">
+        <div class="selected-option" (click)="toggleDropdown()" [class.active]="isDropdownOpen">
+          {{ selectedFlare || 'Choose a flare' }}
+          <span class="arrow" [class.rotated]="isDropdownOpen">▼</span>
+        </div>
+        @if (isDropdownOpen) {
+        <div class="options-list">
+          @for (flare of flares; track $index) {
+          <div class="option-item" (click)="selectFlare(flare)" [class.selected]="selectedFlare === flare">
+            {{ flare }}
+          </div>
+          }
+        </div>
+        }
+      </div>
     </div>
 
-    <textarea
-      id="descriptionField"
-      placeholder= "Write the Description"
-      [(ngModel)]="description"
-      name="description"
-      required
-      rows="1">
+    <textarea class="inputField description-field" placeholder="Write the Description" [(ngModel)]="description"
+      name="description" required rows="1">
     </textarea>
 
-    <div id="event-bottom">
-      <button type="button" class="commonButtonTheme" (click)="addImage()" id="addImage">add image</button>
+    <div class="event-bottom">
+      <button type="button" class="commonButtonTheme add-image-btn" (click)="addImage()">add image</button>
 
       <button type="submit" class="commonButtonTheme">Submit</button>
     </div>

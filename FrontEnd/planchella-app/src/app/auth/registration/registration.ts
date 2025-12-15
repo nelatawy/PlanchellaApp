@@ -3,8 +3,8 @@ import { Router, RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule, NgForm } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
-import {AuthService} from '../../services/auth-service';
-import {firstValueFrom} from 'rxjs';
+import { AuthService } from '../../services/auth-service';
+import { firstValueFrom } from 'rxjs';
 
 declare const google: any;
 
@@ -16,12 +16,12 @@ declare const google: any;
 })
 export class Registration {
 
-  constructor(private router: Router, private http : HttpClient, private authService : AuthService) {}
+  constructor(private router: Router, private http: HttpClient, private authService: AuthService) { }
 
   name: string = '';
   email: string = '';
   password: string = '';
-  confirmPassword :string = '';
+  confirmPassword: string = '';
 
   ngAfterViewInit() {
     google.accounts.id.initialize({
@@ -33,9 +33,14 @@ export class Registration {
       }
     });
 
+
     google.accounts.id.renderButton(
       document.getElementById("googleBtn"),
-      { theme: "outline", size: "large" }
+      {
+        theme: "outline", size: "large",
+        text: "continue_with",
+        shape: "rectangular"
+      }
     );
   }
 
@@ -56,13 +61,13 @@ export class Registration {
     }
   }
 
-  async register(){
+  async register() {
     console.log("registeration is registering");
-    const isSuccessful : boolean = await this.authService.register(this.name, this.password, "");
+    const isSuccessful: boolean = await this.authService.register(this.name, this.password, "");
 
-    if (isSuccessful){
+    if (isSuccessful) {
       await this.router.navigate(["/signin"]);
-    }else{
+    } else {
 
     }
   }

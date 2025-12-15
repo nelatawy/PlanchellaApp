@@ -1,3 +1,5 @@
+@import '../auth-main.css';
+
 #registerForm {
   display: flex;
   flex-direction: column;
@@ -7,6 +9,10 @@
 }
 
 #registerForm * {
+  width: 100%;
+}
+
+#verificationCard * {
   width: 100%;
 }
 
@@ -30,10 +36,6 @@ a:hover {
   text-decoration: underline;
 }
 
-button[type = "submit"] {
+button[type="submit"] {
   width: 100%;
-}
-
-#setNewPassword{
-
 }

@@ -11,7 +11,7 @@ import java.util.Objects;
 
 public class MockEventRepository implements IEventRepository {
     @Override
-    public List<Event> getEvents(int count, Long community_id) {
+    public List<Event> getEventsByCommunity(int count, Long community_id) {
         List<Event> events = new ArrayList<>();
         Event event = Event.getMockData();
 
@@ -24,18 +24,12 @@ public class MockEventRepository implements IEventRepository {
         return events;
     }
 
-    public List<Event> getEvents(int count, String communityName) {
-        List<Event> events = new ArrayList<>();
-        Event event = Event.getMockData();
 
-        for (int i = 0; i < count; i++) {
-            if (Objects.equals(communityName, "CSED")){
-                event.setEventType(EventType.CONTEST);
-            }
-            events.add(event);
-        }
-        return events;
+    @Override
+    public List<Event> getEventsByAuthor(int count, Long community_id) {
+        return List.of();
     }
+
 
     @Override
     public Event getEvent(Long event_id) {

@@ -22,12 +22,29 @@ public class DBEventRepository implements IEventRepository {
 
     }
     @Override
-    public List<Event> getEvents(int count, Long community_id) {
+    public List<Event> getEventsByCommunity(int count, Long community_id) {
         Session session = this.sessionFactory.openSession();
 
         String hql = "from EventEntity e where e.community.id = :ID";
         Query<EventEntity> query = session.createQuery(hql, EventEntity.class);
         query.setParameter("ID", community_id);
+        if (count > 0) {
+            query.setMaxResults(count);
+        }
+
+        return getEventsHelper(session, query);
+    }
+
+    @Override
+    public List<Event> getEventsByAuthor(int count, Long user_id) {
+        Session session = this.sessionFactory.openSession();
+
+        String hql = "from EventEntity e where e.author.id = :ID";
+        Query<EventEntity> query = session.createQuery(hql, EventEntity.class);
+        query.setParameter("ID", user_id);
+        if (count > 0) {
+            query.setMaxResults(count);
+        }
 
         return getEventsHelper(session, query);
     }

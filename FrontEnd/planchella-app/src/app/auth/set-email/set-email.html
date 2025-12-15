@@ -1,24 +1,17 @@
 <div class="commonContainer" id="registerContainer">
+  <img id="logo" src="./logo.png">
+  <hr class="styled-separator">
   <h2>Set your e-mail</h2>
 
   <form id="registerForm" #f="ngForm" (ngSubmit)="onSubmit(f)">
     <div id="getEmail">
-      <label for="email"
-             class="inputLabel">
+      <label for="email" class="inputLabel">
         Enter your Email:
       </label>
-      <input type="email"
-             class="inputField"
-             name="email"
-             [(ngModel)]="email"
-             [email]="true"
-             id="email"
-             placeholder="AbdelWahab@example.com"
-             required>
+      <input type="email" class="inputField" name="email" [(ngModel)]="email" [email]="true" id="email"
+        placeholder="Enter your email" required>
       <br><br>
-      <button type="submit"
-              [disabled]="isEmailNotValid(f)"
-              class="commonButtonTheme">Submit</button>
+      <button type="submit" [disabled]="isEmailNotValid(f)" class="commonButtonTheme">Submit</button>
     </div>
     <a routerLink="[/signin]">Back to Login</a>
   </form>
