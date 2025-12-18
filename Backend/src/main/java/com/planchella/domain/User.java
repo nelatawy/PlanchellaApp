@@ -62,19 +62,19 @@ public class User {
 
     }
 
-    public void setPicUrl(String newPicUrl) {
-        if (newPicUrl == null || newPicUrl.isBlank()) {
-            throw new IllegalArgumentException("Profile Picture URL cannot be null or blank");
-        }
-        this.picUrl = newPicUrl;
-    }
-
-    public void setAccountUrl(String newAccountUrl) {
-        if (newAccountUrl == null || newAccountUrl.isBlank()) {
-            throw new IllegalArgumentException("Profile Picture URL cannot be null or blank");
-        }
-        this.accountUrl = newAccountUrl;
-    }
+//    public void setPicUrl(String newPicUrl) {
+//        if (newPicUrl == null || newPicUrl.isBlank()) {
+//            throw new IllegalArgumentException("Profile Picture URL cannot be null or blank");
+//        }
+//        this.picUrl = newPicUrl;
+//    }
+//
+//    public void setAccountUrl(String newAccountUrl) {
+//        if (newAccountUrl == null || newAccountUrl.isBlank()) {
+//            throw new IllegalArgumentException("Profile Picture URL cannot be null or blank");
+//        }
+//        this.accountUrl = newAccountUrl;
+//    }
 
     public List<Membership> getMemberships() {
         return List.copyOf(memberships);

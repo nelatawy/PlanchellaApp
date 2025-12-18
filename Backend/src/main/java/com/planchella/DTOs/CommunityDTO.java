@@ -6,5 +6,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 public class CommunityDTO {
     public Long id;
     public String name;
+
+
     public CommunityDTO(){}
 }

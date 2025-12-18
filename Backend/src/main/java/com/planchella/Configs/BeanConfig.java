@@ -1,5 +1,6 @@
 package com.planchella.Configs;
 
+import com.planchella.repositories.attachments.AttachmentRepository;
 import com.planchella.repositories.communities.DBCommunityRepository;
 import com.planchella.repositories.communities.ICommunityRepository;
 import com.planchella.repositories.events.DBEventRepository;
@@ -26,4 +27,9 @@ public class BeanConfig {
     public IUserRepository userRepo() {
         return new DBUserRepository();
     }
+
+    @Bean
+    public AttachmentRepository attachmentRepository() {return new AttachmentRepository();}
+
+
 }

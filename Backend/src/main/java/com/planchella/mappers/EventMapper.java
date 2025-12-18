@@ -32,19 +32,21 @@ public class EventMapper {
                 e.getCommunity().getId(),
                 e.getTitle(),
                 e.getDescription(),
-                e.getCreationDate());
+                e.getCreationDate(),
+                e.getAttachments());
     }
 
     public static EventDTO domainToDTO(Event event){
-        EventDTO e = new EventDTO();
-        e.id = event.getId();
-        e.description = event.getDescription();
-        e.eventType = event.getEventType();
-        e.creationDate = event.getCreationDate();
-        e.eventSize = event.getEventSize();
-        e.title = event.getTitle();
-        e.community_id = event.getCommunity_id();
-        return e;
+        return new EventDTO(event.getId(),
+            event.getEventType(),
+            event.getEventSize(),
+            event.getAuthor_id(),
+            event.getCommunity_id(),
+            event.getTitle(),
+            event.getDescription(),
+            event.getCreationDate(),
+            event.getAttachments()
+        );
     }
 
     public static Event DTOtoDomain(EventDTO e){
@@ -52,11 +54,12 @@ public class EventMapper {
         return new Event(e.id,
                 e.eventType,
                 e.eventSize,
-                e.author_id,
-                e.community_id,
+                e.authorId,
+                e.communityId,
                 e.title,
                 e.description,
-                e.creationDate);
+                e.creationDate,
+                e.attachments);
     }
 
 }

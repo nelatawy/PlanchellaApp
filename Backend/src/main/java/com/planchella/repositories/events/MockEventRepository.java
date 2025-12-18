@@ -1,5 +1,6 @@
 package com.planchella.repositories.events;
 
+import com.planchella.domain.AttachmentMetadata;
 import com.planchella.enums.EventSize;
 import com.planchella.enums.EventType;
 import com.planchella.domain.Event;
@@ -41,7 +42,9 @@ public class MockEventRepository implements IEventRepository {
                 3L,
                 "title",
                 "description",
-                new Date().toString());
+                new Date().toString(),
+                List.of()
+        );
     }
 
 
