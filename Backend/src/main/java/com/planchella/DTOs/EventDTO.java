@@ -14,5 +14,6 @@ public class EventDTO {
     public String title;
     public String description ;
     public String creationDate;
+    // list of attachment
     public  EventDTO() {}
 }

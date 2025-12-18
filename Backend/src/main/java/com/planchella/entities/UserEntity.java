@@ -5,6 +5,7 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -35,7 +36,7 @@ public class UserEntity {
 
 
     public List<MembershipEntity> getMemberships() {
-        return memberships;
+        return new ArrayList<>(memberships);
     }
 
     @Override

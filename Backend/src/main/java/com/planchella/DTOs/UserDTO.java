@@ -17,6 +17,7 @@ public class UserDTO {
     public String picUrl;
     public String accountUrl;
     public List<Membership>  memberships;
+    public List<Long> eventIds;
     public  UserDTO() {}
 
 }

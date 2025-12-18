@@ -27,6 +27,8 @@ public class User {
 
     private final List<Membership> memberships = new ArrayList<>();
 
+    private final List<Long> events = new ArrayList<>();
+
     public User(Long id, String name, String email, String picUrl, String accountUrl) {
         this.id = id;
         this.name = name;
