@@ -44,7 +44,7 @@ export class CommunitySelector {
     try {
       let data: Array<CommunityData> | undefined = await this.communityDataService.fetch_communities(count, "");
       data?.forEach((communityData) => {
-        this.communities.push({ communityData: communityData, currentlySelected: true });
+        this.communities.push({ id : "id", communityData: communityData, currentlySelected: true });
       });
     } catch (error) {
       console.error('Error fetching communities:', error);

@@ -18,6 +18,7 @@ export class AccountPage {
 
   // Mockup user data to be passed to the page
   user: User = {
+    "id": "user-12345",
     "name": "Karim Mohamed Basem",
     "bio": "CSED Student at Alexandria University",
     "education": "Faculty of Engineering, Alexandria University",

@@ -1,6 +1,7 @@
 import {CommunityData} from './community-data';
 
-export class CommunityCardData {
-  communityData ?: CommunityData ;
+export interface CommunityCardData {
+  id : string,
+  communityData ?: CommunityData,
   currentlySelected?: boolean
 }
