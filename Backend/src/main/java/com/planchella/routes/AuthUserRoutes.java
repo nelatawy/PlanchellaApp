@@ -1,4 +1,4 @@
-package com.planchella;
+package com.planchella.routes;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
