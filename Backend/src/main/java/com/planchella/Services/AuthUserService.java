@@ -36,14 +36,11 @@ public class AuthUserService {
     @Autowired
     private DBUserRepository userRepo;
 
-
-
-
     private final BCryptPasswordEncoder encoder = new BCryptPasswordEncoder(12);
 
-//    @Value("${spring.security.oauth2.client.registration.google.client-id}")
+    // @Value("${spring.security.oauth2.client.registration.google.client-id}")
 
-    private String CLIENT_ID = "493505072228-l3nc8pvhbqjanr5gvmhepv4havsrr47u.apps.googleusercontent.com" ;
+    private String CLIENT_ID = "493505072228-l3nc8pvhbqjanr5gvmhepv4havsrr47u.apps.googleusercontent.com";
 
     private final GoogleIdTokenVerifier verifier = new GoogleIdTokenVerifier.Builder(
             new NetHttpTransport(),
@@ -51,11 +48,8 @@ public class AuthUserService {
             .setAudience(Collections.singletonList(CLIENT_ID))
             .build();
 
-
-
     public AuthUserEntity register(AuthUserEntity authData) {
         System.out.println("Lord have mercy");
-
 
         User userData = new User();
         userData.setName(authData.getUsername());
@@ -93,18 +87,17 @@ public class AuthUserService {
             throw new Exception("Null token provided for Google Auth");
 
         GoogleIdToken.Payload payload = idToken.getPayload();
-        String googleId = payload.getSubject();  // permanent Google user ID (use this!)
+        String googleId = payload.getSubject(); // permanent Google user ID (use this!)
         String email = payload.getEmail();
         String name = (String) payload.get("name");
         String picture = (String) payload.get("picture");
         Boolean emailVerified = payload.getEmailVerified();
 
-
         AuthUserEntity authUserData = authRepo.findByProviderId(googleId);
         if (authUserData == null)
             throw new Exception("User not found with this Google token");
 
-        if (authUserData.getProviderId().equals(googleId) && emailVerified){
+        if (authUserData.getProviderId().equals(googleId) && emailVerified) {
             User userData = userRepo.getUser(authUserData.getUserId());
             userData.setEmail(email);
             userData.setName(name);
@@ -125,7 +118,7 @@ public class AuthUserService {
             throw new Exception("Null token provided for Google Auth");
 
         GoogleIdToken.Payload payload = idToken.getPayload();
-        String googleId = payload.getSubject();  // permanent Google user ID (use this!)
+        String googleId = payload.getSubject(); // permanent Google user ID (use this!)
         String email = payload.getEmail();
         String name = (String) payload.get("name");
         String picture = (String) payload.get("picture");
@@ -133,11 +126,11 @@ public class AuthUserService {
 
         // check if user exists
         AuthUserEntity authUser = authRepo.findByProviderId(googleId);
-        if (authUser != null){
+        if (authUser != null) {
             throw new Exception("user already exists, can't register");
         }
 
-        if(!emailVerified){
+        if (!emailVerified) {
             throw new Exception("Email is not verified");
         }
 
@@ -160,9 +153,7 @@ public class AuthUserService {
         System.out.println(email);
         System.out.println(name);
 
-
         return jwtService.generateToken(googleId);
-
 
     }
 }

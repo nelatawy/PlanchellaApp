@@ -11,48 +11,41 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.planchella.DTOs.UserDTO;
+import com.planchella.Services.UserService;
 import com.planchella.domain.User;
 import com.planchella.mappers.UserMapper;
-import com.planchella.repositories.users.DBUserRepository;
-import com.planchella.repositories.users.IUserRepository;
+
+import org.springframework.beans.factory.annotation.Autowired;
 
 @RestController
 @RequestMapping("/api/users")
 @CrossOrigin(origins = "http://localhost:4200")
 public class UserRoutes {
 
-    IUserRepository userRepo;
-
-    public UserRoutes() {
-        this.userRepo = new DBUserRepository();
-    }
+    @Autowired
+    UserService userService;
 
     @GetMapping("/{user_id}")
     public UserDTO getUser(@PathVariable Long user_id) {
-        User user = this.userRepo.getUser(user_id);
+        User user = this.userService.getUser(user_id);
         return UserMapper.domainToDTO(user);
     }
 
     @PatchMapping("/{user_id}")
     public void updateUser(@PathVariable Long user_id, @RequestBody UserDTO data) {
         User newUserData = UserMapper.DTOtoDomain(data);
-        User user = this.userRepo.getUser(user_id);
-        user.updateByDelta(newUserData);
-        this.userRepo.saveUser(user);
-        System.out.println(data.picUrl);
-        System.out.println(data.accountUrl);
-        System.out.println(data.name);
+        this.userService.updateUser(user_id, newUserData);
     }
 
     @PutMapping
     public void addUser(@RequestBody UserDTO data) {
         User user = UserMapper.DTOtoDomain(data);
-        this.userRepo.saveUser(user);
+        this.userService.addUser(user);
     }
 
     @DeleteMapping("/{user_id}")
     public void deleteUser(@PathVariable Long user_id) {
-        this.userRepo.deleteUser(user_id);
+        this.userService.deleteUser(user_id);
     }
 
 }
