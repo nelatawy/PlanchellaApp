@@ -1,14 +1,17 @@
 package com.planchella.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.planchella.domain.AttachmentMetadata;
 import com.planchella.enums.EventSize;
 import com.planchella.enums.EventType;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.List;
 
 @Entity
+@Table(name = "events")
 @Getter
 @Setter
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -33,13 +36,22 @@ public class EventEntity {
     @JoinColumn(name = "community_id")
     private CommunityEntity community;
 
+    @Column(name = "title")
     private String title;
-    private String description ;
+
+    @Column(name = "description")
+    private String description;
+
+    @Column(name = "creation_date")
     private String creationDate;
 
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
+    @JoinColumn(name = "event_id")
+    private List<AttachmentMetadata> attachments;
+
     public EventEntity(EventType eventType, EventSize eventSize, UserEntity author,
-                 String title, String description,
-                 String creationDate, CommunityEntity community) {
+            String title, String description,
+            String creationDate, CommunityEntity community) {
         this.eventType = eventType;
         this.eventSize = eventSize;
         this.title = title;
@@ -48,8 +60,9 @@ public class EventEntity {
         this.creationDate = creationDate;
         this.community = community;
     }
-    public EventEntity() {}
 
+    public EventEntity() {
+    }
 
     @Override
     public String toString() {

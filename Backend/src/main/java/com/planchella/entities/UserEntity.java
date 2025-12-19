@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
+@Table(name = "users")
 @Getter
 @Setter
 public class UserEntity {
@@ -16,13 +17,19 @@ public class UserEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String name ;
+    @Column(name = "name")
+    private String name;
+
+    @Column(name = "email")
     private String email;
-    private String picUrl ;
+
+    @Column(name = "pic_url")
+    private String picUrl;
+
+    @Column(name = "account_url")
     private String accountUrl;
 
-    @OneToMany(cascade = CascadeType.MERGE)
-    @JoinColumn(name = "membership_id")
+    @OneToMany(mappedBy = "user", cascade = CascadeType.MERGE)
     private List<MembershipEntity> memberships;
 
     public UserEntity(Long id, String picUrl, String name, String accountUrl, List<MembershipEntity> memberships) {
@@ -32,8 +39,9 @@ public class UserEntity {
         this.accountUrl = accountUrl;
         this.memberships = memberships;
     }
-    public UserEntity() {}
 
+    public UserEntity() {
+    }
 
     public List<MembershipEntity> getMemberships() {
         return new ArrayList<>(memberships);

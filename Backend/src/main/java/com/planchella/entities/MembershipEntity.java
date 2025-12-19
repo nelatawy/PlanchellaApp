@@ -6,32 +6,34 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Entity
+@Table(name = "memberships")
 @Getter
 @Setter
 public class MembershipEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private  Long id;
+    private Long id;
 
-    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
     @JoinColumn(name = "user_id")
     private UserEntity user;
 
-    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
     @JoinColumn(name = "community_id")
     private CommunityEntity community;
 
+    @Column(name = "membership_type")
     private MembershipType type;
 
     public MembershipEntity(Long id, UserEntity user, CommunityEntity community, MembershipType type) {
-        this.id =  id;
+        this.id = id;
         this.user = user;
         this.community = community;
         this.type = type;
     }
 
-    public MembershipEntity() {}
-
+    public MembershipEntity() {
+    }
 
     @Override
     public String toString() {

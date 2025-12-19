@@ -7,7 +7,9 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.util.List;
+
 @Entity
+@Table(name = "communities")
 @JsonIgnoreProperties(ignoreUnknown = true)
 @Getter
 @Setter
@@ -16,28 +18,27 @@ public class CommunityEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(name = "name")
     private String name;
 
-    @OneToMany(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
-    @JoinColumn(name = "user_ids")
+    @OneToMany(mappedBy = "community", cascade = { CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST,
+            CascadeType.REFRESH })
     private List<MembershipEntity> memberships;
-
 
     public CommunityEntity(Long id, String name, List<MembershipEntity> memberships) {
         this.id = id;
         this.name = name;
-        if(memberships != null){
+        if (memberships != null) {
             this.memberships = memberships;
         }
     }
 
-    public CommunityEntity() {}
-
+    public CommunityEntity() {
+    }
 
     public List<MembershipEntity> getMemberships() {
         return List.copyOf(memberships);
     }
-
 
     @Override
     public String toString() {

@@ -17,7 +17,7 @@ import { AuthService } from '../services/auth-service';
   styleUrl: './account-page.css',
 })
 export class AccountPage implements OnInit {
-  
+
   // User data - will be loaded from backend
   user: User = this.getDefaultUser();
 
@@ -35,7 +35,7 @@ export class AccountPage implements OnInit {
       console.error('User not authenticated - using default data');
       return;
     }
-    
+
     this.userDataService.getCurrentUser().subscribe({
       next: (userData) => {
         this.user = userData;

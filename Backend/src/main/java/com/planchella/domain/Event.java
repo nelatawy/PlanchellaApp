@@ -8,6 +8,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.util.Date;
+import java.util.List;
 
 @Getter
 public class Event {
@@ -28,9 +29,11 @@ public class Event {
     private String description ;
     private String creationDate;
 
+    private List<AttachmentMetadata> attachments;
+
     public Event(Long id, EventType eventType, EventSize eventSize, Long author_id, Long community_id,
                  String title, String description,
-                 String creationDate) {
+                 String creationDate, List<AttachmentMetadata> attachments) {
         this.id = id;
         this.eventType = eventType;
         this.eventSize = eventSize;
@@ -39,6 +42,7 @@ public class Event {
         this.description = description;
         this.creationDate = creationDate;
         this.community_id = community_id;
+        this.attachments = attachments;
     }
 
     public Event() {
@@ -53,6 +57,7 @@ public class Event {
         this.description  = event.description != null ? event.description : this.description;
         this.creationDate = event.creationDate != null ? event.creationDate : this.creationDate;
         this.community_id = event.community_id != null ? event.community_id : this.community_id;
+        this.attachments = event.attachments != null ? event.attachments : this.attachments;
     }
 
     public static Event getMockData(){
@@ -63,7 +68,9 @@ public class Event {
                 1L,
                 "sample test",
                 "Description",
-                new Date().toString());
+                new Date().toString(),
+                List.of(new AttachmentMetadata())
+        );
     }
 
     @Override

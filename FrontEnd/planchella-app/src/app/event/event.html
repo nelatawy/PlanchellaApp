@@ -1,0 +1,39 @@
+<h2>{{ event.title }}</h2>
+<p>{{ event.description }}</p>
+@if (event.attachments?.length) {
+  <div>
+    <h3>Attachments</h3>
+    @for (att of event.attachments; track att.id) {
+      <div>
+        <button (click)="loadAttachment(att.id)">
+          Load {{ att.fileName }}
+        </button>
+        <!-- IMAGE -->
+        @if (att.fileType.startsWith('image')) {
+          <img [src]="getAttachmentUrl(att.id)" width="200" />
+        }
+        <!-- PDF -->
+        @if (att.fileType === 'application/pdf') {
+          <iframe [src]="getAttachmentUrl(att.id)"
+                  width="100%"
+                  height="400">
+          </iframe>
+        }
+        <!-- VIDEO -->
+        @if (att.fileType.startsWith('video')) {
+          <video [src]="getAttachmentUrl(att.id)"
+                 controls
+                 width="300">
+          </video>
+        }
+        <!-- DOWNLOAD -->
+        @if (getAttachmentUrl(att.id)) {
+          <a [href]="getAttachmentUrl(att.id)"
+             [download]="att.fileName">
+             Download
+          </a>
+        }
+      </div>
+    }
+  </div>
+}
