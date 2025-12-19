@@ -1,39 +1,143 @@
-<h2>{{ event.title }}</h2>
-<p>{{ event.description }}</p>
-@if (event.attachments?.length) {
-  <div>
-    <h3>Attachments</h3>
-    @for (att of event.attachments; track att.id) {
-      <div>
-        <button (click)="loadAttachment(att.id)">
-          Load {{ att.fileName }}
-        </button>
-        <!-- IMAGE -->
-        @if (att.fileType.startsWith('image')) {
-          <img [src]="getAttachmentUrl(att.id)" width="200" />
-        }
-        <!-- PDF -->
-        @if (att.fileType === 'application/pdf') {
-          <iframe [src]="getAttachmentUrl(att.id)"
-                  width="100%"
-                  height="400">
-          </iframe>
-        }
-        <!-- VIDEO -->
-        @if (att.fileType.startsWith('video')) {
-          <video [src]="getAttachmentUrl(att.id)"
-                 controls
-                 width="300">
-          </video>
-        }
-        <!-- DOWNLOAD -->
-        @if (getAttachmentUrl(att.id)) {
-          <a [href]="getAttachmentUrl(att.id)"
-             [download]="att.fileName">
-             Download
-          </a>
+<div class="event-container">
+  <div class="event-header">
+    <h2 class="event-title">{{ event.title }}</h2>
+    <p class="event-description">{{ event.description }}</p>
+  </div>
+
+  @if (event.attachments?.length) {
+    <div class="attachments-section">
+      <h3 class="attachments-title">
+        <span class="icon">📎</span>
+        Attachments ({{ event.attachments?.length }})
+      </h3>
+
+      <div class="attachments-grid">
+        @for (att of event.attachments; track att.id) {
+          <div class="attachment-card">
+            <!-- Header with file info -->
+            <div class="attachment-header">
+              <div class="file-info">
+                <span class="file-icon">{{ getFileIcon(att.mimeType) }}</span>
+                <div class="file-details">
+                  <span class="file-name" [title]="att.fileName">{{ att.fileName }}</span>
+                  <span class="file-meta">{{ formatFileSize(att.size) }}</span>
+                </div>
+              </div>
+              
+              <!-- Action buttons -->
+              <div class="attachment-actions">
+                @if (!getAttachmentUrl(att.id)) {
+                  <button 
+                    class="btn btn-primary btn-sm"
+                    (click)="loadAttachment(att.id)"
+                    [disabled]="isLoading(att.id)">
+                    @if (isLoading(att.id)) {
+                      <span class="spinner"></span>
+                      Loading...
+                    } @else {
+                      <span>👁️</span> View
+                    }
+                  </button>
+                }
+                
+                @if (getAttachmentUrl(att.id)) {
+                  <a 
+                    class="btn btn-secondary btn-sm"
+                    [href]="getAttachmentUrl(att.id)"
+                    [download]="att.fileName">
+                    <span>⬇️</span> Download
+                  </a>
+                }
+              </div>
+            </div>
+
+            <!-- Loading state -->
+            @if (isLoading(att.id)) {
+              <div class="loading-container">
+                <div class="loading-spinner"></div>
+                <p>Loading attachment...</p>
+              </div>
+            }
+
+            <!-- Error state -->
+            @if (hasError(att.id)) {
+              <div class="error-container">
+                <span class="error-icon">⚠️</span>
+                <p>{{ getError(att.id) }}</p>
+                <button 
+                  class="btn btn-primary btn-sm"
+                  (click)="loadAttachment(att.id)">
+                  Retry
+                </button>
+              </div>
+            }
+
+            <!-- Content preview -->
+            @if (getAttachmentUrl(att.id) && !isLoading(att.id) && !hasError(att.id)) {
+              <div class="attachment-preview">
+                <!-- IMAGE -->
+                @if (isImage(att.mimeType)) {
+                  <div class="image-preview">
+                    <img 
+                      [src]="getAttachmentUrl(att.id)" 
+                      [alt]="att.fileName"
+                      class="preview-image" />
+                  </div>
+                }
+
+                <!-- PDF -->
+                @if (isPdf(att.mimeType)) {
+                  <div class="pdf-preview">
+                    <iframe 
+                      [src]="getAttachmentUrl(att.id)"
+                      class="pdf-viewer"
+                      title="PDF Viewer">
+                    </iframe>
+                  </div>
+                }
+
+                <!-- VIDEO -->
+                @if (isVideo(att.mimeType)) {
+                  <div class="video-preview">
+                    <video 
+                      [src]="getAttachmentUrl(att.id)"
+                      controls
+                      class="video-player">
+                      Your browser does not support the video tag.
+                    </video>
+                  </div>
+                }
+
+                <!-- AUDIO -->
+                @if (isAudio(att.mimeType)) {
+                  <div class="audio-preview">
+                    <audio 
+                      [src]="getAttachmentUrl(att.id)"
+                      controls
+                      class="audio-player">
+                      Your browser does not support the audio tag.
+                    </audio>
+                  </div>
+                }
+
+                <!-- OTHER FILES (Document icon with download prompt) -->
+                @if (!isImage(att.mimeType) && !isPdf(att.mimeType) && !isVideo(att.mimeType) && !isAudio(att.mimeType)) {
+                  <div class="file-preview">
+                    <div class="file-icon-large">{{ getFileIcon(att.mimeType) }}</div>
+                    <p class="file-preview-text">Preview not available</p>
+                    <a 
+                      class="btn btn-primary"
+                      [href]="getAttachmentUrl(att.id)"
+                      [download]="att.fileName">
+                      <span>⬇️</span> Download to view
+                    </a>
+                  </div>
+                }
+              </div>
+            }
+          </div>
         }
       </div>
-    }
-  </div>
-}
+    </div>
+  }
+</div>

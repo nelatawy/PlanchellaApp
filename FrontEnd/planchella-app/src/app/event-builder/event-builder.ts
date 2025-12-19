@@ -5,6 +5,7 @@ import { RouterLink, RouterModule, Router } from '@angular/router';
 
 @Component({
   selector: 'app-event-builder',
+  standalone: true,
   imports: [
     FormsModule,
     CommonModule,

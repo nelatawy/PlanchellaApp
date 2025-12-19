@@ -7,6 +7,7 @@ import { CommunityDataService } from '../services/community-data-service';
 
 @Component({
   selector: 'app-community-selector',
+  standalone: true,
   imports: [
     CommunityCard
   ],
