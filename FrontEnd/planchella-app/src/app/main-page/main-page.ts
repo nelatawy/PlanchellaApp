@@ -21,7 +21,7 @@ import {SidebarService} from '../services/sidebar.service';
   styleUrl: './main-page.css',
 })
 export class MainPage {
-  communityData : CommunityData = {name : "CSED"};
+  communityData : CommunityData = {id:0, name : "CSED"};
 
   isOpen = false;
 

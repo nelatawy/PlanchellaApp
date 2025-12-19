@@ -20,11 +20,20 @@ export class AuthService {
 
   constructor(private http : HttpClient) {}
 
-  async register(username: string, password: string, displayName: string): Promise<boolean>{
+  async register(username: string, password: string, email: string): Promise<boolean>{
+    console.log("=== AUTH SERVICE REGISTER ===");
+    console.log("Received username:", username);
+    console.log("Received email:", email);
+    console.log("Received password:", password ? "present" : "empty");
+    
     let data = {
       "username" : username,
-      "password" : password
+      "password" : password,
+      "email" : email
     }
+    
+    console.log("Sending data:", data);
+    
     try {
       const result = await firstValueFrom(
         this.http.post(this.registerUrl, data)

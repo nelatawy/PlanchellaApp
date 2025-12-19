@@ -62,13 +62,13 @@ export class Registration {
   }
 
   async register() {
-    console.log("registeration is registering");
-    const isSuccessful: boolean = await this.authService.register(this.name, this.password, "");
+    console.log("registeration is registering😎");
+    const isSuccessful: boolean = await this.authService.register(this.name, this.password, this.email);
 
     if (isSuccessful) {
       await this.router.navigate(["/signin"]);
     } else {
-
+      console.error("Registration is not registering😞");
     }
   }
 

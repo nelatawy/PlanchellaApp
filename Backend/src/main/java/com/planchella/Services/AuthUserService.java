@@ -11,6 +11,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import com.google.api.client.googleapis.auth.oauth2.GoogleIdTokenVerifier;
 import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.json.gson.GsonFactory;
@@ -26,8 +27,6 @@ public class AuthUserService {
 
     @Autowired
     private JWTService jwtService;
-
-    @Autowired
     AuthenticationManager authManager;
 
     @Autowired
@@ -48,8 +47,12 @@ public class AuthUserService {
             .setAudience(Collections.singletonList(CLIENT_ID))
             .build();
 
+    @Transactional
     public AuthUserEntity register(AuthUserEntity authData) {
         System.out.println("Lord have mercy");
+        System.out.println("=== REGISTRATION START ===");
+        System.out.println("Username: " + authData.getUsername());
+        System.out.println("Email: " + authData.getEmail());
 
         User userData = new User();
         userData.setName(authData.getUsername());
@@ -60,6 +63,7 @@ public class AuthUserService {
         userData.setEmail(authData.getEmail());
 
         Long id = userRepo.saveUser(userData);
+        System.out.println("User saved with ID: " + id);
 
         // modify the data inside authData and return it
         authData.setPassword(encoder.encode(authData.getPassword()));
@@ -68,6 +72,8 @@ public class AuthUserService {
         authData.setUserId(id);
 
         authRepo.save(authData);
+        System.out.println("AuthUser saved - username: " + authData.getUsername());
+        System.out.println("=== REGISTRATION END ===");
         return authData;
     }
 

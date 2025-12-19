@@ -21,7 +21,7 @@ export class Billboard {
   isLoading: boolean = false;
 
   @Input()
-  communityData: CommunityData = {id: "", name: "" };
+  communityData: CommunityData = {id: 0, name: "" };
 
 
   @ViewChild('container', { read: ViewContainerRef, static: true })

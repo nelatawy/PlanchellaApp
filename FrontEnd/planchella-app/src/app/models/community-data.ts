@@ -1,5 +1,5 @@
 export interface CommunityData{
-  id: string,
+  id: number,
   name: string,
   description?: string,
   memberCount?: number,
