@@ -1,9 +1,10 @@
 import { Component, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
+import { PopupNotificationComponent } from './general/popup-notification/popup-notification';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet],
+  imports: [RouterOutlet, PopupNotificationComponent],
   templateUrl: './app.html',
   styleUrl: './app.css'
 })

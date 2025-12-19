@@ -3,6 +3,7 @@ import { Router, RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule, NgForm } from '@angular/forms';
 import { AuthService } from '../../services/auth-service';
+import { PopUpNotificationService } from '../../services/popup-notification-service';
 
 
 declare const google: any;
@@ -48,7 +49,11 @@ export class SignIn {
     return !this.username || !this.password || !form || !form.valid
   }
 
-  constructor(private router: Router, private authService: AuthService) {
+  constructor(
+    private router: Router, 
+    private authService: AuthService,
+    private popupService: PopUpNotificationService
+  ) {
   }
 
   onSubmit(form: NgForm) {
@@ -62,7 +67,10 @@ export class SignIn {
     let isSuccess = await this.authService.signIn(this.username, this.password);
     if (isSuccess) {
       console.log(isSuccess);
+      this.popupService.showSuccess('Signed in successfully!');
       await this.router.navigate(['/main']);
+    } else {
+      this.popupService.showError('Sign in failed. Please check your credentials.');
     }
 
   }

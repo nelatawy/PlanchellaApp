@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, NgForm } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { AuthService } from '../../services/auth-service';
+import { PopUpNotificationService } from '../../services/popup-notification-service';
 import { firstValueFrom } from 'rxjs';
 
 declare const google: any;
@@ -16,7 +17,12 @@ declare const google: any;
 })
 export class Registration {
 
-  constructor(private router: Router, private http: HttpClient, private authService: AuthService) { }
+  constructor(
+    private router: Router, 
+    private http: HttpClient, 
+    private authService: AuthService,
+    private popupService: PopUpNotificationService
+  ) { }
 
   name: string = '';
   email: string = '';
@@ -66,8 +72,10 @@ export class Registration {
     const isSuccessful: boolean = await this.authService.register(this.name, this.password, this.email);
 
     if (isSuccessful) {
+      this.popupService.showSuccess('Account created successfully! Please sign in.');
       await this.router.navigate(["/signin"]);
     } else {
+      this.popupService.showError('Registration failed. Please try again.');
       console.error("Registration is not registering😞");
     }
   }
