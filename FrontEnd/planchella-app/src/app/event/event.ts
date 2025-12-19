@@ -3,7 +3,9 @@ import { CommonModule } from '@angular/common';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { EventData } from '../models/event-data';
 import { AttachmentService } from '../services/attachment-service';
-import { EventAttachment } from '../models/Event-Attachment';
+import { EventAttachment } from '../models/event-attachment';
+import { EventType, EventSize, MimeType } from '../models/Enums';
+import { MimeTypeUtils } from '../services/utils';
 
 interface AttachmentState {
   url: SafeUrl | null;
@@ -19,7 +21,72 @@ interface AttachmentState {
   styleUrls: ['./event.css'],
 })
 export class EventComponent implements OnInit, OnDestroy {
-  @Input() event!: EventData;
+
+  isModalOpen = false;
+  maxVisibleAttachments = 6;
+
+  event?: EventData = {
+    id: '1',
+    eventType: EventType.CONTEST,
+    eventSize: EventSize.MID,
+    authorData: {
+      id: 'author1',
+      name: 'John Doe',
+      picUrl: 'https://example.com/johndoe.jpg',
+      accountUrl: 'https://example.com/johndoe'
+    },
+    title: 'Sample Event',
+    description: 'This is a sample event description.',
+    creationDate: new Date(),
+    upVotesCount: 10,
+    downVotesCount: 2,
+    eventStartDate: new Date(),
+    eventEndDate: new Date(),
+    attachments: [
+      {
+        id: 'att1',
+        fileName: 'image1.jpg',
+        mimeType: MimeType.IMAGE_JPEG,
+        size: 1500000,
+      },
+      {
+        id: 'att2',
+        fileName: 'document1.pdf',
+        mimeType: MimeType.APPLICATION_PDF,
+        size: 3000000,
+      },
+      {
+        id: 'att3',
+        fileName: 'video1.mp4',
+        mimeType: MimeType.VIDEO_MP4,
+        size: 50000000,
+      },
+      {
+        id: 'att4',
+        fileName: 'audio1.mp3',
+        mimeType: MimeType.AUDIO_MPEG,
+        size: 4000000,
+      },
+      {
+        id: 'att5',
+        fileName: 'archive1.zip',
+        mimeType: MimeType.APPLICATION_ZIP,
+        size: 8000000,
+      },
+      {
+        id: 'att6',
+        fileName: 'spreadsheet1.xlsx',
+        mimeType: MimeType.APPLICATION_XLSX,
+        size: 2000000,
+      },
+      {
+        id: 'att7',
+        fileName: 'presentation1.pptx',
+        mimeType: MimeType.APPLICATION_PPTX,
+        size: 2500000,
+      }
+    ],
+  };
 
   attachmentStates = new Map<string, AttachmentState>();
 
@@ -30,7 +97,7 @@ export class EventComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     // Preload images and small files automatically
-    this.event.attachments?.forEach(att => {
+    this.event?.attachments?.forEach(att => {
       if (this.shouldAutoLoad(att)) {
         this.loadAttachment(att.id);
       }
@@ -39,7 +106,7 @@ export class EventComponent implements OnInit, OnDestroy {
 
   shouldAutoLoad(att: EventAttachment): boolean {
     // Auto-load images under 5MB
-    return att.mimeType.startsWith('image') && att.size < 5 * 1024 * 1024;
+    return MimeTypeUtils.isImage(att.mimeType) && att.size < 5 * 1024 * 1024;
   }
 
   loadAttachment(attachmentId: string): void {
@@ -101,39 +168,57 @@ export class EventComponent implements OnInit, OnDestroy {
   }
 
   isImage(mimeType: string): boolean {
-    return mimeType.startsWith('image');
+    return MimeTypeUtils.isImage(mimeType);
   }
 
   isPdf(mimeType: string): boolean {
-    return mimeType === 'application/pdf';
+    return MimeTypeUtils.isPdf(mimeType);
   }
 
   isVideo(mimeType: string): boolean {
-    return mimeType.startsWith('video');
+    return MimeTypeUtils.isVideo(mimeType);
   }
 
   isAudio(mimeType: string): boolean {
-    return mimeType.startsWith('audio');
+    return MimeTypeUtils.isAudio(mimeType);
   }
 
   getFileIcon(mimeType: string): string {
-    if (this.isImage(mimeType)) return '🖼️';
-    if (this.isPdf(mimeType)) return '📄';
-    if (this.isVideo(mimeType)) return '🎥';
-    if (this.isAudio(mimeType)) return '🎵';
-    if (mimeType.includes('word')) return '📝';
-    if (mimeType.includes('excel') || mimeType.includes('spreadsheet')) return '📊';
-    if (mimeType.includes('powerpoint') || mimeType.includes('presentation')) return '📽️';
-    if (mimeType.includes('zip') || mimeType.includes('rar') || mimeType.includes('compressed')) return '🗜️';
-    return '📎';
+    return MimeTypeUtils.getIcon(mimeType);
   }
 
   formatFileSize(bytes: number): string {
-    if (bytes === 0) return '0 Bytes';
-    const k = 1024;
-    const sizes = ['Bytes', 'KB', 'MB', 'GB'];
-    const i = Math.floor(Math.log(bytes) / Math.log(k));
-    return Math.round((bytes / Math.pow(k, i)) * 100) / 100 + ' ' + sizes[i];
+    return MimeTypeUtils.formatSize(bytes);
+  }
+
+  getVisibleAttachments(): EventAttachment[] {
+    return this.event?.attachments?.slice(0, this.maxVisibleAttachments) || [];
+  }
+
+  getRemainingCount(): number {
+    const total = this.event?.attachments?.length || 0;
+    return Math.max(0, total - this.maxVisibleAttachments);
+  }
+
+  hasMoreAttachments(): boolean {
+    return this.getRemainingCount() > 0;
+  }
+
+  openModal(): void {
+    this.isModalOpen = true;
+    document.body.style.overflow = 'hidden';
+    
+    // Load all attachments when modal opens
+    this.event?.attachments?.forEach(att => {
+      if (!this.getAttachmentUrl(att.id) && !this.isLoading(att.id)) {
+        this.loadAttachment(att.id);
+      }
+    });
+  }
+
+  closeModal(): void {
+    this.isModalOpen = false;
+    document.body.style.overflow = 'auto';
   }
 
   ngOnDestroy() {

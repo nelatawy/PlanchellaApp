@@ -1,40 +1,65 @@
 <div id="event-builder" class="commonContainer">
-
   <h2>Make Your Event</h2>
 
   <form #f=ngForm (ngSubmit)="onSubmit(f)" class="event-form">
 
-    <div class="event-top">
-      <input type="text" class="inputField title-input" [(ngModel)]="title" name="title" placeholder="Event Title">
+    <!-- Title -->
+    <input type="text" class="inputField title-input" [(ngModel)]="title" name="title" placeholder="Event Title">
 
-
-      <div class="custom-select-container">
-        <div class="selected-option" (click)="toggleDropdown()" [class.active]="isDropdownOpen">
-          {{ selectedFlare || 'Choose a flare' }}
-          <span class="arrow" [class.rotated]="isDropdownOpen">▼</span>
-        </div>
-        @if (isDropdownOpen) {
-        <div class="options-list">
-          @for (flare of flares; track $index) {
-          <div class="option-item" (click)="selectFlare(flare)" [class.selected]="selectedFlare === flare">
-            {{ flare }}
-          </div>
-          }
+    <!-- Flare / Type -->
+    <div class="custom-select-container">
+      <div class="selected-option" (click)="toggleDropdown()" [class.active]="isDropdownOpen">
+        {{ selectedFlare || 'Choose a flare' }}
+        <span class="arrow" [class.rotated]="isDropdownOpen">▼</span>
+      </div>
+      @if (isDropdownOpen) {
+      <div class="options-list">
+        @for (flare of flares; track $index) {
+        <div class="option-item" (click)="selectFlare(flare)" [class.selected]="selectedFlare === flare">
+          {{ flare }}
         </div>
         }
       </div>
+      }
     </div>
 
+    <!-- Size -->
+    <label for="size">Event Size:</label>
+    <select id="size" [(ngModel)]="selectedSize" name="size">
+      @for (s of sizes; track $index) {
+        <option [ngValue]="s">{{ s }}</option>
+      }
+    </select>
+
+    <!-- Start / End Dates -->
+    <input type="datetime-local" [(ngModel)]="startDate" name="startDate" required>
+    <input type="datetime-local" [(ngModel)]="endDate" name="endDate" required>
+
+    <!-- Description -->
     <textarea class="inputField description-field" placeholder="Write the Description" [(ngModel)]="description"
-      name="description" required rows="1">
+      name="description" required rows="3">
     </textarea>
 
-    <div class="event-bottom">
-      <button type="button" class="commonButtonTheme add-image-btn" (click)="addImage()">add image</button>
+    <!-- Attachments -->
+    @if (attachments.length) {
+    <div class="attachments-preview">
+      @for (att of attachments; track att.id) {
+      <div class="attachment-card-preview">
+        <span>{{ MimeTypeUtils.getIcon(att.mimeType) }}</span>
+        <span>{{ att.fileName }} ({{ MimeTypeUtils.formatSize(att.size) }})</span>
+      </div>
+      }
+    </div>
+    }
 
+    <!-- Bottom Buttons -->
+    <div class="event-bottom">
+      <label class="commonButtonTheme add-image-btn">
+        Add Attachment
+        <input type="file" multiple hidden (change)="addAttachment($event)">
+      </label>
       <button type="submit" class="commonButtonTheme">Submit</button>
     </div>
 
   </form>
-
 </div>

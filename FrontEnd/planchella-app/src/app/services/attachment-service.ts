@@ -2,7 +2,7 @@ import { Injectable, signal, Signal, WritableSignal } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { finalize, forkJoin, Observable, tap } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { EventAttachment } from '../models/Event-Attachment';
+import { EventAttachment } from '../models/event-attachment';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 
 export interface AttachmentIDResponse {
@@ -107,18 +107,18 @@ export class AttachmentService {
   }
 
   getAttachmentUrl(id: string): Observable<SafeUrl> {
-  return this.http
-    .get(this.attachment_access_url + '/' + id, {
-      headers: this.getHeaders(),
-      responseType: 'blob',
-    })
-    .pipe(
-      map(blob => {
-        const blobUrl = URL.createObjectURL(blob);
-        return this.sanitizer.bypassSecurityTrustUrl(blobUrl);
+    return this.http
+      .get(this.attachment_access_url + '/' + id, {
+        headers: this.getHeaders(),
+        responseType: 'blob',
       })
-    );
-}
+      .pipe(
+        map(blob => {
+          const blobUrl = URL.createObjectURL(blob);
+          return this.sanitizer.bypassSecurityTrustUrl(blobUrl);
+        })
+      );
+  }
 
   downloadAttachment(id: string, attachment: EventAttachment): void {
     this.http

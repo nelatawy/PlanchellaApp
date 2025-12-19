@@ -1,7 +1,6 @@
 import {RouterModule, Routes} from '@angular/router';
 import {SignIn} from './auth/sign-in/sign-in';
 import { Registration } from './auth/registration/registration';
-import { TopBar } from './general/top-bar/top-bar';
 import {Component, NgModule} from '@angular/core';
 import {MainPage} from './main-page/main-page';
 import { VerificationCode } from './auth/verification-code/verification-code';
@@ -9,8 +8,7 @@ import { ResetPassword } from './auth/reset-password/reset-password';
 import { SetEmail } from './auth/set-email/set-email';
 import { AccountPage } from './account-page/account-page';
 import { EventBuilder } from './event-builder/event-builder';
-import {Billboard} from './billboard/billboard';
-
+import { EventComponent } from './event/event';
 import { authGuard } from './services/auth-guard';
 
 export const routes: Routes = [
@@ -36,6 +34,11 @@ export const routes: Routes = [
   },
   { path: 'account-page',
     component: AccountPage,
+    canActivate: [authGuard]
+  },
+  {
+    path: 'event',
+    component: EventComponent,
     canActivate: [authGuard]
   },
   { path: '**', redirectTo: '/signin' } // fallback
