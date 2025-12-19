@@ -97,6 +97,25 @@ async signInWithGoogle(response : any): Promise<boolean>{
     return localStorage.getItem('authToken');
   }
 
+  getCurrentUserId(): number | null {
+    const token = this.getToken();
+    if (!token) return null;
+    
+    try {
+      // atob() is used to decode the JWT token
+      const payload = JSON.parse(atob(token.split('.')[1]));
+
+      // Debug: See what's actually in the token
+      console.log('JWT Payload:', payload);
+
+      // Try common field names for user ID
+      return payload.userId || payload.sub || payload.id || payload.user_id || null;
+    } catch (error) {
+      console.error('Error decoding token:', error);
+      return null;
+    }
+  }
+
 
 
   logout(): void {
