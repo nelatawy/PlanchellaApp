@@ -1,6 +1,6 @@
 import { CommunityRole } from "./Enums";
 
-export interface Mempership {
+export interface Membership {
     id: string,
     userId: string,
     communityId: string,

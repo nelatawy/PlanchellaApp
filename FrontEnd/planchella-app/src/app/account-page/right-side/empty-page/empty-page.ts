@@ -1,11 +1,8 @@
 import {Component, Input} from '@angular/core';
-import {NgOptimizedImage} from '@angular/common';
 
 @Component({
   selector: 'app-empty-page',
-  imports: [
-    NgOptimizedImage
-  ],
+  imports: [],
   templateUrl: './empty-page.html',
   styleUrl: './empty-page.css',
 })

@@ -1,53 +1,146 @@
-import { Component } from '@angular/core';
+import { Component, Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, NgForm } from '@angular/forms';
-import { RouterLink, RouterModule, Router } from '@angular/router';
+import { EventData } from '../models/event-data';
+import { EventType, EventSize } from '../models/Enums';
+import { EventAttachment } from '../models/event-attachment';
+import { EventAuthorData } from '../models/event-author-data';
+import { MimeTypeUtils } from '../services/utils';
+import { EventDataService } from '../services/event-data-service';
 
 @Component({
   selector: 'app-event-builder',
-  imports: [
-    FormsModule,
-    CommonModule,
-    RouterModule,
-  ],
+  standalone: true,
+  imports: [FormsModule, CommonModule],
   templateUrl: './event-builder.html',
-  styleUrl: './event-builder.css',
+  styleUrls: ['./event-builder.css'],
 })
 export class EventBuilder {
 
-  description: string = '';
-  selectedFlare: string = "";
-  title: string = '';
+  MimeTypeUtils = MimeTypeUtils;
 
-  // Custom dropdown logic
+  @Output() close = new EventEmitter<void>();
+
+  title: string = '';
+  description: string = '';
+  selectedFlare: string = '';
+  selectedSize: EventSize = EventSize.MID;
+  startDate: string = '';
+  endDate: string = '';
+  attachments: EventAttachment[] = [];
+
   isDropdownOpen: boolean = false;
+  isSizeDropdownOpen: boolean = false;
   flares: string[] = ['Hackathon', 'Contest', 'Release'];
 
-  toggleDropdown() {
-    this.isDropdownOpen = !this.isDropdownOpen;
+  sizes: EventSize[] = [EventSize.SMALL, EventSize.MID, EventSize.LARGE];
+
+  isSubmitting: boolean = false;
+
+  toggleDropdown() { this.isDropdownOpen = !this.isDropdownOpen; this.isSizeDropdownOpen = false; }
+  selectFlare(flare: string) { this.selectedFlare = flare; this.isDropdownOpen = false; }
+
+  toggleSizeDropdown() { this.isSizeDropdownOpen = !this.isSizeDropdownOpen; this.isDropdownOpen = false; }
+  selectSize(size: EventSize) { this.selectedSize = size; this.isSizeDropdownOpen = false; }
+
+  closeDropdown() { this.isDropdownOpen = false; this.isSizeDropdownOpen = false; }
+
+  closeBuilder() {
+    this.close.emit();
+    // Fallback if used as page
+    // this.router.navigate(['/main']); 
   }
 
-  selectFlare(flare: string) {
-    this.selectedFlare = flare;
-    this.isDropdownOpen = false;
+  constructor(private eventDataService: EventDataService) { }
+
+  addAttachment(event: Event) {
+    const input = event.target as HTMLInputElement;
+    if (!input.files) return;
+
+    Array.from(input.files).forEach(file => {
+      // Check for duplicates
+      const isDuplicate = this.attachments.some(att => att.fileName === file.name && att.size === file.size);
+      if (isDuplicate) {
+        console.warn(`Skipping duplicate file: ${file.name}`);
+        return;
+      }
+
+      const mimeType = file.type || MimeTypeUtils.fromFileExtension(file.name.split('.').pop() || '');
+      const attachment: EventAttachment = {
+        id: `att${this.attachments.length + 1}`,
+        fileName: file.name,
+        mimeType: MimeTypeUtils.fromFileExtension(mimeType),
+        size: file.size
+      };
+      this.attachments.push(attachment);
+      console.log('Added attachment:', attachment);
+    });
+
+    input.value = '';
   }
 
-  // Close dropdown when clicking outside (optional, but good UX)
-  closeDropdown() {
-    this.isDropdownOpen = false;
+  removeAttachment(index: number) {
+    this.attachments.splice(index, 1);
   }
 
-  constructor(private router: Router) { }
+  async onSubmit(form: NgForm) {
+    if (!this.title || !this.description || !this.selectedFlare || !this.startDate || !this.endDate) {
+      alert('Please fill all fields and select a flare.');
+      return;
+    }
 
-  public addImage() {
-    console.log("added image");
+    if (this.isSubmitting) return;
+
+    this.isSubmitting = true;
+
+    // Prepare EventData object
+    const eventData: EventData = {
+      id: `event-${Date.now()}`, // Temporary ID, backend will assign real one
+      eventType: this.mapFlareToEventType(this.selectedFlare),
+      eventSize: this.selectedSize,
+      authorData: {
+        id: '', // Backend will populate from auth
+        name: '',
+        picUrl: '',
+        accountUrl: ''
+      },
+      title: this.title,
+      description: this.description,
+      creationDate: new Date(),
+      eventStartDate: new Date(this.startDate),
+      eventEndDate: new Date(this.endDate),
+      upVotesCount: 0,
+      downVotesCount: 0,
+      attachments: this.attachments
+    };
+
+    try {
+      const response = await this.eventDataService.createEvent(eventData);
+      console.log('Event created successfully:', response);
+      alert('Event created successfully!');
+
+      // Reset form
+      form.resetForm();
+      this.attachments = [];
+      this.selectedFlare = '';
+      this.selectedSize = EventSize.MID;
+      this.isSubmitting = false;
+
+      // Close builder
+      this.close.emit();
+    } catch (error) {
+      console.error('Error creating event:', error);
+      alert('Failed to create event. Please try again.');
+      this.isSubmitting = false;
+    }
   }
 
-  onSubmit(form: NgForm) {
-    console.log('Form submitted with data:', form.value);
-    // Navigate to reset-password instead of same page
-    this.router.navigate(['/main']);
-
+  private mapFlareToEventType(flare: string) {
+    switch (flare) {
+      case 'Hackathon': return EventType.HACKATHON;
+      case 'Contest': return EventType.CONTEST;
+      case 'Release': return EventType.RELEASE;
+      default: return EventType.CONTEST;
+    }
   }
-
 }

@@ -1,81 +1,256 @@
-h1 {
-  color: var(--primary-color-dark);
-  display: block;
-  text-align: center;
-  position: relative;
-  margin: var(--gap-sm);
+/* Body background gradient animation */
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: var(--font-main), 'Inter', sans-serif;
+  background: linear-gradient(135deg, #fceeff 0%, #e0c3fc 100%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-color-dark);
 }
 
-/* Custom Dropdown Styles */
+/* Event Builder Container */
+/* Event Builder Container */
+/* Event Builder Container */
+#event-builder {
+  width: 98%;
+  /* Maximized width */
+  max-width: 1000px;
+  /* Wider max width */
+  max-height: 98vh;
+  /* Maximized height */
+  /* Remove overflow-y from here, add to form */
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(12px);
+  border-radius: var(--radius-lg);
+  padding: 0;
+  /* Remove padding from container to allow full header width/stickiness if needed, or just layout control */
+  box-shadow: var(--top-bar-shadow);
+  border: 1px solid rgba(255, 255, 255, 0.8);
+  animation: fadeIn 0.6s ease-out;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  /* Ensure relative positioning for absolute children */
+}
+
+/* Close Button */
+.close-btn {
+  position: absolute;
+  top: 1rem;
+  right: 1.5rem;
+  background: transparent;
+  border: none;
+  font-size: 2rem;
+  color: var(--text-color-light);
+  cursor: pointer;
+  line-height: 1;
+  z-index: 20;
+  transition: color 0.2s;
+}
+
+.close-btn:hover {
+  color: var(--notification-color);
+}
+
+/* Custom scrollbar for better aesthetics */
+.event-form::-webkit-scrollbar {
+  /* Apply to form instead */
+  width: 8px;
+}
+
+.event-form::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.event-form::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0.1);
+  border-radius: 4px;
+}
+
+.event-form::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(0, 0, 0, 0.2);
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Header */
+#event-builder h2 {
+  text-align: center;
+  font-size: var(--font-size-lg);
+  font-weight: 700;
+  color: var(--text-color-dark);
+  margin: 0;
+  /* Remove margin, control via padding */
+  padding: 2rem 2rem 1rem 2rem;
+  /* Add padding here */
+  letter-spacing: -0.02em;
+  flex-shrink: 0;
+  /* Don't shrink header */
+  z-index: 10;
+  background: transparent;
+  /* Or inherit if needed, but transparent matches container */
+}
+
+/* Form Layout */
+.event-form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-lg);
+  overflow-y: auto;
+  /* Scroll ONLY the form */
+  padding: 0 2rem 2rem 2rem;
+  /* Add padding here */
+  flex: 1;
+  /* Take remaining height */
+  min-height: 0;
+  /* Flexbox scrolling fix */
+}
+
+/* Row Layout for compact fields */
+.form-row {
+  display: flex;
+  gap: var(--gap-lg);
+  align-items: flex-start;
+}
+
+.form-row>* {
+  flex: 1;
+}
+
+/* Inputs & Common Styles */
+.inputField,
+select,
+.selected-option {
+  width: 100%;
+  padding: var(--padding-med);
+  border: 1px solid var(--border-color-light);
+  border-radius: var(--radius-med);
+  font-size: 1rem;
+  background: var(--bg-gray);
+  color: var(--text-color-medium);
+  transition: all 0.2s ease;
+  box-sizing: border-box;
+}
+
+.inputField:focus,
+select:focus,
+.selected-option:hover,
+.selected-option.active {
+  outline: none;
+  background: var(--bg-white);
+  border-color: var(--primary-color-light);
+  box-shadow: var(--box-focus-shadow);
+}
+
+.title-input {
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+/* Date Inputs Grouping */
+.date-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.date-group label {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--text-color-medium);
+  margin-left: 0.2rem;
+  margin-bottom: 0.2rem;
+}
+
+.date-group input[type="datetime-local"] {
+  appearance: none;
+  -webkit-appearance: none;
+  font-family: inherit;
+  color: var(--text-color-dark);
+  cursor: pointer;
+  background-color: var(--bg-white);
+  /* White bg to stand out */
+}
+
+/* Fix for calendar icon alignment if needed */
+.date-group input[type="datetime-local"]::-webkit-calendar-picker-indicator {
+  cursor: pointer;
+  opacity: 0.6;
+  transition: opacity 0.2s;
+}
+
+.date-group input[type="datetime-local"]::-webkit-calendar-picker-indicator:hover {
+  opacity: 1;
+}
+
+/* Description Textarea */
+.description-field {
+  min-height: 8rem;
+  /* Slightly taller default */
+  resize: vertical;
+  font-family: inherit;
+  line-height: 1.5;
+}
+
+/* Custom Dropdown (Select) */
 .custom-select-container {
   position: relative;
-  width: 100%;
-  font-family: var(--font-main);
+  min-width: 0;
 }
 
 .selected-option {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: var(--bg-light);
-  border: 2px solid var(--border-color-light);
-  border-radius: var(--radius-med);
-  padding: var(--padding-med);
   cursor: pointer;
-  font-size: var(--font-size-med);
-  font-weight: 600;
-  color: var(--primary-color-dark);
-  transition: all 0.3s ease;
-  user-select: none;
-}
-
-.selected-option:hover {
-  border-color: var(--primary-color-light);
-  background-color: var(--bg-white);
-  box-shadow: 0 2px 8px rgba(126, 48, 225, 0.1);
-}
-
-.selected-option.active {
-  border-color: var(--primary-color-dark);
-  background-color: var(--bg-white);
-  box-shadow: var(--box-focus-shadow);
-  border-bottom-left-radius: 0;
-  border-bottom-right-radius: 0;
+  background: var(--bg-white);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+  /* Subtle lift */
 }
 
 .arrow {
-  align-items: end;
-  font-size: 0.8em;
-  max-width: fit-content;
-  color: var(--primary-color-dark);
-  transition: transform 0.3s ease;
-  transform-origin: 50% 50%;
+  font-size: 0.8rem;
+  color: var(--secondary-color-mid);
+  transition: transform 0.2s;
 }
 
 .arrow.rotated {
-  transform: rotate(90deg);
+  transform: rotate(180deg);
 }
 
 .options-list {
   position: absolute;
-  top: 100%;
+  top: calc(100% + 6px);
   left: 0;
   right: 0;
-  background-color: var(--bg-white);
-  border: 2px solid var(--primary-color-dark);
-  border-top: none;
-  border-bottom-left-radius: var(--radius-med);
-  border-bottom-right-radius: var(--radius-med);
-  z-index: 100;
+  background: var(--bg-white);
+  border-radius: var(--radius-med);
+  box-shadow: var(--card-shadow);
   overflow: hidden;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  animation: slideDown 0.2s ease-out forwards;
+  z-index: 50;
+  padding: 0.5rem;
+  border: 1px solid var(--border-color-light);
+  animation: slideDown 0.15s ease-out;
 }
 
 @keyframes slideDown {
   from {
     opacity: 0;
-    transform: translateY(-10px);
+    transform: translateY(-5px);
   }
 
   to {
@@ -85,115 +260,132 @@ h1 {
 }
 
 .option-item {
-  padding: var(--padding-med);
+  padding: 0.6rem 1rem;
   cursor: pointer;
+  font-size: 0.95rem;
   font-weight: 500;
+  border-radius: 6px;
   color: var(--text-color-medium);
-  transition: background-color 0.2s ease;
+  transition: background 0.2s;
+  text-align: left;
 }
 
 .option-item:hover {
-  background-color: var(--primary-color-light);
-  color: aliceblue;
+  background: var(--bg-gray);
+  color: var(--primary-color-dark);
 }
 
 .option-item.selected {
-  background-color: var(--bg-light);
-  color: var(--primary-color-dark);
-  font-weight: 700;
-  border-left: 4px solid var(--primary-color-dark);
+  background: #f3e8ff;
+  /* Light purple tint */
+  color: var(--primary-color-light);
+  font-weight: 600;
 }
 
-.title-input {
-  display: flex;
-  width: 50%;
-  font-size: var(--font-size-med);
-}
-
-.description-field {
-  cursor: text;
-  margin: var(--padding-sm) 0;
-  display: flex;
-  overflow-y: auto;
-  font-size: var(--font-size-med);
-  min-height: 15rem;
-  max-height: 35rem;
-  height: fit-content;
-  overflow: hidden;
-  resize: none;
-  width: 100%;
-}
-
-.event-top {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: var(--gap-sm);
-  width: 100%;
-}
-
-.event-top * {
-  width: 100%;
-}
-
-.event-bottom {
-  margin-top: var(--padding-sm);
+/* Attachments Preview */
+.attachments-preview {
   display: flex;
   flex-wrap: wrap;
-  align-items: center;
-  justify-content: center;
-  gap: var(--padding-sm);
-  width: 100%;
-  transition: all 0.4s ease;
-}
-
-.event-bottom button {
-  width: 100%;
-}
-
-.event-form {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
   gap: var(--gap-sm);
+  margin-top: -0.5rem;
+  max-height: 500px;
+  /* Increased height significantly */
+  overflow-y: auto;
+  /* Scroll if too many attachments */
+  padding: 0.2rem;
+  /* Avoid clipping shadows */
+}
+
+.attachment-card-preview {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.4rem 0.8rem;
+  border-radius: var(--radius-med);
+  background: var(--bg-white);
+  color: var(--text-color-medium);
+  font-size: 0.85rem;
+  font-weight: 500;
+  border: 1px solid var(--border-color-light);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.remove-att-btn {
+  background: none;
+  border: none;
+  color: var(--text-color-muted);
+  font-size: 1.2rem;
+  line-height: 1;
+  padding: 0 0.2rem;
+  margin-left: 0.3rem;
+  cursor: pointer;
+  border-radius: 50%;
+  transition: color 0.2s;
+  display: flex;
+  align-items: center;
   justify-content: center;
-  width: 100%;
-  height: 100%;
-  padding: var(--padding-sm);
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+.remove-att-btn:hover {
+  color: var(--notification-color);
+  background: rgba(219, 68, 55, 0.1);
+}
+
+/* Bottom Buttons */
+.event-bottom {
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--gap-md);
+  margin-top: 1rem;
+}
+
+.add-image-btn,
+button[type='submit'] {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.75rem 1.5rem;
+  border-radius: var(--radius-med);
+  border: none;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.1s, box-shadow 0.2s;
+  font-family: var(--font-main);
 }
 
 .add-image-btn {
-  flex: 1 1 auto;
-  padding: var(--padding-lg) var(--padding-x-lg);
   background: transparent;
-  border: 2px solid var(--primary-color-dark);
-  color: var(--primary-color-dark);
-  border-radius: var(--radius-med);
-  font-size: var(--font-size-sm);
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  width: auto;
-  min-width: 120px;
+  color: var(--primary-color-light);
+  border: 2px solid var(--highlight-color);
 }
 
-/* Small screens: stack vertically */
-@media (max-width: 800px) {
-  .event-bottom {
+.add-image-btn:hover {
+  background: var(--bg-gray);
+  border-color: var(--primary-color-light);
+}
+
+button[type='submit'] {
+  background: linear-gradient(135deg, var(--primary-color-light), var(--primary-color-dark));
+  color: #fff;
+  box-shadow: 0 4px 12px rgba(126, 48, 225, 0.3);
+}
+
+button[type='submit']:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(126, 48, 225, 0.4);
+}
+
+button[type='submit']:active {
+  transform: translateY(0);
+}
+
+/* Responsive adjustments */
+@media (max-width: 600px) {
+  .form-row {
     flex-direction: column;
-    gap: var(--padding-sm);
-    align-items: stretch;
-  }
-
-  .event-bottom button[type="submit"] {
-    width: 100%;
-    min-width: 0;
-  }
-
-  .add-image-btn {
-    width: 100%;
-    min-width: 0;
-    flex: none;
+    gap: var(--gap-lg);
   }
 }

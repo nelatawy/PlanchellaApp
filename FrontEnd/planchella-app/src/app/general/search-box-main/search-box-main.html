@@ -1,4 +1,7 @@
-<div class="container">
-    <input class="textbox" type="text" placeholder="Search" #TextValue (keyup.enter)= "search(TextValue.value)">
-    <button class="fa-solid fa-magnifying-glass" (click)="search(TextValue.value)"></button>
+<div class="search-wrapper">
+    <input class="search-input" type="text" placeholder="Search events..." #TextValue
+        (keyup.enter)="search(TextValue.value)">
+    <button class="search-btn" (click)="search(TextValue.value)">
+        <i class="fa-solid fa-magnifying-glass"></i>
+    </button>
 </div>

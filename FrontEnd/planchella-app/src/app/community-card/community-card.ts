@@ -4,6 +4,7 @@ import { CommunityCardData } from '../models/community-card';
 
 @Component({
   selector: 'app-community-card',
+  standalone: true,
   templateUrl: './community-card.html',
   styleUrl: './community-card.css',
 })

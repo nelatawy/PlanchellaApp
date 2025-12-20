@@ -1,78 +1,114 @@
-:host{
-  border: 1px solid blue;
-  height: 100vh;
+:host {
   flex: 3;
-  background-color: white;
-  color: black;
-  padding: 20px;
-  /*display: flex;*/
-  /*width: 100%;*/
-  /*position: absolute;*/
-  /*width: 70%;*/
-  /*right: 10px;*/
-  /*top: 0;*/
-
-
+  min-height: 100vh;
+  background-color: #ffffff;
+  color: #1f2937;
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+  box-shadow: -4px 0 24px rgba(0, 0, 0, 0.08);
 }
 
-/* This styles the nav bar itself */
 .nav-bar {
   display: flex;
-  flex-direction: row; /* Align buttons in a row */
-  gap: 8px; /* Space between the buttons */
-  padding-bottom: 16px;
-  /* Faint border line like in the image */
-  border-bottom: 1px solid #e5e7eb;
+  flex-direction: row;
+  gap: 8px;
+  padding: 8px;
+  margin-bottom: 32px;
+  background: linear-gradient(135deg, rgba(102, 126, 234, 0.05) 0%, rgba(118, 75, 162, 0.05) 100%);
+  border-radius: 16px;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(102, 126, 234, 0.1);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
 }
 
-/* This is the default style for all buttons (the INACTIVE state) */
 .nav-button {
-  /* This is key: use flex to align the icon and text */
+  flex: 1;
   display: flex;
-  align-items: center; /* Vertically center icon and text */
-  gap: 8px; /* Space between icon and text */
-
-  /* Styling */
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
   background-color: transparent;
   border: none;
-  border-radius: 8px; /* Rounded corners */
-  padding: 8px 16px;
-
-  /* Text & Color */
-  color: #6b7280; /* Muted gray text */
+  border-radius: 12px;
+  padding: 14px 24px;
+  color: #6b7280;
   font-size: 15px;
-  font-weight: 500; /* Medium weight */
-
+  font-weight: 500;
   cursor: pointer;
-  transition: all 0.2s ease-in-out; /* Smooth transition */
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: visible;
 }
 
-/* This styles the icon inside the INACTIVE button */
+/* Animated bottom border */
+.nav-button::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  width: 0;
+  height: 3px;
+  background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+  border-radius: 3px 3px 0 0;
+  transform: translateX(-50%);
+  transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
 .nav-button img {
-  stroke: #6b7280; /* Muted gray icon */
-  transition: all 0.2s ease-in-out;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  filter: grayscale(30%) opacity(0.7);
 }
 
-/* --- The ACTIVE State --- */
-
-/* This style is ONLY applied when [class.active] is true */
+/* Active state */
 .nav-button.active {
-  background-color: #f3e8ff; /* Light purple background */
-  color: #7c3aed; /* Dark purple text */
-  font-weight: 600; /* A bit bolder */
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  font-weight: 600;
+  box-shadow: 
+    0 4px 16px rgba(102, 126, 234, 0.35),
+    0 2px 8px rgba(118, 75, 162, 0.25);
+  transform: translateY(-2px);
 }
 
-/* This styles the icon inside the ACTIVE button */
+.nav-button.active::after {
+  width: 0;
+}
+
 .nav-button.active img {
-  stroke: #7c3aed; /* Dark purple icon */
+  filter: brightness(0) invert(1);
+  transform: scale(1.1);
 }
 
-/* (Optional) A nice hover effect for inactive buttons */
+/* Hover states */
 .nav-button:not(.active):hover {
-  background-color: #f9fafb; /* Very light gray */
+  background-color: rgba(102, 126, 234, 0.08);
+  color: #667eea;
+  transform: translateY(-1px);
 }
 
-/*.nav-bar{*/
-/*  display: flex;*/
-/*  width: 100%;*/
-/*}*/
+.nav-button:not(.active):hover::after {
+  width: 60%;
+}
+
+.nav-button:not(.active):hover img {
+  filter: grayscale(0%) opacity(1);
+  transform: scale(1.05);
+}
+
+/* Active press effect */
+.nav-button:active {
+  transform: translateY(0) scale(0.98);
+}
+
+/* Icon styling */
+.nav-button img {
+  width: 20px;
+  height: 20px;
+}
+
+/* Text styling */
+.nav-button span {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  letter-spacing: 0.02em;
+}

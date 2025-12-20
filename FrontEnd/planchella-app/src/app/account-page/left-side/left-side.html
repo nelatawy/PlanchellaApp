@@ -1,20 +1,29 @@
-<!--  <p>left-side works!</p>-->
-<!--  <app-profile-pic class="profile" hover_text="My Account"></app-profile-pic>-->
-<img class="pfp" ngSrc="/profile_placeholder.png" alt="" height="500" width="500">
+<div class="top-section">
+  <img class="pfp" ngSrc="/profile_placeholder.png" alt="Profile Picture" height="500" width="500">
+
   <div class="user-info">
     <h2>{{ user!.name }}</h2>
-    <h3> {{user!.bio}} </h3>
+    <h3>{{ user!.bio }}</h3>
+    
     <div class="icon-text">
-      <img ngSrc="/organization-icon.svg" alt="" height="16" width="16">
-      {{user!.education}}
+      <img ngSrc="/organization-icon.svg" alt="Education" height="16" width="16">
+      <span>{{ user!.education }}</span>
     </div>
+    
     <div class="icon-text">
-      <img ngSrc="/location-icon.svg" alt="" height="16" width="16">
-      {{user!.address}}
+      <img ngSrc="/location-icon.svg" alt="Location" height="16" width="16">
+      <span>{{ user!.address }}</span>
     </div>
+    
     <div class="icon-text">
-      <img ngSrc="/email-icon.svg" alt="" height="16" width="16">
-      {{user!.email}}
+      <img ngSrc="/email-icon.svg" alt="Email" height="16" width="16">
+      <span>{{ user!.email }}</span>
     </div>
   </div>
+</div>
+
+<button class="logout-button" (click)="logout()">
+  <span class="icon">🚪</span>
+  <span>Logout</span>
+</button>
 

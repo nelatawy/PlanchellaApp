@@ -1,12 +1,11 @@
-import {Component, Input} from '@angular/core';
-import {ProfilePic} from '../../general/profile-pic/profile-pic';
+import {Component, inject, Input} from '@angular/core';
 import {NgOptimizedImage} from '@angular/common';
 import {User} from '../../models/user';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-left-side',
   imports: [
-    ProfilePic,
     NgOptimizedImage
   ],
   templateUrl: './left-side.html',
@@ -16,9 +15,11 @@ export class LeftSide {
     @Input()
     user: User | undefined;
 
-    // @Input()
-    // user_name: string = "Karim Mohamed Basem"
-    //
-    // @Input()
-    // user_bio: string = ""
+    private router = inject(Router);
+
+    logout() {
+      // Clear session/token and redirect to login page
+      console.log('Logout clicked');
+      this.router.navigate(['/signin']);
+    }
 }

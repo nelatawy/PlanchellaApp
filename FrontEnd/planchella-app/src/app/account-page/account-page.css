@@ -1,23 +1,24 @@
 #page {
   width: 100vw;
-  height: 100vh;
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
 }
-.content{
-  border: 1px solid yellow;
+
+.content {
   display: flex;
-  /*justify-content: start;*/
   width: 100%;
-  min-height: 100vh;
+  min-height: calc(100vh - 60px);
   color: white;
-  overflow: hidden;
-  /*padding: 0 60px;*/
-  /*padding: 40px;*/
+  padding: 0;
+  gap: 0;
 }
+
 .top-bar {
   z-index: 1000;
   width: 100%;
-  box-shadow: var(--top-bar-shadow);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(10px);
 }
