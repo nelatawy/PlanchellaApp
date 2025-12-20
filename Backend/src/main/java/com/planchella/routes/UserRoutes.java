@@ -1,16 +1,15 @@
 package com.planchella.routes;
 
 import com.planchella.DTOs.EventDTO;
-import com.planchella.Services.EventService;
-import com.planchella.Services.MembershipService;
+import com.planchella.Services.*;
+import com.planchella.domain.Community;
 import com.planchella.domain.Event;
 import com.planchella.domain.Membership;
+import com.planchella.enums.MembershipType;
 import com.planchella.mappers.EventMapper;
 import org.springframework.web.bind.annotation.*;
 
 import com.planchella.DTOs.UserDTO;
-import com.planchella.Services.UserService;
-import com.planchella.Services.JWTService;
 import com.planchella.domain.User;
 import com.planchella.mappers.UserMapper;
 import com.planchella.repositories.users.AuthUserRepository;
@@ -85,12 +84,12 @@ public class UserRoutes {
         return membershipService.getMembershipsByUser(user);
     }
 
-    @PatchMapping("/{user_id}")
-    public void updateUser(@PathVariable Long user_id, @RequestBody UserDTO data,
+    @PatchMapping
+    public void updateUser(@RequestBody UserDTO data,
             @RequestHeader("Authorization") String authHeader) {
         Long requestingUserId = authHelper.extractUserId(authHeader);
         User newUserData = UserMapper.DTOtoDomain(data);
-        this.userService.updateUser(user_id, newUserData, requestingUserId);
+        this.userService.updateUser(requestingUserId, newUserData);
     }
 
     @PutMapping
@@ -99,10 +98,10 @@ public class UserRoutes {
         this.userService.addUser(user);
     }
 
-    @DeleteMapping("/{user_id}")
-    public void deleteUser(@PathVariable Long user_id, @RequestHeader("Authorization") String authHeader) {
+    @DeleteMapping
+    public void deleteUser(@RequestHeader("Authorization") String authHeader) {
         Long requestingUserId = authHelper.extractUserId(authHeader);
-        this.userService.deleteUser(user_id, requestingUserId);
+        this.userService.deleteUser(requestingUserId);
     }
 
 }

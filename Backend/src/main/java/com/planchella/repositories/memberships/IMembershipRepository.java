@@ -14,4 +14,6 @@ public interface IMembershipRepository {
     java.util.List<Membership> getMembershipsByCommunity(Long communityId);
 
     void saveMembership(Membership membership);
+
+    void deleteMembership(Membership membership);
 }

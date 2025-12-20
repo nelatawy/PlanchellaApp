@@ -98,6 +98,11 @@ public class MembershipService {
         invalidateCommunityCache(community.getId());
     }
 
+
+    public void removeMembership(Membership membership){
+        membershipRepository.deleteMembership(membership);
+    }
+
     private void saveMembership(Membership membership) {
         membershipRepository.saveMembership(membership);
     }

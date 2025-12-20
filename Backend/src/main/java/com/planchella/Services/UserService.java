@@ -22,10 +22,7 @@ public class UserService {
         return userRepo.getUsers(communityId, count, offset);
     }
 
-    public void updateUser(Long userId, User newUserData, Long requestingUserId) {
-        if (!userId.equals(requestingUserId)) {
-            throw new IllegalArgumentException("Users can only update their own profile");
-        }
+    public void updateUser(Long userId, User newUserData) {
         User user = userRepo.getUser(userId);
         if (user != null) {
             user.updateByDelta(newUserData);
@@ -38,10 +35,7 @@ public class UserService {
         userRepo.saveUser(user);
     }
 
-    public void deleteUser(Long userId, Long requestingUserId) {
-        if (!userId.equals(requestingUserId)) {
-            throw new IllegalArgumentException("Users can only delete their own profile");
-        }
+    public void deleteUser(Long userId) {
         userRepo.deleteUser(userId);
     }
 
