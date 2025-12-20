@@ -6,7 +6,7 @@
   </div>
   <button class="new_event fa-solid fa-plus" (click)="show_creation_page()"></button>
   <div #overlay class="overlay" (click)="hide_creation_page()">
-    <app-event-builder #builder class="builder" (click)="onBuilderClick($event)"></app-event-builder>
+    <app-event-builder #builder class="builder" (click)="onBuilderClick($event)" (close)="hide_creation_page()"></app-event-builder>
   </div>
 </div>
 

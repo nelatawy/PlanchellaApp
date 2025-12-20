@@ -1,23 +1,25 @@
-import { Component } from '@angular/core';
+import { Component, Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, NgForm } from '@angular/forms';
-import { RouterModule, Router } from '@angular/router';
 import { EventData } from '../models/event-data';
 import { EventType, EventSize } from '../models/Enums';
 import { EventAttachment } from '../models/event-attachment';
 import { EventAuthorData } from '../models/event-author-data';
 import { MimeTypeUtils } from '../services/utils';
+import { EventDataService } from '../services/event-data-service';
 
 @Component({
   selector: 'app-event-builder',
   standalone: true,
-  imports: [FormsModule, CommonModule, RouterModule],
+  imports: [FormsModule, CommonModule],
   templateUrl: './event-builder.html',
   styleUrls: ['./event-builder.css'],
 })
 export class EventBuilder {
-  
+
   MimeTypeUtils = MimeTypeUtils;
+
+  @Output() close = new EventEmitter<void>();
 
   title: string = '';
   description: string = '';
@@ -32,11 +34,19 @@ export class EventBuilder {
 
   sizes: EventSize[] = [EventSize.SMALL, EventSize.MID, EventSize.LARGE];
 
+  isSubmitting: boolean = false;
+
   toggleDropdown() { this.isDropdownOpen = !this.isDropdownOpen; }
   selectFlare(flare: string) { this.selectedFlare = flare; this.isDropdownOpen = false; }
   closeDropdown() { this.isDropdownOpen = false; }
 
-  constructor(private router: Router) { }
+  closeBuilder() {
+    this.close.emit();
+    // Fallback if used as page
+    // this.router.navigate(['/main']); 
+  }
+
+  constructor(private eventDataService: EventDataService) { }
 
   addAttachment(event: Event) {
     const input = event.target as HTMLInputElement;
@@ -57,26 +67,33 @@ export class EventBuilder {
     input.value = '';
   }
 
-  onSubmit(form: NgForm) {
+  removeAttachment(index: number) {
+    this.attachments.splice(index, 1);
+  }
+
+  async onSubmit(form: NgForm) {
     if (!this.title || !this.description || !this.selectedFlare || !this.startDate || !this.endDate) {
       alert('Please fill all fields and select a flare.');
       return;
     }
 
-    const author: EventAuthorData = {
-      id: 'author1',
-      name: 'John Doe',
-      picUrl: 'https://example.com/johndoe.jpg',
-      accountUrl: 'https://example.com/johndoe'
-    };
+    if (this.isSubmitting) return;
 
+    this.isSubmitting = true;
+
+    // Prepare EventData object
     const eventData: EventData = {
-      id: `event-${Date.now()}`,
-      title: this.title,
-      description: this.description,
+      id: `event-${Date.now()}`, // Temporary ID, backend will assign real one
       eventType: this.mapFlareToEventType(this.selectedFlare),
       eventSize: this.selectedSize,
-      authorData: author,
+      authorData: {
+        id: '', // Backend will populate from auth
+        name: '',
+        picUrl: '',
+        accountUrl: ''
+      },
+      title: this.title,
+      description: this.description,
       creationDate: new Date(),
       eventStartDate: new Date(this.startDate),
       eventEndDate: new Date(this.endDate),
@@ -85,14 +102,25 @@ export class EventBuilder {
       attachments: this.attachments
     };
 
-    console.log('EventData built:', eventData);
+    try {
+      const response = await this.eventDataService.createEvent(eventData);
+      console.log('Event created successfully:', response);
+      alert('Event created successfully!');
 
-    form.resetForm();
-    this.attachments = [];
-    this.selectedFlare = '';
-    this.selectedSize = EventSize.MID;
+      // Reset form
+      form.resetForm();
+      this.attachments = [];
+      this.selectedFlare = '';
+      this.selectedSize = EventSize.MID;
+      this.isSubmitting = false;
 
-    this.router.navigate(['/main']);
+      // Close builder
+      this.close.emit();
+    } catch (error) {
+      console.error('Error creating event:', error);
+      alert('Failed to create event. Please try again.');
+      this.isSubmitting = false;
+    }
   }
 
   private mapFlareToEventType(flare: string) {

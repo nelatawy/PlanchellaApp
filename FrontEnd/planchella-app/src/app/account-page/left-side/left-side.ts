@@ -1,12 +1,10 @@
 import {Component, Input} from '@angular/core';
-import {ProfilePic} from '../../general/profile-pic/profile-pic';
 import {NgOptimizedImage} from '@angular/common';
 import {User} from '../../models/user';
 
 @Component({
   selector: 'app-left-side',
   imports: [
-    ProfilePic,
     NgOptimizedImage
   ],
   templateUrl: './left-side.html',
