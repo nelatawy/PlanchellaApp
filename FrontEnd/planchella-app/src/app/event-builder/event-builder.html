@@ -27,12 +27,20 @@
       </div>
 
       <!-- Size -->
-      <div class="size-container">
-        <select id="size" [(ngModel)]="selectedSize" name="size">
+      <div class="custom-select-container size-container">
+        <div class="selected-option" (click)="toggleSizeDropdown()" [class.active]="isSizeDropdownOpen">
+          {{ selectedSize }}
+          <span class="arrow" [class.rotated]="isSizeDropdownOpen">▼</span>
+        </div>
+        @if (isSizeDropdownOpen) {
+        <div class="options-list">
           @for (s of sizes; track $index) {
-            <option [ngValue]="s">{{ s }}</option>
+          <div class="option-item" (click)="selectSize(s)" [class.selected]="selectedSize === s">
+            {{ s }}
+          </div>
           }
-        </select>
+        </div>
+        }
       </div>
     </div>
 
@@ -40,7 +48,8 @@
     <div class="form-row">
       <div class="date-group">
         <label for="startDate">Starts</label>
-        <input id="startDate" type="datetime-local" class="inputField" [(ngModel)]="startDate" name="startDate" required>
+        <input id="startDate" type="datetime-local" class="inputField" [(ngModel)]="startDate" name="startDate"
+          required>
       </div>
       <div class="date-group">
         <label for="endDate">Ends</label>

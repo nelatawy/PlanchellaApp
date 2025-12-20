@@ -23,9 +23,9 @@ interface AttachmentState {
 export class EventComponent implements OnInit, OnDestroy {
 
   isModalOpen = false;
-  maxVisibleAttachments = 6;
+  maxVisibleAttachments = 5;
 
-  event?: EventData = {
+  @Input() event?: EventData = {
     id: '1',
     eventType: EventType.CONTEST,
     eventSize: EventSize.MID,
@@ -88,12 +88,20 @@ export class EventComponent implements OnInit, OnDestroy {
     ],
   };
 
+  isStarred: boolean = false;
+
+  toggleStar() {
+    this.isStarred = !this.isStarred;
+    // In a real app, this would call a service to update the 'eventStarred' interaction
+    console.log(`Event ${this.event?.id} starred: ${this.isStarred}`);
+  }
+
   attachmentStates = new Map<string, AttachmentState>();
 
   constructor(
     private sanitizer: DomSanitizer,
     private attachmentService: AttachmentService
-  ) {}
+  ) { }
 
   ngOnInit() {
     // Preload images and small files automatically
@@ -111,7 +119,7 @@ export class EventComponent implements OnInit, OnDestroy {
 
   loadAttachment(attachmentId: string): void {
     const state = this.attachmentStates.get(attachmentId);
-    
+
     // Don't reload if already loaded or loading
     if (state?.url || state?.loading) {
       return;
@@ -207,7 +215,7 @@ export class EventComponent implements OnInit, OnDestroy {
   openModal(): void {
     this.isModalOpen = true;
     document.body.style.overflow = 'hidden';
-    
+
     // Load all attachments when modal opens
     this.event?.attachments?.forEach(att => {
       if (!this.getAttachmentUrl(att.id) && !this.isLoading(att.id)) {

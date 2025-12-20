@@ -10,28 +10,220 @@
   display: flex;
   flex-direction: column;
   gap: var(--gap-xl);
+  margin: 0 auto;
+  /* Center the card */
 }
 
 /* =====================================================
    EVENT HEADER
 ===================================================== */
+/* =====================================================
+   EVENT HEADER & META
+===================================================== */
 .event-header {
   padding-bottom: var(--padding-lg);
   border-bottom: 1px solid var(--border-color-light);
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.event-meta-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+.author-info {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.author-link,
+.author-link-text {
+  text-decoration: none;
+  color: inherit;
+  display: flex;
+  align-items: center;
+  transition: opacity 0.2s;
+}
+
+.author-link:hover,
+.author-link-text:hover {
+  opacity: 0.8;
+  text-decoration: underline;
+}
+
+.author-link-text:hover {
+  text-decoration: underline var(--primary-color-light);
+}
+
+.author-pic {
+  width: 2.8rem;
+  /* Slightly larger */
+  height: 2.8rem;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid var(--primary-color-light);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.author-name {
+  font-weight: 600;
+  color: var(--text-color-dark);
+  font-size: 0.95rem;
+}
+
+.meta-right {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.event-type-badge {
+  background: var(--bg-white);
+  border: 1px solid var(--primary-color-light);
+  color: var(--primary-color-dark);
+  padding: 0.2rem 0.6rem;
+  border-radius: 2rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.creation-date {
+  font-size: 0.8rem;
+  color: var(--text-color-muted);
 }
 
 .event-title {
   font-size: var(--font-size-x-lg);
   font-family: var(--font-wide-bold);
   color: var(--primary-color-dark);
-  margin: 0 0 0.5rem;
+  margin: 0;
+  line-height: 1.2;
+}
+
+.event-dates {
+  margin-top: 0.5rem;
+  font-size: 0.9rem;
+  color: var(--text-color-medium);
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  background: rgba(126, 48, 225, 0.05);
+  /* Very light primary tint */
+  padding: 0.4rem 0.8rem;
+  border-radius: var(--radius-med);
+  align-self: flex-start;
+}
+
+.date-value {
+  color: var(--primary-color-dark);
+  font-weight: 600;
 }
 
 .event-description {
   font-size: var(--font-size-sm);
   color: var(--text-color-medium);
   line-height: 1.6;
-  max-width: 80%;
+  max-width: 100%;
+  /* Allow full width since it's below dates now */
+  white-space: pre-wrap;
+  /* Preserve line breaks and handle long text */
+  overflow-wrap: break-word;
+  /* Ensure long words don't overflow */
+  margin-top: 1rem;
+}
+
+/* =====================================================
+   VOTE CONTROLS
+===================================================== */
+/* =====================================================
+   VOTE CONTROLS
+===================================================== */
+.vote-controls {
+  display: flex;
+  justify-content: space-between;
+  /* Ensure buttons cover width */
+  gap: var(--gap-md);
+  /* Consistent gap */
+  margin-top: 0;
+  align-self: flex-end;
+  margin-top: auto;
+  padding-top: var(--gap-lg);
+  border-top: 1px solid var(--border-color-light);
+  width: 100%;
+}
+
+.vote-btn {
+  flex: 1;
+  /* Take equal width */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* Center content */
+  gap: 0.6rem;
+  padding: 0.8rem 1.2rem;
+  /* Even larger padding */
+  border-radius: 2rem;
+  border: 1px solid var(--border-color-light);
+  background: var(--bg-white);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-weight: 700;
+  font-size: 1.1rem;
+  color: var(--text-color-medium);
+}
+
+.vote-btn .icon {
+  font-size: 1.2rem;
+  /* Icon size */
+}
+
+.vote-btn:hover {
+  background: var(--bg-gray);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.vote-btn.upvote:hover {
+  border-color: #10B981;
+  /* Green */
+  color: #059669;
+  background: #ECFDF5;
+  /* Light green tint */
+}
+
+.vote-btn.downvote:hover {
+  border-color: #EF4444;
+  /* Red */
+  color: #B91C1C;
+  background: #FEF2F2;
+  /* Light red tint */
+}
+
+.vote-btn.star-btn {
+  margin-left: 0;
+  /* Reset auto margin since we use flex: 1 */
+  border-color: #FCD34D;
+}
+
+.vote-btn.star-btn:hover {
+  background: #FFFBEB;
+  border-color: #F59E0B;
+  color: #D97706;
+}
+
+.vote-btn.star-btn.starred {
+  background: #FDF6B2;
+  /* Stronger yellow when actually starred */
+  border-color: #F59E0B;
+  color: #D97706;
 }
 
 /* =====================================================
@@ -260,7 +452,7 @@
 }
 
 /* Fade-in */
-.attachment-preview > * {
+.attachment-preview>* {
   animation: fadeIn 0.4s ease;
 }
 
@@ -269,6 +461,7 @@
     opacity: 0;
     transform: scale(0.97);
   }
+
   to {
     opacity: 1;
     transform: scale(1);
@@ -396,6 +589,7 @@
   from {
     opacity: 0;
   }
+
   to {
     opacity: 1;
   }
@@ -418,6 +612,7 @@
     opacity: 0;
     transform: translateY(30px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);

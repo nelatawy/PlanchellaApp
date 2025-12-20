@@ -1,0 +1,155 @@
+.builder-modal {
+    background: var(--bg-white);
+    border-radius: var(--radius-lg);
+    width: 90%;
+    max-width: 500px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    margin: auto;
+    /* To center it if parent is flex */
+    transform: translateY(100vh);
+    /* Start off-screen like event builder */
+    transition: all 0.35s ease-in-out;
+}
+
+.modal-header {
+    padding: var(--padding-lg);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid var(--border-color-light);
+}
+
+.modal-header h3 {
+    margin: 0;
+    color: var(--text-color-dark);
+    font-size: 1.25rem;
+}
+
+.close-btn {
+    background: none;
+    border: none;
+    font-size: 1.2rem;
+    color: var(--text-color-medium);
+    cursor: pointer;
+    padding: 0.5rem;
+    border-radius: 50%;
+    transition: all 0.2s;
+}
+
+.close-btn:hover {
+    background: var(--bg-gray);
+    color: var(--text-color-dark);
+}
+
+.modal-body {
+    padding: var(--padding-lg);
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.form-group label {
+    font-weight: 600;
+    color: var(--text-color-medium);
+    font-size: 0.9rem;
+}
+
+.form-group input,
+.form-group textarea {
+    padding: 0.8rem;
+    border-radius: var(--radius-med);
+    border: 1px solid var(--border-color-light);
+    font-family: inherit;
+    font-size: 1rem;
+    outline: none;
+    transition: border-color 0.2s;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+    border-color: var(--primary-color-light);
+    box-shadow: 0 0 0 3px rgba(126, 48, 225, 0.1);
+}
+
+.modal-footer {
+    padding: var(--padding-lg);
+    display: flex;
+    justify-content: flex-end;
+    gap: 1rem;
+    border-top: 1px solid var(--border-color-light);
+    background: var(--bg-light);
+}
+
+.btn-cancel {
+    padding: 0.6rem 1.2rem;
+    border-radius: 2rem;
+    border: 1px solid var(--border-color-light);
+    background: var(--bg-white);
+    color: var(--text-color-medium);
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.btn-create {
+    padding: 0.6rem 1.5rem;
+    border-radius: 2rem;
+    border: 2px solid var(--border-color-light);
+    background: var(--primary-gradient);
+    color: var(--text-color-medium);
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.btn-create:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes slideUp {
+    from {
+        transform: translateY(20px);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.spinner-mini {
+    width: 16px;
+    height: 16px;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    border-top-color: white;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}

@@ -30,15 +30,20 @@ export class EventBuilder {
   attachments: EventAttachment[] = [];
 
   isDropdownOpen: boolean = false;
+  isSizeDropdownOpen: boolean = false;
   flares: string[] = ['Hackathon', 'Contest', 'Release'];
 
   sizes: EventSize[] = [EventSize.SMALL, EventSize.MID, EventSize.LARGE];
 
   isSubmitting: boolean = false;
 
-  toggleDropdown() { this.isDropdownOpen = !this.isDropdownOpen; }
+  toggleDropdown() { this.isDropdownOpen = !this.isDropdownOpen; this.isSizeDropdownOpen = false; }
   selectFlare(flare: string) { this.selectedFlare = flare; this.isDropdownOpen = false; }
-  closeDropdown() { this.isDropdownOpen = false; }
+
+  toggleSizeDropdown() { this.isSizeDropdownOpen = !this.isSizeDropdownOpen; this.isDropdownOpen = false; }
+  selectSize(size: EventSize) { this.selectedSize = size; this.isSizeDropdownOpen = false; }
+
+  closeDropdown() { this.isDropdownOpen = false; this.isSizeDropdownOpen = false; }
 
   closeBuilder() {
     this.close.emit();
@@ -53,6 +58,13 @@ export class EventBuilder {
     if (!input.files) return;
 
     Array.from(input.files).forEach(file => {
+      // Check for duplicates
+      const isDuplicate = this.attachments.some(att => att.fileName === file.name && att.size === file.size);
+      if (isDuplicate) {
+        console.warn(`Skipping duplicate file: ${file.name}`);
+        return;
+      }
+
       const mimeType = file.type || MimeTypeUtils.fromFileExtension(file.name.split('.').pop() || '');
       const attachment: EventAttachment = {
         id: `att${this.attachments.length + 1}`,

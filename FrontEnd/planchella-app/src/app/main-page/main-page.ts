@@ -1,81 +1,83 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
-import { Billboard } from '../billboard/billboard';
+import { CommonModule } from '@angular/common';
 import { TopBar } from '../general/top-bar/top-bar';
-import { CommunitySelector } from '../community-selector/community-selector';
-import { CommunityData } from '../models/community-data';
-import { EventBuilder } from '../event-builder/event-builder';
-import { ActivatedRoute, Router, RouterOutlet } from '@angular/router';
-import { CommunityDataService } from '../services/community-data-service';
+import { Billboard } from '../billboard/billboard';
 import { SidebarService } from '../services/sidebar.service';
+import { CommunitySelector } from '../community-selector/community-selector';
+import { EventBuilder } from '../event-builder/event-builder';
+import { CommunityData } from '../models/community-data';
+import { CommunityBuilder } from '../community-builder/community-builder';
 
 @Component({
   selector: 'app-main-page',
+  standalone: true,
   imports: [
-    Billboard,
     TopBar,
     CommunitySelector,
+    Billboard,
     EventBuilder,
+    EventBuilder,
+    CommunityBuilder,
+    CommonModule
   ],
   templateUrl: './main-page.html',
-  styleUrl: './main-page.css',
+  styleUrl: './main-page.css'
 })
 export class MainPage {
-  communityData: CommunityData = { id: 0, name: "CSED" };
+  @ViewChild("builder") eventBuilder!: EventBuilder;
+  @ViewChild("overlay") overlay!: ElementRef;
+
+  @ViewChild("communityBuilder", { read: ElementRef }) communityBuilder!: ElementRef;
+  @ViewChild("communityOverlay") communityOverlay!: ElementRef;
+
+  @ViewChild(CommunitySelector) communitySelector!: CommunitySelector;
 
   isOpen = false;
 
-  constructor(private route: ActivatedRoute, private router: Router, private communityDataService: CommunityDataService, private sidebarService: SidebarService) {
-    route.paramMap.subscribe(map => {
-      if (map.has('name')) {
-        const community_name = map.get('name') || '';
-        // load events for the community name given..
-        // 1. Get the cached service names
-        this.communityData = this.communityDataService.get_community(community_name) || this.communityData;
-        // 2. If the name exists, fetch the events
+  communityData: CommunityData | undefined = undefined;
 
+  constructor(private sidebarService: SidebarService) {
+    this.sidebarService.open$.subscribe(
+      (isOpen) => {
+        this.isOpen = isOpen;
       }
-    })
-
-  }
-  protected readonly window = window;
-  @ViewChild('overlay', { static: false }) overlay!: ElementRef<HTMLDivElement>;
-  @ViewChild('builder', { static: false, read: ElementRef }) builder!: ElementRef;
-
-
-  ngOnInit() {
-    this.sidebarService.open$.subscribe(state => {
-      this.isOpen = state;
-    })
-  }
-
-  // ngAfterViewInit(){
-  //   window.alert("picked");
-  // }
-  select_community(communityData: CommunityData) {
-    // this.communityData = communityData;
-    this.router.navigate(['main', communityData.name]);
+    );
   }
 
   show_creation_page() {
-    this.overlay.nativeElement.style.zIndex = '1500';
-
-    setTimeout(() => {
-      this.builder.nativeElement.style.transform = 'translateY(0)';
-      this.overlay.nativeElement.style.opacity = '1';
-    }, 50);
+    this.overlay.nativeElement.style.opacity = "1";
+    this.overlay.nativeElement.style.zIndex = "1000";
+    this.eventBuilder.toggleDropdown();
   }
 
   hide_creation_page() {
-
-    setTimeout(() => {
-      this.overlay.nativeElement.style.opacity = '0';
-      this.builder.nativeElement.style.transform = 'translateY(100vh)';
-    }, 50);
-    this.overlay.nativeElement.style.zIndex = '-1';
+    this.overlay.nativeElement.style.opacity = "0";
+    this.overlay.nativeElement.style.zIndex = "-1";
   }
+
 
   onBuilderClick(event: MouseEvent) {
     event.stopPropagation();
   }
 
+  select_community(event: CommunityData) {
+    this.communityData = event;
+  }
+
+  show_community_builder() {
+    this.communityOverlay.nativeElement.style.opacity = "1";
+    this.communityOverlay.nativeElement.style.zIndex = "1000";
+    this.communityBuilder.nativeElement.style.transform = "translateY(0)";
+  }
+
+  hide_community_builder() {
+    this.communityOverlay.nativeElement.style.opacity = "0";
+    this.communityOverlay.nativeElement.style.zIndex = "-1";
+    this.communityBuilder.nativeElement.style.transform = "translateY(100vh)";
+  }
+
+  onCommunityCreated() {
+    this.hide_community_builder();
+    this.communitySelector.refreshList();
+  }
 }

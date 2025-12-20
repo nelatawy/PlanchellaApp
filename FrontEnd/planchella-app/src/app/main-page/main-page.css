@@ -3,51 +3,56 @@
   height: 100vh;
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  align-items: stretch;
   gap: 0;
 
 }
 
 .top-bar {
   z-index: 1000;
-  width: 100%;
+  width: 100vw;
   box-shadow: var(--top-bar-shadow);
 }
-.page-content{
+
+.page-content {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  width: 100%;
-  height: 100vh;
+  width: 100vw;
+  flex: 1;
+  /* Take remaining height instead of fixed 100vh */
+  overflow: hidden;
+  /* Prevent spillover */
   transition: all 0.3s ease-in-out;
-  /*height: 90vh;*/
 }
 
-.billboard{
-  height: 100%;
+.billboard {
+  height: 100vh;
   overflow-y: scroll;
   flex: 2;
 }
 
 /* Adjust billboard size based on sidebar */
 .billboard.full {
-  flex: 1 1 100%; /* take full width when sidebar hidden */
+  flex: 1 1 100%;
+  /* take full width when sidebar hidden */
 }
 
 .billboard.shrink {
-  flex: 2; /* normal size when sidebar visible */
+  flex: 2;
+  /* normal size when sidebar visible */
 }
 
 .comm_selector {
-  height: 100%;
+  height: 100vh;
   overflow-y: scroll;
   max-width: 40rem;
   flex: 1;
-
   /* hidden */
   transform: translateX(-100%);
   transition: transform 0.3s ease-in-out;
 }
+
 .comm_selector.open {
   /* visible */
   transform: translateX(0);
@@ -64,10 +69,11 @@
   border-radius: var(--circular-radius);
   background-color: var(--card-color-light);
   color: var(--primary-color-dark);
-  transition: transform 0.2s ease-in-out , border 0.2s ease-in-out;
+  transition: transform 0.2s ease-in-out, border 0.2s ease-in-out;
   box-shadow: var(--dark-shadow);
   border: var(--button-border);
 }
+
 .new_event:hover {
   transform: scale(1.05);
   border: var(--button-border-hover);
@@ -76,8 +82,10 @@
 
 .overlay {
   position: fixed;
-  width: 100%;
-  height: 100%;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
   backdrop-filter: blur(4px);
   background-color: rgba(0, 0, 0, 0.42);
   z-index: -1;
@@ -87,13 +95,19 @@
   transition: all 0.2s ease-in-out;
   opacity: 0;
 }
+
 .builder {
   transform: translateY(100vh);
   transition: all 0.35s ease-in-out;
 }
+
 @media (max-width: 1000px) {
-  .comm_selector{
-    display: none;
+  .comm_selector {
+    z-index: 10;
+    display: block;
+    position: absolute;
+    width: 100%;
+    max-width: 100%;
+    left: 0;
   }
 }
-
