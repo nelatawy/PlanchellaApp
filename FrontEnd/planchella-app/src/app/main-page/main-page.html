@@ -10,16 +10,20 @@
 
   <button class="new_event fa-solid fa-plus" (click)="show_creation_page()"></button>
 
-  <!-- Event Builder Overlay (Existing) -->
   <div #overlay class="overlay" (click)="hide_creation_page()">
-    <app-event-builder #builder class="builder" (click)="onBuilderClick($event)"
+    <app-event-builder #builder class="builder event" (click)="onBuilderClick($event)"
       (close)="hide_creation_page()"></app-event-builder>
   </div>
 
   <div #communityOverlay class="overlay" (click)="hide_community_builder()">
-    <app-community-builder #communityBuilder class="builder" (click)="onBuilderClick($event)"
-      (cancel)="hide_community_builder()" (communityCreated)="onCommunityCreated()">
+  <div class="community-builder" (click)="$event.stopPropagation()">
+    <app-community-builder
+      #communityBuilder
+      (cancel)="hide_community_builder()"
+      (communityCreated)="onCommunityCreated()">
     </app-community-builder>
   </div>
+</div>
+
 
 </div>

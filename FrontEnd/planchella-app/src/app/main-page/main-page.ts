@@ -24,7 +24,7 @@ import { CommunityBuilder } from '../community-builder/community-builder';
   styleUrl: './main-page.css'
 })
 export class MainPage {
-  @ViewChild("builder") eventBuilder!: EventBuilder;
+  @ViewChild("builder", { read: ElementRef }) eventBuilderElement!: ElementRef;
   @ViewChild("overlay") overlay!: ElementRef;
 
   @ViewChild("communityBuilder", { read: ElementRef }) communityBuilder!: ElementRef;
@@ -47,12 +47,13 @@ export class MainPage {
   show_creation_page() {
     this.overlay.nativeElement.style.opacity = "1";
     this.overlay.nativeElement.style.zIndex = "1000";
-    this.eventBuilder.toggleDropdown();
+    this.eventBuilderElement.nativeElement.style.transform = "translateY(0)";
   }
 
   hide_creation_page() {
     this.overlay.nativeElement.style.opacity = "0";
     this.overlay.nativeElement.style.zIndex = "-1";
+    this.eventBuilderElement.nativeElement.style.transform = "translateY(100vh)";
   }
 
 
@@ -67,13 +68,11 @@ export class MainPage {
   show_community_builder() {
     this.communityOverlay.nativeElement.style.opacity = "1";
     this.communityOverlay.nativeElement.style.zIndex = "1000";
-    this.communityBuilder.nativeElement.style.transform = "translateY(0)";
   }
 
   hide_community_builder() {
     this.communityOverlay.nativeElement.style.opacity = "0";
     this.communityOverlay.nativeElement.style.zIndex = "-1";
-    this.communityBuilder.nativeElement.style.transform = "translateY(100vh)";
   }
 
   onCommunityCreated() {
