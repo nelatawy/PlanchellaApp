@@ -10,9 +10,9 @@ import java.util.List;
 public class MockCommunityRepository implements ICommunityRepository {
 
     @Override
-    public List<Community> getCommunitiesByAuthor(int count, Long user_id) {
+    public List<Community> getCommunitiesByAuthor(int count, Long userId) {
         List<Community> communities = new ArrayList<>();
-        for (int i = 0; i < count/2; i++) {
+        for (int i = 0; i < count / 2; i++) {
             communities.add(new Community());
 
             communities.add(new Community());
@@ -24,9 +24,9 @@ public class MockCommunityRepository implements ICommunityRepository {
     }
 
     @Override
-    public Community getCommunity(Long community_id) {
+    public Community getCommunity(Long communityId) {
         return new Community(
-                community_id,
+                communityId,
                 "CSED");
     }
 
@@ -36,7 +36,7 @@ public class MockCommunityRepository implements ICommunityRepository {
     }
 
     @Override
-    public void deleteCommunity(Long community_id){
+    public void deleteCommunity(Long communityId) {
         return;
     }
 

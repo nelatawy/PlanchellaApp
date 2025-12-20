@@ -7,7 +7,7 @@ import com.planchella.domain.User;
 
 public class MockUserRepository implements IUserRepository {
     @Override
-    public List<User> getUsers(int count, Long community_id) {
+    public List<User> getUsers(int count, Long communityId) {
         List<User> users = new ArrayList<>();
         User user = User.getMockData();
 
@@ -28,9 +28,9 @@ public class MockUserRepository implements IUserRepository {
     }
 
     @Override
-    public User getUser(Long user_id) {
+    public User getUser(Long userId) {
         return new User(
-                user_id,
+                userId,
                 "hamada@example.com",
                 "hamada",
                 "",
@@ -38,7 +38,7 @@ public class MockUserRepository implements IUserRepository {
     }
 
     @Override
-    public void deleteUser(Long user_id) {
+    public void deleteUser(Long userId) {
 
     }
 

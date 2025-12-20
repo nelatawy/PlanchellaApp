@@ -21,6 +21,7 @@ public class UserMapper {
         entity.setName(user.getName());
         entity.setAccountUrl(user.getAccountUrl());
         entity.setPicUrl(user.getPicUrl());
+        entity.setEmail(user.getEmail());
 
         List<MembershipEntity> memberships = new ArrayList<>();
         for(Membership membership : user.getMemberships()) {

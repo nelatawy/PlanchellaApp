@@ -3,10 +3,11 @@ package com.planchella.repositories.users;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.planchella.Configs.HibernateUtil;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
-import org.hibernate.cfg.Configuration;
+
 import org.hibernate.query.Query;
 
 import com.planchella.domain.User;
@@ -14,17 +15,16 @@ import com.planchella.entities.UserEntity;
 import com.planchella.mappers.UserMapper;
 import org.springframework.stereotype.Repository;
 
-
 @Repository
 public class DBUserRepository implements IUserRepository {
     SessionFactory sessionFactory;
 
     public DBUserRepository() {
-        this.sessionFactory = new Configuration().configure().buildSessionFactory();
+        this.sessionFactory = HibernateUtil.getSessionFactory();
     }
 
     @Override
-    public List<User> getUsers(int count, Long community_id) {
+    public List<User> getUsers(int count, Long communityId) {
         Session session = this.sessionFactory.openSession();
 
         String hql = "select e from UserEntity e " +
@@ -33,15 +33,15 @@ public class DBUserRepository implements IUserRepository {
                 "where c.id = :ID ";
 
         Query<UserEntity> query = session.createQuery(hql, UserEntity.class);
-        query.setParameter("ID", community_id);
+        query.setParameter("ID", communityId);
 
         return getUsersHelper(session, query);
     }
 
     @Override
-    public User getUser(Long user_id) {
+    public User getUser(Long userId) {
         Session session = this.sessionFactory.openSession();
-        UserEntity userEntity = session.get(UserEntity.class, user_id);
+        UserEntity userEntity = session.get(UserEntity.class, userId);
         User user = UserMapper.entityToDomain(userEntity);
         session.close();
         return user;
@@ -76,14 +76,14 @@ public class DBUserRepository implements IUserRepository {
         }
         tx.commit();
         session.close();
-        return  entity.getId();
+        return entity.getId();
     }
 
     @Override
-    public void deleteUser(Long user_id) {
+    public void deleteUser(Long userId) {
         Session session = this.sessionFactory.openSession();
         Transaction tx = session.beginTransaction();
-        session.remove(session.get(UserEntity.class, user_id));
+        session.remove(session.get(UserEntity.class, userId));
         tx.commit();
         session.close();
     }

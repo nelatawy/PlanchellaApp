@@ -5,6 +5,8 @@ import com.planchella.repositories.communities.DBCommunityRepository;
 import com.planchella.repositories.communities.ICommunityRepository;
 import com.planchella.repositories.events.DBEventRepository;
 import com.planchella.repositories.events.IEventRepository;
+import com.planchella.repositories.memberships.DBMembershipRepository;
+import com.planchella.repositories.memberships.IMembershipRepository;
 import com.planchella.repositories.users.DBUserRepository;
 import com.planchella.repositories.users.IUserRepository;
 import org.springframework.context.annotation.Bean;
@@ -29,7 +31,14 @@ public class BeanConfig {
     }
 
     @Bean
-    public AttachmentRepository attachmentRepository() {return new AttachmentRepository();}
+    public AttachmentRepository attachmentRepository() {
+        return new AttachmentRepository();
+    }
+
+    @Bean
+    public IMembershipRepository membershipRepository() {
+        return new DBMembershipRepository();
+    }
 
 
 }

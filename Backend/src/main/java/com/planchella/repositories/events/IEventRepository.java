@@ -8,14 +8,13 @@ import java.util.List;
 @Repository
 public interface IEventRepository {
 
-    List<Event> getEventsByCommunity(int count, Long community_id);
+    List<Event> getEventsByCommunity(Long communityId, int count, int offset);
 
-    List<Event> getEventsByAuthor(int count, Long user_id);
+    List<Event> getEventsByAuthor(Long userId, int count, int offset);
 
+    Event getEvent(Long eventId);
 
-    Event getEvent(Long event_id);
-
-    void deleteEvent(Long event_id);
+    void deleteEvent(Long eventId);
 
     void saveEvent(Event event);
 

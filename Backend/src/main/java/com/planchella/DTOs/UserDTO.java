@@ -16,8 +16,10 @@ public class UserDTO {
     public String email;
     public String picUrl;
     public String accountUrl;
-    public List<Membership>  memberships;
-    public List<Long> eventIds;
+//    public List<Membership>  memberships;
+//    public List<Long> eventIds;
+
+    // those will be handled separately because we don't want the DTO to be extremely bloated
     public  UserDTO() {}
 
 }

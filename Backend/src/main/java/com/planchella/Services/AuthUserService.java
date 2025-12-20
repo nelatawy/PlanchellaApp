@@ -27,6 +27,8 @@ public class AuthUserService {
 
     @Autowired
     private JWTService jwtService;
+
+    @Autowired
     AuthenticationManager authManager;
 
     @Autowired
@@ -57,7 +59,9 @@ public class AuthUserService {
         User userData = new User();
         userData.setName(authData.getUsername());
 
-        userData.setAccountUrl("http://localhost:4200/account/" + authData.getUsername()); // We should let the frontend not accept any spaces in the username
+        userData.setAccountUrl("http://localhost:4200/account/" + authData.getUsername()); // We should let the frontend
+                                                                                           // not accept any spaces in
+                                                                                           // the username
         userData.setPicUrl("https://ui-avatars.com/api/?name=" + authData.getUsername());
 
         userData.setEmail(authData.getEmail());

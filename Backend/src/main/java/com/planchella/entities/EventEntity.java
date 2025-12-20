@@ -1,7 +1,7 @@
 package com.planchella.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.planchella.domain.AttachmentMetadata;
+import com.planchella.entities.AttachmentEntity;
 import com.planchella.enums.EventSize;
 import com.planchella.enums.EventType;
 import jakarta.persistence.*;
@@ -45,9 +45,8 @@ public class EventEntity {
     @Column(name = "creation_date")
     private String creationDate;
 
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
-    @JoinColumn(name = "event_id")
-    private List<AttachmentMetadata> attachments;
+    @OneToMany(mappedBy = "event", fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
+    private List<AttachmentEntity> attachments;
 
     public EventEntity(EventType eventType, EventSize eventSize, UserEntity author,
             String title, String description,

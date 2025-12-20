@@ -1,6 +1,5 @@
 package com.planchella.repositories.events;
 
-import com.planchella.domain.AttachmentMetadata;
 import com.planchella.enums.EventSize;
 import com.planchella.enums.EventType;
 import com.planchella.domain.Event;
@@ -12,12 +11,12 @@ import java.util.Objects;
 
 public class MockEventRepository implements IEventRepository {
     @Override
-    public List<Event> getEventsByCommunity(int count, Long community_id) {
+    public List<Event> getEventsByCommunity(Long communityId, int count, int offset) {
         List<Event> events = new ArrayList<>();
         Event event = Event.getMockData();
 
         for (int i = 0; i < count; i++) {
-            if (Objects.equals(community_id, 0L)){
+            if (Objects.equals(communityId, 0L)) {
                 event.setEventType(EventType.CONTEST);
             }
             events.add(event);
@@ -25,17 +24,15 @@ public class MockEventRepository implements IEventRepository {
         return events;
     }
 
-
     @Override
-    public List<Event> getEventsByAuthor(int count, Long community_id) {
+    public List<Event> getEventsByAuthor(Long userId, int count, int offset) {
         return List.of();
     }
 
-
     @Override
-    public Event getEvent(Long event_id) {
+    public Event getEvent(Long eventId) {
         return new Event(
-                event_id,
+                eventId,
                 EventType.CONTEST,
                 EventSize.LARGE,
                 10L,
@@ -43,13 +40,11 @@ public class MockEventRepository implements IEventRepository {
                 "title",
                 "description",
                 new Date().toString(),
-                List.of()
-        );
+                List.of());
     }
 
-
     @Override
-    public void deleteEvent(Long event_id) {
+    public void deleteEvent(Long eventId) {
 
     }
 

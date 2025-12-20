@@ -5,15 +5,14 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-
 @Repository
 public interface IUserRepository {
 
-    List<User> getUsers(int count, Long community_id);
+    List<User> getUsers(int count, Long communityId);
 
-    User getUser(Long user_id);
+    User getUser(Long userId);
 
-    void deleteUser(Long user_id);
+    void deleteUser(Long userId);
 
     Long saveUser(User user);
 

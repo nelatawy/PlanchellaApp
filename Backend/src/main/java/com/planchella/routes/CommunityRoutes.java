@@ -1,5 +1,8 @@
 package com.planchella.routes;
 
+import com.planchella.DTOs.EventDTO;
+import com.planchella.domain.Event;
+import com.planchella.mappers.EventMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -9,6 +12,8 @@ import com.planchella.Services.EventService;
 import com.planchella.domain.Community;
 import com.planchella.mappers.CommunityMapper;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/community")
 @CrossOrigin(origins = "http://localhost:4200")
@@ -16,13 +21,18 @@ public class CommunityRoutes {
     @Autowired
     CommunityService communityService;
 
-    @Autowired
-    EventService eventService;
+
 
     @GetMapping("/{community_id}")
     public CommunityDTO getCommunity(@PathVariable Long community_id) {
         Community community = this.communityService.getCommunity(community_id);
         return CommunityMapper.domainToDTO(community);
+    }
+
+    @GetMapping("/{community_id}/events")
+    public List<EventDTO> getCommunityEvents (@PathVariable Long community_id, @RequestParam int count, @RequestParam int offset){
+        List<Event> events = communityService.getCommunityEvents(community_id, count, offset);
+        return events.stream().map(EventMapper :: domainToDTO).toList();
     }
 
     @PatchMapping("/{community_id}")

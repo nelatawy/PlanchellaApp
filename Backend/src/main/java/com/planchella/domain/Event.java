@@ -1,9 +1,7 @@
 package com.planchella.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.planchella.enums.EventSize;
 import com.planchella.enums.EventType;
-import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -26,14 +24,14 @@ public class Event {
     private String title;
 
     @Setter
-    private String description ;
+    private String description;
     private String creationDate;
 
     private List<AttachmentMetadata> attachments;
 
     public Event(Long id, EventType eventType, EventSize eventSize, Long author_id, Long community_id,
-                 String title, String description,
-                 String creationDate, List<AttachmentMetadata> attachments) {
+            String title, String description,
+            String creationDate, List<AttachmentMetadata> attachments) {
         this.id = id;
         this.eventType = eventType;
         this.eventSize = eventSize;
@@ -49,18 +47,18 @@ public class Event {
         this.title = "";
     }
 
-    public void updateByDelta(Event event){
-        this.eventType    = event.eventType != null ? event.eventType : this.eventType;
-        this.eventSize    = event.eventSize != null ? event.eventSize : this.eventSize;
-        this.title        = event.title != null ? event.title : this.title;
-        this.author_id    = event.author_id != null ? event.author_id : this.author_id;
-        this.description  = event.description != null ? event.description : this.description;
+    public void updateByDelta(Event event) {
+        this.eventType = event.eventType != null ? event.eventType : this.eventType;
+        this.eventSize = event.eventSize != null ? event.eventSize : this.eventSize;
+        this.title = event.title != null ? event.title : this.title;
+        this.author_id = event.author_id != null ? event.author_id : this.author_id;
+        this.description = event.description != null ? event.description : this.description;
         this.creationDate = event.creationDate != null ? event.creationDate : this.creationDate;
         this.community_id = event.community_id != null ? event.community_id : this.community_id;
         this.attachments = event.attachments != null ? event.attachments : this.attachments;
     }
 
-    public static Event getMockData(){
+    public static Event getMockData() {
         return new Event(4L,
                 EventType.HACKATHON,
                 EventSize.LARGE,
@@ -69,8 +67,7 @@ public class Event {
                 "sample test",
                 "Description",
                 new Date().toString(),
-                List.of(new AttachmentMetadata())
-        );
+                List.of(new AttachmentMetadata()));
     }
 
     @Override

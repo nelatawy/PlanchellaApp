@@ -1,15 +1,9 @@
 package com.planchella.routes;
 
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PatchMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.bind.annotation.RequestHeader;
+import com.planchella.DTOs.EventDTO;
+import com.planchella.domain.Event;
+import com.planchella.mappers.EventMapper;
+import org.springframework.web.bind.annotation.*;
 
 import com.planchella.DTOs.UserDTO;
 import com.planchella.Services.UserService;
@@ -20,6 +14,9 @@ import com.planchella.repositories.users.AuthUserRepository;
 import com.planchella.entities.AuthUserEntity;
 
 import org.springframework.beans.factory.annotation.Autowired;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/users")
@@ -62,6 +59,13 @@ public class UserRoutes {
     public UserDTO getUser(@PathVariable Long user_id) {
         User user = this.userService.getUser(user_id);
         return UserMapper.domainToDTO(user);
+    }
+
+    @GetMapping("/{user_id}/events")
+    public List<EventDTO> getUserEvents(@PathVariable Long user_id, @RequestParam int count, @RequestParam int offset){
+        List<Event> events = userService.getUserEvents(user_id, count, offset);
+
+        return events.stream().map(EventMapper::domainToDTO).toList();
     }
 
     @PatchMapping("/{user_id}")
