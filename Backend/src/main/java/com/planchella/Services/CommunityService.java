@@ -2,11 +2,14 @@ package com.planchella.Services;
 
 import com.planchella.domain.Community;
 import com.planchella.domain.Event;
+import com.planchella.domain.Membership;
+import com.planchella.domain.User;
+import com.planchella.enums.MembershipType;
 import com.planchella.repositories.communities.ICommunityRepository;
-import com.planchella.repositories.events.IEventRepository;
+import com.planchella.utils.IdGenerator;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -17,13 +20,20 @@ public class CommunityService {
     private ICommunityRepository communityRepo;
 
     @Autowired
-    private IEventRepository eventRepo;
+    private UserService userService;
+
+    @Autowired
+    private MembershipService membershipService;
 
     public Community getCommunity(Long communityId) {
         return communityRepo.getCommunity(communityId);
     }
 
-    public void updateCommunity(Long communityId, Community newCommunityData) {
+    public void updateCommunity(Long communityId, Long userId, Community newCommunityData) {
+        Membership membership = membershipService.getMembership(userId, communityId);
+        if (membership == null || membership.getType() != MembershipType.CREATOR) {
+            throw new IllegalArgumentException("Users can't edit communities that they haven't created");
+        }
         Community community = communityRepo.getCommunity(communityId);
         if (community != null) {
             community.updateByDelta(newCommunityData);
@@ -31,15 +41,31 @@ public class CommunityService {
         }
     }
 
-    public void addCommunity(Community community) {
+    @Transactional
+    public void addCommunity(Community community, Long userId) {
+        // Validate user exists before creating community
+        User user = userService.getUser(userId);
+        if (user == null) {
+            throw new IllegalArgumentException("User with ID " + userId + " does not exist. Cannot create community.");
+        }
+
+        // Generate and set ID for the community
+        community.setId(IdGenerator.generateId());
+
         communityRepo.saveCommunity(community);
+
+        // Create creator membership for the user who created the community
+        // Use existing community object - don't re-fetch within same transaction!
+        membershipService.addMembership(user, community, MembershipType.CREATOR);
     }
 
-    public void deleteCommunity(Long communityId) {
+    @Transactional
+    public void deleteCommunity(Long communityId, Long userId) {
+        Membership membership = membershipService.getMembership(userId, communityId);
+        if (membership == null || membership.getType() != MembershipType.CREATOR) {
+            throw new IllegalArgumentException("Users can only delete communities that they have created");
+        }
         communityRepo.deleteCommunity(communityId);
     }
 
-    public List<Event> getCommunityEvents(Long communityId, int count, int offset){
-        return eventRepo.getEventsByCommunity(communityId, count, offset);
-    }
 }

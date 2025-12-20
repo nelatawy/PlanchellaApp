@@ -16,7 +16,6 @@ import org.hibernate.annotations.Cascade;
 public class AuthUserEntity {
 
         @Id
-        @GeneratedValue(strategy = GenerationType.AUTO)
         private Long id;
 
         @Column(name = "user_id")

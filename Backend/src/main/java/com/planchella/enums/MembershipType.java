@@ -4,7 +4,7 @@ public enum MembershipType {
     GUEST("guest"),
     MEMBER("memeber"),
     TOP_CONTRIBUTOR("top_contributor"),
-    Creator("creator");
+    CREATOR("creator");
 
     private final String val;
 

@@ -2,15 +2,8 @@ package com.planchella.mappers;
 
 import com.planchella.DTOs.UserDTO;
 import com.planchella.domain.User;
-import com.planchella.domain.Membership;
-import com.planchella.entities.MembershipEntity;
 import com.planchella.entities.UserEntity;
 import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.springframework.context.annotation.Bean;
-
-import java.util.ArrayList;
-import java.util.List;
 
 
 public class UserMapper {
@@ -23,12 +16,9 @@ public class UserMapper {
         entity.setPicUrl(user.getPicUrl());
         entity.setEmail(user.getEmail());
 
-        List<MembershipEntity> memberships = new ArrayList<>();
-        for(Membership membership : user.getMemberships()) {
-            MembershipEntity membershipEntity = session.getReference(MembershipEntity.class, membership.getId());
-            memberships.add(membershipEntity);
-        }
-        entity.setMemberships(memberships);
+        // Memberships managed separately through MembershipService
+        // Not populated here - User is a lightweight POJO
+
         return entity;
     }
 
@@ -38,11 +28,11 @@ public class UserMapper {
                 entity.getName(),
                 entity.getEmail(),
                 entity.getPicUrl(),
-                entity.getAccountUrl()
-        );
-        for (MembershipEntity membershipEntity : entity.getMemberships()) {
-            user.addMembership(membershipEntity.getId(), membershipEntity.getCommunity().getId(), membershipEntity.getType());
-        }
+                entity.getAccountUrl());
+
+        // Memberships are now lazy-loaded via getMemberships(MembershipService)
+        // This keeps the User object lightweight and allows fresh data on demand
+
         return user;
     }
 
@@ -62,8 +52,7 @@ public class UserMapper {
                 userDTO.name,
                 userDTO.email,
                 userDTO.picUrl,
-                userDTO.accountUrl
-        );
+                userDTO.accountUrl);
     }
 
 }

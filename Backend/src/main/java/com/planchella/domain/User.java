@@ -1,12 +1,10 @@
 package com.planchella.domain;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 
 import com.planchella.enums.MembershipType;
 
-import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -14,7 +12,6 @@ import lombok.Setter;
 @Setter
 public class User {
 
-    @Setter(AccessLevel.NONE)
     private Long id;
 
     private String name;
@@ -25,10 +22,7 @@ public class User {
 
     private String accountUrl;
 
-    private final List<Membership> memberships = new ArrayList<>();
-
-    private final List<Long> events = new ArrayList<>();
-
+    // Simple constructor
     public User(Long id, String name, String email, String picUrl, String accountUrl) {
         this.id = id;
         this.name = name;
@@ -62,55 +56,24 @@ public class User {
 
     }
 
-//    public void setPicUrl(String newPicUrl) {
-//        if (newPicUrl == null || newPicUrl.isBlank()) {
-//            throw new IllegalArgumentException("Profile Picture URL cannot be null or blank");
-//        }
-//        this.picUrl = newPicUrl;
-//    }
-//
-//    public void setAccountUrl(String newAccountUrl) {
-//        if (newAccountUrl == null || newAccountUrl.isBlank()) {
-//            throw new IllegalArgumentException("Profile Picture URL cannot be null or blank");
-//        }
-//        this.accountUrl = newAccountUrl;
-//    }
+    // public void setPicUrl(String newPicUrl) {
+    // if (newPicUrl == null || newPicUrl.isBlank()) {
+    // throw new IllegalArgumentException("Profile Picture URL cannot be null or
+    // blank");
+    // }
+    // this.picUrl = newPicUrl;
+    // }
+    //
+    // public void setAccountUrl(String newAccountUrl) {
+    // if (newAccountUrl == null || newAccountUrl.isBlank()) {
+    // throw new IllegalArgumentException("Profile Picture URL cannot be null or
+    // blank");
+    // }
+    // this.accountUrl = newAccountUrl;
+    // }
 
-    public List<Membership> getMemberships() {
-        return List.copyOf(memberships);
-    }
-
-    public void addMembership(Long membership_id, Long community_id, MembershipType type) {
-        Objects.requireNonNull(community_id, "Community cannot be null");
-        Objects.requireNonNull(type, "Type cannot be null");
-
-        // check if user has an existing membership in this community
-        boolean exists = memberships.stream()
-                .anyMatch(m -> m.getCommunity_id().equals(community_id));
-        if (exists) {
-            throw new IllegalStateException("User is already a member of this community");
-        }
-        memberships.add(new Membership(membership_id, this.id, community_id, type));
-    }
-
-    // Check if user can post in a community
-    public boolean canPostIn(Long community_id) {
-        return memberships.stream()
-                .anyMatch(m -> m.getCommunity_id().equals(community_id) && m.canPost());
-    }
-
-    // Move user from one community to another with a role
-    public void moveToCommunity(Long membership_id, Long oldCommunity_id, Long newCommunity_id, MembershipType role) {
-        // Remove old membership if exists
-        memberships.removeIf(m -> m.getCommunity_id().equals(oldCommunity_id) && m.canPost());
-        // Add new membership
-        memberships.add(new Membership(membership_id, this.id, newCommunity_id, role));
-    }
-
-    // Get primary membership (assuming one active membership per user)
-    public Membership getCurrentMembership() {
-        return memberships.isEmpty() ? null : memberships.getFirst();
-    }
+    // User is now a pure POJO - no service dependencies
+    // All membership-related operations moved to MembershipService
 
     @Override
     public String toString() {

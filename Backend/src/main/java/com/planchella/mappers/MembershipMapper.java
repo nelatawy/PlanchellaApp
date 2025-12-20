@@ -1,7 +1,5 @@
 package com.planchella.mappers;
 
-import com.planchella.DTOs.EventDTO;
-import com.planchella.domain.Event;
 import com.planchella.domain.Membership;
 import com.planchella.entities.CommunityEntity;
 import com.planchella.entities.EventEntity;
@@ -21,7 +19,7 @@ public class MembershipMapper {
         return e;
     }
 
-    public static Membership entityToDomain(MembershipEntity e){
+    public static Membership entityToDomain(MembershipEntity e) {
 
         return new Membership(e.getId(),
                 e.getUser().getId(),
@@ -29,29 +27,29 @@ public class MembershipMapper {
                 e.getType());
     }
 
-//    public static Membership domainToDTO(Event event){
-//        return new EventDTO(event.getId(),
-//                event.getEventType(),
-//                event.getEventSize(),
-//                event.getAuthor_id(),
-//                event.getCommunity_id(),
-//                event.getTitle(),
-//                event.getDescription(),
-//                event.getCreationDate(),
-//                event.getAttachments()
-//        );
-//    }
-//
-//    public static Event DTOtoDomain(EventDTO e){
-//
-//        return new Event(e.id,
-//                e.eventType,
-//                e.eventSize,
-//                e.authorId,
-//                e.communityId,
-//                e.title,
-//                e.description,
-//                e.creationDate,
-//                e.attachments);
-//    }
+    // public static Membership domainToDTO(Event event){
+    // return new EventDTO(event.getId(),
+    // event.getEventType(),
+    // event.getEventSize(),
+    // event.getAuthor_id(),
+    // event.getCommunity_id(),
+    // event.getTitle(),
+    // event.getDescription(),
+    // event.getCreationDate(),
+    // event.getAttachments()
+    // );
+    // }
+    //
+    // public static Event DTOtoDomain(EventDTO e){
+    //
+    // return new Event(e.id,
+    // e.eventType,
+    // e.eventSize,
+    // e.authorId,
+    // e.communityId,
+    // e.title,
+    // e.description,
+    // e.creationDate,
+    // e.attachments);
+    // }
 }

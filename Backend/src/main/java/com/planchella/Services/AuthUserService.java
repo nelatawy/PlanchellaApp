@@ -21,6 +21,7 @@ import java.util.concurrent.ExecutionException;
 
 import com.planchella.entities.AuthUserEntity;
 import com.planchella.repositories.users.AuthUserRepository;
+import com.planchella.utils.IdGenerator;
 
 @Service
 public class AuthUserService {
@@ -66,10 +67,14 @@ public class AuthUserService {
 
         userData.setEmail(authData.getEmail());
 
+        // Generate and set ID for the domain User entity
+        userData.setId(IdGenerator.generateId());
+
         Long id = userRepo.saveUser(userData);
         System.out.println("User saved with ID: " + id);
 
         // modify the data inside authData and return it
+        authData.setId(IdGenerator.generateId()); // Generate ID for AuthUserEntity
         authData.setPassword(encoder.encode(authData.getPassword()));
         authData.setProvider(AuthProvider.LOCAL);
         authData.setProviderId(null);
@@ -150,9 +155,11 @@ public class AuthUserService {
         userData.setEmail(email);
         userData.setName(name);
         userData.setPicUrl(picture);
+        userData.setId(IdGenerator.generateId()); // Generate ID for User
         Long id = userRepo.saveUser(userData);
 
         AuthUserEntity authUserData = new AuthUserEntity();
+        authUserData.setId(IdGenerator.generateId()); // Generate ID for AuthUserEntity
         authUserData.setPassword(null);
         authUserData.setEmail(email);
         authUserData.setUsername(name);

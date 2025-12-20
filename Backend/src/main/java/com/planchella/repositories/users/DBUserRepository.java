@@ -24,7 +24,7 @@ public class DBUserRepository implements IUserRepository {
     }
 
     @Override
-    public List<User> getUsers(int count, Long communityId) {
+    public List<User> getUsers(Long communityId, int count, int offset) {
         Session session = this.sessionFactory.openSession();
 
         String hql = "select e from UserEntity e " +
@@ -34,17 +34,28 @@ public class DBUserRepository implements IUserRepository {
 
         Query<UserEntity> query = session.createQuery(hql, UserEntity.class);
         query.setParameter("ID", communityId);
-
+        if (count > 0) {
+            query.setMaxResults(count);
+        }
+        if (offset > 0) {
+            query.setFirstResult(offset);
+        }
         return getUsersHelper(session, query);
     }
 
     @Override
     public User getUser(Long userId) {
         Session session = this.sessionFactory.openSession();
+        System.out.println(userId);
         UserEntity userEntity = session.get(UserEntity.class, userId);
-        User user = UserMapper.entityToDomain(userEntity);
         session.close();
-        return user;
+
+        // Return null if user doesn't exist instead of trying to map null
+        if (userEntity == null) {
+            return null;
+        }
+
+        return UserMapper.entityToDomain(userEntity);
     }
 
     // @Override
@@ -67,7 +78,7 @@ public class DBUserRepository implements IUserRepository {
         Session session = this.sessionFactory.openSession();
         Transaction tx = session.beginTransaction();
         UserEntity entity = UserMapper.domainToEntity(user, session);
-        if (user.getId() == null) {
+        if (session.get(UserEntity.class, entity.getId()) == null) {
             session.persist(entity);
             session.flush();
 

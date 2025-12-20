@@ -1,7 +1,10 @@
 package com.planchella.routes;
 
 import com.planchella.DTOs.EventDTO;
+import com.planchella.Services.EventService;
+import com.planchella.Services.MembershipService;
 import com.planchella.domain.Event;
+import com.planchella.domain.Membership;
 import com.planchella.mappers.EventMapper;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,10 +15,10 @@ import com.planchella.domain.User;
 import com.planchella.mappers.UserMapper;
 import com.planchella.repositories.users.AuthUserRepository;
 import com.planchella.entities.AuthUserEntity;
+import com.planchella.utils.UserAuthenticationHelper;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -25,12 +28,21 @@ public class UserRoutes {
 
     @Autowired
     UserService userService;
-    
+
+    @Autowired
+    MembershipService membershipService;
+
+    @Autowired
+    EventService eventService;
+
     @Autowired
     JWTService jwtService;
-    
+
     @Autowired
     AuthUserRepository authUserRepository;
+
+    @Autowired
+    UserAuthenticationHelper authHelper;
 
     @GetMapping("/me")
     public UserDTO getCurrentUser(@RequestHeader("Authorization") String authHeader) {
@@ -50,7 +62,7 @@ public class UserRoutes {
                 throw new RuntimeException("User not found");
             }
         }
-        
+
         User user = this.userService.getUser(authUser.getUserId());
         return UserMapper.domainToDTO(user);
     }
@@ -62,16 +74,23 @@ public class UserRoutes {
     }
 
     @GetMapping("/{user_id}/events")
-    public List<EventDTO> getUserEvents(@PathVariable Long user_id, @RequestParam int count, @RequestParam int offset){
-        List<Event> events = userService.getUserEvents(user_id, count, offset);
-
+    public List<EventDTO> getUserEvents(@PathVariable Long user_id, @RequestParam int count, @RequestParam int offset) {
+        List<Event> events = eventService.getEventsByAuthor(user_id, count, offset);
         return events.stream().map(EventMapper::domainToDTO).toList();
     }
 
+    @GetMapping("/{user_id}/memberships")
+    public List<Membership> getUserMemberships(@PathVariable Long user_id, @RequestParam int count, @RequestParam int offset){
+        User user = userService.getUser(user_id);
+        return membershipService.getMembershipsByUser(user);
+    }
+
     @PatchMapping("/{user_id}")
-    public void updateUser(@PathVariable Long user_id, @RequestBody UserDTO data) {
+    public void updateUser(@PathVariable Long user_id, @RequestBody UserDTO data,
+            @RequestHeader("Authorization") String authHeader) {
+        Long requestingUserId = authHelper.extractUserId(authHeader);
         User newUserData = UserMapper.DTOtoDomain(data);
-        this.userService.updateUser(user_id, newUserData);
+        this.userService.updateUser(user_id, newUserData, requestingUserId);
     }
 
     @PutMapping
@@ -81,8 +100,9 @@ public class UserRoutes {
     }
 
     @DeleteMapping("/{user_id}")
-    public void deleteUser(@PathVariable Long user_id) {
-        this.userService.deleteUser(user_id);
+    public void deleteUser(@PathVariable Long user_id, @RequestHeader("Authorization") String authHeader) {
+        Long requestingUserId = authHelper.extractUserId(authHeader);
+        this.userService.deleteUser(user_id, requestingUserId);
     }
 
 }

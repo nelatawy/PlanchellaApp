@@ -97,7 +97,7 @@ public class DBEventRepository implements IEventRepository {
         Session session = this.sessionFactory.openSession();
         Transaction tx = session.beginTransaction();
         EventEntity entity = EventMapper.domainToEntity(event, session);
-        if (event.getId() == null) {
+        if (session.get(EventEntity.class, entity.getId()) == null) {
             session.persist(entity);
         } else {
             session.merge(entity);

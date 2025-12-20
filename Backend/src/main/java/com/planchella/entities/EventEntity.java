@@ -11,13 +11,15 @@ import lombok.Setter;
 import java.util.List;
 
 @Entity
-@Table(name = "events")
+@Table(name = "events", indexes = {
+        @Index(name = "idx_author_id", columnList = "author_id"),
+        @Index(name = "idx_community_id", columnList = "community_id")
+})
 @Getter
 @Setter
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class EventEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Enumerated(EnumType.STRING)

@@ -8,7 +8,7 @@ import java.util.List;
 @Repository
 public interface IUserRepository {
 
-    List<User> getUsers(int count, Long communityId);
+    List<User> getUsers(Long communityId, int count, int offset);
 
     User getUser(Long userId);
 

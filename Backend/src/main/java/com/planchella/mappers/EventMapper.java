@@ -17,8 +17,8 @@ public class EventMapper {
 
         e.setId(event.getId());
         e.setDescription(event.getDescription());
-        e.setAuthor(session.getReference(UserEntity.class, event.getAuthor_id()));
-        e.setCommunity(session.getReference(CommunityEntity.class, event.getCommunity_id()));
+        e.setAuthor(session.getReference(UserEntity.class, event.getAuthorId()));
+        e.setCommunity(session.getReference(CommunityEntity.class, event.getCommunityId()));
         e.setTitle(event.getTitle());
         e.setCreationDate(event.getCreationDate());
         e.setEventSize(event.getEventSize());
@@ -58,8 +58,8 @@ public class EventMapper {
         return new EventDTO(event.getId(),
                 event.getEventType(),
                 event.getEventSize(),
-                event.getAuthor_id(),
-                event.getCommunity_id(),
+                event.getAuthorId(),
+                event.getCommunityId(),
                 event.getTitle(),
                 event.getDescription(),
                 event.getCreationDate(),

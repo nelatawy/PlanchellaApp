@@ -7,13 +7,14 @@
         <property name="hibernate.connection.username">postgres</property>
         <property name="hibernate.connection.password">0000</property>
 
-        <property name="hibernate.hbm2ddl.auto">create</property>
+        <property name="hibernate.hbm2ddl.auto">update</property>
 
         <mapping class="com.planchella.entities.EventEntity"/>
         <mapping class="com.planchella.entities.UserEntity"/>
         <mapping class="com.planchella.entities.CommunityEntity"/>
         <mapping class="com.planchella.entities.MembershipEntity"/>
         <mapping class="com.planchella.entities.AttachmentEntity"/>
+        <mapping class="com.planchella.entities.AuthUserEntity"/>
 
     </session-factory>
 </hibernate-configuration>

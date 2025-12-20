@@ -2,14 +2,18 @@ package com.planchella.repositories.memberships;
 
 import com.planchella.Configs.HibernateUtil;
 import com.planchella.domain.Membership;
-
 import com.planchella.entities.MembershipEntity;
-
 import com.planchella.mappers.MembershipMapper;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+import org.hibernate.query.Query;
+import org.springframework.stereotype.Repository;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
+@Repository
 public class DBMembershipRepository implements IMembershipRepository {
     SessionFactory sessionFactory;
 
@@ -25,11 +29,45 @@ public class DBMembershipRepository implements IMembershipRepository {
         return membership;
     }
 
+    public Membership getMembership(Long userId, Long communityId) {
+        Session session = sessionFactory.openSession();
+        String hql = "from MembershipEntity e where e.user.id = :UserID and e.community.id = :CommunityID";
+        Query<MembershipEntity> query = session.createQuery(hql, MembershipEntity.class);
+        query.setParameter("UserId", userId);
+        query.setParameter("CommunityId", communityId);
+        query.setMaxResults(1);
+        return MembershipMapper.entityToDomain(query.getResultList().getFirst());
+    }
+
+    public List<Membership> getMembershipsByUser(Long userId) {
+        Session session = sessionFactory.openSession();
+        String hql = "from MembershipEntity e where e.user.id = :userId";
+        Query<MembershipEntity> query = session.createQuery(hql, MembershipEntity.class);
+        query.setParameter("userId", userId);
+        List<Membership> memberships = query.getResultList().stream()
+                .map(MembershipMapper::entityToDomain)
+                .collect(Collectors.toList());
+        session.close();
+        return memberships;
+    }
+
+    public List<Membership> getMembershipsByCommunity(Long communityId) {
+        Session session = sessionFactory.openSession();
+        String hql = "from MembershipEntity e where e.community.id = :communityId";
+        Query<MembershipEntity> query = session.createQuery(hql, MembershipEntity.class);
+        query.setParameter("communityId", communityId);
+        List<Membership> memberships = query.getResultList().stream()
+                .map(MembershipMapper::entityToDomain)
+                .collect(Collectors.toList());
+        session.close();
+        return memberships;
+    }
+
     public void saveMembership(Membership membership) {
         Session session = this.sessionFactory.openSession();
         Transaction tx = session.beginTransaction();
         MembershipEntity entity = MembershipMapper.domainToEntity(membership, session);
-        if (membership.getId() == null) {
+        if (session.get(MembershipEntity.class, entity.getId()) == null) {
             session.persist(entity);
         } else {
             session.merge(entity);
@@ -37,4 +75,5 @@ public class DBMembershipRepository implements IMembershipRepository {
         tx.commit();
         session.close();
     }
+
 }

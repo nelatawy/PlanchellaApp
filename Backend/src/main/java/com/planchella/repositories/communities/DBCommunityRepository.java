@@ -70,7 +70,7 @@ public class DBCommunityRepository implements ICommunityRepository {
         Session session = this.sessionFactory.openSession();
         Transaction tx = session.beginTransaction();
         CommunityEntity communityEntity = CommunityMapper.domainToEntity(community, session);
-        if (community.getId() != null) {
+        if (session.get(CommunityEntity.class, communityEntity.getId()) == null) {
             session.persist(communityEntity);
         } else {
             session.merge(communityEntity);

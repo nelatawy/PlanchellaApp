@@ -6,12 +6,13 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Entity
-@Table(name = "memberships")
+@Table(name = "memberships", indexes = {
+        @Index(name = "idx_user_community", columnList = "user_id,community_id")
+})
 @Getter
 @Setter
 public class MembershipEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
