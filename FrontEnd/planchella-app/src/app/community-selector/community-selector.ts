@@ -13,8 +13,7 @@ import { CommunityBuilder } from '../community-builder/community-builder';
   selector: 'app-community-selector',
   standalone: true,
   imports: [
-    CommunityCard,
-    CommunityBuilder
+    CommunityCard
   ],
   templateUrl: './community-selector.html',
   styleUrl: './community-selector.css',

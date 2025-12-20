@@ -9,6 +9,7 @@ import { SetEmail } from './auth/set-email/set-email';
 import { AccountPage } from './account-page/account-page';
 import { EventBuilder } from './event-builder/event-builder';
 import { EventComponent } from './event/event';
+import { CommunityBuilder } from './community-builder/community-builder';
 import { authGuard } from './services/auth-guard';
 
 export const routes: Routes = [
@@ -39,6 +40,11 @@ export const routes: Routes = [
   {
     path: 'event',
     component: EventComponent,
+    canActivate: [authGuard]
+  },
+  {
+    path: 'community-builder',
+    component: CommunityBuilder,
     canActivate: [authGuard]
   },
   { path: '**', redirectTo: '/signin' } // fallback

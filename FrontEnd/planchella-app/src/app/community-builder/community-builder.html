@@ -1,31 +1,56 @@
 <div class="builder-modal" (click)="$event.stopPropagation()">
-    <div class="modal-header">
-        <h3>Create a Community</h3>
-        <button class="close-btn" (click)="onCancel()">
-            <i class="fa-solid fa-xmark"></i>
-        </button>
+
+  <!-- Header -->
+  <div class="modal-header">
+    <h2>Create Community</h2>
+    <button class="close-btn" (click)="onCancel()" aria-label="Close">
+      <i class="fa-solid fa-xmark"></i>
+    </button>
+  </div>
+
+  <!-- Body -->
+  <div class="modal-body">
+    <p class="modal-subtitle">
+      Bring people together around a shared interest.
+    </p>
+
+    <div class="form-group">
+      <label for="community-name">Community Name</label>
+      <input
+        id="community-name"
+        type="text"
+        [(ngModel)]="name"
+        placeholder="e.g. Hiking Enthusiasts"
+        autofocus
+      />
     </div>
 
-    <div class="modal-body">
-        <div class="form-group">
-            <label>Community Name</label>
-            <input type="text" [(ngModel)]="name" placeholder="e.g. Hiking Enthusiasts" autofocus>
-        </div>
-
-        <div class="form-group">
-            <label>Description</label>
-            <textarea [(ngModel)]="description" rows="4" placeholder="What is this community about?"></textarea>
-        </div>
+    <div class="form-group">
+      <label for="community-description">Description</label>
+      <textarea
+        id="community-description"
+        [(ngModel)]="description"
+        rows="3"
+        placeholder="What is this community about?"
+      ></textarea>
     </div>
+  </div>
 
-    <div class="modal-footer">
-        <button class="btn-cancel" (click)="onCancel()">Cancel</button>
-        <button class="btn-create" (click)="createCommunity()" [disabled]="!name.trim() || isSubmitting">
-            @if (isSubmitting) {
-            <div class="spinner-mini"></div>
-            }
-            @else {
-            Create
-            }
-        </button>
-    </div>
+  <!-- Footer -->
+  <div class="modal-footer">
+    <button class="btn-cancel" (click)="onCancel()">Cancel</button>
+
+    <button
+      class="btn-create"
+      (click)="createCommunity()"
+      [disabled]="!name.trim() || isSubmitting"
+    >
+      <span>Create Community</span>
+
+      @if (isSubmitting) {
+        <div class="spinner-mini"></div>
+      }
+    </button>
+  </div>
+
+</div>

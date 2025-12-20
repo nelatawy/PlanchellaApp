@@ -21,7 +21,7 @@ export class Billboard {
   isLoading: boolean = false;
 
   @Input()
-  communityData: CommunityData = {id: 0, name: "" };
+  communityData: CommunityData | undefined = {id: 0, name: "" };
 
 
   @ViewChild('container', { read: ViewContainerRef, static: true })
@@ -33,6 +33,11 @@ export class Billboard {
   }
 
   async add_events(count: number) {
+    if (!this.communityData) {
+      console.warn('Cannot fetch events: No community data selected.');
+      return;
+    }
+
     this.isLoading = true;
     try {
       let events: EventData[] | undefined = await this.eventDataService.fetch_events(count, this.communityData.name);

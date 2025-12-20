@@ -101,6 +101,23 @@
   transition: all 0.35s ease-in-out;
 }
 
+/* Event Builder sliding from bottom */
+.builder.event {
+  transform: translateY(100vh);
+  transition: all 0.35s ease-in-out;
+}
+
+/* Community builder modal (centered) */
+.community-builder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transform: none; /* no translateY */
+  opacity: 1; /* make it visible */
+}
+
 @media (max-width: 1000px) {
   .comm_selector {
     z-index: 10;
