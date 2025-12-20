@@ -13,6 +13,8 @@
         <mapping class="com.planchella.entities.UserEntity"/>
         <mapping class="com.planchella.entities.CommunityEntity"/>
         <mapping class="com.planchella.entities.MembershipEntity"/>
+        <mapping class="com.planchella.entities.AttachmentEntity"/>
+        <mapping class="com.planchella.entities.AuthUserEntity"/>
 
     </session-factory>
 </hibernate-configuration>
