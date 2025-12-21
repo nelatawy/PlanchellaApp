@@ -4,7 +4,7 @@ import { FormsModule, NgForm } from '@angular/forms';
 import { EventData } from '../models/event-data';
 import { EventType, EventSize } from '../models/Enums';
 import { EventAttachment } from '../models/event-attachment';
-import { MimeTypeUtils } from '../services/utils';
+import { MimeTypeUtils, UrlUtils } from '../services/utils';
 import { EventDataService } from '../services/event-data-service';
 import { CommunityData } from '../models/community-data';
 import { AttachmentService } from '../services/attachment-service';
@@ -39,6 +39,7 @@ export class EventBuilder {
   hasTime: boolean = false;
   attachments: EventAttachment[] = [];
   selectedFiles: File[] = [];
+  customUrl: string = '';
 
   isDropdownOpen: boolean = false;
   isSizeDropdownOpen: boolean = false;
@@ -128,6 +129,7 @@ export class EventBuilder {
       eventEndDate: this.hasTime ? new Date(this.endDate) : new Date(),
       expirationDate: this.hasTime ? new Date(this.endDate) : undefined,
       hasTime: this.hasTime,
+      customUrl: this.customUrl ? UrlUtils.normalize(this.customUrl) : undefined,
       attachments: this.attachments
     };
 
@@ -142,6 +144,7 @@ export class EventBuilder {
       this.selectedFlare = '';
       this.selectedSize = EventSize.MID;
       this.hasTime = false;
+      this.customUrl = '';
       this.isSubmitting = false;
 
       // Close builder

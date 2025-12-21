@@ -110,7 +110,7 @@ export class MimeTypeUtils {
    */
   static fromFileExtension(extension: string): MimeType {
     const ext = extension.toLowerCase().replace('.', '');
-    
+
     const extToMime: Record<string, MimeType> = {
       // Text and Document Types
       'txt': MimeType.TEXT_PLAIN,
@@ -196,11 +196,11 @@ export class MimeTypeUtils {
    */
   static formatSize(bytes: number): string {
     if (bytes === 0) return '0 Bytes';
-    
+
     const k = 1024;
     const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB'];
     const i = Math.floor(Math.log(bytes) / Math.log(k));
-    
+
     return Math.round((bytes / Math.pow(k, i)) * 100) / 100 + ' ' + sizes[i];
   }
 
@@ -208,9 +208,98 @@ export class MimeTypeUtils {
    * Check if the file type can be previewed in browser
    */
   static canPreview(mimeType: string): boolean {
-    return this.isImage(mimeType) || 
-           this.isPdf(mimeType) || 
-           this.isVideo(mimeType) || 
-           this.isAudio(mimeType);
+    return this.isImage(mimeType) ||
+      this.isPdf(mimeType) ||
+      this.isVideo(mimeType) ||
+      this.isAudio(mimeType);
+  }
+}
+export class UrlUtils {
+  /**
+   * Get FontAwesome icon class for a given URL based on its domain
+   */
+  static getIconForUrl(url: string | undefined): string {
+    if (!url) return '';
+
+    const domain = this.getDomain(url);
+    if (!domain) return 'fa-solid fa-globe';
+
+    // Map domains to FontAwesome icon classes
+    const iconMap: { [key: string]: string } = {
+      // Source Control & Dev Platforms
+      'github.com': 'fa-brands fa-github',
+      'gitlab.com': 'fa-brands fa-gitlab',
+      'bitbucket.org': 'fa-brands fa-bitbucket',
+      'devpost.com': 'fa-solid fa-code',
+      'figma.com': 'fa-brands fa-figma',
+      'docker.com': 'fa-brands fa-docker',
+      'npmjs.com': 'fa-brands fa-npm',
+      'pypi.org': 'fa-brands fa-python',
+      'codepen.io': 'fa-brands fa-codepen',
+      'replit.com': 'fa-solid fa-terminal',
+      'vercel.com': 'fa-solid fa-cloud-arrow-up',
+      'netlify.com': 'fa-solid fa-cloud',
+
+      // Competitive Programming & Learning
+      'leetcode.com': 'fa-solid fa-code',
+      'codeforces.com': 'fa-solid fa-trophy',
+      'hackerrank.com': 'fa-brands fa-hackerrank',
+      'freecodecamp.org': 'fa-brands fa-free-code-camp',
+      'codewars.com': 'fa-solid fa-user-ninja',
+      'kaggle.com': 'fa-brands fa-kaggle',
+      'stackoverflow.com': 'fa-brands fa-stack-overflow',
+      'dev.to': 'fa-brands fa-dev',
+      'medium.com': 'fa-brands fa-medium',
+
+      // Cloud & Infrastructure
+      'aws.amazon.com': 'fa-brands fa-aws',
+      'azure.microsoft.com': 'fa-brands fa-microsoft',
+      'cloud.google.com': 'fa-brands fa-google',
+
+      // Communication & Collaboration
+      'discord.com': 'fa-brands fa-discord',
+      'discord.gg': 'fa-brands fa-discord',
+      'slack.com': 'fa-brands fa-slack',
+      'trello.com': 'fa-brands fa-trello',
+      'jira.atlassian.com': 'fa-brands fa-jira',
+      'notion.so': 'fa-solid fa-note-sticky',
+
+      // Social & Video
+      'youtube.com': 'fa-brands fa-youtube',
+      'youtu.be': 'fa-brands fa-youtube',
+      'twitter.com': 'fa-brands fa-x-twitter',
+      'x.com': 'fa-brands fa-x-twitter',
+      'linkedin.com': 'fa-brands fa-linkedin',
+      'facebook.com': 'fa-brands fa-facebook',
+      'instagram.com': 'fa-brands fa-instagram',
+      'reddit.com': 'fa-brands fa-reddit'
+    };
+
+    // Find a match in the map
+    const matchedKey = Object.keys(iconMap).find(key => domain.includes(key));
+    return matchedKey ? iconMap[matchedKey] : 'fa-solid fa-globe';
+  }
+
+  /**
+   * Normalizes a URL by adding https:// if missing
+   */
+  static normalize(url: string | undefined): string {
+    if (!url) return '';
+    const trimmed = url.trim();
+    if (!trimmed) return '';
+    if (trimmed.startsWith('http://') || trimmed.startsWith('https://')) return trimmed;
+    return `https://${trimmed}`;
+  }
+
+  /**
+   * Helper to extract domain from URL
+   */
+  private static getDomain(url: string): string | null {
+    try {
+      const parsedUrl = new URL(url.startsWith('http') ? url : `https://${url}`);
+      return parsedUrl.hostname.toLowerCase();
+    } catch (e) {
+      return null;
+    }
   }
 }

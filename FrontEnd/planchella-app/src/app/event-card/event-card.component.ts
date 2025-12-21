@@ -1,4 +1,4 @@
-import { Component, ElementRef, EventEmitter, HostBinding, Input, OnInit, Output, ViewChild } from '@angular/core';
+import { Component, ElementRef, EventEmitter, HostBinding, Input, OnInit, OnChanges, Output, SimpleChanges, ViewChild } from '@angular/core';
 import { SafeUrl } from '@angular/platform-browser';
 import { ProfilePic } from '../general/profile-pic/profile-pic';
 import { SlicePipe } from '@angular/common';
@@ -6,7 +6,7 @@ import { Router } from '@angular/router';
 import { EventDataService } from '../services/event-data-service';
 import { ToastService } from '../services/toast.service';
 import { AttachmentService } from '../services/attachment-service';
-import { MimeTypeUtils } from '../services/utils';
+import { MimeTypeUtils, UrlUtils } from '../services/utils';
 import { EventDisplayData } from '../models/event-display-data';
 import { EventSize } from '../models/Enums';
 import { EventAttachment } from '../models/event-attachment';
@@ -18,7 +18,7 @@ import { EventAttachment } from '../models/event-attachment';
   templateUrl: './event-card.component.html',
   styleUrls: ['./event-card.component.css'],
 })
-export class EventCard implements OnInit {
+export class EventCard implements OnInit, OnChanges {
 
   @HostBinding('class') get hostClasses() {
     return this.displayData?.event.eventSize || 'small';
@@ -55,6 +55,17 @@ export class EventCard implements OnInit {
 
 
   ngOnInit() {
+    this.syncState();
+    this.initCardImage();
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes['displayData'] && !changes['displayData'].firstChange) {
+      this.syncState();
+    }
+  }
+
+  private syncState() {
     if (this.displayData?.event) {
       this.elementRef.nativeElement.classList.add(this.displayData.event.eventSize);
       this.upVote = this.displayData.event.upvoteCount || 0;
@@ -69,9 +80,6 @@ export class EventCard implements OnInit {
       } else {
         this.userVoteState = 'none';
       }
-
-      // Initialize card image from attachments
-      this.initCardImage();
     }
   }
 
@@ -228,6 +236,11 @@ export class EventCard implements OnInit {
 
     return `Starts in ${hours}h ${minutes}m`;
   }
+
+  getExternalLinkIcon(): string {
+    return UrlUtils.getIconForUrl(this.displayData?.event.customUrl);
+  }
+
   onPointerMove(e: PointerEvent) {
     if (!this.card) return;
 

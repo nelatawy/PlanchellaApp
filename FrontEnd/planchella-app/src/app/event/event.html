@@ -18,7 +18,15 @@
       </div>
     </div>
 
-    <h2 class="event-title">{{ displayData?.event?.title }}</h2>
+    <div class="title-row">
+      <h2 class="event-title">{{ displayData?.event?.title }}</h2>
+      @if (displayData?.event?.customUrl) {
+      <a [href]="displayData?.event?.customUrl" target="_blank" class="external-link-btn" title="Open external link">
+        <i [class]="getExternalLinkIcon()"></i>
+        Visit Link
+      </a>
+      }
+    </div>
 
     <div class="event-dates">
       <span class="date-label">📅 </span>

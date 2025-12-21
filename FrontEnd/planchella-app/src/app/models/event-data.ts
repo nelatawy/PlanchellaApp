@@ -36,5 +36,6 @@ export interface EventData {
   isStarred?: boolean,
   hasTime?: boolean,
   expirationDate?: Date,
+  customUrl?: string,
   attachments?: EventAttachment[]
 }
