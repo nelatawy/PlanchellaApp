@@ -138,8 +138,10 @@ public class EventService {
 
             if (vote.getVoteType() == VoteType.UPVOTE) {
                 event.setUpvoteCount(event.getUpvoteCount() - 1);
+                event.setUpvoted(false);
             } else {
                 event.setDownvoteCount(event.getDownvoteCount() - 1);
+                event.setDownVoted(false);
             }
             vote.setVoteType(voteType);
             voteRepo.save(vote);
@@ -153,8 +155,10 @@ public class EventService {
 
         if (voteType == VoteType.UPVOTE) {
             event.setUpvoteCount(event.getUpvoteCount() + 1);
+            event.setUpvoted(true);
         } else {
             event.setDownvoteCount(event.getDownvoteCount() + 1);
+            event.setDownVoted(true);
         }
         eventRepo.saveEvent(event);
     }
@@ -172,8 +176,10 @@ public class EventService {
             VoteEntity vote = existingVote.get();
             if (vote.getVoteType() == VoteType.UPVOTE) {
                 event.setUpvoteCount(event.getUpvoteCount() - 1);
+                event.setUpvoted(false);
             } else {
                 event.setDownvoteCount(event.getDownvoteCount() - 1);
+                event.setDownVoted(false);
             }
             voteRepo.deleteByUserIdAndEventId(userId, eventId);
             eventRepo.saveEvent(event);
