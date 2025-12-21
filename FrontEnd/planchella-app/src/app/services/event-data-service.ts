@@ -18,18 +18,10 @@ export class EventDataService {
     });
   }
 
-  async fetch_events(count: number, communityName: string) {
-    const response: Response = await fetch(`http://localhost:8080/data/community/events?count=${count}&communityName=${communityName}`);
-    if (!response.ok) {
-      window.alert("Error fetching");
-      return;
-    }
-    const data = await response.json();
-    return data as EventData[];
-  }
+
 
   // Create new event (PUT)
-  async createEvent(eventData: any): Promise<any> {
+  async createEvent(eventData: EventData): Promise<any> {
     try {
       const result = await firstValueFrom(
         this.http.put(this.apiUrl, eventData, {
@@ -60,7 +52,7 @@ export class EventDataService {
   }
 
   // Update existing event (PATCH)
-  async updateEvent(eventId: number, eventData: any): Promise<any> {
+  async updateEvent(eventId: number, eventData: EventData): Promise<any> {
     try {
       const result = await firstValueFrom(
         this.http.patch(`${this.apiUrl}/${eventId}`, eventData, {

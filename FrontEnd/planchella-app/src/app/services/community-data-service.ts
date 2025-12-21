@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { CommunityData } from '../models/community-data';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { firstValueFrom } from 'rxjs';
+import { EventData } from '../models/event-data';
 
 @Injectable({ providedIn: "root" })
 export class CommunityDataService {
@@ -19,20 +20,18 @@ export class CommunityDataService {
     });
   }
 
-  async fetch_communities(count: number, username: string) {
-    const response: Response = await fetch(`http://localhost:8080/data/user/communities?count=${count}&username=${username}`);
-    if (!response.ok) {
-      window.alert("Error fetching");
-      return;
+  async fetch_community_events(count: number, offset: number, communityId: number): Promise<EventData[]> {
+    try {
+      const result = await firstValueFrom(
+        this.http.get(`${this.apiUrl}/${communityId}/events?count=${count}&offset=${offset}`, {
+          headers: this.getHeaders()
+        })
+      );
+      return result as EventData[];
+    } catch (err) {
+      console.error('Error fetching events:', err);
+      throw err;
     }
-    const data: CommunityData[] = await response.json();
-
-    this.cache.clear();
-    for (let item of data) {
-      this.cache.set(item.name, item);
-    }
-
-    return data as CommunityData[];
   }
 
   public get_community(name: string): CommunityData | undefined {
@@ -55,7 +54,7 @@ export class CommunityDataService {
   }
 
   // Create new community (PUT)
-  async createCommunity(communityData: any): Promise<any> {
+  async createCommunity(communityData: CommunityData): Promise<any> {
     try {
       const result = await firstValueFrom(
         this.http.put(this.apiUrl, communityData, {

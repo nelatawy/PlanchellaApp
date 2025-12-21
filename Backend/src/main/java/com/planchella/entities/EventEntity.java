@@ -47,18 +47,35 @@ public class EventEntity {
     @Column(name = "creation_date")
     private String creationDate;
 
+    @Column(name = "upvote_count")
+    private Long upvoteCount;
+
+    @Column(name = "downvote_count")
+    private Long downvoteCount;
+
+    @Column(name = "event_start_date")
+    private String eventStartDate;
+
+    @Column(name = "event_end_date")
+    private String eventEndDate;
+
     @OneToMany(mappedBy = "event", fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
     private List<AttachmentEntity> attachments;
 
     public EventEntity(EventType eventType, EventSize eventSize, UserEntity author,
             String title, String description,
-            String creationDate, CommunityEntity community) {
+            String creationDate, Long upvoteCount, Long downvoteCount, String eventStartDate, String eventEndDate,
+            CommunityEntity community) {
         this.eventType = eventType;
         this.eventSize = eventSize;
         this.title = title;
         this.author = author;
         this.description = description;
         this.creationDate = creationDate;
+        this.upvoteCount = upvoteCount;
+        this.downvoteCount = downvoteCount;
+        this.eventStartDate = eventStartDate;
+        this.eventEndDate = eventEndDate;
         this.community = community;
     }
 
@@ -76,6 +93,10 @@ public class EventEntity {
                 ", title='" + title + '\'' +
                 ", description='" + description + '\'' +
                 ", creationDate='" + creationDate + '\'' +
+                ", upvoteCount=" + upvoteCount +
+                ", downvoteCount=" + downvoteCount +
+                ", eventStartDate='" + eventStartDate + '\'' +
+                ", eventEndDate='" + eventEndDate + '\'' +
                 '}';
     }
 }

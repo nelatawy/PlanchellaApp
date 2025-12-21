@@ -72,6 +72,8 @@ public class EventService {
                 throw new IllegalArgumentException("No attachment uploaded with that attachment ID");
         }
         event.setId(IdGenerator.generateId());
+        event.setDownvoteCount(0L);
+        event.setUpvoteCount(0L);
         eventRepo.saveEvent(event);
     }
 

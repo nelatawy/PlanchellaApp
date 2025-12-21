@@ -1,6 +1,6 @@
 <div #container class="billboard-container">
   <h1 class="billboard-title">
-  {{ communityData?.name || 'Community Events' }}
+    {{ communityData?.name || 'Community Events' }}
   </h1>
 
 
@@ -26,7 +26,7 @@
   @if (cards.length > 0) {
   <div class="events-grid">
     @for (cardData of cards; track $index) {
-    <app-event [eventData]="cardData"></app-event>
+    <app-event [displayData]="cardData"></app-event>
     }
   </div>
 

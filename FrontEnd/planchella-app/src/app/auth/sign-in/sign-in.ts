@@ -22,14 +22,19 @@ export class SignIn {
 
   username: string = '';
   password: string = '';
+  errorMessage: string = '';
 
   ngAfterViewInit() {
     google.accounts.id.initialize({
       client_id: "493505072228-l3nc8pvhbqjanr5gvmhepv4havsrr47u.apps.googleusercontent.com",
       callback: async (response: any) => {
         console.log('ID Token:', response);
-        await this.authService.signInWithGoogle(response);
-        await this.router.navigate(["/main"]);
+        let isSuccess = await this.authService.signInWithGoogle(response);
+        if (isSuccess) {
+          await this.router.navigate(["/main"]);
+        } else {
+          this.errorMessage = "Google Sign-In failed. Please make sure you are registered.";
+        }
       },
       locale: 'en'
     });
@@ -58,11 +63,14 @@ export class SignIn {
 
 
   async signIn() {
+    this.errorMessage = '';
     console.log("calling now");
     let isSuccess = await this.authService.signIn(this.username, this.password);
     if (isSuccess) {
       console.log(isSuccess);
       await this.router.navigate(['/main']);
+    } else {
+      this.errorMessage = 'An error has occurred. Please check your credentials.';
     }
 
   }

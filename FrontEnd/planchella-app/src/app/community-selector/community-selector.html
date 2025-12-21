@@ -3,9 +3,6 @@
     <div class="header">
       <div class="title-row">
         <h2 class="title">Communities</h2>
-        <button class="btn-add-community" (click)="toggleCommunityBuilder()" title="Create New Community">
-          <i class="fa-solid fa-plus"></i>
-        </button>
       </div>
       <div class="search-wrapper">
         <input class="search-input" type="text" placeholder="Search communities..." (input)="onSearch($event)">
@@ -32,11 +29,20 @@
       </div>
       }
 
-      @if (communities.length > 0) {
       <div class="events-grid">
+        <!-- Add Community Placeholder Card -->
+        <div class="add-community-card" (click)="toggleCommunityBuilder()">
+          <div class="dashed-border">
+            <i class="fa-solid fa-plus plus-icon"></i>
+            <span class="add-text">Create New Community</span>
+          </div>
+        </div>
+
+        @if (communities.length > 0) {
         @for (communityData of communities; track $index) {
         <app-community-card class="comm-card" [cardData]="communityData"
           (selection)="emit_selection($event)"></app-community-card>
+        }
         }
       </div>
 
@@ -45,7 +51,6 @@
         <div class="spinner-small"></div>
         <span>Loading more communities...</span>
       </div>
-      }
       }
 
     </div>

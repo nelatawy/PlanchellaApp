@@ -18,12 +18,11 @@ public class UserDetailsServices implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         AuthUserEntity users = userRepo.findByUsername(username);
-
         if (users == null) {
-            System.out.println("User not found");
-            throw new UsernameNotFoundException(username + " not found");
+            users = userRepo.findByProviderId(username);
+            if (users == null)
+                throw new UsernameNotFoundException(username + " not found");
         }
-
         return new UserPrincipal(users);
     }
 }

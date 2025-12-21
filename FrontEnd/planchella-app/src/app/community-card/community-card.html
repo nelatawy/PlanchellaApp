@@ -1,14 +1,18 @@
 @if (cardData && cardData.communityData) {
-  <div #card class="card" (mouseover)="show()" (mouseleave)="hide()" (click)="emit_selection()">
-      <div class="content">
-        <h2 class="name">{{cardData.communityData.name}}</h2>
-        <h2 #highlight class="highlight_text">VISIT</h2>
-      </div>
-      @if (cardData.currentlySelected) {
-        <div class="selected">You are here</div>
+<div #card class="card" (mouseover)="show()" (mouseleave)="hide()" (click)="emit_selection()">
+  <div class="content">
+    <div class="main-info">
+      <h2 class="name">{{cardData.communityData.name}}</h2>
+      @if (cardData.communityData.memberCount !== undefined) {
+      <span class="member-count">{{cardData.communityData.memberCount}} members</span>
       }
-<!--    <div class="notifications">{{cardData.communityData.notificationCount}}</div>-->
+    </div>
+    <h2 #highlight class="highlight_text">VISIT</h2>
   </div>
+  @if (cardData.currentlySelected) {
+  <div class="selected">You are here</div>
+  }
+  <!--    <div class="notifications">{{cardData.communityData.notificationCount}}</div>-->
+</div>
 
 }
-

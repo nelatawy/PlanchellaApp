@@ -13,10 +13,18 @@ public class Community {
 
     private String name;
 
+    private String description;
+
+    private Long memberCount;
+
+    private String createdAt;
+
     // Simple constructor
-    public Community(Long id, String name) {
+    public Community(Long id, String name, String description, String createdAt) {
         this.id = id;
         this.name = Objects.requireNonNull(name, "Community name cannot be null");
+        this.description = description;
+        this.createdAt = createdAt;
     }
 
     public Community() {
@@ -24,8 +32,10 @@ public class Community {
 
     public void updateByDelta(Community newCommunityData) {
         if (newCommunityData != null) {
-            this.id = newCommunityData.getId();
-            this.name = newCommunityData.getName();
+            this.name = newCommunityData.getName() != null ? newCommunityData.getName() : this.name;
+            this.description = newCommunityData.getDescription() != null ? newCommunityData.getDescription()
+                    : this.description;
+            // memberCount and createdAt are not modified by delta for safety
         }
     }
 
@@ -36,7 +46,10 @@ public class Community {
     public String toString() {
         return "Community{" +
                 "id=" + id +
-                ", name=" + name + '\'' +
+                ", name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                ", memberCount=" + memberCount +
+                ", createdAt='" + createdAt + '\'' +
                 '}';
     }
 }

@@ -55,6 +55,17 @@ public class MembershipService {
     }
 
     /**
+     * Get the number of members in a community.
+     */
+    public Long getMemberCount(Long communityId) {
+        if (communityId == null) {
+            return 0L;
+        }
+        // This will use the cache if available
+        return (long) membershipRepository.getMembershipsByCommunity(communityId).size();
+    }
+
+    /**
      * Business logic: Check if user can post in a community.
      */
     public boolean canUserPostIn(User user, Community community) {
@@ -63,7 +74,7 @@ public class MembershipService {
         }
         System.out.println(getMembershipsByUser(user).size());
         return getMembershipsByUser(user).stream()
-                .anyMatch(m -> m.getCommunity_id().equals(community.getId()) && m.canPost());
+                .anyMatch(m -> m.getCommunityId().equals(community.getId()) && m.canPost());
     }
 
     /**
@@ -72,7 +83,7 @@ public class MembershipService {
     public List<Long> getMemberIDsByRole(Community community, MembershipType type) {
         return getMembershipsByCommunity(community).stream()
                 .filter(m -> m.getType() == type)
-                .map(Membership::getUser_id)
+                .map(Membership::getUserId)
                 .collect(Collectors.toList());
     }
 
@@ -98,8 +109,7 @@ public class MembershipService {
         invalidateCommunityCache(community.getId());
     }
 
-
-    public void removeMembership(Membership membership){
+    public void removeMembership(Membership membership) {
         membershipRepository.deleteMembership(membership);
     }
 

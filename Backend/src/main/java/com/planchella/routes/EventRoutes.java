@@ -65,7 +65,6 @@ public class EventRoutes {
         try {
             Long userId = authHelper.extractUserId(authHeader);
             Event event = EventMapper.DTOtoDomain(data);
-            // Set the author ID from the authenticated user
             event.setAuthorId(userId);
             this.eventService.addEvent(event);
             return ResponseEntity.ok().body(Map.of(

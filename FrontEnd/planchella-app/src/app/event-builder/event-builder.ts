@@ -4,7 +4,6 @@ import { FormsModule, NgForm } from '@angular/forms';
 import { EventData } from '../models/event-data';
 import { EventType, EventSize } from '../models/Enums';
 import { EventAttachment } from '../models/event-attachment';
-import { EventAuthorData } from '../models/event-author-data';
 import { MimeTypeUtils } from '../services/utils';
 import { EventDataService } from '../services/event-data-service';
 
@@ -95,22 +94,15 @@ export class EventBuilder {
 
     // Prepare EventData object
     const eventData: EventData = {
-      id: `event-${Date.now()}`, // Temporary ID, backend will assign real one
       eventType: this.mapFlareToEventType(this.selectedFlare),
       eventSize: this.selectedSize,
-      authorData: {
-        id: '', // Backend will populate from auth
-        name: '',
-        picUrl: '',
-        accountUrl: ''
-      },
+      authorId: Number(localStorage.getItem('userId')),
+      communityId: 1,
       title: this.title,
       description: this.description,
       creationDate: new Date(),
       eventStartDate: new Date(this.startDate),
       eventEndDate: new Date(this.endDate),
-      upVotesCount: 0,
-      downVotesCount: 0,
       attachments: this.attachments
     };
 

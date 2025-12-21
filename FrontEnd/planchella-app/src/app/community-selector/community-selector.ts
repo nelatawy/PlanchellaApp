@@ -3,11 +3,13 @@ import { CommunityCard } from '../community-card/community-card';
 import { EventData } from '../models/event-data';
 import { CommunityCardData } from '../models/community-card';
 import { CommunityData } from '../models/community-data';
+import { Membership } from '../models/membership';
 import { CommunityDataService } from '../services/community-data-service';
 
 import { SearchService } from '../services/search.service';
 
 import { CommunityBuilder } from '../community-builder/community-builder';
+import { UserDataService } from '../services/user-data-service';
 
 @Component({
   selector: 'app-community-selector',
@@ -27,17 +29,17 @@ export class CommunitySelector {
     description: "",
     memberCount: 0,
     createdAt: new Date(),
-    category: "",
-    iconUrl: ""
   };
 
+  offset: number = 0;
   isLoading: boolean = false;
   searchQuery: string = '';
   isCreatingCommunity: boolean = false;
 
   constructor(
     private communityDataService: CommunityDataService,
-    private searchService: SearchService
+    private searchService: SearchService,
+    private userDataService: UserDataService
   ) {
   }
 
@@ -94,12 +96,29 @@ export class CommunitySelector {
   async add_communities(count: number) {
     this.isLoading = true;
     try {
-      let data: Array<CommunityData> | undefined = await this.communityDataService.fetch_communities(count, "");
-      data?.forEach((communityData) => {
-        this.communities.push({ id: "id", communityData: communityData, currentlySelected: true });
-      });
+      let memberships: Array<Membership> | undefined = await this.userDataService.fetch_my_communities(count, this.offset);
+
+      if (memberships) {
+        for (const membership of memberships) {
+          try {
+            console.log('Fetching community data for membership:', membership);
+            const communityData = await this.communityDataService.getCommunity(membership.communityId);
+            if (communityData) {
+              console.log('Fetched community data:', communityData);
+              this.communities.push({
+                id: String(communityData.id),
+                communityData: communityData,
+                currentlySelected: communityData.id === this.selected_community?.id
+              });
+            }
+          } catch (err) {
+            console.error(`Error fetching community data for id ${membership.communityId}:`, err);
+          }
+        }
+      }
+      this.offset += count;
     } catch (error) {
-      console.error('Error fetching communities:', error);
+      console.error('Error fetching memberships:', error);
     } finally {
       this.isLoading = false;
     }

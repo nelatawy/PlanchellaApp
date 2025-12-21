@@ -1,19 +1,35 @@
-import {EventSize, EventType} from './Enums';
+import { EventSize, EventType } from './Enums';
 import { EventAttachment } from './event-attachment';
-import {EventAuthorData} from './event-author-data';
+import { EventAuthorData } from './event-author-data';
 
+
+// export interface EventData {
+//   id?: string,
+//   eventType: EventType,
+//   eventSize: EventSize,
+//   authorData: EventAuthorData,
+//   title: string,
+//   description: string,
+//   creationDate: Date | string | number,
+//   upVotesCount?: number,
+//   downVotesCount?: number,
+//   eventStartDate: Date | string | number,
+//   eventEndDate: Date | string | number,
+//   attachments?: EventAttachment[]
+// }
 
 export interface EventData {
-  id : string,
+  id?: number,
   eventType: EventType,
-  eventSize : EventSize,
-  authorData : EventAuthorData,
-  title : string,
-  description : string,
+  eventSize: EventSize,
+  authorId: number,
+  communityId: number,
+  title: string,
+  description: string,
   creationDate: Date | string | number,
-  upVotesCount : number,
-  downVotesCount : number,
+  upvoteCount?: number,
+  downvoteCount?: number,
   eventStartDate: Date | string | number,
   eventEndDate: Date | string | number,
-  attachments? : EventAttachment[]
+  attachments?: EventAttachment[]
 }

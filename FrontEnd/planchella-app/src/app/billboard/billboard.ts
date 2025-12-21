@@ -2,10 +2,13 @@ import { Component, ElementRef, HostListener, Input, SimpleChanges, ViewChild, V
 import { EventCard } from '../event-card/event-card.component';
 import { EventSize, EventType } from '../models/Enums';
 import { EventData } from '../models/event-data';
+import { firstValueFrom } from 'rxjs';
 import { CommunityData } from '../models/community-data';
 import { EventDataService } from '../services/event-data-service';
-import { ActivatedRoute } from '@angular/router';
 import { CommunityDataService } from '../services/community-data-service';
+import { EventDisplayData } from '../models/event-display-data';
+import { UserDataService } from '../services/user-data-service';
+import { forkJoin, map } from 'rxjs';
 
 
 @Component({
@@ -17,11 +20,12 @@ import { CommunityDataService } from '../services/community-data-service';
 })
 export class Billboard {
 
-  cards: Array<EventData> = [];
+  cards: Array<EventDisplayData> = [];
   isLoading: boolean = false;
+  offset: number = 0;
 
   @Input()
-  communityData: CommunityData | undefined = {id: 0, name: "" };
+  communityData: CommunityData | undefined = { id: 0, name: "" };
 
 
   @ViewChild('container', { read: ViewContainerRef, static: true })
@@ -29,7 +33,8 @@ export class Billboard {
 
   constructor(private elementRef: ElementRef,
     private communityDataService: CommunityDataService,
-    private eventDataService: EventDataService) {
+    private eventDataService: EventDataService,
+    private userDataService: UserDataService) {
   }
 
   async add_events(count: number) {
@@ -40,10 +45,23 @@ export class Billboard {
 
     this.isLoading = true;
     try {
-      let events: EventData[] | undefined = await this.eventDataService.fetch_events(count, this.communityData.name);
-      events?.forEach((event: EventData) => {
-        this.cards.push(event);
-      });
+      if (this.communityData.id == undefined) {
+        console.warn('Cannot fetch events: No community ID provided.');
+        return;
+      }
+      let events: EventData[] | undefined = await this.communityDataService.fetch_community_events(count, this.offset, this.communityData.id);
+
+      if (events) {
+        const displayDataPromises = events.map(async (event) => {
+          const author = await firstValueFrom(this.userDataService.getUserById(event.authorId));
+          return { event, author } as EventDisplayData;
+        });
+
+        const newCards = await Promise.all(displayDataPromises);
+        this.cards.push(...newCards);
+      }
+
+      this.offset += count;
     } catch (error) {
       console.error('Error fetching events:', error);
     } finally {

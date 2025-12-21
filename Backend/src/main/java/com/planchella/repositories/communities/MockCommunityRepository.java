@@ -27,7 +27,9 @@ public class MockCommunityRepository implements ICommunityRepository {
     public Community getCommunity(Long communityId) {
         return new Community(
                 communityId,
-                "CSED");
+                "Demo Community",
+                "This is a demo community description.",
+                new java.util.Date().toString());
     }
 
     @Override

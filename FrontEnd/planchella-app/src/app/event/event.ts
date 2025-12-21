@@ -2,9 +2,12 @@ import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { EventData } from '../models/event-data';
+import { EventDisplayData } from '../models/event-display-data';
+import { UserDataService } from '../services/user-data-service';
 import { AttachmentService } from '../services/attachment-service';
 import { EventAttachment } from '../models/event-attachment';
 import { EventType, EventSize, MimeType } from '../models/Enums';
+import { firstValueFrom } from 'rxjs';
 import { MimeTypeUtils } from '../services/utils';
 
 interface AttachmentState {
@@ -25,67 +28,75 @@ export class EventComponent implements OnInit, OnDestroy {
   isModalOpen = false;
   maxVisibleAttachments = 5;
 
-  @Input() event?: EventData = {
-    id: '1',
-    eventType: EventType.CONTEST,
-    eventSize: EventSize.MID,
-    authorData: {
-      id: 'author1',
-      name: 'John Doe',
-      picUrl: 'https://example.com/johndoe.jpg',
-      accountUrl: 'https://example.com/johndoe'
+  @Input() displayData?: EventDisplayData = {
+    event: {
+      id: 1,
+      eventType: EventType.CONTEST,
+      eventSize: EventSize.MID,
+      authorId: Number(localStorage.getItem('userId')),
+      communityId: 1,
+      title: 'Sample Event',
+      description: 'This is a sample event description.',
+      creationDate: new Date(),
+      upvoteCount: 10,
+      downvoteCount: 2,
+      eventStartDate: new Date(),
+      eventEndDate: new Date(),
+      attachments: [
+        {
+          id: 'att1',
+          fileName: 'image1.jpg',
+          mimeType: MimeType.IMAGE_JPEG,
+          size: 1500000,
+        },
+        {
+          id: 'att2',
+          fileName: 'document1.pdf',
+          mimeType: MimeType.APPLICATION_PDF,
+          size: 3000000,
+        },
+        {
+          id: 'att3',
+          fileName: 'video1.mp4',
+          mimeType: MimeType.VIDEO_MP4,
+          size: 50000000,
+        },
+        {
+          id: 'att4',
+          fileName: 'audio1.mp3',
+          mimeType: MimeType.AUDIO_MPEG,
+          size: 4000000,
+        },
+        {
+          id: 'att5',
+          fileName: 'archive1.zip',
+          mimeType: MimeType.APPLICATION_ZIP,
+          size: 8000000,
+        },
+        {
+          id: 'att6',
+          fileName: 'spreadsheet1.xlsx',
+          mimeType: MimeType.APPLICATION_XLSX,
+          size: 2000000,
+        },
+        {
+          id: 'att7',
+          fileName: 'presentation1.pptx',
+          mimeType: MimeType.APPLICATION_PPTX,
+          size: 2500000,
+        }
+      ],
     },
-    title: 'Sample Event',
-    description: 'This is a sample event description.',
-    creationDate: new Date(),
-    upVotesCount: 10,
-    downVotesCount: 2,
-    eventStartDate: new Date(),
-    eventEndDate: new Date(),
-    attachments: [
-      {
-        id: 'att1',
-        fileName: 'image1.jpg',
-        mimeType: MimeType.IMAGE_JPEG,
-        size: 1500000,
-      },
-      {
-        id: 'att2',
-        fileName: 'document1.pdf',
-        mimeType: MimeType.APPLICATION_PDF,
-        size: 3000000,
-      },
-      {
-        id: 'att3',
-        fileName: 'video1.mp4',
-        mimeType: MimeType.VIDEO_MP4,
-        size: 50000000,
-      },
-      {
-        id: 'att4',
-        fileName: 'audio1.mp3',
-        mimeType: MimeType.AUDIO_MPEG,
-        size: 4000000,
-      },
-      {
-        id: 'att5',
-        fileName: 'archive1.zip',
-        mimeType: MimeType.APPLICATION_ZIP,
-        size: 8000000,
-      },
-      {
-        id: 'att6',
-        fileName: 'spreadsheet1.xlsx',
-        mimeType: MimeType.APPLICATION_XLSX,
-        size: 2000000,
-      },
-      {
-        id: 'att7',
-        fileName: 'presentation1.pptx',
-        mimeType: MimeType.APPLICATION_PPTX,
-        size: 2500000,
-      }
-    ],
+    author: {
+      id: Number(localStorage.getItem('userId')),
+      name: 'Sample Author',
+      picUrl: '',
+      accountUrl: '',
+      bio: '',
+      education: '',
+      address: '',
+      email: ''
+    }
   };
 
   isStarred: boolean = false;
@@ -93,23 +104,26 @@ export class EventComponent implements OnInit, OnDestroy {
   toggleStar() {
     this.isStarred = !this.isStarred;
     // In a real app, this would call a service to update the 'eventStarred' interaction
-    console.log(`Event ${this.event?.id} starred: ${this.isStarred}`);
+    console.log(`Event ${this.displayData?.event.id} starred: ${this.isStarred}`);
   }
 
   attachmentStates = new Map<string, AttachmentState>();
 
   constructor(
     private sanitizer: DomSanitizer,
-    private attachmentService: AttachmentService
+    private attachmentService: AttachmentService,
+    private userDataService: UserDataService
   ) { }
 
   ngOnInit() {
-    // Preload images and small files automatically
-    this.event?.attachments?.forEach(att => {
-      if (this.shouldAutoLoad(att)) {
-        this.loadAttachment(att.id);
-      }
-    });
+    // If we only have event data partially or from an old source, ensure we have displayData
+    if (this.displayData) {
+      this.displayData.event.attachments?.forEach(att => {
+        if (this.shouldAutoLoad(att)) {
+          this.loadAttachment(att.id);
+        }
+      });
+    }
   }
 
   shouldAutoLoad(att: EventAttachment): boolean {
@@ -200,11 +214,11 @@ export class EventComponent implements OnInit, OnDestroy {
   }
 
   getVisibleAttachments(): EventAttachment[] {
-    return this.event?.attachments?.slice(0, this.maxVisibleAttachments) || [];
+    return this.displayData?.event.attachments?.slice(0, this.maxVisibleAttachments) || [];
   }
 
   getRemainingCount(): number {
-    const total = this.event?.attachments?.length || 0;
+    const total = this.displayData?.event.attachments?.length || 0;
     return Math.max(0, total - this.maxVisibleAttachments);
   }
 
@@ -217,7 +231,7 @@ export class EventComponent implements OnInit, OnDestroy {
     document.body.style.overflow = 'hidden';
 
     // Load all attachments when modal opens
-    this.event?.attachments?.forEach(att => {
+    this.displayData?.event.attachments?.forEach(att => {
       if (!this.getAttachmentUrl(att.id) && !this.isLoading(att.id)) {
         this.loadAttachment(att.id);
       }

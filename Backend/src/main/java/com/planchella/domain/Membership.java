@@ -12,17 +12,17 @@ public class Membership {
 
     private Long id;
 
-    private final Long user_id;
+    private final Long userId;
 
-    private final Long community_id;
+    private final Long communityId;
 
     private MembershipType type;
 
     // Constructor
-    public Membership(Long id, Long user_id, Long community_id, MembershipType type) {
+    public Membership(Long id, Long userId, Long communityId, MembershipType type) {
         this.id = id;
-        this.user_id = Objects.requireNonNull(user_id, "User cannot be null");
-        this.community_id = Objects.requireNonNull(community_id, "Community cannot be null");
+        this.userId = Objects.requireNonNull(userId, "User cannot be null");
+        this.communityId = Objects.requireNonNull(communityId, "Community cannot be null");
         this.type = Objects.requireNonNull(type, "Role cannot be null");
     }
 
@@ -40,8 +40,8 @@ public class Membership {
     @Override
     public String toString() {
         return "Membership{" +
-                "user=" + user_id +
-                ", community=" + community_id +
+                "user=" + userId +
+                ", community=" + communityId +
                 ", type=" + type +
                 '}';
 

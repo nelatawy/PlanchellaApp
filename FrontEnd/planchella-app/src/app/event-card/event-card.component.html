@@ -1,41 +1,40 @@
-@if (eventData) {
-  <div #card [class]="eventData.eventSize" class="card" (pointermove)="onPointerMove($event)" (pointerleave)="onLeave()" (pointerenter)="onPointerEnter()" >
-    <div class="event-bar" [class]="eventData.eventType">{{eventData.eventType}}</div>
+@if (displayData) {
+<div #card [class]="displayData.event.eventSize" class="card" (pointermove)="onPointerMove($event)"
+  (pointerleave)="onLeave()" (pointerenter)="onPointerEnter()">
+  <div class="event-bar" [class]="displayData.event.eventType">{{displayData.event.eventType}}</div>
 
-    <div class = "top-bar" >
-      <p class="card-title">{{eventData.title}}</p>
-      <p class="creation-date">{{eventData.creationDate}}</p>
-      <app-profile-pic
-        [hover_text]="eventData.authorData.name" [pic_href]="eventData.authorData.picUrl"></app-profile-pic>
-    </div>
-
-    <div class = "content card-body">
-      <div class = "image-container">
-        <img src="/favicon.ico"
-             alt="hamada">
-      </div>
-      @if (eventData.eventSize == EventSize.SMALL) {
-      <div class = "description">{{eventData.description | slice : 0 : 50}}</div>
-      }
-      @if (eventData.eventSize == EventSize.MID) {
-        <div class = "description">{{eventData.description | slice : 0 : 70 }}</div>
-      }
-      @if (eventData.eventSize == EventSize.LARGE) {
-        <div class = "description">{{eventData.description | slice : 0 : 150}}</div>
-      }
-    </div>
-
-    <div class = "bottom-bar">
-      <button class="btn btn-outline-primary btn-lg fa-solid fa-thumbs-up"> {{ upVote }}</button>
-      <button class="btn btn-outline-danger btn-lg fa-solid fa-thumbs-down"> {{ downVote }}</button>
-      @if (star) {
-        <button class="btn btn-outline-warning btn-lg fa-star fa-solid" (click)="addStar()"></button>
-      } @else {
-        <button class="btn btn-outline-warning btn-lg fa-star fa-regular"(click)="removeStar()" ></button>
-      }
-    </div>
-
+  <div class="top-bar">
+    <p class="card-title">{{displayData.event.title}}</p>
+    <p class="creation-date">{{displayData.event.creationDate}}</p>
+    <app-profile-pic [hover_text]="displayData.author.name" [pic_href]="displayData.author.picUrl"></app-profile-pic>
   </div>
+
+  <div class="content card-body">
+    <div class="image-container">
+      <img src="/favicon.ico" alt="hamada">
+    </div>
+    @if (displayData.event.eventSize == EventSize.SMALL) {
+    <div class="description">{{displayData.event.description | slice : 0 : 50}}</div>
+    }
+    @if (displayData.event.eventSize == EventSize.MID) {
+    <div class="description">{{displayData.event.description | slice : 0 : 70 }}</div>
+    }
+    @if (displayData.event.eventSize == EventSize.LARGE) {
+    <div class="description">{{displayData.event.description | slice : 0 : 150}}</div>
+    }
+  </div>
+
+  <div class="bottom-bar">
+    <button class="btn btn-outline-primary btn-lg fa-solid fa-thumbs-up"> {{ upVote }}</button>
+    <button class="btn btn-outline-danger btn-lg fa-solid fa-thumbs-down"> {{ downVote }}</button>
+    @if (star) {
+    <button class="btn btn-outline-warning btn-lg fa-star fa-solid" (click)="addStar()"></button>
+    } @else {
+    <button class="btn btn-outline-warning btn-lg fa-star fa-regular" (click)="removeStar()"></button>
+    }
+  </div>
+
+</div>
 }
 
 <!--<script>-->

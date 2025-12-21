@@ -61,6 +61,7 @@
 /home/nelatawy/Planchella/Backend/src/main/java/com/planchella/routes/AuthUserRoutes.java
 /home/nelatawy/Planchella/Backend/src/main/java/com/planchella/routes/CommunityRoutes.java
 /home/nelatawy/Planchella/Backend/src/main/java/com/planchella/routes/EventRoutes.java
+/home/nelatawy/Planchella/Backend/src/main/java/com/planchella/routes/MembershipRoutes.java
 /home/nelatawy/Planchella/Backend/src/main/java/com/planchella/routes/UserRoutes.java
 /home/nelatawy/Planchella/Backend/src/main/java/com/planchella/utils/IdGenerator.java
 /home/nelatawy/Planchella/Backend/src/main/java/com/planchella/utils/UserAuthenticationHelper.java

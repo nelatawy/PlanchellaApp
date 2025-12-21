@@ -2,6 +2,7 @@ import { Component, EventEmitter, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { CommunityDataService } from '../services/community-data-service';
+import { CommunityData } from '../models/community-data';
 
 @Component({
     selector: 'app-community-builder',
@@ -25,14 +26,11 @@ export class CommunityBuilder {
 
         this.isSubmitting = true;
         try {
-            await this.communityService.createCommunity({
+            let communityData: CommunityData = {
                 name: this.name,
                 description: this.description,
-                primaryColor: '#7E30E1',
-                secondaryColor: '#49108B',
-                logoUrl: '',
-                bannerUrl: ''
-            });
+            };
+            await this.communityService.createCommunity(communityData);
             this.communityCreated.emit();
             this.resetForm();
         } catch (error) {

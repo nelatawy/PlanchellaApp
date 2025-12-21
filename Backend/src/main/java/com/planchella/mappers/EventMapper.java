@@ -23,6 +23,10 @@ public class EventMapper {
         e.setCreationDate(event.getCreationDate());
         e.setEventSize(event.getEventSize());
         e.setEventType(event.getEventType());
+        e.setUpvoteCount(event.getUpvoteCount());
+        e.setDownvoteCount(event.getDownvoteCount());
+        e.setEventStartDate(event.getEventStartDate());
+        e.setEventEndDate(event.getEventEndDate());
 
         if (event.getAttachments() != null) {
             e.setAttachments(event.getAttachments().stream()
@@ -48,6 +52,10 @@ public class EventMapper {
                 e.getTitle(),
                 e.getDescription(),
                 e.getCreationDate(),
+                e.getUpvoteCount(),
+                e.getDownvoteCount(),
+                e.getEventStartDate(),
+                e.getEventEndDate(),
                 e.getAttachments() == null ? null
                         : e.getAttachments().stream()
                                 .map(AttachmentMapper::entityToDomain)
@@ -63,6 +71,10 @@ public class EventMapper {
                 event.getTitle(),
                 event.getDescription(),
                 event.getCreationDate(),
+                event.getUpvoteCount(),
+                event.getDownvoteCount(),
+                event.getEventStartDate(),
+                event.getEventEndDate(),
                 event.getAttachments());
     }
 
@@ -75,6 +87,10 @@ public class EventMapper {
                 e.title,
                 e.description,
                 e.creationDate,
+                e.upvoteCount,
+                e.downvoteCount,
+                e.eventStartDate,
+                e.eventEndDate,
                 e.attachments);
     }
 }

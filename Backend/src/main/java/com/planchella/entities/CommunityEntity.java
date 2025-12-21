@@ -20,13 +20,22 @@ public class CommunityEntity {
     @Column(name = "name")
     private String name;
 
+    @Column(name = "description")
+    private String description;
+
+    @Column(name = "created_at")
+    private String createdAt;
+
     @OneToMany(mappedBy = "community", cascade = { CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST,
             CascadeType.REFRESH })
     private List<MembershipEntity> memberships;
 
-    public CommunityEntity(Long id, String name, List<MembershipEntity> memberships) {
+    public CommunityEntity(Long id, String name, String description, String createdAt,
+            List<MembershipEntity> memberships) {
         this.id = id;
         this.name = name;
+        this.description = description;
+        this.createdAt = createdAt;
         if (memberships != null) {
             this.memberships = memberships;
         }
@@ -44,6 +53,8 @@ public class CommunityEntity {
         return "Community{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                ", createdAt='" + createdAt + '\'' +
                 '}';
     }
 }

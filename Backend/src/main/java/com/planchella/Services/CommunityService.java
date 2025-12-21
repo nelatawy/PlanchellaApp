@@ -26,7 +26,11 @@ public class CommunityService {
     private MembershipService membershipService;
 
     public Community getCommunity(Long communityId) {
-        return communityRepo.getCommunity(communityId);
+        Community community = communityRepo.getCommunity(communityId);
+        if (community != null) {
+            community.setMemberCount(membershipService.getMemberCount(communityId));
+        }
+        return community;
     }
 
     public void updateCommunity(Long communityId, Long userId, Community newCommunityData) {
@@ -51,6 +55,7 @@ public class CommunityService {
 
         // Generate and set ID for the community
         community.setId(IdGenerator.generateId());
+        community.setCreatedAt(new java.util.Date().toString());
 
         communityRepo.saveCommunity(community);
 

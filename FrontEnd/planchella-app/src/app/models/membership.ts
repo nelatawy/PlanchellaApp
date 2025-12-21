@@ -1,9 +1,9 @@
 import { CommunityRole } from "./Enums";
 
 export interface Membership {
-    id: string,
-    userId: string,
-    communityId: string,
-    role: CommunityRole,
-    joinedAt: Date
+    id: number,
+    userId: number,
+    communityId: number,
+    type: CommunityRole,
+    joinedAt?: Date
 }

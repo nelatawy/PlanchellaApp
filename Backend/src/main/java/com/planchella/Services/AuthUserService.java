@@ -17,6 +17,8 @@ import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.json.gson.GsonFactory;
 import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken;
 import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.concurrent.ExecutionException;
 
 import com.planchella.entities.AuthUserEntity;
@@ -86,17 +88,26 @@ public class AuthUserService {
         return authData;
     }
 
-    public String verify(AuthUserEntity user) {
+    public Map<String, String> verify(AuthUserEntity user) {
         Authentication authentication = authManager
                 .authenticate(new UsernamePasswordAuthenticationToken(user.getUsername(), user.getPassword()));
+
         if (authentication.isAuthenticated()) {
-            return jwtService.generateToken(user.getUsername());
+            Map<String, String> result = new java.util.HashMap<>();
+            result.put("token", jwtService.generateToken(user.getUsername()));
+
+            AuthUserEntity fullAuthUser = authRepo.findByUsername(user.getUsername());
+            if (fullAuthUser != null) {
+                result.put("userId", String.valueOf(fullAuthUser.getUserId()));
+            }
+
+            return result;
         } else {
-            return "fail";
+            return Collections.emptyMap();
         }
     }
 
-    public String verifyGoogleAuth(String token) throws Exception {
+    public Map<String, String> verifyGoogleAuth(String token) throws Exception {
         System.out.println(CLIENT_ID);
         GoogleIdToken idToken = verifier.verify(token);
 
@@ -120,7 +131,10 @@ public class AuthUserService {
             userData.setName(name);
             userData.setPicUrl(picture);
 
-            return jwtService.generateToken(googleId);
+            Map<String, String> result = new java.util.HashMap<>();
+            result.put("token", jwtService.generateToken(googleId));
+            result.put("userId", String.valueOf(authUserData.getUserId()));
+            return result;
             // accept
         } else {
             throw new Exception("Email doesn't match our stored in database");

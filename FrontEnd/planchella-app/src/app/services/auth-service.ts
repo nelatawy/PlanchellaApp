@@ -1,13 +1,14 @@
-import {inject, Injectable} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
-import {firstValueFrom, Observable} from 'rxjs';
+import { inject, Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { firstValueFrom, Observable } from 'rxjs';
 
 class signInResponse {
-  "token" : string
+  "token": string;
+  "userId": string;
 }
 
 @Injectable({
-  providedIn : "root"
+  providedIn: "root"
 })
 export class AuthService {
   private baseUrl = "http://localhost:8080/account";
@@ -18,22 +19,22 @@ export class AuthService {
   private googleRegisterUrl = this.baseUrl + "/auth/google/register";
   private googleLoginUrl = this.baseUrl + "/auth/google/login";
 
-  constructor(private http : HttpClient) {}
+  constructor(private http: HttpClient) { }
 
-  async register(username: string, password: string, email: string): Promise<boolean>{
+  async register(username: string, password: string, email: string): Promise<boolean> {
     console.log("=== AUTH SERVICE REGISTER ===");
     console.log("Received username:", username);
     console.log("Received email:", email);
     console.log("Received password:", password ? "present" : "empty");
-    
+
     let data = {
-      "username" : username,
-      "password" : password,
-      "email" : email
+      "username": username,
+      "password": password,
+      "email": email
     }
-    
+
     console.log("Sending data:", data);
-    
+
     try {
       const result = await firstValueFrom(
         this.http.post(this.registerUrl, data)
@@ -46,18 +47,19 @@ export class AuthService {
     }
   }
 
-  async signIn(username: string, password: string): Promise<boolean>{
+  async signIn(username: string, password: string): Promise<boolean> {
     let data = {
-      "username" : username,
-      "password" : password
+      "username": username,
+      "password": password
     }
     try {
-      const result : signInResponse = await firstValueFrom(
+      const result: signInResponse = await firstValueFrom(
         this.http.post<signInResponse>(this.loginUrl, data)
       );
       console.log("sign in complete", result);
 
-      localStorage.setItem("authToken",result.token)
+      localStorage.setItem("authToken", result.token);
+      localStorage.setItem("userId", result.userId);
       localStorage.setItem("isAuthenticated", String(true));
 
       return true;
@@ -67,30 +69,31 @@ export class AuthService {
     }
   }
 
-async signInWithGoogle(response : any): Promise<boolean>{
-    // let data = {
-    //   token : response.credential
-    // }
+  async signInWithGoogle(response: any): Promise<boolean> {
     try {
       console.log("data : " + response.credential);
-      const result : any = await firstValueFrom(
-        this.http.post(this.googleLoginUrl, response.credential, {responseType : 'text'})
+      const result: any = await firstValueFrom(
+        this.http.post(this.googleLoginUrl, response.credential)
       );
       console.log("sign in complete", result);
-      localStorage.setItem("authToken",result)
-      localStorage.setItem("isAuthenticated", String(true));
-      return true;
+      if (result && result.token) {
+        localStorage.setItem("authToken", result.token);
+        localStorage.setItem("userId", String(result.userId));
+        localStorage.setItem("isAuthenticated", String(true));
+        return true;
+      }
+      return false;
     } catch (err) {
       console.error("error while trying to sign in", err);
       return false;
     }
   }
 
-  async registerWithGoogle(response : any): Promise<boolean>{
+  async registerWithGoogle(response: any): Promise<boolean> {
 
     try {
-      const result  = await firstValueFrom(
-        this.http.post(this.googleRegisterUrl, response.credential ,{responseType : 'text'})
+      const result = await firstValueFrom(
+        this.http.post(this.googleRegisterUrl, response.credential, { responseType: 'text' })
       );
 
       console.log("registration complete", result);
@@ -109,7 +112,7 @@ async signInWithGoogle(response : any): Promise<boolean>{
   getCurrentUserId(): number | null {
     const token = this.getToken();
     if (!token) return null;
-    
+
     try {
       // atob() is used to decode the JWT token
       const payload = JSON.parse(atob(token.split('.')[1]));
@@ -134,7 +137,7 @@ async signInWithGoogle(response : any): Promise<boolean>{
     localStorage.setItem('isAuthenticated', 'false');
   }
 
-  isAuthenticated() : boolean {
+  isAuthenticated(): boolean {
     if (localStorage.getItem("authToken") && localStorage.getItem("isAuthenticated") == "true") {
       return true;
     }

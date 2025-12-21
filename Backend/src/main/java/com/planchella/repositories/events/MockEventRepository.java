@@ -40,6 +40,10 @@ public class MockEventRepository implements IEventRepository {
                 "title",
                 "description",
                 new Date().toString(),
+                0L,
+                0L,
+                new Date().toString(),
+                new Date().toString(),
                 List.of());
     }
 

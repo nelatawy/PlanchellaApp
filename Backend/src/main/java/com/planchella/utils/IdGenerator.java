@@ -7,6 +7,6 @@ public class IdGenerator {
 
     public static Long generateId() {
         // Generate a positive long ID (excluding 0)
-        return Math.abs(random.nextLong()) % (Long.MAX_VALUE - 1) + 1;
+        return Math.abs(random.nextLong()) % (Integer.MAX_VALUE - 1) + 1;
     }
 }

@@ -2,36 +2,36 @@
   <div class="event-header">
     <div class="event-meta-top">
       <div class="author-info">
-        <a [href]="event?.authorData?.accountUrl || '#'" target="_blank" class="author-link" title="Visit profile">
-          <img [src]="event?.authorData?.picUrl || 'assets/default-user.png'" class="author-pic" alt="Author">
+        <a [href]="displayData?.author?.accountUrl || '#'" target="_blank" class="author-link" title="Visit profile">
+          <img [src]="displayData?.author?.picUrl || 'assets/default-user.png'" class="author-pic" alt="Author">
         </a>
-        <a [href]="event?.authorData?.accountUrl || '#'" target="_blank" class="author-link-text">
-          <span class="author-name">{{ event?.authorData?.name }}</span>
+        <a [href]="displayData?.author?.accountUrl || '#'" target="_blank" class="author-link-text">
+          <span class="author-name">{{ displayData?.author?.name }}</span>
         </a>
       </div>
       <div class="meta-right">
-        <span class="event-type-badge">{{ event?.eventType }}</span>
-        <span class="creation-date">{{ event?.creationDate | date:'mediumDate' }}</span>
+        <span class="event-type-badge">{{ displayData?.event?.eventType }}</span>
+        <span class="creation-date">{{ displayData?.event?.creationDate | date:'mediumDate' }}</span>
       </div>
     </div>
 
-    <h2 class="event-title">{{ event?.title }}</h2>
+    <h2 class="event-title">{{ displayData?.event?.title }}</h2>
 
     <div class="event-dates">
       <span class="date-label">📅 </span>
-      <span class="date-value">{{ event?.eventStartDate | date:'short' }}</span>
+      <span class="date-value">{{ displayData?.event?.eventStartDate | date:'short' }}</span>
       <span class="date-sep"> — </span>
-      <span class="date-value">{{ event?.eventEndDate | date:'short' }}</span>
+      <span class="date-value">{{ displayData?.event?.eventEndDate | date:'short' }}</span>
     </div>
 
-    <p class="event-description">{{ event?.description }}</p>
+    <p class="event-description">{{ displayData?.event?.description }}</p>
   </div>
 
-  @if (event?.attachments?.length) {
+  @if (displayData?.event?.attachments?.length) {
   <div class="attachments-section">
     <h3 class="attachments-title">
       <span class="icon">📎</span>
-      Attachments ({{ event?.attachments?.length }})
+      Attachments ({{ displayData?.event?.attachments?.length }})
     </h3>
 
     <div class="attachments-grid">
@@ -57,11 +57,11 @@
   <div class="vote-controls">
     <button class="vote-btn upvote">
       <i class="fa-solid fa-arrow-up icon"></i>
-      <span class="count">{{ event?.upVotesCount }}</span>
+      <span class="count">{{ displayData?.event?.upvoteCount }}</span>
     </button>
     <button class="vote-btn downvote">
       <i class="fa-solid fa-arrow-down icon"></i>
-      <span class="count">{{ event?.downVotesCount }}</span>
+      <span class="count">{{ displayData?.event?.downvoteCount }}</span>
     </button>
 
     <button class="vote-btn star-btn" [class.starred]="isStarred" (click)="toggleStar()" title="Star this event">
@@ -77,14 +77,14 @@
       <div class="modal-header">
         <h3 class="modal-title">
           <span class="icon">📎</span>
-          All Attachments ({{ event?.attachments?.length }})
+          All Attachments ({{ displayData?.event?.attachments?.length }})
         </h3>
         <button class="modal-close" (click)="closeModal()">✕</button>
       </div>
 
       <div class="modal-content">
         <div class="attachments-grid">
-          @for (att of event?.attachments; track att.id) {
+          @for (att of displayData?.event?.attachments; track att.id) {
           <div class="attachment-card">
             <ng-container *ngTemplateOutlet="attachmentCardContent; context: { att: att }"></ng-container>
           </div>

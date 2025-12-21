@@ -28,11 +28,20 @@ public class Event {
 
     private String creationDate;
 
+    private Long upvoteCount;
+
+    private Long downvoteCount;
+
+    private String eventStartDate;
+
+    private String eventEndDate;
+
     private List<AttachmentMetadata> attachments;
 
     public Event(Long id, EventType eventType, EventSize eventSize, Long authorId, Long communityId,
             String title, String description,
-            String creationDate, List<AttachmentMetadata> attachments) {
+            String creationDate, Long upvoteCount, Long downvoteCount, String eventStartDate, String eventEndDate,
+            List<AttachmentMetadata> attachments) {
         this.id = id;
         this.eventType = eventType;
         this.eventSize = eventSize;
@@ -42,6 +51,10 @@ public class Event {
         this.creationDate = creationDate;
         this.communityId = communityId;
         this.attachments = attachments;
+        this.upvoteCount = upvoteCount;
+        this.downvoteCount = downvoteCount;
+        this.eventStartDate = eventStartDate;
+        this.eventEndDate = eventEndDate;
     }
 
     public Event() {
@@ -52,11 +65,10 @@ public class Event {
         this.eventType = event.eventType != null ? event.eventType : this.eventType;
         this.eventSize = event.eventSize != null ? event.eventSize : this.eventSize;
         this.title = event.title != null ? event.title : this.title;
-        this.authorId = event.authorId != null ? event.authorId : this.authorId;
         this.description = event.description != null ? event.description : this.description;
-        this.creationDate = event.creationDate != null ? event.creationDate : this.creationDate;
-        this.communityId = event.communityId != null ? event.communityId : this.communityId;
         this.attachments = event.attachments != null ? event.attachments : this.attachments;
+        this.eventStartDate = event.eventStartDate != null ? event.eventStartDate : this.eventStartDate;
+        this.eventEndDate = event.eventEndDate != null ? event.eventEndDate : this.eventEndDate;
     }
 
     public static Event getMockData() {
@@ -67,6 +79,10 @@ public class Event {
                 1L,
                 "sample test",
                 "Description",
+                new Date().toString(),
+                10L,
+                2L,
+                new Date().toString(),
                 new Date().toString(),
                 List.of(new AttachmentMetadata()));
     }
@@ -82,6 +98,10 @@ public class Event {
                 ", title='" + title + '\'' +
                 ", description='" + description + '\'' +
                 ", creationDate='" + creationDate + '\'' +
+                ", upvoteCount=" + upvoteCount +
+                ", downvoteCount=" + downvoteCount +
+                ", eventStartDate='" + eventStartDate + '\'' +
+                ", eventEndDate='" + eventEndDate + '\'' +
                 '}';
     }
 }

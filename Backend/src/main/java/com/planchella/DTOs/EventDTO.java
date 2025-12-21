@@ -16,13 +16,20 @@ public class EventDTO {
     public Long communityId;
     public String title;
 
-    public String description ;
+    public String description;
     public String creationDate;
+
+    public Long upvoteCount;
+    public Long downvoteCount;
+    public String eventStartDate;
+    public String eventEndDate;
+
     // list of attachment
     public List<AttachmentMetadata> attachments;
 
-
-    public EventDTO(Long id, EventType eventType, EventSize eventSize, Long author_id, Long community_id, String title, String description, String creationDate, List<AttachmentMetadata> attachments) {
+    public EventDTO(Long id, EventType eventType, EventSize eventSize, Long author_id, Long community_id, String title,
+            String description, String creationDate, Long upvoteCount, Long downvoteCount, String eventStartDate,
+            String eventEndDate, List<AttachmentMetadata> attachments) {
         this.id = id;
         this.eventType = eventType;
         this.eventSize = eventSize;
@@ -31,8 +38,13 @@ public class EventDTO {
         this.title = title;
         this.description = description;
         this.creationDate = creationDate;
+        this.upvoteCount = upvoteCount;
+        this.downvoteCount = downvoteCount;
+        this.eventStartDate = eventStartDate;
+        this.eventEndDate = eventEndDate;
         this.attachments = attachments;
     }
 
-    public  EventDTO() {}
+    public EventDTO() {
+    }
 }

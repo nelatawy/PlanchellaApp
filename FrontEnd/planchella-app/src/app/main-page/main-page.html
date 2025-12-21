@@ -4,6 +4,7 @@
     <app-community-selector class="comm_selector" [class.open]="isOpen" (selection)="select_community($event)"
       (openBuilder)="show_community_builder()">
     </app-community-selector>
+
     <app-billboard [communityData]="communityData" class="billboard" [class.full]="!isOpen"
       [class.shrink]="isOpen"></app-billboard>
   </div>
@@ -16,14 +17,12 @@
   </div>
 
   <div #communityOverlay class="overlay" (click)="hide_community_builder()">
-  <div class="community-builder" (click)="$event.stopPropagation()">
-    <app-community-builder
-      #communityBuilder
-      (cancel)="hide_community_builder()"
-      (communityCreated)="onCommunityCreated()">
-    </app-community-builder>
+    <div class="community-builder" (click)="$event.stopPropagation()">
+      <app-community-builder #communityBuilder (cancel)="hide_community_builder()"
+        (communityCreated)="onCommunityCreated()">
+      </app-community-builder>
+    </div>
   </div>
-</div>
 
 
 </div>
