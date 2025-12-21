@@ -1,5 +1,6 @@
 package com.planchella.Services;
 
+import com.planchella.DTOs.EventDTO;
 import com.planchella.domain.Event;
 import com.planchella.domain.User;
 import com.planchella.repositories.events.IEventRepository;
@@ -27,11 +28,9 @@ public class UserService {
         return userRepo.getUsers(communityId, count, offset);
     }
 
-
     public List<Event> getUserEvents(Long userId, int count, int offset) {
         return eventRepo.getEventsByAuthor(userId, count, offset);
     }
-
 
     public void updateUser(Long userId, User newUserData) {
         User user = userRepo.getUser(userId);

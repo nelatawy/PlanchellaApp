@@ -2,6 +2,7 @@ package com.planchella.routes;
 
 import com.planchella.DTOs.EventDTO;
 import com.planchella.Services.EventService;
+import com.planchella.Services.UserSpecificEventService;
 import com.planchella.domain.Event;
 import com.planchella.mappers.EventMapper;
 import com.planchella.utils.UserAuthenticationHelper;
@@ -24,6 +25,8 @@ public class CommunityRoutes {
 
     @Autowired
     UserAuthenticationHelper authHelper;
+    @Autowired
+    private UserSpecificEventService userSpecificEventService;
 
     @GetMapping("/{community_id}")
     public CommunityDTO getCommunity(@PathVariable Long community_id) {
@@ -33,9 +36,10 @@ public class CommunityRoutes {
 
     @GetMapping("/{community_id}/events")
     public List<EventDTO> getCommunityEvents(@PathVariable Long community_id, @RequestParam int count,
-            @RequestParam int offset) {
+            @RequestParam int offset, @RequestHeader("Authorization") String authHeader) {
+        Long userId = authHelper.extractUserId(authHeader);
         List<Event> events = communityService.getCommunityEvents(community_id, count, offset);
-        return events.stream().map(EventMapper::domainToDTO).toList();
+        return userSpecificEventService.enrichEventsForUser(events, userId);
     }
 
     @PatchMapping("/{community_id}")

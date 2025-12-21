@@ -39,6 +39,8 @@ public class UserRoutes {
 
     @Autowired
     UserAuthenticationHelper authHelper;
+    @Autowired
+    private UserSpecificEventService userSpecificEventService;
 
     @GetMapping("/me")
     public UserDTO getCurrentUser(@RequestHeader("Authorization") String authHeader) {
@@ -70,9 +72,11 @@ public class UserRoutes {
     }
 
     @GetMapping("/{user_id}/events")
-    public List<EventDTO> getUserEvents(@PathVariable Long user_id, @RequestParam int count, @RequestParam int offset) {
+    public List<EventDTO> getUserEvents(@PathVariable Long user_id, @RequestParam int count, @RequestParam int offset,
+                                        @RequestHeader("Authorization") String authHeader) {
+        Long requestingUserId = authHelper.extractUserId(authHeader);
         List<Event> events = userService.getUserEvents(user_id, count, offset);
-        return events.stream().map(EventMapper::domainToDTO).toList();
+        return userSpecificEventService.enrichEventsForUser(events, requestingUserId);
     }
 
     @GetMapping("/{user_id}/memberships")

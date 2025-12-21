@@ -1,5 +1,6 @@
 package com.planchella.routes;
 
+import com.planchella.Services.UserSpecificEventService;
 import com.planchella.enums.VoteType;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -23,13 +24,17 @@ public class EventRoutes {
     private EventService eventService;
 
     @Autowired
+    private UserSpecificEventService userSpecificEventService;
+
+    @Autowired
     private UserAuthenticationHelper authHelper;
 
     @GetMapping("/{event_id}")
-    public ResponseEntity<?> getEvent(@PathVariable Long event_id) {
+    public ResponseEntity<?> getEvent(@PathVariable Long event_id, @RequestHeader("Authorization") String authHeader) {
         try {
+            Long userId = authHelper.extractUserId(authHeader);
             Event event = this.eventService.getEvent(event_id);
-            return ResponseEntity.ok().body(EventMapper.domainToDTO(event));
+            return ResponseEntity.ok().body(userSpecificEventService.enrichEventForUser(event, userId));
         } catch (Exception e) {
             System.err.println(e.getMessage());
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(Map.of(
@@ -84,38 +89,40 @@ public class EventRoutes {
         }
     }
 
-
     @PostMapping("/{event_id}/upvote")
-    public ResponseEntity<?> upvoteEvent(@PathVariable Long event_id, @RequestHeader("Authorization") String authHeader) {
+    public ResponseEntity<?> upvoteEvent(@PathVariable Long event_id,
+            @RequestHeader("Authorization") String authHeader) {
         try {
             Long userId = authHelper.extractUserId(authHeader);
             eventService.voteEvent(userId, event_id, VoteType.UPVOTE);
             return ResponseEntity.ok().body(Map.of("message", "vote event successfully"));
-        } catch (Exception e){
+        } catch (Exception e) {
             System.out.println(e.getMessage());
             return ResponseEntity.badRequest().body(Map.of("message", "can't vote event"));
         }
     }
 
     @PostMapping("/{event_id}/downvote")
-    public ResponseEntity<?> downvoteEvent(@PathVariable Long event_id, @RequestHeader("Authorization") String authHeader) {
+    public ResponseEntity<?> downvoteEvent(@PathVariable Long event_id,
+            @RequestHeader("Authorization") String authHeader) {
         try {
             Long userId = authHelper.extractUserId(authHeader);
             eventService.voteEvent(userId, event_id, VoteType.DOWNVOTE);
             return ResponseEntity.ok().body(Map.of("message", "vote event successfully"));
-        } catch (Exception e){
+        } catch (Exception e) {
             System.out.println(e.getMessage());
             return ResponseEntity.badRequest().body(Map.of("message", "can't vote event"));
         }
     }
 
     @PostMapping("/{event_id}/unvote")
-    public ResponseEntity<?> unvoteEvent(@PathVariable Long event_id, @RequestHeader("Authorization") String authHeader) {
+    public ResponseEntity<?> unvoteEvent(@PathVariable Long event_id,
+            @RequestHeader("Authorization") String authHeader) {
         try {
             Long userId = authHelper.extractUserId(authHeader);
             eventService.removeVoteEvent(userId, event_id);
             return ResponseEntity.ok().body(Map.of("message", "vote event successfully"));
-        } catch (Exception e){
+        } catch (Exception e) {
             System.out.println(e.getMessage());
             return ResponseEntity.badRequest().body(Map.of("message", "can't vote event"));
         }
@@ -127,7 +134,7 @@ public class EventRoutes {
             Long userId = authHelper.extractUserId(authHeader);
             eventService.toggleStarEvent(event_id, userId);
             return ResponseEntity.ok().body(Map.of("message", "star event successfully"));
-        } catch (Exception e){
+        } catch (Exception e) {
             System.out.println(e.getMessage());
             return ResponseEntity.badRequest().body(Map.of("message", "can't star event"));
         }

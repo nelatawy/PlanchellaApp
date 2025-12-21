@@ -11,14 +11,12 @@ import com.planchella.repositories.events.StarRepository;
 import com.planchella.repositories.events.VoteRepository;
 import com.planchella.repositories.users.IUserRepository;
 import com.planchella.utils.IdGenerator;
-import org.hibernate.boot.model.internal.IdBagBinder;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -42,13 +40,14 @@ public class EventService {
     private VoteRepository voteRepo;
 
     @Autowired
-    private UserService userService;
+    private IUserRepository userRepo;
 
     @Autowired
     private AttachmentService attachmentService;
 
     @Autowired
     private MembershipService membershipService;
+
     @Autowired
     private CommunityService communityService;
 
@@ -57,7 +56,7 @@ public class EventService {
     }
 
     public void updateEvent(Long eventId, Long userId, Event newEventData) {
-        User user = userService.getUser(userId);
+        User user = userRepo.getUser(userId);
         Event event = eventRepo.getEvent(eventId);
         if (user == null || event == null || !Objects.equals(event.getAuthorId(), userId)) {
             throw new IllegalArgumentException("Event doesn't exist or the user doesn't have the authority to edit it");
@@ -72,7 +71,7 @@ public class EventService {
     }
 
     public void addEvent(Event event) {
-        User author = userService.getUser(event.getAuthorId());
+        User author = userRepo.getUser(event.getAuthorId());
         Community community = communityService.getCommunity(event.getCommunityId());
 
         // Verify the author can post in the community
@@ -91,7 +90,7 @@ public class EventService {
     }
 
     public void deleteEvent(Long eventId, Long userId) {
-        User user = userService.getUser(userId);
+        User user = userRepo.getUser(userId);
         Event event = eventRepo.getEvent(eventId);
         if (user == null || event == null || !Objects.equals(event.getAuthorId(), userId)) {
             throw new IllegalArgumentException(
@@ -102,7 +101,7 @@ public class EventService {
 
     @Transactional
     public void toggleStarEvent(Long eventId, Long userId) {
-        User user = userService.getUser(userId);
+        User user = userRepo.getUser(userId);
         Event event = eventRepo.getEvent(eventId);
         if (user == null || event == null) {
             throw new IllegalArgumentException("Event or User doesn't exist");
@@ -111,19 +110,17 @@ public class EventService {
         Optional<StarEntity> existingStar = starRepo.findByUserIdAndEventId(userId, eventId);
         if (existingStar.isPresent()) {
             starRepo.deleteByUserIdAndEventId(userId, eventId);
-            event.setStarred(false);
         } else {
             StarEntity star = new StarEntity();
             star.setUser(entityManager.getReference(UserEntity.class, userId));
             star.setEvent(entityManager.getReference(EventEntity.class, eventId));
             starRepo.save(star);
-            event.setStarred(true);
         }
     }
 
     @Transactional
     public void voteEvent(Long userId, Long eventId, VoteType voteType) {
-        User user = userService.getUser(userId);
+        User user = userRepo.getUser(userId);
         Event event = eventRepo.getEvent(eventId);
         if (user == null || event == null) {
             throw new IllegalArgumentException("Event or User doesn't exist");
@@ -138,10 +135,8 @@ public class EventService {
 
             if (vote.getVoteType() == VoteType.UPVOTE) {
                 event.setUpvoteCount(event.getUpvoteCount() - 1);
-                event.setUpvoted(false);
             } else {
                 event.setDownvoteCount(event.getDownvoteCount() - 1);
-                event.setDownVoted(false);
             }
             vote.setVoteType(voteType);
             voteRepo.save(vote);
@@ -155,17 +150,15 @@ public class EventService {
 
         if (voteType == VoteType.UPVOTE) {
             event.setUpvoteCount(event.getUpvoteCount() + 1);
-            event.setUpvoted(true);
         } else {
             event.setDownvoteCount(event.getDownvoteCount() + 1);
-            event.setDownVoted(true);
         }
         eventRepo.saveEvent(event);
     }
 
     @Transactional
     public void removeVoteEvent(Long userId, Long eventId) {
-        User user = userService.getUser(userId);
+        User user = userRepo.getUser(userId);
         Event event = eventRepo.getEvent(eventId);
         if (user == null || event == null) {
             throw new IllegalArgumentException("Event or User doesn't exist");
@@ -176,10 +169,8 @@ public class EventService {
             VoteEntity vote = existingVote.get();
             if (vote.getVoteType() == VoteType.UPVOTE) {
                 event.setUpvoteCount(event.getUpvoteCount() - 1);
-                event.setUpvoted(false);
             } else {
                 event.setDownvoteCount(event.getDownvoteCount() - 1);
-                event.setDownVoted(false);
             }
             voteRepo.deleteByUserIdAndEventId(userId, eventId);
             eventRepo.saveEvent(event);

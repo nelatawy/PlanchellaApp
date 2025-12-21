@@ -1,5 +1,6 @@
 package com.planchella.Services;
 
+import com.planchella.DTOs.EventDTO;
 import com.planchella.domain.Community;
 import com.planchella.domain.Event;
 import com.planchella.domain.Membership;
@@ -28,7 +29,6 @@ public class CommunityService {
 
     @Autowired
     private MembershipService membershipService;
-
 
     public Community getCommunity(Long communityId) {
         Community community = communityRepo.getCommunity(communityId);
@@ -78,12 +78,8 @@ public class CommunityService {
         communityRepo.deleteCommunity(communityId);
     }
 
-
     public List<Event> getCommunityEvents(Long communityId, int count, int offset) {
         return eventRepo.getEventsByCommunity(communityId, count, offset);
     }
-
-
-
 
 }

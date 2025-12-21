@@ -56,9 +56,6 @@ public class EventMapper {
                 e.getDownvoteCount(),
                 e.getEventStartDate(),
                 e.getEventEndDate(),
-                false, // isStarred - will be set by service based on current user
-                false, // isUpvoted
-                false, // isDownVoted
                 e.getAttachments() == null ? null
                         : e.getAttachments().stream()
                                 .map(AttachmentMapper::entityToDomain)
@@ -78,9 +75,9 @@ public class EventMapper {
                 event.getDownvoteCount(),
                 event.getEventStartDate(),
                 event.getEventEndDate(),
-                event.isStarred(),
-                event.isUpvoted(),
-                event.isDownVoted(),
+                false,
+                false,
+                false,
                 event.getAttachments());
     }
 
@@ -97,9 +94,6 @@ public class EventMapper {
                 e.downvoteCount,
                 e.eventStartDate,
                 e.eventEndDate,
-                e.isStarred,
-                e.isUpvoted,
-                e.isDownVoted,
                 e.attachments);
     }
 }
