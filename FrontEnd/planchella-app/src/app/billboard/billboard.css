@@ -1,12 +1,13 @@
 @import '../styles/loading-states.css';
 
-/* Billboard Container */
+/* Billboard Container - Full width */
 .billboard-container {
   display: flex;
   flex-direction: column;
   gap: var(--gap-xl);
   padding: var(--padding-x-lg);
-  max-width: 1400px;
+  width: 100%;
+  /* Full width */
   margin: 0 auto;
   min-height: calc(100vh - 4rem);
   background: linear-gradient(to bottom, #FAFBFC 0%, #F3F4F6 100%);
