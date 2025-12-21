@@ -1,6 +1,9 @@
 package com.planchella.Services;
 
+import com.planchella.DTOs.EventDTO;
+import com.planchella.domain.Event;
 import com.planchella.domain.User;
+import com.planchella.repositories.events.IEventRepository;
 import com.planchella.repositories.users.IUserRepository;
 import com.planchella.utils.IdGenerator;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,12 +17,19 @@ public class UserService {
     @Autowired
     private IUserRepository userRepo;
 
+    @Autowired
+    private IEventRepository eventRepo;
+
     public User getUser(Long userId) {
         return userRepo.getUser(userId);
     }
 
     public List<User> getUsers(Long communityId, int count, int offset) {
         return userRepo.getUsers(communityId, count, offset);
+    }
+
+    public List<Event> getUserEvents(Long userId, int count, int offset) {
+        return eventRepo.getEventsByAuthor(userId, count, offset);
     }
 
     public void updateUser(Long userId, User newUserData) {

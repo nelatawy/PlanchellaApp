@@ -18,4 +18,6 @@ public interface IEventRepository {
 
     void saveEvent(Event event);
 
+    List<Event> searchEvents(String keywords, int count, int offset);
+
 }

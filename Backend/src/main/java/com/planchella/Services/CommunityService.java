@@ -1,11 +1,13 @@
 package com.planchella.Services;
 
+import com.planchella.DTOs.EventDTO;
 import com.planchella.domain.Community;
 import com.planchella.domain.Event;
 import com.planchella.domain.Membership;
 import com.planchella.domain.User;
 import com.planchella.enums.MembershipType;
 import com.planchella.repositories.communities.ICommunityRepository;
+import com.planchella.repositories.events.IEventRepository;
 import com.planchella.utils.IdGenerator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,6 +20,9 @@ public class CommunityService {
 
     @Autowired
     private ICommunityRepository communityRepo;
+
+    @Autowired
+    private IEventRepository eventRepo;
 
     @Autowired
     private UserService userService;
@@ -71,6 +76,10 @@ public class CommunityService {
             throw new IllegalArgumentException("Users can only delete communities that they have created");
         }
         communityRepo.deleteCommunity(communityId);
+    }
+
+    public List<Event> getCommunityEvents(Long communityId, int count, int offset) {
+        return eventRepo.getEventsByCommunity(communityId, count, offset);
     }
 
 }

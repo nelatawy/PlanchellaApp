@@ -36,6 +36,7 @@ public class Event {
 
     private String eventEndDate;
 
+
     private List<AttachmentMetadata> attachments;
 
     public Event(Long id, EventType eventType, EventSize eventSize, Long authorId, Long communityId,

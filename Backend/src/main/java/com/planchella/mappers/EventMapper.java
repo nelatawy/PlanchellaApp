@@ -75,6 +75,9 @@ public class EventMapper {
                 event.getDownvoteCount(),
                 event.getEventStartDate(),
                 event.getEventEndDate(),
+                false,
+                false,
+                false,
                 event.getAttachments());
     }
 

@@ -3,6 +3,7 @@ package com.planchella.repositories.events;
 import com.planchella.Configs.HibernateUtil;
 import com.planchella.domain.Event;
 import com.planchella.entities.EventEntity;
+import com.planchella.enums.EventType;
 import com.planchella.mappers.EventMapper;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -66,6 +67,22 @@ public class DBEventRepository implements IEventRepository {
         return event;
     }
 
+    @Override
+    public List<Event> searchEvents(String keywords, int count, int offset) {
+        Session session = sessionFactory.openSession();
+        String hql = "select e from EventEntity e where lower(e.title)  like lower(:keywords)";
+        Query<EventEntity> query = session.createQuery(hql, EventEntity.class);
+        query.setParameter("keywords", "%"+keywords.toLowerCase()+"%");
+        if (count > 0) {
+            query.setMaxResults(count);
+        }
+        if (offset > 0) {
+            query.setFirstResult(offset);
+        }
+
+        return getEventsHelper(session, query);
+    }
+
     // @Override
     // public void updateEvent(Long event_id, Event newEventData){
     // Session session = this.sessionFactory.openSession();
@@ -123,6 +140,7 @@ public class DBEventRepository implements IEventRepository {
             eventsList.add(event);
         }
         session.close();
+        System.out.println(eventsList.size());
         return eventsList;
     }
 
