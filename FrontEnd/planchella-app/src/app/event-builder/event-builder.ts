@@ -39,6 +39,7 @@ export class EventBuilder {
   hasTime: boolean = false;
   attachments: EventAttachment[] = [];
   selectedFiles: File[] = [];
+  customUrl: string = '';
 
   isDropdownOpen: boolean = false;
   isSizeDropdownOpen: boolean = false;
@@ -128,6 +129,7 @@ export class EventBuilder {
       eventEndDate: this.hasTime ? new Date(this.endDate) : new Date(),
       expirationDate: this.hasTime ? new Date(this.endDate) : undefined,
       hasTime: this.hasTime,
+      customUrl: this.customUrl,
       attachments: this.attachments
     };
 
@@ -142,6 +144,7 @@ export class EventBuilder {
       this.selectedFlare = '';
       this.selectedSize = EventSize.MID;
       this.hasTime = false;
+      this.customUrl = '';
       this.isSubmitting = false;
 
       // Close builder

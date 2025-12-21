@@ -7,6 +7,12 @@
     <!-- Title -->
     <input type="text" class="inputField title-input" [(ngModel)]="title" name="title" placeholder="Event Title">
 
+    <!-- External Link -->
+    <div class="form-row">
+      <input type="url" class="inputField" [(ngModel)]="customUrl" name="customUrl"
+        placeholder="External Link (GitHub, YouTube, etc.)">
+    </div>
+
     <!-- Flare & Size Row -->
     <div class="form-row">
       <!-- Flare / Type -->

@@ -13,6 +13,13 @@
     </div>
     <app-profile-pic [hover_text]="displayData.author.name" [pic_href]="displayData.author.picUrl"
       [userId]="displayData.author.id"></app-profile-pic>
+
+    @if (displayData.event.customUrl) {
+    <a [href]="displayData.event.customUrl" target="_blank" class="external-link" (click)="$event.stopPropagation()"
+      title="Open external link">
+      <i [class]="getExternalLinkIcon()"></i>
+    </a>
+    }
   </div>
 
   <div class="content card-body">

@@ -32,6 +32,7 @@
   display: flex;
   align-items: center;
   gap: 0.5rem;
+  text-align: center;
 }
 
 .upvote-btn:hover,
@@ -47,6 +48,7 @@
   display: flex;
   align-items: center;
   gap: 0.5rem;
+  text-align: center;
 }
 
 .downvote-btn:hover,
@@ -66,6 +68,39 @@
   background-color: rgba(255, 193, 7, 0.1);
   border-color: #ffc107;
   color: #ffc107;
+}
+
+.external-link {
+  position: absolute;
+  top: 10px;
+  right: 175px;
+  /* Adjust based on profile pic and padding */
+  font-size: 1.4rem;
+  color: var(--text-color-light);
+  transition: all 0.2s ease;
+  z-index: 10;
+  padding: 5px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 35px;
+  height: 35px;
+}
+
+.external-link:hover {
+  color: var(--accent-color);
+  background: rgba(255, 255, 255, 0.2);
+  transform: scale(1.1);
+}
+
+.LARGE .external-link {
+  right: 190px;
+}
+
+.MID .external-link {
+  right: 180px;
 }
 
 .card {

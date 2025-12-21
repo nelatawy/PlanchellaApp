@@ -8,7 +8,7 @@ import { AttachmentService } from '../services/attachment-service';
 import { EventAttachment } from '../models/event-attachment';
 import { EventType, EventSize, MimeType } from '../models/Enums';
 import { firstValueFrom } from 'rxjs';
-import { MimeTypeUtils } from '../services/utils';
+import { MimeTypeUtils, UrlUtils } from '../services/utils';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { EventDataService } from '../services/event-data-service';
 import { ToastService } from '../services/toast.service';
@@ -273,6 +273,10 @@ export class EventComponent implements OnInit, OnDestroy {
     }
 
     return `${hours}h ${minutes}m remaining`;
+  }
+
+  getExternalLinkIcon(): string {
+    return UrlUtils.getIconForUrl(this.displayData?.event.customUrl);
   }
 
   getVisibleAttachments(): EventAttachment[] {
