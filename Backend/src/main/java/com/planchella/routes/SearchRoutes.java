@@ -33,6 +33,15 @@ public class SearchRoutes {
                 .stream().map(CommunityMapper::domainToDTO).toList();
     }
 
+    @GetMapping("/communities/{community_id}/events")
+    public List<EventDTO> searchInCommunities(@RequestParam String keywords, @PathVariable Long community_id,
+                                                  @RequestParam int count, @RequestParam int offset){
+        System.out.println(keywords);
+        return searchService.searchEventsInCommunity(keywords, community_id, count, offset)
+                .stream().map(EventMapper::domainToDTO).toList();
+    }
+
+
     @GetMapping("/users")
     public List<UserDTO> searchUsers(@RequestParam String keywords, @RequestParam int count, @RequestParam int offset){
         System.out.println(keywords);

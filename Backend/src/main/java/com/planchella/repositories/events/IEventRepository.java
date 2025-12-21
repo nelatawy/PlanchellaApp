@@ -20,4 +20,6 @@ public interface IEventRepository {
 
     List<Event> searchEvents(String keywords, int count, int offset);
 
+    List<Event> searchInCommunities(String keywords,Long communityId, int count, int offset);
+
 }

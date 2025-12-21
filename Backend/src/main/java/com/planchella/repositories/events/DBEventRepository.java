@@ -83,6 +83,24 @@ public class DBEventRepository implements IEventRepository {
         return getEventsHelper(session, query);
     }
 
+    @Override
+    public List<Event> searchInCommunities(String keywords,Long communityId, int count, int offset) {
+        Session session = sessionFactory.openSession();
+        String hql = "select e from EventEntity e where lower(e.title)  like lower(:keywords) and e.community.id = :ID";
+        Query<EventEntity> query = session.createQuery(hql, EventEntity.class);
+        query.setParameter("keywords", "%"+keywords.toLowerCase()+"%");
+        query.setParameter("ID", communityId);
+        if (count > 0) {
+            query.setMaxResults(count);
+        }
+        if (offset > 0) {
+            query.setFirstResult(offset);
+        }
+
+        return getEventsHelper(session, query);
+    }
+
+
     // @Override
     // public void updateEvent(Long event_id, Event newEventData){
     // Session session = this.sessionFactory.openSession();

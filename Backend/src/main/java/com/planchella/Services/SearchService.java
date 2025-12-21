@@ -31,6 +31,10 @@ public class SearchService {
         return communityRepo.SearchCommunities(searchTerm, count, offset);
     }
 
+    public List<Event> searchEventsInCommunity(String searchTerm,Long communityId, int count,  int offset) {
+        return eventRepo.searchInCommunities(searchTerm, communityId, count, offset);
+    }
+
     public List<User> searchUser(String searchTerm, int count, int offset) {
         return userRepo.searchUsers(searchTerm, count, offset);
     }
