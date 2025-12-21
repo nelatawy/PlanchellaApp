@@ -1,4 +1,4 @@
-<div id="event-builder" class="commonContainer" [class.wide-builder]="!isTimedEvent">
+<div id="event-builder" class="commonContainer" [class.wide-builder]="!hasTime">
   <button class="close-btn" (click)="closeBuilder()">×</button>
   <h2>Add Your Event to {{ currentlySelectedCommunity?.name }}</h2>
 
@@ -47,13 +47,13 @@
     <!-- Timed Event Toggle -->
     <div class="form-row">
       <label class="checkbox-container">
-        <input type="checkbox" [(ngModel)]="isTimedEvent" name="isTimedEvent">
+        <input type="checkbox" [(ngModel)]="hasTime" name="hasTime">
         <span class="checkbox-label">Timed Event</span>
       </label>
     </div>
 
     <!-- Start / End Dates Row (Conditional) -->
-    @if (isTimedEvent) {
+    @if (hasTime) {
     <div class="form-row">
       <div class="date-group">
         <label for="startDate">Starts</label>

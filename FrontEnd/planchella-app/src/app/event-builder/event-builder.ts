@@ -36,7 +36,7 @@ export class EventBuilder {
   selectedSize: EventSize = EventSize.MID;
   startDate: string = '';
   endDate: string = '';
-  isTimedEvent: boolean = false;
+  hasTime: boolean = false;
   attachments: EventAttachment[] = [];
   selectedFiles: File[] = [];
 
@@ -106,7 +106,7 @@ export class EventBuilder {
       return;
     }
 
-    if (this.isTimedEvent && (!this.startDate || !this.endDate)) {
+    if (this.hasTime && (!this.startDate || !this.endDate)) {
       this.toastService.warning('Please select start and end dates for timed events.');
       return;
     }
@@ -124,10 +124,10 @@ export class EventBuilder {
       title: this.title,
       description: this.description,
       creationDate: new Date(),
-      eventStartDate: this.isTimedEvent ? new Date(this.startDate) : new Date(),
-      eventEndDate: this.isTimedEvent ? new Date(this.endDate) : new Date(),
-      expirationDate: this.isTimedEvent ? new Date(this.endDate) : undefined,
-      hasTime: this.isTimedEvent,
+      eventStartDate: this.hasTime ? new Date(this.startDate) : new Date(),
+      eventEndDate: this.hasTime ? new Date(this.endDate) : new Date(),
+      expirationDate: this.hasTime ? new Date(this.endDate) : undefined,
+      hasTime: this.hasTime,
       attachments: this.attachments
     };
 
@@ -141,7 +141,7 @@ export class EventBuilder {
       this.attachments = [];
       this.selectedFlare = '';
       this.selectedSize = EventSize.MID;
-      this.isTimedEvent = false;
+      this.hasTime = false;
       this.isSubmitting = false;
 
       // Close builder

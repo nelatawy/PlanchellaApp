@@ -53,7 +53,6 @@ export class MainPage {
     this.eventBuilderElement.nativeElement.style.transform = "translateY(100vh)";
   }
 
-
   onBuilderClick(event: MouseEvent) {
     event.stopPropagation();
   }
@@ -84,6 +83,9 @@ export class MainPage {
   }
 
   hide_event_details() {
+    if (this.selectedEventId && this.billboard) {
+      this.billboard.refreshEvent(this.selectedEventId);
+    }
     this.isEventDetailsOpen = false;
     this.selectedEventId = undefined;
   }

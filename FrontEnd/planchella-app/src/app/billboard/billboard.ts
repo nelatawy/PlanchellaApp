@@ -146,6 +146,21 @@ export class Billboard {
     }
   }
 
+  async refreshEvent(eventId: number) {
+    try {
+      const updatedEvent = await this.eventDataService.getEvent(eventId);
+      if (updatedEvent) {
+        const author = await firstValueFrom(this.userDataService.getUserById(updatedEvent.authorId));
+        const index = this.cards.findIndex(card => card.event.id === eventId);
+        if (index !== -1) {
+          this.cards[index] = { event: updatedEvent, author };
+        }
+      }
+    } catch (error) {
+      console.error('Error refreshing single event:', error);
+    }
+  }
+
   private loadNewConfig(newId: any) {
 
   }

@@ -12,7 +12,7 @@
       <div class="meta-right">
         <span class="event-type-badge">{{ displayData?.event?.eventType }}</span>
         <span class="creation-date">{{ displayData?.event?.creationDate | date:'mediumDate' }}</span>
-        @if (displayData?.event?.isTimedEvent) {
+        @if (displayData?.event?.hasTime) {
         <span class="remaining-time-badge">{{ getRemainingTime() }}</span>
         }
       </div>
