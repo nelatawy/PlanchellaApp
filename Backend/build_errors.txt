@@ -1,0 +1,52 @@
+WARNING: A terminally deprecated method in sun.misc.Unsafe has been called
+WARNING: sun.misc.Unsafe::objectFieldOffset has been called by com.google.common.util.concurrent.AbstractFuture$UnsafeAtomicHelper (file:/usr/share/maven/lib/guava.jar)
+WARNING: Please consider reporting this to the maintainers of class com.google.common.util.concurrent.AbstractFuture$UnsafeAtomicHelper
+WARNING: sun.misc.Unsafe::objectFieldOffset will be removed in a future release
+[[1;34mINFO[m] Scanning for projects...
+[[1;34mINFO[m] 
+[[1;34mINFO[m] [1m------------------------< [0;36mcom.planchella:demo[0;1m >-------------------------[m
+[[1;34mINFO[m] [1mBuilding planchella 0.0.1-SNAPSHOT[m
+[[1;34mINFO[m]   from pom.xml
+[[1;34mINFO[m] [1m--------------------------------[ jar ]---------------------------------[m
+[[1;34mINFO[m] 
+[[1;34mINFO[m] [1m--- [0;32mresources:3.3.1:resources[m [1m(default-resources)[m @ [36mdemo[0;1m ---[m
+[[1;34mINFO[m] Copying 1 resource from src/main/resources to target/classes
+[[1;34mINFO[m] Copying 1 resource from src/main/resources to target/classes
+[[1;34mINFO[m] 
+[[1;34mINFO[m] [1m--- [0;32mcompiler:3.14.1:compile[m [1m(default-compile)[m @ [36mdemo[0;1m ---[m
+[[1;34mINFO[m] Recompiling the module because of [1mchanged source code[m.
+[[1;34mINFO[m] Compiling 75 source files with javac [debug parameters release 25] to target/classes
+[[1;34mINFO[m] /home/nelatawy/Planchella/Backend/src/main/java/com/planchella/repositories/communities/DBCommunityRepository.java: /home/nelatawy/Planchella/Backend/src/main/java/com/planchella/repositories/communities/DBCommunityRepository.java uses or overrides a deprecated API.
+[[1;34mINFO[m] /home/nelatawy/Planchella/Backend/src/main/java/com/planchella/repositories/communities/DBCommunityRepository.java: Recompile with -Xlint:deprecation for details.
+[[1;34mINFO[m] /home/nelatawy/Planchella/Backend/src/main/java/com/planchella/encryption/EncryptedFilesManager.java: Some input files use unchecked or unsafe operations.
+[[1;34mINFO[m] /home/nelatawy/Planchella/Backend/src/main/java/com/planchella/encryption/EncryptedFilesManager.java: Recompile with -Xlint:unchecked for details.
+[[1;34mINFO[m] -------------------------------------------------------------
+[[1;31mERROR[m] COMPILATION ERROR : 
+[[1;34mINFO[m] -------------------------------------------------------------
+[[1;31mERROR[m] /home/nelatawy/Planchella/Backend/src/main/java/com/planchella/repositories/events/MockEventRepository.java:[34,16] no suitable constructor found for Event(java.lang.Long,com.planchella.enums.EventType,com.planchella.enums.EventSize,long,long,java.lang.String,java.lang.String,java.lang.String,long,long,java.lang.String,java.lang.String,java.util.List<java.lang.Object>)
+    constructor com.planchella.domain.Event.Event(java.lang.Long,com.planchella.enums.EventType,com.planchella.enums.EventSize,java.lang.Long,java.lang.Long,java.lang.String,java.lang.String,java.lang.Long,java.lang.Long,java.lang.Long,java.lang.Long,boolean,java.lang.String,java.lang.String,boolean,java.lang.String,java.util.List<com.planchella.domain.AttachmentMetadata>) is not applicable
+      (actual and formal argument lists differ in length)
+    constructor com.planchella.domain.Event.Event() is not applicable
+      (actual and formal argument lists differ in length)
+[[1;34mINFO[m] 1 error
+[[1;34mINFO[m] -------------------------------------------------------------
+[[1;34mINFO[m] [1m------------------------------------------------------------------------[m
+[[1;34mINFO[m] [1;31mBUILD FAILURE[m
+[[1;34mINFO[m] [1m------------------------------------------------------------------------[m
+[[1;34mINFO[m] Total time:  5.733 s
+[[1;34mINFO[m] Finished at: 2025-12-21T22:28:43+02:00
+[[1;34mINFO[m] [1m------------------------------------------------------------------------[m
+[[1;31mERROR[m] Failed to execute goal [32morg.apache.maven.plugins:maven-compiler-plugin:3.14.1:compile[m [1m(default-compile)[m on project [36mdemo[m: [1;31mCompilation failure[m
+[[1;31mERROR[m] [1;31m/home/nelatawy/Planchella/Backend/src/main/java/com/planchella/repositories/events/MockEventRepository.java:[34,16] no suitable constructor found for Event(java.lang.Long,com.planchella.enums.EventType,com.planchella.enums.EventSize,long,long,java.lang.String,java.lang.String,java.lang.String,long,long,java.lang.String,java.lang.String,java.util.List<java.lang.Object>)[m
+[[1;31mERROR[m] [1;31m    constructor com.planchella.domain.Event.Event(java.lang.Long,com.planchella.enums.EventType,com.planchella.enums.EventSize,java.lang.Long,java.lang.Long,java.lang.String,java.lang.String,java.lang.Long,java.lang.Long,java.lang.Long,java.lang.Long,boolean,java.lang.String,java.lang.String,boolean,java.lang.String,java.util.List<com.planchella.domain.AttachmentMetadata>) is not applicable[m
+[[1;31mERROR[m] [1;31m      (actual and formal argument lists differ in length)[m
+[[1;31mERROR[m] [1;31m    constructor com.planchella.domain.Event.Event() is not applicable[m
+[[1;31mERROR[m] [1;31m      (actual and formal argument lists differ in length)[m
+[[1;31mERROR[m] [1;31m[m
+[[1;31mERROR[m] -> [1m[Help 1][m
+[[1;31mERROR[m] 
+[[1;31mERROR[m] To see the full stack trace of the errors, re-run Maven with the [1m-e[m switch.
+[[1;31mERROR[m] Re-run Maven using the [1m-X[m switch to enable full debug logging.
+[[1;31mERROR[m] 
+[[1;31mERROR[m] For more information about the errors and possible solutions, please read the following articles:
+[[1;31mERROR[m] [1m[Help 1][m http://cwiki.apache.org/confluence/display/MAVEN/MojoFailureException

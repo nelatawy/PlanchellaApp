@@ -12,8 +12,10 @@
 /home/nelatawy/Planchella/Backend/src/main/java/com/planchella/Services/EventService.java
 /home/nelatawy/Planchella/Backend/src/main/java/com/planchella/Services/JWTService.java
 /home/nelatawy/Planchella/Backend/src/main/java/com/planchella/Services/MembershipService.java
+/home/nelatawy/Planchella/Backend/src/main/java/com/planchella/Services/SearchService.java
 /home/nelatawy/Planchella/Backend/src/main/java/com/planchella/Services/UserDetailsServices.java
 /home/nelatawy/Planchella/Backend/src/main/java/com/planchella/Services/UserService.java
+/home/nelatawy/Planchella/Backend/src/main/java/com/planchella/Services/UserSpecificEventService.java
 /home/nelatawy/Planchella/Backend/src/main/java/com/planchella/domain/AttachmentMetadata.java
 /home/nelatawy/Planchella/Backend/src/main/java/com/planchella/domain/Community.java
 /home/nelatawy/Planchella/Backend/src/main/java/com/planchella/domain/Event.java
@@ -28,12 +30,15 @@
 /home/nelatawy/Planchella/Backend/src/main/java/com/planchella/entities/CommunityEntity.java
 /home/nelatawy/Planchella/Backend/src/main/java/com/planchella/entities/EventEntity.java
 /home/nelatawy/Planchella/Backend/src/main/java/com/planchella/entities/MembershipEntity.java
+/home/nelatawy/Planchella/Backend/src/main/java/com/planchella/entities/StarEntity.java
 /home/nelatawy/Planchella/Backend/src/main/java/com/planchella/entities/UserEntity.java
+/home/nelatawy/Planchella/Backend/src/main/java/com/planchella/entities/VoteEntity.java
 /home/nelatawy/Planchella/Backend/src/main/java/com/planchella/enums/AuthProvider.java
 /home/nelatawy/Planchella/Backend/src/main/java/com/planchella/enums/EventSize.java
 /home/nelatawy/Planchella/Backend/src/main/java/com/planchella/enums/EventType.java
 /home/nelatawy/Planchella/Backend/src/main/java/com/planchella/enums/MembershipType.java
 /home/nelatawy/Planchella/Backend/src/main/java/com/planchella/enums/MimeType.java
+/home/nelatawy/Planchella/Backend/src/main/java/com/planchella/enums/VoteType.java
 /home/nelatawy/Planchella/Backend/src/main/java/com/planchella/mappers/AttachmentMapper.java
 /home/nelatawy/Planchella/Backend/src/main/java/com/planchella/mappers/CommunityMapper.java
 /home/nelatawy/Planchella/Backend/src/main/java/com/planchella/mappers/EventMapper.java
@@ -51,6 +56,8 @@
 /home/nelatawy/Planchella/Backend/src/main/java/com/planchella/repositories/events/DBEventRepository.java
 /home/nelatawy/Planchella/Backend/src/main/java/com/planchella/repositories/events/IEventRepository.java
 /home/nelatawy/Planchella/Backend/src/main/java/com/planchella/repositories/events/MockEventRepository.java
+/home/nelatawy/Planchella/Backend/src/main/java/com/planchella/repositories/events/StarRepository.java
+/home/nelatawy/Planchella/Backend/src/main/java/com/planchella/repositories/events/VoteRepository.java
 /home/nelatawy/Planchella/Backend/src/main/java/com/planchella/repositories/memberships/DBMembershipRepository.java
 /home/nelatawy/Planchella/Backend/src/main/java/com/planchella/repositories/memberships/IMembershipRepository.java
 /home/nelatawy/Planchella/Backend/src/main/java/com/planchella/repositories/users/AuthUserRepository.java
@@ -62,6 +69,7 @@
 /home/nelatawy/Planchella/Backend/src/main/java/com/planchella/routes/CommunityRoutes.java
 /home/nelatawy/Planchella/Backend/src/main/java/com/planchella/routes/EventRoutes.java
 /home/nelatawy/Planchella/Backend/src/main/java/com/planchella/routes/MembershipRoutes.java
+/home/nelatawy/Planchella/Backend/src/main/java/com/planchella/routes/SearchRoutes.java
 /home/nelatawy/Planchella/Backend/src/main/java/com/planchella/routes/UserRoutes.java
 /home/nelatawy/Planchella/Backend/src/main/java/com/planchella/utils/IdGenerator.java
 /home/nelatawy/Planchella/Backend/src/main/java/com/planchella/utils/UserAuthenticationHelper.java
