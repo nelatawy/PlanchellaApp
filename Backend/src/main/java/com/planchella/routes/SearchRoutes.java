@@ -14,27 +14,30 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/search")
+@CrossOrigin(origins = "http://localhost:4200/")
 public class SearchRoutes {
 
     @Autowired
     private SearchService searchService;
 
     @GetMapping("/events")
-    public List<EventDTO> searchEvents(@RequestParam String keywords, @RequestParam int count, @RequestParam int offset) {
+    public List<EventDTO> searchEvents(@RequestParam String keywords, @RequestParam int count,
+            @RequestParam int offset) {
         System.out.println(keywords);
         return searchService.searchEvents(keywords, count, offset)
                 .stream().map(EventMapper::domainToDTO).toList();
     }
 
     @GetMapping("/communities")
-    public List<CommunityDTO> searchCommunities(@RequestParam String keywords, @RequestParam int count, @RequestParam int offset){
+    public List<CommunityDTO> searchCommunities(@RequestParam String keywords, @RequestParam int count,
+            @RequestParam int offset) {
         System.out.println(keywords);
         return searchService.searchCommunity(keywords, count, offset)
                 .stream().map(CommunityMapper::domainToDTO).toList();
     }
 
     @GetMapping("/users")
-    public List<UserDTO> searchUsers(@RequestParam String keywords, @RequestParam int count, @RequestParam int offset){
+    public List<UserDTO> searchUsers(@RequestParam String keywords, @RequestParam int count, @RequestParam int offset) {
         System.out.println(keywords);
         return searchService.searchUser(keywords, count, offset)
                 .stream().map(UserMapper::domainToDTO).toList();

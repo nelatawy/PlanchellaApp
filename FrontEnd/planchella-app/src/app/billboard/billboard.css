@@ -40,7 +40,9 @@
 /* Events Grid */
 .events-grid {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: stretch;
   gap: var(--gap-md);
   width: 100%;
 }

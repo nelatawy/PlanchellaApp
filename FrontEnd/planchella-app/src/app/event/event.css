@@ -189,38 +189,34 @@
 }
 
 .vote-btn.upvote:hover {
-  border-color: #10B981;
-  /* Green */
-  color: #059669;
-  background: #ECFDF5;
-  /* Light green tint */
+  border-color: #0d6efd;
+  color: #0d6efd;
+  background: rgba(13, 110, 253, 0.1);
 }
 
 .vote-btn.downvote:hover {
-  border-color: #EF4444;
-  /* Red */
-  color: #B91C1C;
-  background: #FEF2F2;
-  /* Light red tint */
+  border-color: #dc3545;
+  color: #dc3545;
+  background: rgba(220, 53, 69, 0.1);
 }
 
 .vote-btn.star-btn {
   margin-left: 0;
   /* Reset auto margin since we use flex: 1 */
-  border-color: #FCD34D;
+  border-color: transparent;
 }
 
 .vote-btn.star-btn:hover {
-  background: #FFFBEB;
-  border-color: #F59E0B;
-  color: #D97706;
+  background: rgba(255, 193, 7, 0.1);
+  border-color: #ffc107;
+  color: #ffc107;
 }
 
 .vote-btn.star-btn.starred {
-  background: #FDF6B2;
+  background: rgba(255, 193, 7, 0.2);
   /* Stronger yellow when actually starred */
-  border-color: #F59E0B;
-  color: #D97706;
+  border-color: #ffc107;
+  color: #ffc107;
 }
 
 /* =====================================================

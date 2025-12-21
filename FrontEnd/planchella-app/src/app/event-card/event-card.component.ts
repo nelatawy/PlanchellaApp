@@ -54,6 +54,16 @@ export class EventCard implements OnInit {
       this.elementRef.nativeElement.classList.add(this.displayData.event.eventSize);
       this.upVote = this.displayData.event.upvoteCount || 0;
       this.downVote = this.displayData.event.downvoteCount || 0;
+      this.star = this.displayData.event.isStarred || false;
+
+      // Set initial vote state based on event data
+      if (this.displayData.event.isUpvoted) {
+        this.userVoteState = 'upvote';
+      } else if (this.displayData.event.isDownVoted) {
+        this.userVoteState = 'downvote';
+      } else {
+        this.userVoteState = 'none';
+      }
     }
   }
 

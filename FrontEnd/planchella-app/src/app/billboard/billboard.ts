@@ -101,6 +101,32 @@ export class Billboard {
     this.eventSelected.emit(id);
   }
 
+  async loadSearchResults(events: EventData[]) {
+    // Clear current cards and load search results
+    this.cards = [];
+    this.offset = 0;
+
+    if (!events || events.length === 0) {
+      console.log('No search results to display');
+      return;
+    }
+
+    this.isLoading = true;
+    try {
+      const displayDataPromises = events.map(async (event) => {
+        const author = await firstValueFrom(this.userDataService.getUserById(event.authorId));
+        return { event, author } as EventDisplayData;
+      });
+
+      const newCards = await Promise.all(displayDataPromises);
+      this.cards = newCards;
+    } catch (error) {
+      console.error('Error loading search results:', error);
+    } finally {
+      this.isLoading = false;
+    }
+  }
+
   private loadNewConfig(newId: any) {
 
   }

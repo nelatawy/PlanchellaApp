@@ -132,4 +132,16 @@ export class CommunitySelector {
     }
   }
 
+  // Load search results from external search trigger
+  loadSearchResults(results: CommunityData[]) {
+    this.communities = [];
+    results.forEach((communityData) => {
+      this.communities.push({
+        id: String(communityData.id),
+        communityData: communityData,
+        currentlySelected: communityData.id === this.selected_community?.id
+      });
+    });
+  }
+
 }

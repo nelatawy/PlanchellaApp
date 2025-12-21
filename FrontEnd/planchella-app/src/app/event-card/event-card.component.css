@@ -20,7 +20,46 @@
   width: 100%;
   padding: var(--padding-med);
   margin: 0.25rem;
-  border: none;
+  border: 2px solid transparent;
+  background: transparent;
+  transition: all 0.2s ease;
+  border-radius: var(--radius-sm);
+}
+
+/* Upvote button */
+.upvote-btn {
+  color: #6c757d;
+}
+
+.upvote-btn:hover,
+.upvote-btn.active {
+  background-color: rgba(13, 110, 253, 0.1);
+  border-color: #0d6efd;
+  color: #0d6efd;
+}
+
+/* Downvote button */
+.downvote-btn {
+  color: #6c757d;
+}
+
+.downvote-btn:hover,
+.downvote-btn.active {
+  background-color: rgba(220, 53, 69, 0.1);
+  border-color: #dc3545;
+  color: #dc3545;
+}
+
+/* Star button */
+.star-btn {
+  color: #6c757d;
+}
+
+.star-btn:hover,
+.star-btn.active {
+  background-color: rgba(255, 193, 7, 0.1);
+  border-color: #ffc107;
+  color: #ffc107;
 }
 
 .card {
@@ -86,18 +125,19 @@
 }
 
 :host.small {
-  flex: 1;
+  flex: 1 1 calc(33.333% - var(--gap-md));
   min-width: 300px;
   max-width: 400px;
 }
 
 :host.medium {
-  flex: 2;
+  flex: 1 1 calc(50% - var(--gap-md));
   min-width: 450px;
   max-width: 600px;
 }
 
 :host.large {
-  flex: 3;
+  flex: 1 1 100%;
   min-width: 650px;
+  width: 100%;
 }
