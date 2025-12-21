@@ -111,11 +111,13 @@ public class EventService {
         Optional<StarEntity> existingStar = starRepo.findByUserIdAndEventId(userId, eventId);
         if (existingStar.isPresent()) {
             starRepo.deleteByUserIdAndEventId(userId, eventId);
+            event.setStarred(false);
         } else {
             StarEntity star = new StarEntity();
             star.setUser(entityManager.getReference(UserEntity.class, userId));
             star.setEvent(entityManager.getReference(EventEntity.class, eventId));
             starRepo.save(star);
+            event.setStarred(true);
         }
     }
 
@@ -131,9 +133,9 @@ public class EventService {
         if (existingVote.isPresent()) {
             VoteEntity vote = existingVote.get();
             if (vote.getVoteType() == voteType) {
-                return; // Already voted this way
+                return;
             }
-            // Changing vote: first adjust counts
+
             if (vote.getVoteType() == VoteType.UPVOTE) {
                 event.setUpvoteCount(event.getUpvoteCount() - 1);
             } else {
