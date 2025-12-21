@@ -23,7 +23,7 @@
   width: 100%;
   /* Full width in sidebar */
   height: 3.2rem;
-  transition: all 0.2s ease;
+  transition: all 0.15s ease;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
 }
 
@@ -55,7 +55,7 @@
   background: transparent;
   border: none;
   color: var(--text-color-medium);
-  font-size: 1.1rem;
+  font-size: var(--font-size-md);
   pointer-events: auto;
   /* Enable clicks/hover */
   width: 2.5rem;
@@ -64,7 +64,7 @@
   align-items: center;
   justify-content: center;
   border-radius: 50%;
-  transition: all 0.2s ease;
+  transition: all 0.15s ease;
 }
 
 .search-btn:hover {
@@ -83,7 +83,7 @@
 }
 
 .title {
-  font-size: var(--font-size-x-lg);
+  font-size: var(--font-size-xl);
   font-weight: 900;
   background: var(--gradient-primary);
   -webkit-background-clip: text;
@@ -101,7 +101,7 @@
   border-radius: var(--blob-radius);
   height: 5rem;
   cursor: pointer;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
   padding: 6px;
   margin-bottom: var(--gap-sm);
   box-shadow: var(--shadow-sm);
@@ -117,7 +117,7 @@
   justify-content: center;
   gap: 1rem;
   color: var(--primary-color-dark);
-  transition: all 0.3s ease;
+  transition: all 0.2s ease;
   font-weight: 600;
 }
 
@@ -133,8 +133,8 @@
 }
 
 .plus-icon {
-  font-size: 1.25rem;
-  transition: transform 0.3s ease;
+  font-size: var(--font-size-md);
+  transition: transform 0.2s ease;
 }
 
 .add-community-card:hover .plus-icon {
@@ -143,7 +143,7 @@
 
 .add-text {
   font-weight: 600;
-  font-size: 1rem;
+  font-size: var(--font-size-base);
 }
 
 .title::after {
