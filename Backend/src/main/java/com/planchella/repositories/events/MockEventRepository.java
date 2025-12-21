@@ -44,6 +44,9 @@ public class MockEventRepository implements IEventRepository {
                 0L,
                 new Date().toString(),
                 new Date().toString(),
+                false,
+                false,
+                false,
                 List.of());
     }
 

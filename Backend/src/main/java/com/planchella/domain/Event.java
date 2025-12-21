@@ -36,12 +36,18 @@ public class Event {
 
     private String eventEndDate;
 
+    private boolean isStarred;
+
+    private boolean isUpvoted;
+
+    private boolean isDownVoted;
+
     private List<AttachmentMetadata> attachments;
 
     public Event(Long id, EventType eventType, EventSize eventSize, Long authorId, Long communityId,
             String title, String description,
             String creationDate, Long upvoteCount, Long downvoteCount, String eventStartDate, String eventEndDate,
-            List<AttachmentMetadata> attachments) {
+            boolean isStarred, boolean isUpvoted, boolean isDownVoted, List<AttachmentMetadata> attachments) {
         this.id = id;
         this.eventType = eventType;
         this.eventSize = eventSize;
@@ -50,6 +56,9 @@ public class Event {
         this.description = description;
         this.creationDate = creationDate;
         this.communityId = communityId;
+        this.isStarred = isStarred;
+        this.isUpvoted = isUpvoted;
+        this.isDownVoted = isDownVoted;
         this.attachments = attachments;
         this.upvoteCount = upvoteCount;
         this.downvoteCount = downvoteCount;
@@ -84,6 +93,9 @@ public class Event {
                 2L,
                 new Date().toString(),
                 new Date().toString(),
+                false,
+                false,
+                false,
                 List.of(new AttachmentMetadata()));
     }
 
