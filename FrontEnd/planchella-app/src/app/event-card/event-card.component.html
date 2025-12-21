@@ -4,15 +4,23 @@
   <div class="event-bar" [class]="displayData.event.eventType">{{displayData.event.eventType}}</div>
 
   <div class="top-bar">
-    <p class="card-title">{{displayData.event.title}}</p>
-    <p class="creation-date">{{displayData.event.creationDate}}</p>
-    <app-profile-pic [hover_text]="displayData.author.name" [pic_href]="displayData.author.picUrl"></app-profile-pic>
+    <div class="title-group">
+      <p class="card-title">{{displayData.event.title}}</p>
+      <div class="meta-info">
+        <p class="creation-date">{{getFormattedDate()}}</p>
+        <p class="remaining-time">{{getExpirationTime()}}</p>
+      </div>
+    </div>
+    <app-profile-pic [hover_text]="displayData.author.name" [pic_href]="displayData.author.picUrl"
+      [userId]="displayData.author.id"></app-profile-pic>
   </div>
 
   <div class="content card-body">
+    @if (displayData.event.eventSize !== EventSize.SMALL && cardImageUrl) {
     <div class="image-container">
-      <img src="/favicon.ico" alt="hamada">
+      <img [src]="cardImageUrl" alt="event-preview">
     </div>
+    }
     @if (displayData.event.eventSize == EventSize.SMALL) {
     <div class="description">{{displayData.event.description | slice : 0 : 50}}</div>
     }

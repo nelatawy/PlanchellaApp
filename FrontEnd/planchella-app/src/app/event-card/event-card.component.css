@@ -29,6 +29,9 @@
 /* Upvote button */
 .upvote-btn {
   color: #6c757d;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
 }
 
 .upvote-btn:hover,
@@ -41,6 +44,9 @@
 /* Downvote button */
 .downvote-btn {
   color: #6c757d;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
 }
 
 .downvote-btn:hover,
@@ -86,19 +92,64 @@
   font-weight: 400;
   color: var(--text-color-dark);
   font-size: var(--font-size-med);
+  margin: 0;
+}
+
+.title-group {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 2px;
+}
+
+.meta-info {
+  display: flex;
+  gap: 10px;
+  align-items: center;
 }
 
 .creation-date {
   font-size: var(--font-size-sm);
-  margin: 0.25rem;
+  margin: 0;
   color: var(--secondary-color-mid);
+}
+
+.remaining-time {
+  font-size: var(--font-size-sm);
+  color: #ffc107;
+  font-weight: bold;
 }
 
 .content {
   font-size: var(--font-size-sm);
   padding: var(--padding-lg);
   width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--gap-sm);
+}
 
+.image-container {
+  width: 100%;
+  max-width: 200px;
+  height: 120px;
+  overflow: hidden;
+  border-radius: var(--radius-sm);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--secondary-color-light);
+  margin-bottom: var(--padding-sm);
+}
+
+.image-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+  background-color: var(--bg-gray);
+  border-radius: var(--radius-med);
 }
 
 .event-bar {

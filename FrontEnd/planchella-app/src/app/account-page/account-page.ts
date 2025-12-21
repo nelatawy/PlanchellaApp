@@ -5,6 +5,7 @@ import { RightSide } from './right-side/right-side';
 import { User } from '../models/user';
 import { UserDataService } from '../services/user-data-service';
 import { AuthService } from '../services/auth-service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-account-page',
@@ -23,20 +24,28 @@ export class AccountPage implements OnInit {
 
   constructor(
     private userDataService: UserDataService,
-    private authService: AuthService
-  ) {}
+    private authService: AuthService,
+    private route: ActivatedRoute
+  ) { }
 
   ngOnInit(): void {
-    this.loadUserData();
+    this.route.params.subscribe(params => {
+      const userId = params['id'] ? Number(params['id']) : undefined;
+      this.loadUserData(userId);
+    });
   }
 
-  private loadUserData(): void {
+  private loadUserData(userId?: number): void {
     if (!this.authService.isAuthenticated()) {
       console.error('User not authenticated - using default data');
       return;
     }
 
-    this.userDataService.getCurrentUser().subscribe({
+    const userObservable = userId
+      ? this.userDataService.getUserById(userId)
+      : this.userDataService.getCurrentUser();
+
+    userObservable.subscribe({
       next: (userData) => {
         this.user = userData;
       },

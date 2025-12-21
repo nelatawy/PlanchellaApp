@@ -24,6 +24,7 @@ export class Billboard {
 
   cards: Array<EventDisplayData> = [];
   isLoading: boolean = false;
+  isLoadingSearch: boolean = false;
   offset: number = 0;
 
   @Input()
@@ -60,7 +61,14 @@ export class Billboard {
         });
 
         const newCards = await Promise.all(displayDataPromises);
-        this.cards.push(...newCards);
+
+        // Filter out expired timed events
+        const now = new Date();
+        const activeCards = newCards.filter(card =>
+          !card.event.isTimedEvent || new Date(card.event.eventEndDate) > now
+        );
+
+        this.cards.push(...activeCards);
       }
 
       this.offset += count;
@@ -102,6 +110,12 @@ export class Billboard {
   }
 
   async loadSearchResults(events: EventData[]) {
+    // Prevent concurrent search operations
+    if (this.isLoadingSearch) {
+      console.log('Already loading, skipping search request');
+      return;
+    }
+
     // Clear current cards and load search results
     this.cards = [];
     this.offset = 0;
@@ -111,7 +125,7 @@ export class Billboard {
       return;
     }
 
-    this.isLoading = true;
+    this.isLoadingSearch = true;
     try {
       const displayDataPromises = events.map(async (event) => {
         const author = await firstValueFrom(this.userDataService.getUserById(event.authorId));
@@ -119,11 +133,16 @@ export class Billboard {
       });
 
       const newCards = await Promise.all(displayDataPromises);
-      this.cards = newCards;
+
+      // Filter out expired timed events
+      const now = new Date();
+      this.cards = newCards.filter(card =>
+        !card.event.isTimedEvent || new Date(card.event.eventEndDate) > now
+      );
     } catch (error) {
       console.error('Error loading search results:', error);
     } finally {
-      this.isLoading = false;
+      this.isLoadingSearch = false;
     }
   }
 

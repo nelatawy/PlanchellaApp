@@ -36,6 +36,7 @@ export class EventBuilder {
   selectedSize: EventSize = EventSize.MID;
   startDate: string = '';
   endDate: string = '';
+  isTimedEvent: boolean = false;
   attachments: EventAttachment[] = [];
   selectedFiles: File[] = [];
 
@@ -100,8 +101,13 @@ export class EventBuilder {
   }
 
   async onSubmit(form: NgForm) {
-    if (!this.title || !this.description || !this.selectedFlare || !this.startDate || !this.endDate) {
-      this.toastService.warning('Please fill all fields and select a flare.');
+    if (!this.title || !this.description || !this.selectedFlare) {
+      this.toastService.warning('Please fill title, description and select a flare.');
+      return;
+    }
+
+    if (this.isTimedEvent && (!this.startDate || !this.endDate)) {
+      this.toastService.warning('Please select start and end dates for timed events.');
       return;
     }
 
@@ -118,8 +124,10 @@ export class EventBuilder {
       title: this.title,
       description: this.description,
       creationDate: new Date(),
-      eventStartDate: new Date(this.startDate),
-      eventEndDate: new Date(this.endDate),
+      eventStartDate: this.isTimedEvent ? new Date(this.startDate) : new Date(),
+      eventEndDate: this.isTimedEvent ? new Date(this.endDate) : new Date(),
+      expirationDate: this.isTimedEvent ? new Date(this.endDate) : undefined,
+      isTimedEvent: this.isTimedEvent,
       attachments: this.attachments
     };
 
@@ -133,6 +141,7 @@ export class EventBuilder {
       this.attachments = [];
       this.selectedFlare = '';
       this.selectedSize = EventSize.MID;
+      this.isTimedEvent = false;
       this.isSubmitting = false;
 
       // Close builder

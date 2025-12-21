@@ -1,9 +1,9 @@
 <div class="container">
 
-    <h3>{{hover_text}}</h3>
+  <h3>{{hover_text}}</h3>
 
-    <a class="link" routerLink="/account-page">
-      <img [src]= "pic_href">
-    </a>
+  <a class="link" [routerLink]="userId ? ['/account-page', userId] : ['/account-page']">
+    <img [src]="pic_href">
+  </a>
 
 </div>

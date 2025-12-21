@@ -9,7 +9,7 @@ import { EventAttachment } from '../models/event-attachment';
 import { EventType, EventSize, MimeType } from '../models/Enums';
 import { firstValueFrom } from 'rxjs';
 import { MimeTypeUtils } from '../services/utils';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 import { EventDataService } from '../services/event-data-service';
 import { ToastService } from '../services/toast.service';
 
@@ -22,7 +22,7 @@ interface AttachmentState {
 @Component({
   selector: 'app-event',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, RouterLink],
   templateUrl: './event.html',
   styleUrls: ['./event.css'],
 })
@@ -140,6 +140,17 @@ export class EventComponent implements OnInit, OnDestroy {
       if (event) {
         const author = await firstValueFrom(this.userDataService.getUserById(event.authorId));
         this.displayData = { event, author };
+
+        // Initialize vote and star state from event data
+        if (event.isUpvoted) {
+          this.userVoteState = 'upvote';
+        } else if (event.isDownVoted) {
+          this.userVoteState = 'downvote';
+        } else {
+          this.userVoteState = 'none';
+        }
+        this.isStarred = event.isStarred || false;
+
         this.initAttachments();
       }
     } catch (error) {
@@ -242,6 +253,26 @@ export class EventComponent implements OnInit, OnDestroy {
 
   formatFileSize(bytes: number): string {
     return MimeTypeUtils.formatSize(bytes);
+  }
+
+  getRemainingTime(): string {
+    if (!this.displayData?.event.isTimedEvent || !this.displayData.event.eventEndDate) return '';
+
+    const now = new Date();
+    const end = new Date(this.displayData.event.eventEndDate);
+    const diff = end.getTime() - now.getTime();
+
+    if (diff <= 0) return 'Expired';
+
+    const hours = Math.floor(diff / (1000 * 60 * 60));
+    const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+
+    if (hours > 24) {
+      const days = Math.floor(hours / 24);
+      return `${days}d ${hours % 24}h remaining`;
+    }
+
+    return `${hours}h ${minutes}m remaining`;
   }
 
   getVisibleAttachments(): EventAttachment[] {

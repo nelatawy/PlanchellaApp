@@ -1,13 +1,15 @@
-import { Component, ElementRef, EventEmitter, HostBinding, HostListener, Input, OnInit, Output, SimpleChanges, ViewChild } from '@angular/core';
-import { EventSize } from '../models/Enums';
+import { Component, ElementRef, EventEmitter, HostBinding, Input, OnInit, Output, ViewChild } from '@angular/core';
+import { SafeUrl } from '@angular/platform-browser';
 import { ProfilePic } from '../general/profile-pic/profile-pic';
 import { SlicePipe } from '@angular/common';
-import { EventType } from '../models/Enums';
-import { EventData } from '../models/event-data';
-import { EventDisplayData } from '../models/event-display-data';
 import { Router } from '@angular/router';
 import { EventDataService } from '../services/event-data-service';
 import { ToastService } from '../services/toast.service';
+import { AttachmentService } from '../services/attachment-service';
+import { MimeTypeUtils } from '../services/utils';
+import { EventDisplayData } from '../models/event-display-data';
+import { EventSize } from '../models/Enums';
+import { EventAttachment } from '../models/event-attachment';
 
 @Component({
   selector: 'app-event-card',
@@ -26,11 +28,14 @@ export class EventCard implements OnInit {
 
   @Output() cardClick = new EventEmitter<number>();
 
+  cardImageUrl: SafeUrl | null = null;
+
   constructor(
     private elementRef: ElementRef,
     private router: Router,
     private eventDataService: EventDataService,
-    private toastService: ToastService
+    private toastService: ToastService,
+    private attachmentService: AttachmentService,
   ) { }
 
   navigateToDetails() {
@@ -63,6 +68,29 @@ export class EventCard implements OnInit {
         this.userVoteState = 'downvote';
       } else {
         this.userVoteState = 'none';
+      }
+
+      // Initialize card image from attachments
+      this.initCardImage();
+    }
+  }
+
+  private initCardImage() {
+    if (this.displayData?.event.attachments) {
+      const firstImage = this.displayData.event.attachments.find((att: EventAttachment) =>
+        MimeTypeUtils.isImage(att.mimeType)
+      );
+
+      if (firstImage) {
+        this.attachmentService.getAttachmentUrl(firstImage.id).subscribe({
+          next: (url) => {
+            this.cardImageUrl = url;
+          },
+          error: (error) => {
+            console.error('Error loading card image preview:', error);
+            this.cardImageUrl = null;
+          }
+        });
       }
     }
   }
@@ -138,6 +166,67 @@ export class EventCard implements OnInit {
 
   onPointerEnter() {
     setTimeout(() => { this.card.nativeElement.style.transition = ''; }, 300);
+  }
+
+  getRemainingTime(): string {
+    return this.getExpirationTime();
+  }
+
+  getExpirationTime(): string {
+    if (!this.displayData?.event.isTimedEvent || !this.displayData.event.expirationDate) return '';
+
+    const now = new Date();
+    const end = new Date(this.displayData.event.expirationDate);
+    const diff = end.getTime() - now.getTime();
+
+    if (diff <= 0) return 'Expired';
+
+    const hours = Math.floor(diff / (1000 * 60 * 60));
+    const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+
+    if (hours > 24) {
+      const days = Math.floor(hours / 24);
+      return `Expires in ${days}d ${hours % 24}h`;
+    }
+
+    return `Expires in ${hours}h ${minutes}m`;
+  }
+
+  getFormattedDate(): string {
+    if (!this.displayData?.event.isTimedEvent || !this.displayData.event.eventStartDate) return '';
+    const now = new Date();
+    const start = new Date(this.displayData.event.eventStartDate);
+    const diff = start.getTime() - now.getTime();
+
+    if (diff <= 0) {
+      // If started, show when it ends using eventEndDate
+      if (this.displayData.event.eventEndDate) {
+        const end = new Date(this.displayData.event.eventEndDate);
+        const endDiff = end.getTime() - now.getTime();
+
+        if (endDiff <= 0) return 'Ended';
+
+        const h = Math.floor(endDiff / (1000 * 60 * 60));
+        const m = Math.floor((endDiff % (1000 * 60 * 60)) / (1000 * 60));
+
+        if (h > 24) {
+          const d = Math.floor(h / 24);
+          return `Ends in ${d}d ${h % 24}h`;
+        }
+        return `Ends in ${h}h ${m}m`;
+      }
+      return 'Started';
+    }
+
+    const hours = Math.floor(diff / (1000 * 60 * 60));
+    const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+
+    if (hours > 24) {
+      const days = Math.floor(hours / 24);
+      return `Starts in ${days}d ${hours % 24}h`;
+    }
+
+    return `Starts in ${hours}h ${minutes}m`;
   }
   onPointerMove(e: PointerEvent) {
     if (!this.card) return;

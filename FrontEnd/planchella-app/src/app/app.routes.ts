@@ -63,6 +63,11 @@ export const routes: Routes = [
     canActivate: [authGuard]
   },
   {
+    path: 'account-page/:id',
+    component: AccountPage,
+    canActivate: [authGuard]
+  },
+  {
     path: 'event/:id',
     component: EventComponent,
     canActivate: [authGuard]
