@@ -33,7 +33,7 @@ export class AttachmentService {
   public isUploading: WritableSignal<boolean> = signal(false);
   public uploadProgress: WritableSignal<UploadProgress> = signal({ total: 0, completed: 0 });
 
-  constructor(private http: HttpClient, private sanitizer: DomSanitizer) {}
+  constructor(private http: HttpClient, private sanitizer: DomSanitizer) { }
 
   // for non-transactional optimistic uploads
   getAttachmentIds(count: number): Observable<string[]> {
@@ -52,7 +52,7 @@ export class AttachmentService {
     );
   }
 
-  uploadAttachments(ids: string[] | null, files: File[], accessors: string): Observable<string[]> {
+  uploadAttachments(files: File[]): Observable<string[]> {
     // supports transactional and non-transactional uploads by generated ids sent from the backend
     this.uploadProgress.set({ completed: 0, total: files.length });
     this.isUploading.set(true);
@@ -60,13 +60,10 @@ export class AttachmentService {
 
     const requests: Observable<any>[] = [];
 
-    files.forEach((file, idx) => {
+    files.forEach((file) => {
       let params = new HttpParams();
 
-      params = params.set('fileName', file.name).set('accessors', accessors);
-
-      // to support transactional uploads
-      if (ids != null && ids.length == files.length) params = params.set('id', ids[idx]);
+      params = params.set('fileName', file.name);
 
       let headers = this.getHeaders();
       headers = headers.set('Content-Type', file.type);
@@ -84,17 +81,6 @@ export class AttachmentService {
         );
 
       requests.push(request);
-
-      // .subscribe({
-      //   // @ts-ignore
-      //   next: (response: AttachmentIDResponse) => {
-      //     console.log('generated id for Attachment fetched successfully! ');
-      //     result_ids.push(response.id);
-      //   },
-      //   error: (error: any) => {
-      //     console.error('generated ids for Attachment fetching failed! Response:', error);
-      //   }
-      // });
     });
     return forkJoin(requests).pipe(
       map((responses: AttachmentIDResponse[]) => {

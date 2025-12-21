@@ -1,8 +1,8 @@
-import {RouterModule, Routes} from '@angular/router';
-import {SignIn} from './auth/sign-in/sign-in';
+import { RouterModule, Routes } from '@angular/router';
+import { SignIn } from './auth/sign-in/sign-in';
 import { Registration } from './auth/registration/registration';
-import {Component, NgModule} from '@angular/core';
-import {MainPage} from './main-page/main-page';
+import { Component, NgModule } from '@angular/core';
+import { MainPage } from './main-page/main-page';
 import { VerificationCode } from './auth/verification-code/verification-code';
 import { ResetPassword } from './auth/reset-password/reset-password';
 import { SetEmail } from './auth/set-email/set-email';
@@ -19,26 +19,30 @@ export const routes: Routes = [
   { path: 'signin', component: SignIn },
   { path: 'register', component: Registration },
   { path: 'set-email', component: SetEmail },
-  { path: 'main',
+  {
+    path: 'main',
     component: MainPage,
     canActivate: [authGuard]
   },
-  { path: 'main/:name',
+  {
+    path: 'main/:name',
     component: MainPage,
     canActivate: [authGuard]
   },
   { path: 'verification-code', component: VerificationCode },
   { path: 'reset-password', component: ResetPassword },
-  { path: 'event-builder',
+  {
+    path: 'event-builder',
     component: EventBuilder,
     canActivate: [authGuard]
   },
-  { path: 'account-page',
+  {
+    path: 'account-page',
     component: AccountPage,
     canActivate: [authGuard]
   },
   {
-    path: 'event',
+    path: 'event/:id',
     component: EventComponent,
     canActivate: [authGuard]
   },

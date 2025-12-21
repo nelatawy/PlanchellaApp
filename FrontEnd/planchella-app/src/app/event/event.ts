@@ -9,6 +9,8 @@ import { EventAttachment } from '../models/event-attachment';
 import { EventType, EventSize, MimeType } from '../models/Enums';
 import { firstValueFrom } from 'rxjs';
 import { MimeTypeUtils } from '../services/utils';
+import { ActivatedRoute } from '@angular/router';
+import { EventDataService } from '../services/event-data-service';
 
 interface AttachmentState {
   url: SafeUrl | null;
@@ -28,76 +30,8 @@ export class EventComponent implements OnInit, OnDestroy {
   isModalOpen = false;
   maxVisibleAttachments = 5;
 
-  @Input() displayData?: EventDisplayData = {
-    event: {
-      id: 1,
-      eventType: EventType.CONTEST,
-      eventSize: EventSize.MID,
-      authorId: Number(localStorage.getItem('userId')),
-      communityId: 1,
-      title: 'Sample Event',
-      description: 'This is a sample event description.',
-      creationDate: new Date(),
-      upvoteCount: 10,
-      downvoteCount: 2,
-      eventStartDate: new Date(),
-      eventEndDate: new Date(),
-      attachments: [
-        {
-          id: 'att1',
-          fileName: 'image1.jpg',
-          mimeType: MimeType.IMAGE_JPEG,
-          size: 1500000,
-        },
-        {
-          id: 'att2',
-          fileName: 'document1.pdf',
-          mimeType: MimeType.APPLICATION_PDF,
-          size: 3000000,
-        },
-        {
-          id: 'att3',
-          fileName: 'video1.mp4',
-          mimeType: MimeType.VIDEO_MP4,
-          size: 50000000,
-        },
-        {
-          id: 'att4',
-          fileName: 'audio1.mp3',
-          mimeType: MimeType.AUDIO_MPEG,
-          size: 4000000,
-        },
-        {
-          id: 'att5',
-          fileName: 'archive1.zip',
-          mimeType: MimeType.APPLICATION_ZIP,
-          size: 8000000,
-        },
-        {
-          id: 'att6',
-          fileName: 'spreadsheet1.xlsx',
-          mimeType: MimeType.APPLICATION_XLSX,
-          size: 2000000,
-        },
-        {
-          id: 'att7',
-          fileName: 'presentation1.pptx',
-          mimeType: MimeType.APPLICATION_PPTX,
-          size: 2500000,
-        }
-      ],
-    },
-    author: {
-      id: Number(localStorage.getItem('userId')),
-      name: 'Sample Author',
-      picUrl: '',
-      accountUrl: '',
-      bio: '',
-      education: '',
-      address: '',
-      email: ''
-    }
-  };
+  @Input() displayData: EventDisplayData | undefined;
+  @Input() eventId: number | undefined;
 
   isStarred: boolean = false;
 
@@ -112,11 +46,40 @@ export class EventComponent implements OnInit, OnDestroy {
   constructor(
     private sanitizer: DomSanitizer,
     private attachmentService: AttachmentService,
-    private userDataService: UserDataService
+    private userDataService: UserDataService,
+    private route: ActivatedRoute,
+    private eventDataService: EventDataService
   ) { }
 
-  ngOnInit() {
-    // If we only have event data partially or from an old source, ensure we have displayData
+  async ngOnInit() {
+    if (this.eventId) {
+      await this.loadEvent(this.eventId);
+    } else {
+      this.route.params.subscribe(async params => {
+        const id = params['id'];
+        if (id) {
+          await this.loadEvent(+id);
+        } else if (this.displayData) {
+          this.initAttachments();
+        }
+      });
+    }
+  }
+
+  async loadEvent(id: number) {
+    try {
+      const event = await this.eventDataService.getEvent(id);
+      if (event) {
+        const author = await firstValueFrom(this.userDataService.getUserById(event.authorId));
+        this.displayData = { event, author };
+        this.initAttachments();
+      }
+    } catch (error) {
+      console.error('Error loading event:', error);
+    }
+  }
+
+  initAttachments() {
     if (this.displayData) {
       this.displayData.event.attachments?.forEach(att => {
         if (this.shouldAutoLoad(att)) {

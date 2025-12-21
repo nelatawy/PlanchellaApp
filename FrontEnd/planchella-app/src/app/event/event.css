@@ -2,16 +2,13 @@
    EVENT CONTAINER
 ===================================================== */
 .event-container {
-  width: min(1200px, 95%);
-  background: var(--bg-light);
-  border-radius: var(--radius-lg);
-  box-shadow: var(--top-bar-shadow);
+  width: 100%;
+  background: var(--bg-white);
   padding: var(--padding-x-lg);
   display: flex;
   flex-direction: column;
   gap: var(--gap-xl);
-  margin: 0 auto;
-  /* Center the card */
+  margin: 0;
 }
 
 /* =====================================================

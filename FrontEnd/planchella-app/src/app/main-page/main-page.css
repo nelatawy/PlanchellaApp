@@ -114,17 +114,37 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  transform: none; /* no translateY */
-  opacity: 1; /* make it visible */
+  transform: none;
+  /* no translateY */
+  opacity: 1;
+  /* make it visible */
+}
+
+.overlay.visible {
+  opacity: 1;
+  z-index: 2000;
+}
+
+.event-details-container {
+  width: min(1200px, 95%);
+  max-height: 90vh;
+  background: var(--bg-white);
+  border-radius: var(--radius-lg);
+  overflow-y: auto;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+  position: relative;
+  z-index: 2001;
 }
 
 @media (max-width: 1000px) {
   .comm_selector {
-    z-index: 10;
+    z-index: 100;
+    /* Higher z-index to cover billboard */
     display: block;
     position: absolute;
     width: 100%;
     max-width: 100%;
     left: 0;
+    transition: transform 0.3s ease-in-out;
   }
 }

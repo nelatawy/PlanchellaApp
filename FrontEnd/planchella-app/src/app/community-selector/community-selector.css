@@ -2,8 +2,8 @@
 
 .container {
   padding: var(--padding-x-lg);
-  background: var(--bg-light);
-  /* Changed from gradient to solid to prevent seep-through */
+  background-color: var(--bg-white);
+  /* Solid background to prevent seep-through */
   /* min-width: 25rem; */
   max-width: 50rem;
   display: flex;

@@ -1,4 +1,5 @@
 <div #container class="billboard-container">
+  @if (communityData?.id) {
   <h1 class="billboard-title">
     {{ communityData?.name || 'Community Events' }}
   </h1>
@@ -26,7 +27,7 @@
   @if (cards.length > 0) {
   <div class="events-grid">
     @for (cardData of cards; track $index) {
-    <app-event [displayData]="cardData"></app-event>
+    <app-event-card [displayData]="cardData" (cardClick)="onCardClick($event)"></app-event-card>
     }
   </div>
 
@@ -37,5 +38,12 @@
     <span>Loading more events...</span>
   </div>
   }
+  }
+  } @else {
+  <div class="empty-state">
+    <i class="fa-solid fa-people-group empty-icon"></i>
+    <h2>Welcome!</h2>
+    <p>Select a community from the sidebar to view its events.</p>
+  </div>
   }
 </div>

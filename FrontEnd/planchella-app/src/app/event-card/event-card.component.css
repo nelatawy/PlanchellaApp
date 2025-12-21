@@ -1,7 +1,9 @@
 :host {
   flex: 1;
 }
-.top-bar, .bottom-bar {
+
+.top-bar,
+.bottom-bar {
   display: flex;
   padding: var(--padding-med);
   /*margin: 1rem;*/
@@ -12,6 +14,7 @@
   width: 100%;
   font-weight: bold;
 }
+
 .bottom-bar button {
   cursor: pointer;
   width: 100%;
@@ -19,6 +22,7 @@
   margin: 0.25rem;
   border: none;
 }
+
 .card {
   display: flex;
   flex-direction: column;
@@ -33,13 +37,18 @@
   will-change: transform;
   min-width: 25rem;
 }
+
 .card:hover {
   opacity: 100%;
 }
-.card-title{
-  font-weight: 800;
+
+.card-title {
+  font-family: var(--font-wide-bold), sans-serif;
+  font-weight: 400;
+  color: var(--text-color-dark);
   font-size: var(--font-size-med);
 }
+
 .creation-date {
   font-size: var(--font-size-sm);
   margin: 0.25rem;
@@ -63,12 +72,15 @@
   padding: var(--padding-x-sm);
   border-radius: 0 0 1.5rem 0;
 }
+
 .hackathon {
   background-color: var(--hackathon-color);
 }
+
 .release {
   background-color: var(--release-color);
 }
+
 .contest {
   background-color: var(--contest-color);
 }
@@ -78,15 +90,15 @@
   /*grid-column: span 3;*/
   /*min-width: 50rem;*/
 }
+
 :host.medium {
   flex: 2;
   /*min-width: 50rem;*/
   /*grid-column: span 2;*/
 }
+
 :host.large {
   flex: 5;
   /*min-width: 50rem;*/
   /*grid-column: span 1;*/
 }
-
-

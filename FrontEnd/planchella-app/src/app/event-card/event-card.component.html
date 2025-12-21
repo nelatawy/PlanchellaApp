@@ -1,6 +1,6 @@
 @if (displayData) {
-<div #card [class]="displayData.event.eventSize" class="card" (pointermove)="onPointerMove($event)"
-  (pointerleave)="onLeave()" (pointerenter)="onPointerEnter()">
+<div #card class="card" (pointermove)="onPointerMove($event)" (pointerleave)="onLeave()"
+  (pointerenter)="onPointerEnter()" (click)="navigateToDetails()">
   <div class="event-bar" [class]="displayData.event.eventType">{{displayData.event.eventType}}</div>
 
   <div class="top-bar">
@@ -25,12 +25,16 @@
   </div>
 
   <div class="bottom-bar">
-    <button class="btn btn-outline-primary btn-lg fa-solid fa-thumbs-up"> {{ upVote }}</button>
-    <button class="btn btn-outline-danger btn-lg fa-solid fa-thumbs-down"> {{ downVote }}</button>
+    <button class="btn btn-outline-primary btn-lg fa-solid fa-thumbs-up" (click)="$event.stopPropagation()"> {{ upVote
+      }}</button>
+    <button class="btn btn-outline-danger btn-lg fa-solid fa-thumbs-down" (click)="$event.stopPropagation()"> {{
+      downVote }}</button>
     @if (star) {
-    <button class="btn btn-outline-warning btn-lg fa-star fa-solid" (click)="addStar()"></button>
+    <button class="btn btn-outline-warning btn-lg fa-star fa-solid"
+      (click)="addStar(); $event.stopPropagation()"></button>
     } @else {
-    <button class="btn btn-outline-warning btn-lg fa-star fa-regular" (click)="removeStar()"></button>
+    <button class="btn btn-outline-warning btn-lg fa-star fa-regular"
+      (click)="removeStar(); $event.stopPropagation()"></button>
     }
   </div>
 

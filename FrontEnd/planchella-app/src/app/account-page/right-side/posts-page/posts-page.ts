@@ -1,53 +1,90 @@
 import { Component, OnInit } from '@angular/core';
-import {EmptyPage} from '../empty-page/empty-page';
-import { EventDataService } from '../../../services/event-data-service';
+import { EmptyPage } from '../empty-page/empty-page';
 import { AuthService } from '../../../services/auth-service';
 import { CommonModule } from '@angular/common';
-import { EventComponent } from '../../../event/event';
+import { UserDataService } from '../../../services/user-data-service';
+import { EventCard } from "../../../event-card/event-card.component";
+import { EventData } from '../../../models/event-data';
+import { firstValueFrom } from 'rxjs';
+import { EventDisplayData } from '../../../models/event-display-data';
 
 @Component({
   selector: 'app-posts-page',
   imports: [
     EmptyPage,
     CommonModule,
-    EventComponent
+    EventCard,
   ],
   templateUrl: './posts-page.html',
   styleUrl: './posts-page.css',
 })
 export class PostsPage implements OnInit {
-  post: any[] = [];
+  events: EventDisplayData[] = [];
   isLoading: boolean = true;
   error: string = '';
+  offset: number = 0;
 
   constructor(
-    private eventDataService: EventDataService,
+    private userService: UserDataService,
     private authService: AuthService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
-    this.loadUserEvents();
+    this.loadUserEvents(10);
   }
 
-  async loadUserEvents() {
+  // async loadUserEvents() {
+  //   try {
+  //     this.isLoading = true;
+  //     const userId = this.authService.getCurrentUserId();
+
+  //     if (!userId) {
+  //       this.error = 'User not authenticated';
+  //       this.isLoading = false;
+  //       return;
+  //     }
+
+  //     // Fetch events created by the user
+  //     const result = await this.userService.fetch_my_events(10, 0);
+  //     console.log(result);
+  //     this.events = result;
+  //     this.error = '';
+  //   } catch (err) {
+  //     console.error('Error loading user events:', err);
+  //     this.error = 'Failed to load events';
+  //     this.events = [];
+  //   } finally {
+  //     this.isLoading = false;
+  //   }
+  // }
+
+  async loadUserEvents(count: number) {
+
+    this.isLoading = true;
+    const userId = this.authService.getCurrentUserId();
+
+    if (!userId) {
+      this.error = 'User not authenticated';
+      this.isLoading = false;
+      return;
+    }
+
     try {
-      this.isLoading = true;
-      const userId = this.authService.getCurrentUserId();
-      
-      if (!userId) {
-        this.error = 'User not authenticated';
-        this.isLoading = false;
-        return;
+      let events: EventData[] | undefined = await this.userService.fetch_my_events(count, this.offset);
+
+      if (events) {
+        const displayDataPromises = events.map(async (event) => {
+          const author = await firstValueFrom(this.userService.getUserById(event.authorId));
+          return { event, author } as EventDisplayData;
+        });
+
+        const newCards = await Promise.all(displayDataPromises);
+        this.events.push(...newCards);
       }
 
-      // Fetch events created by the user
-      const result = await this.eventDataService.getEventsByAuthor(userId, 50, 0);
-      this.post = Array.isArray(result) ? result : [];
-      this.error = '';
-    } catch (err) {
-      console.error('Error loading user events:', err);
-      this.error = 'Failed to load events';
-      this.post = [];
+      this.offset += count;
+    } catch (error) {
+      console.error('Error fetching events:', error);
     } finally {
       this.isLoading = false;
     }

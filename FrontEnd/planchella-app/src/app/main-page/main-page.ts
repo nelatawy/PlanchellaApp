@@ -7,19 +7,12 @@ import { CommunitySelector } from '../community-selector/community-selector';
 import { EventBuilder } from '../event-builder/event-builder';
 import { CommunityData } from '../models/community-data';
 import { CommunityBuilder } from '../community-builder/community-builder';
+import { EventComponent } from '../event/event';
 
 @Component({
   selector: 'app-main-page',
   standalone: true,
-  imports: [
-    TopBar,
-    CommunitySelector,
-    Billboard,
-    EventBuilder,
-    EventBuilder,
-    CommunityBuilder,
-    CommonModule
-  ],
+  imports: [TopBar, CommunitySelector, Billboard, EventBuilder, CommunityBuilder, EventComponent],
   templateUrl: './main-page.html',
   styleUrl: './main-page.css'
 })
@@ -35,10 +28,12 @@ export class MainPage {
   isOpen = false;
 
   communityData: CommunityData | undefined = undefined;
+  selectedEventId: number | undefined = undefined;
+  isEventDetailsOpen = false;
 
   constructor(private sidebarService: SidebarService) {
     this.sidebarService.open$.subscribe(
-      (isOpen) => {
+      (isOpen: boolean) => {
         this.isOpen = isOpen;
       }
     );
@@ -63,6 +58,7 @@ export class MainPage {
 
   select_community(event: CommunityData) {
     this.communityData = event;
+    this.sidebarService.toggle();
   }
 
   show_community_builder() {
@@ -78,5 +74,15 @@ export class MainPage {
   onCommunityCreated() {
     this.hide_community_builder();
     this.communitySelector.refreshList();
+  }
+
+  show_event_details(id: number) {
+    this.selectedEventId = id;
+    this.isEventDetailsOpen = true;
+  }
+
+  hide_event_details() {
+    this.isEventDetailsOpen = false;
+    this.selectedEventId = undefined;
   }
 }

@@ -1,4 +1,4 @@
-import { Component, ElementRef, HostListener, Input, SimpleChanges, ViewChild, ViewContainerRef } from '@angular/core';
+import { Component, ElementRef, EventEmitter, HostListener, Input, Output, SimpleChanges, ViewChild, ViewContainerRef } from '@angular/core';
 import { EventCard } from '../event-card/event-card.component';
 import { EventSize, EventType } from '../models/Enums';
 import { EventData } from '../models/event-data';
@@ -19,6 +19,8 @@ import { forkJoin, map } from 'rxjs';
   styleUrls: ['./billboard.css'],
 })
 export class Billboard {
+
+  @Output() eventSelected = new EventEmitter<number>();
 
   cards: Array<EventDisplayData> = [];
   isLoading: boolean = false;
@@ -77,6 +79,7 @@ export class Billboard {
     // Check if the specific property you care about has changed
     if (changes['communityData']) {
       this.cards = [];
+      this.offset = 0; // Reset offset to start from the beginning
       await this.add_events(10);
     }
   }
@@ -93,6 +96,10 @@ export class Billboard {
 
   protected readonly EventSize = EventSize;
   protected readonly EventType = EventType;
+
+  onCardClick(id: number) {
+    this.eventSelected.emit(id);
+  }
 
   private loadNewConfig(newId: any) {
 

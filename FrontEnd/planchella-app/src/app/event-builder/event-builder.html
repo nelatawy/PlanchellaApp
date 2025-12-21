@@ -1,6 +1,6 @@
 <div id="event-builder" class="commonContainer">
   <button class="close-btn" (click)="closeBuilder()">×</button>
-  <h2>Make Your Event</h2>
+  <h2>Add Your Event to {{ currentlySelectedCommunity?.name }}</h2>
 
   <form #f=ngForm (ngSubmit)="onSubmit(f)" class="event-form">
 

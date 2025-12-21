@@ -1,13 +1,14 @@
-import { Component, ElementRef, HostListener, Input, OnInit, Output, SimpleChanges, ViewChild } from '@angular/core';
+import { Component, ElementRef, EventEmitter, HostBinding, HostListener, Input, OnInit, Output, SimpleChanges, ViewChild } from '@angular/core';
 import { EventSize } from '../models/Enums';
 import { ProfilePic } from '../general/profile-pic/profile-pic';
 import { SlicePipe } from '@angular/common';
 import { EventType } from '../models/Enums';
 import { EventData } from '../models/event-data';
 import { EventDisplayData } from '../models/event-display-data';
+import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-event',
+  selector: 'app-event-card',
   standalone: true,
   imports: [ProfilePic, SlicePipe],
   templateUrl: './event-card.component.html',
@@ -15,10 +16,23 @@ import { EventDisplayData } from '../models/event-display-data';
 })
 export class EventCard implements OnInit {
 
+  @HostBinding('class') get hostClasses() {
+    return this.displayData?.event.eventSize || 'small';
+  }
+
   @ViewChild('card', { static: false }) card!: ElementRef<HTMLDivElement>;
 
-  constructor(private elementRef: ElementRef) {
+  @Output() cardClick = new EventEmitter<number>();
 
+  constructor(private elementRef: ElementRef, private router: Router) {
+
+  }
+
+  navigateToDetails() {
+    if (this.displayData?.event.id) {
+      this.cardClick.emit(this.displayData.event.id);
+      // this.router.navigate(['/event', this.displayData.event.id]);
+    }
   }
 
 
@@ -33,7 +47,7 @@ export class EventCard implements OnInit {
 
 
   ngOnInit() {
-    if (this.displayData) {
+    if (this.displayData?.event) {
       this.elementRef.nativeElement.classList.add(this.displayData.event.eventSize);
       this.upVote = this.displayData.event.upvoteCount || 0;
       this.downVote = this.displayData.event.downvoteCount || 0;
