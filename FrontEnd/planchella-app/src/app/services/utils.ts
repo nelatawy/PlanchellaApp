@@ -222,7 +222,7 @@ export class UrlUtils {
     if (!url) return '';
 
     const domain = this.getDomain(url);
-    if (!domain) return 'fa-solid fa-link';
+    if (!domain) return 'fa-solid fa-globe';
 
     // Map domains to FontAwesome icon classes
     const iconMap: { [key: string]: string } = {
@@ -277,7 +277,18 @@ export class UrlUtils {
 
     // Find a match in the map
     const matchedKey = Object.keys(iconMap).find(key => domain.includes(key));
-    return matchedKey ? iconMap[matchedKey] : 'fa-solid fa-link';
+    return matchedKey ? iconMap[matchedKey] : 'fa-solid fa-globe';
+  }
+
+  /**
+   * Normalizes a URL by adding https:// if missing
+   */
+  static normalize(url: string | undefined): string {
+    if (!url) return '';
+    const trimmed = url.trim();
+    if (!trimmed) return '';
+    if (trimmed.startsWith('http://') || trimmed.startsWith('https://')) return trimmed;
+    return `https://${trimmed}`;
   }
 
   /**
