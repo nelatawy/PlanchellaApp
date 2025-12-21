@@ -127,7 +127,7 @@ export class EventBuilder {
       eventStartDate: this.isTimedEvent ? new Date(this.startDate) : new Date(),
       eventEndDate: this.isTimedEvent ? new Date(this.endDate) : new Date(),
       expirationDate: this.isTimedEvent ? new Date(this.endDate) : undefined,
-      isTimedEvent: this.isTimedEvent,
+      hasTime: this.isTimedEvent,
       attachments: this.attachments
     };
 

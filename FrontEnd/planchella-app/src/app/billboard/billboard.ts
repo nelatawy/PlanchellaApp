@@ -65,7 +65,7 @@ export class Billboard {
         // Filter out expired timed events
         const now = new Date();
         const activeCards = newCards.filter(card =>
-          !card.event.isTimedEvent || new Date(card.event.eventEndDate) > now
+          !card.event.hasTime || new Date(card.event.eventEndDate) > now
         );
 
         this.cards.push(...activeCards);
@@ -137,7 +137,7 @@ export class Billboard {
       // Filter out expired timed events
       const now = new Date();
       this.cards = newCards.filter(card =>
-        !card.event.isTimedEvent || new Date(card.event.eventEndDate) > now
+        !card.event.hasTime || new Date(card.event.eventEndDate) > now
       );
     } catch (error) {
       console.error('Error loading search results:', error);

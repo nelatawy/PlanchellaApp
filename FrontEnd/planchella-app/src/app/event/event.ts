@@ -256,7 +256,7 @@ export class EventComponent implements OnInit, OnDestroy {
   }
 
   getRemainingTime(): string {
-    if (!this.displayData?.event.isTimedEvent || !this.displayData.event.eventEndDate) return '';
+    if (!this.displayData?.event.hasTime || !this.displayData.event.eventEndDate) return '';
 
     const now = new Date();
     const end = new Date(this.displayData.event.eventEndDate);

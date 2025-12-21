@@ -34,7 +34,7 @@ export interface EventData {
   isUpvoted?: boolean,
   isDownVoted?: boolean,
   isStarred?: boolean,
-  isTimedEvent?: boolean,
+  hasTime?: boolean,
   expirationDate?: Date,
   attachments?: EventAttachment[]
 }

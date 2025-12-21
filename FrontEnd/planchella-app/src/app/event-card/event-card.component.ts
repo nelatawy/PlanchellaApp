@@ -173,7 +173,7 @@ export class EventCard implements OnInit {
   }
 
   getExpirationTime(): string {
-    if (!this.displayData?.event.isTimedEvent || !this.displayData.event.expirationDate) return '';
+    if (!this.displayData?.event.hasTime || !this.displayData.event.expirationDate) return '';
 
     const now = new Date();
     const end = new Date(this.displayData.event.expirationDate);
@@ -193,7 +193,7 @@ export class EventCard implements OnInit {
   }
 
   getFormattedDate(): string {
-    if (!this.displayData?.event.isTimedEvent || !this.displayData.event.eventStartDate) return '';
+    if (!this.displayData?.event.hasTime || !this.displayData.event.eventStartDate) return '';
     const now = new Date();
     const start = new Date(this.displayData.event.eventStartDate);
     const diff = start.getTime() - now.getTime();
