@@ -1,0 +1,30 @@
+<div class="communities-container">
+  @if (loading) {
+    <div class="loading-spinner"></div>
+  } @else if (error) {
+    <div class="error-container">
+      <p>{{ error }}</p>
+      <button (click)="loadJoinedCommunities()" class="retry-btn">Retry</button>
+    </div>
+  } @else if (communities.length === 0) {
+    <div class="empty-state">
+      <p>You haven't joined any communities yet</p>
+      <a href="/main" class="explore-btn">Explore Communities</a>
+    </div>
+  } @else {
+    <div class="communities-grid">
+      @for (community of communities; track community.id) {
+        <div class="community-card" (click)="navigateToCommunity(community.id!)">
+          <div class="community-header">
+            <h3 class="community-name">{{ community.name }}</h3>
+            <span class="member-count">{{ community.memberCount }} members</span>
+          </div>
+          <p class="community-description">{{ community.description || 'No description available' }}</p>
+          <div class="community-footer">
+            <small class="join-date">Joined on {{ community.createdAt | date: 'MMM d, yyyy' }}</small>
+          </div>
+        </div>
+      }
+    </div>
+  }
+</div>

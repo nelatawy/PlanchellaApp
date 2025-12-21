@@ -2,13 +2,15 @@ import { Component } from '@angular/core';
 import {PostsPage} from './posts-page/posts-page';
 import {SettingsPage} from './settings-page/settings-page';
 import {StaredPostsPage} from './stared-posts-page/stared-posts-page';
+import {JoinedCommunitiesPage} from './joined-communities/joined-communities';
 
 @Component({
   selector: 'app-right-side',
   imports: [
     PostsPage,
     SettingsPage,
-    StaredPostsPage
+    StaredPostsPage,
+    JoinedCommunitiesPage
   ],
   templateUrl: './right-side.html',
   styleUrl: './right-side.css',

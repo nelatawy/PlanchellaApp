@@ -1,1 +1,139 @@
-<p>settings-page works!</p>
+<div class="settings-container">
+  <!-- Loading State -->
+  @if (isLoading) {
+    <div class="loading-container">
+      <div class="spinner"></div>
+      <p>Loading your settings...</p>
+    </div>
+  }
+
+  <!-- Settings Form -->
+  @if (!isLoading) {
+    <div class="settings-form-wrapper">
+      <h2 class="form-title">Profile Settings</h2>
+      
+      <!-- Success Message -->
+      @if (successMessage) {
+        <div class="alert alert-success">
+          <i class="fa-solid fa-circle-check"></i>
+          {{ successMessage }}
+        </div>
+      }
+
+      <!-- Error Message -->
+      @if (errorMessage) {
+        <div class="alert alert-error">
+          <i class="fa-solid fa-circle-xmark"></i>
+          {{ errorMessage }}
+        </div>
+      }
+
+      <form [formGroup]="settingsForm" (ngSubmit)="onSubmit()" class="settings-form">
+        <!-- Name Field -->
+        <div class="form-group">
+          <label for="name" class="form-label">Full Name *</label>
+          <input
+            type="text"
+            id="name"
+            formControlName="name"
+            class="form-input"
+            placeholder="Enter your full name"
+          />
+          @if (settingsForm.get('name')?.invalid && settingsForm.get('name')?.touched) {
+            <span class="form-error">
+              @if (settingsForm.get('name')?.hasError('required')) {
+                Full name is required
+              } @else if (settingsForm.get('name')?.hasError('minlength')) {
+                Name must be at least 2 characters
+              }
+            </span>
+          }
+        </div>
+
+        <!-- Email Field -->
+        <div class="form-group">
+          <label for="email" class="form-label">Email *</label>
+          <input
+            type="email"
+            id="email"
+            formControlName="email"
+            class="form-input"
+            placeholder="Enter your email"
+          />
+          @if (settingsForm.get('email')?.invalid && settingsForm.get('email')?.touched) {
+            <span class="form-error">
+              @if (settingsForm.get('email')?.hasError('required')) {
+                Email is required
+              } @else if (settingsForm.get('email')?.hasError('email')) {
+                Please enter a valid email
+              }
+            </span>
+          }
+        </div>
+
+        <!-- Bio Field -->
+        <div class="form-group">
+          <label for="bio" class="form-label">Bio</label>
+          <textarea
+            id="bio"
+            formControlName="bio"
+            class="form-textarea"
+            placeholder="Tell us about yourself"
+            rows="4"
+          ></textarea>
+          <span class="char-count">{{ settingsForm.get('bio')?.value?.length || 0 }}/500</span>
+        </div>
+
+        <!-- Education Field -->
+        <div class="form-group">
+          <label for="education" class="form-label">Education</label>
+          <input
+            type="text"
+            id="education"
+            formControlName="education"
+            class="form-input"
+            placeholder="e.g., University of Cairo"
+          />
+        </div>
+
+        <!-- Address Field -->
+        <div class="form-group">
+          <label for="address" class="form-label">Address</label>
+          <input
+            type="text"
+            id="address"
+            formControlName="address"
+            class="form-input"
+            placeholder="e.g., Cairo, Egypt"
+          />
+        </div>
+
+        <!-- Form Actions -->
+        <div class="form-actions">
+          <button
+            type="submit"
+            class="btn btn-save"
+            [disabled]="settingsForm.invalid || isSaving"
+          >
+            @if (isSaving) {
+              <span class="spinner-small"></span>
+              Saving...
+            } @else {
+              <i class="fa-solid fa-floppy-disk"></i>
+              Save Changes
+            }
+          </button>
+          <button
+            type="button"
+            class="btn btn-reset"
+            (click)="resetForm()"
+            [disabled]="isSaving"
+          >
+            <i class="fa-solid fa-rotate-left"></i>
+            Reset
+          </button>
+        </div>
+      </form>
+    </div>
+  }
+</div>

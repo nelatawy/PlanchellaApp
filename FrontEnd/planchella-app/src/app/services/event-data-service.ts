@@ -82,4 +82,19 @@ export class EventDataService {
       throw err;
     }
   }
+
+  // Get events by author (GET)
+  async getEventsByAuthor(userId: number, count: number = 10, offset: number = 0): Promise<any> {
+    try {
+      const result = await firstValueFrom(
+        this.http.get(`${this.apiUrl}/author/${userId}?count=${count}&offset=${offset}`, {
+          headers: this.getHeaders()
+        })
+      );
+      return result;
+    } catch (err) {
+      console.error('Error fetching author events:', err);
+      throw err;
+    }
+  }
 }

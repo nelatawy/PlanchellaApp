@@ -1,3 +1,24 @@
-@if (post.length == 0) {
-  <app-empty-page iconSrc="/my-post-icon.svg" title="You haven't posted anything yet!" sub_title=""/>
+@if (isLoading) {
+  <div class="loading-container">
+    <div class="spinner"></div>
+    <p>Loading your events...</p>
+  </div>
+}
+
+@if (error) {
+  <div class="error-container">
+    <p class="error-message">{{ error }}</p>
+  </div>
+}
+
+@if (!isLoading && post.length === 0 && !error) {
+  <app-empty-page iconSrc="/my-post-icon.svg" title="You haven't created any events yet!" sub_title="Start by creating your first event"/>
+}
+
+@if (!isLoading && post.length > 0) {
+  <div class="events-container">
+    @for (event of post; track event.id) {
+      <app-event [displayData]="event"></app-event>
+    }
+  </div>
 }

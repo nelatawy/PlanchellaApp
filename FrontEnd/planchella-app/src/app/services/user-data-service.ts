@@ -82,9 +82,33 @@ export class UserDataService {
     }
   }
 
+  async getCurrentUserData(): Promise<User> {
+    try {
+      const result = await firstValueFrom(
+        this.http.get<User>(`${this.baseUrl}/me`, {
+          headers: this.getHeaders()
+        })
+      );
+      return result;
+    } catch (err) {
+      console.error('Error fetching current user:', err);
+      throw err;
+    }
+  }
 
+  async updateUserSettings(userData: Partial<User>): Promise<void> {
+    try {
+      await firstValueFrom(
+        this.http.patch<void>(`${this.baseUrl}`, userData, {
+          headers: this.getHeaders()
+        })
+      );
+      console.log('User settings updated successfully');
+    } catch (err) {
+      console.error('Error updating user settings:', err);
+      throw err;
+    }
+  }
 
 }
-
-
 
