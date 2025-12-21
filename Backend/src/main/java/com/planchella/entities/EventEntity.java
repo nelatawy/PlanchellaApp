@@ -47,11 +47,18 @@ public class EventEntity {
     @Column(name = "creation_date")
     private String creationDate;
 
+    @Column(name = "expiration_time")
+    private String expirationTime;
+
     @Column(name = "upvote_count")
     private Long upvoteCount;
 
     @Column(name = "downvote_count")
     private Long downvoteCount;
+
+    // time related
+    @Column(name = "has_time")
+    private boolean hasTime;
 
     @Column(name = "event_start_date")
     private String eventStartDate;
@@ -59,13 +66,23 @@ public class EventEntity {
     @Column(name = "event_end_date")
     private String eventEndDate;
 
+    // location related
+    @Column(name = "has_location")
+    private boolean hasLocation;
+
+    @Column(name = "location")
+    private String location;
+
     @OneToMany(mappedBy = "event", fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
     private List<AttachmentEntity> attachments;
 
     public EventEntity(EventType eventType, EventSize eventSize, UserEntity author,
             String title, String description,
-            String creationDate, Long upvoteCount, Long downvoteCount, String eventStartDate, String eventEndDate,
+            String creationDate, String expirationTime, Long upvoteCount, Long downvoteCount,
+            boolean hasTime, String eventStartDate, String eventEndDate,
+            boolean hasLocation, String location,
             CommunityEntity community) {
+
         this.eventType = eventType;
         this.eventSize = eventSize;
         this.title = title;
@@ -74,8 +91,14 @@ public class EventEntity {
         this.creationDate = creationDate;
         this.upvoteCount = upvoteCount;
         this.downvoteCount = downvoteCount;
+
+        this.hasTime = hasTime;
         this.eventStartDate = eventStartDate;
         this.eventEndDate = eventEndDate;
+
+        this.hasLocation = hasLocation;
+        this.location = location;
+
         this.community = community;
     }
 

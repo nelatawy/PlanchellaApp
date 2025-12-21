@@ -21,6 +21,7 @@ public class EventMapper {
         e.setCommunity(session.getReference(CommunityEntity.class, event.getCommunityId()));
         e.setTitle(event.getTitle());
         e.setCreationDate(event.getCreationDate());
+        e.setExpirationTime(event.getExpirationDate());
         e.setEventSize(event.getEventSize());
         e.setEventType(event.getEventType());
         e.setUpvoteCount(event.getUpvoteCount());
@@ -52,10 +53,14 @@ public class EventMapper {
                 e.getTitle(),
                 e.getDescription(),
                 e.getCreationDate(),
+                e.getExpirationTime(),
                 e.getUpvoteCount(),
                 e.getDownvoteCount(),
+                e.isHasTime(),
                 e.getEventStartDate(),
                 e.getEventEndDate(),
+                e.isHasLocation(),
+                e.getLocation(),
                 e.getAttachments() == null ? null
                         : e.getAttachments().stream()
                                 .map(AttachmentMapper::entityToDomain)
@@ -71,10 +76,14 @@ public class EventMapper {
                 event.getTitle(),
                 event.getDescription(),
                 event.getCreationDate(),
+                event.getExpirationDate(),
                 event.getUpvoteCount(),
                 event.getDownvoteCount(),
+                event.isHasTime(),
                 event.getEventStartDate(),
                 event.getEventEndDate(),
+                event.isHasLocation(),
+                event.getLocation(),
                 false,
                 false,
                 false,
@@ -90,10 +99,14 @@ public class EventMapper {
                 e.title,
                 e.description,
                 e.creationDate,
+                e.expirationDate,
                 e.upvoteCount,
                 e.downvoteCount,
+                e.hasTime,
                 e.eventStartDate,
                 e.eventEndDate,
+                e.hasLocation,
+                e.location,
                 e.attachments);
     }
 }

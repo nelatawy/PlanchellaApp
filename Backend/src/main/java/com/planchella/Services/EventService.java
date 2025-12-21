@@ -1,10 +1,8 @@
 package com.planchella.Services;
 
-import com.planchella.domain.AttachmentMetadata;
-import com.planchella.domain.Community;
-import com.planchella.domain.Event;
-import com.planchella.domain.User;
+import com.planchella.domain.*;
 import com.planchella.entities.VoteEntity;
+import com.planchella.enums.MembershipType;
 import com.planchella.enums.VoteType;
 import com.planchella.repositories.events.IEventRepository;
 import com.planchella.repositories.events.StarRepository;
@@ -17,8 +15,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Objects;
-import java.util.Optional;
+import java.time.Instant;
+import java.time.temporal.ChronoUnit;
+import java.util.*;
 
 import com.planchella.entities.StarEntity;
 import com.planchella.entities.UserEntity;
@@ -79,6 +78,7 @@ public class EventService {
             throw new IllegalStateException("Author does not have permission to post in this community");
         }
 
+        Membership membership = membershipService.getMembership(author.getId(), community.getId());
         for (AttachmentMetadata attachment : event.getAttachments()) {
             if (!attachmentService.isAcknowledged(attachment.getId()))
                 throw new IllegalArgumentException("No attachment uploaded with that attachment ID");
@@ -86,6 +86,22 @@ public class EventService {
         event.setId(IdGenerator.generateId());
         event.setDownvoteCount(0L);
         event.setUpvoteCount(0L);
+        Instant now = Instant.now();
+        event.setCreationDate(now.toString());
+        Instant expirationTime;
+        if (membership.getType() == MembershipType.CREATOR) {
+            expirationTime = now.plus(6, ChronoUnit.DAYS);
+        } else {
+            expirationTime = now.plus(3, ChronoUnit.DAYS);
+        }
+        event.setExpirationDate(expirationTime.toString());
+        if (event.getEventStartDate() != null || event.getEventEndDate() != null) {
+            event.setHasTime(true);
+        }
+        if (event.getLocation() != null) {
+            event.setHasLocation(true);
+        }
+        System.out.println(event);
         eventRepo.saveEvent(event);
     }
 
@@ -176,4 +192,5 @@ public class EventService {
             eventRepo.saveEvent(event);
         }
     }
+
 }

@@ -2,11 +2,8 @@ package com.planchella.routes;
 
 import com.planchella.DTOs.EventDTO;
 import com.planchella.Services.*;
-import com.planchella.domain.Community;
 import com.planchella.domain.Event;
 import com.planchella.domain.Membership;
-import com.planchella.enums.MembershipType;
-import com.planchella.mappers.EventMapper;
 import org.springframework.web.bind.annotation.*;
 
 import com.planchella.DTOs.UserDTO;
@@ -79,8 +76,18 @@ public class UserRoutes {
         return userSpecificEventService.enrichEventsForUser(events, requestingUserId);
     }
 
+    @GetMapping("/{user_id}/starred")
+    public List<EventDTO> getStarredEvents(@PathVariable Long user_id, @RequestParam int count,
+            @RequestParam int offset,
+            @RequestHeader("Authorization") String authHeader) {
+        Long requestingUserId = authHelper.extractUserId(authHeader);
+        List<Event> events = userService.getStarredEvents(user_id, count, offset);
+        return userSpecificEventService.enrichEventsForUser(events, requestingUserId);
+    }
+
     @GetMapping("/{user_id}/memberships")
-    public List<Membership> getUserMemberships(@PathVariable Long user_id, @RequestParam int count, @RequestParam int offset){
+    public List<Membership> getUserMemberships(@PathVariable Long user_id, @RequestParam int count,
+            @RequestParam int offset) {
         User user = userService.getUser(user_id);
         return membershipService.getMembershipsByUser(user);
     }

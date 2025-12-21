@@ -5,6 +5,7 @@ import com.planchella.enums.EventType;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.time.Instant;
 import java.util.Date;
 import java.util.List;
 
@@ -28,20 +29,30 @@ public class Event {
 
     private String creationDate;
 
+    private String expirationDate;
+
     private Long upvoteCount;
 
     private Long downvoteCount;
+
+    private boolean hasTime;
 
     private String eventStartDate;
 
     private String eventEndDate;
 
+    private boolean hasLocation;
+
+    private String location;
 
     private List<AttachmentMetadata> attachments;
 
     public Event(Long id, EventType eventType, EventSize eventSize, Long authorId, Long communityId,
             String title, String description,
-            String creationDate, Long upvoteCount, Long downvoteCount, String eventStartDate, String eventEndDate,
+            String creationDate, String expirationDate,
+            Long upvoteCount, Long downvoteCount,
+            boolean hasTime, String eventStartDate, String eventEndDate,
+            boolean hasLocation, String location,
             List<AttachmentMetadata> attachments) {
         this.id = id;
         this.eventType = eventType;
@@ -50,12 +61,16 @@ public class Event {
         this.authorId = authorId;
         this.description = description;
         this.creationDate = creationDate;
+        this.expirationDate = expirationDate;
         this.communityId = communityId;
         this.attachments = attachments;
         this.upvoteCount = upvoteCount;
         this.downvoteCount = downvoteCount;
+        this.hasTime = hasTime;
         this.eventStartDate = eventStartDate;
         this.eventEndDate = eventEndDate;
+        this.hasLocation = hasLocation;
+        this.location = location;
     }
 
     public Event() {
@@ -73,6 +88,7 @@ public class Event {
     }
 
     public static Event getMockData() {
+        String now = new Date().toString();
         return new Event(4L,
                 EventType.HACKATHON,
                 EventSize.LARGE,
@@ -80,11 +96,15 @@ public class Event {
                 1L,
                 "sample test",
                 "Description",
-                new Date().toString(),
+                now,
+                now,
                 10L,
                 2L,
+                false,
                 new Date().toString(),
                 new Date().toString(),
+                true,
+                null,
                 List.of(new AttachmentMetadata()));
     }
 
@@ -99,10 +119,15 @@ public class Event {
                 ", title='" + title + '\'' +
                 ", description='" + description + '\'' +
                 ", creationDate='" + creationDate + '\'' +
+                ", expirationDate='" + expirationDate + '\'' +
                 ", upvoteCount=" + upvoteCount +
                 ", downvoteCount=" + downvoteCount +
+                ", hasTime=" + hasTime +
                 ", eventStartDate='" + eventStartDate + '\'' +
                 ", eventEndDate='" + eventEndDate + '\'' +
+                ", hasLocation=" + hasLocation +
+                ", location='" + location + '\'' +
+                ", attachments=" + attachments +
                 '}';
     }
 }

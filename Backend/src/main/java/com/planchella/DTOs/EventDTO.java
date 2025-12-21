@@ -18,11 +18,17 @@ public class EventDTO {
 
     public String description;
     public String creationDate;
+    public String expirationDate;
 
     public Long upvoteCount;
     public Long downvoteCount;
+
+    public boolean hasTime;
     public String eventStartDate;
     public String eventEndDate;
+
+    public boolean hasLocation;
+    public String location;
 
     public boolean isStarred;
     public boolean isUpvoted;
@@ -32,8 +38,10 @@ public class EventDTO {
     public List<AttachmentMetadata> attachments;
 
     public EventDTO(Long id, EventType eventType, EventSize eventSize, Long author_id, Long community_id, String title,
-            String description, String creationDate, Long upvoteCount, Long downvoteCount, String eventStartDate,
-            String eventEndDate, boolean isStarred, boolean isUpvoted, boolean isDownVoted,
+            String description, String creationDate, String expirationDate, Long upvoteCount, Long downvoteCount,
+            boolean hasTime, String eventStartDate, String eventEndDate,
+            boolean hasLocation, String location,
+            boolean isStarred, boolean isUpvoted, boolean isDownVoted,
             List<AttachmentMetadata> attachments) {
         this.id = id;
         this.eventType = eventType;
@@ -43,13 +51,21 @@ public class EventDTO {
         this.title = title;
         this.description = description;
         this.creationDate = creationDate;
+        this.expirationDate = expirationDate;
         this.upvoteCount = upvoteCount;
         this.downvoteCount = downvoteCount;
+
+        this.hasTime = hasTime;
         this.eventStartDate = eventStartDate;
         this.eventEndDate = eventEndDate;
+
+        this.hasLocation = hasLocation;
+        this.location = location;
+
         this.isStarred = isStarred;
         this.isUpvoted = isUpvoted;
         this.isDownVoted = isDownVoted;
+
         this.attachments = attachments;
     }
 

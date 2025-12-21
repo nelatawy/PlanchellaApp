@@ -12,6 +12,7 @@ import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 import org.springframework.stereotype.Repository;
 
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,9 +29,10 @@ public class DBEventRepository implements IEventRepository {
     public List<Event> getEventsByCommunity(Long communityId, int count, int offset) {
         Session session = this.sessionFactory.openSession();
 
-        String hql = "from EventEntity e where e.community.id = :ID";
+        String hql = "from EventEntity e where e.community.id = :ID and e.expirationTime >= :TIME";
         Query<EventEntity> query = session.createQuery(hql, EventEntity.class);
         query.setParameter("ID", communityId);
+        query.setParameter("TIME", Instant.now().toString());
         if (count > 0) {
             query.setMaxResults(count);
         }
@@ -45,9 +47,10 @@ public class DBEventRepository implements IEventRepository {
     public List<Event> getEventsByAuthor(Long userId, int count, int offset) {
         Session session = this.sessionFactory.openSession();
 
-        String hql = "from EventEntity e where e.author.id = :ID";
+        String hql = "from EventEntity e where e.author.id = :ID and e.expirationTime >= :TIME";
         Query<EventEntity> query = session.createQuery(hql, EventEntity.class);
         query.setParameter("ID", userId);
+        query.setParameter("TIME", Instant.now().toString());
         if (count > 0) {
             query.setMaxResults(count);
         }
@@ -70,9 +73,10 @@ public class DBEventRepository implements IEventRepository {
     @Override
     public List<Event> searchEvents(String keywords, int count, int offset) {
         Session session = sessionFactory.openSession();
-        String hql = "select e from EventEntity e where lower(e.title)  like lower(:keywords)";
+        String hql = "select e from EventEntity e where lower(e.title)  like lower(:keywords) and e.expirationTime >= :TIME";
         Query<EventEntity> query = session.createQuery(hql, EventEntity.class);
-        query.setParameter("keywords", "%"+keywords.toLowerCase()+"%");
+        query.setParameter("keywords", "%" + keywords.toLowerCase() + "%");
+        query.setParameter("TIME", Instant.now().toString());
         if (count > 0) {
             query.setMaxResults(count);
         }
@@ -84,12 +88,14 @@ public class DBEventRepository implements IEventRepository {
     }
 
     @Override
-    public List<Event> searchInCommunities(String keywords,Long communityId, int count, int offset) {
+    public List<Event> searchInCommunities(String keywords, Long communityId, int count, int offset) {
         Session session = sessionFactory.openSession();
-        String hql = "select e from EventEntity e where lower(e.title)  like lower(:keywords) and e.community.id = :ID";
+        String hql = "select e from EventEntity e where lower(e.title)  like lower(:keywords) " +
+                "and e.community.id = :ID and e.expirationTime >= :TIME";
         Query<EventEntity> query = session.createQuery(hql, EventEntity.class);
-        query.setParameter("keywords", "%"+keywords.toLowerCase()+"%");
+        query.setParameter("keywords", "%" + keywords.toLowerCase() + "%");
         query.setParameter("ID", communityId);
+        query.setParameter("TIME", Instant.now().toString());
         if (count > 0) {
             query.setMaxResults(count);
         }
@@ -99,7 +105,6 @@ public class DBEventRepository implements IEventRepository {
 
         return getEventsHelper(session, query);
     }
-
 
     // @Override
     // public void updateEvent(Long event_id, Event newEventData){

@@ -4,6 +4,7 @@ import com.planchella.enums.EventSize;
 import com.planchella.enums.EventType;
 import com.planchella.domain.Event;
 
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -31,6 +32,7 @@ public class MockEventRepository implements IEventRepository {
 
     @Override
     public Event getEvent(Long eventId) {
+        String now = Instant.now().toString();
         return new Event(
                 eventId,
                 EventType.CONTEST,
@@ -39,11 +41,15 @@ public class MockEventRepository implements IEventRepository {
                 3L,
                 "title",
                 "description",
-                new Date().toString(),
+                now,
+                now,
                 0L,
                 0L,
-                new Date().toString(),
-                new Date().toString(),
+                false,
+                now,
+                now,
+                true,
+                null,
                 List.of());
     }
 
