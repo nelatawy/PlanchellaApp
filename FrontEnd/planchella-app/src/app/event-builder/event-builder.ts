@@ -43,7 +43,7 @@ export class EventBuilder {
 
   isDropdownOpen: boolean = false;
   isSizeDropdownOpen: boolean = false;
-  flares: string[] = ['Hackathon', 'Contest', 'Release'];
+  flares: string[] = ['Hackathon', 'Contest', 'Release', 'Other'];
 
   sizes: EventSize[] = [EventSize.SMALL, EventSize.MID, EventSize.LARGE];
 
