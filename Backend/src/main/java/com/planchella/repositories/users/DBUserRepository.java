@@ -107,7 +107,23 @@ public class DBUserRepository implements IUserRepository {
             usersList.add(user);
         }
         session.close();
+        System.out.println(usersList.size());
         return usersList;
+    }
+
+    @Override
+    public List<User> searchUsers(String name, int count, int offset) {
+        Session session = this.sessionFactory.openSession();
+        String hql = "select e from UserEntity e where lower(e.name) like lower(:name)";
+        Query<UserEntity> query = session.createQuery(hql, UserEntity.class);
+        query.setParameter("name", "%" + name + "%");
+        if (count > 0) {
+            query.setMaxResults(count);
+        }
+        if (offset > 0) {
+            query.setFirstResult(offset);
+        }
+        return getUsersHelper(session, query);
     }
 
     public void closeFetcher() {

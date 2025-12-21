@@ -16,4 +16,6 @@ public interface ICommunityRepository {
 
     void deleteCommunity(Long communityId);
 
+    List<Community> SearchCommunities(String keywords, int count, int offset);
+
 }

@@ -32,9 +32,6 @@ public class UserRoutes {
     MembershipService membershipService;
 
     @Autowired
-    EventService eventService;
-
-    @Autowired
     JWTService jwtService;
 
     @Autowired
@@ -74,7 +71,7 @@ public class UserRoutes {
 
     @GetMapping("/{user_id}/events")
     public List<EventDTO> getUserEvents(@PathVariable Long user_id, @RequestParam int count, @RequestParam int offset) {
-        List<Event> events = eventService.getEventsByAuthor(user_id, count, offset);
+        List<Event> events = userService.getUserEvents(user_id, count, offset);
         return events.stream().map(EventMapper::domainToDTO).toList();
     }
 

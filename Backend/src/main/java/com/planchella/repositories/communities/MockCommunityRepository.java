@@ -42,4 +42,9 @@ public class MockCommunityRepository implements ICommunityRepository {
         return;
     }
 
+    @Override
+    public List<Community> SearchCommunities(String keywords, int count, int offset) {
+        return List.of();
+    }
+
 }

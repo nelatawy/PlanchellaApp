@@ -47,4 +47,9 @@ public class MockUserRepository implements IUserRepository {
         return 1L;
     }
 
+    @Override
+    public List<User> searchUsers(String name, int count, int offset) {
+        return List.of();
+    }
+
 }

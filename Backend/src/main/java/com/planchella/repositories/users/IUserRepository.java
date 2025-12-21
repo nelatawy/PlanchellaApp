@@ -16,4 +16,6 @@ public interface IUserRepository {
 
     Long saveUser(User user);
 
+    List<User> searchUsers(String name, int count, int offset);
+
 }

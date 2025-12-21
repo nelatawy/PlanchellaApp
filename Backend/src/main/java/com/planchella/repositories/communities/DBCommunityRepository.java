@@ -88,6 +88,25 @@ public class DBCommunityRepository implements ICommunityRepository {
         session.close();
     }
 
+    @Override
+    public List<Community> SearchCommunities(String keywords, int count, int offset) {
+        Session session = this.sessionFactory.openSession();
+        String hql = "select c from CommunityEntity c where lower(c.name) like lower(:KEY)";
+        Query<CommunityEntity> query = session.createQuery(hql);
+        query.setParameter("KEY","%" +  keywords.toLowerCase() + "%");
+        if (offset > 0) {
+            query.setFirstResult(offset);
+        }
+        if (count > 0) {
+            query.setMaxResults(count);
+        }
+        List<Community> results = query.getResultList().stream().map(CommunityMapper::entityToDomain).toList();
+        System.out.println(results.size());
+        session.close();
+        return results;
+    }
+
+
     public void closeFetcher() {
         this.sessionFactory.close();
     }

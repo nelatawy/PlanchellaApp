@@ -6,6 +6,7 @@ import com.planchella.domain.Membership;
 import com.planchella.domain.User;
 import com.planchella.enums.MembershipType;
 import com.planchella.repositories.communities.ICommunityRepository;
+import com.planchella.repositories.events.IEventRepository;
 import com.planchella.utils.IdGenerator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,10 +21,14 @@ public class CommunityService {
     private ICommunityRepository communityRepo;
 
     @Autowired
+    private IEventRepository eventRepo;
+
+    @Autowired
     private UserService userService;
 
     @Autowired
     private MembershipService membershipService;
+
 
     public Community getCommunity(Long communityId) {
         Community community = communityRepo.getCommunity(communityId);
@@ -72,5 +77,13 @@ public class CommunityService {
         }
         communityRepo.deleteCommunity(communityId);
     }
+
+
+    public List<Event> getCommunityEvents(Long communityId, int count, int offset) {
+        return eventRepo.getEventsByCommunity(communityId, count, offset);
+    }
+
+
+
 
 }

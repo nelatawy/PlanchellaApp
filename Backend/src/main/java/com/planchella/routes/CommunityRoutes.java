@@ -23,9 +23,6 @@ public class CommunityRoutes {
     CommunityService communityService;
 
     @Autowired
-    EventService eventService;
-
-    @Autowired
     UserAuthenticationHelper authHelper;
 
     @GetMapping("/{community_id}")
@@ -37,7 +34,7 @@ public class CommunityRoutes {
     @GetMapping("/{community_id}/events")
     public List<EventDTO> getCommunityEvents(@PathVariable Long community_id, @RequestParam int count,
             @RequestParam int offset) {
-        List<Event> events = eventService.getEventsByCommunity(community_id, count, offset);
+        List<Event> events = communityService.getCommunityEvents(community_id, count, offset);
         return events.stream().map(EventMapper::domainToDTO).toList();
     }
 

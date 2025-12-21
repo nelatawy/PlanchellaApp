@@ -57,4 +57,9 @@ public class MockEventRepository implements IEventRepository {
         return;
     }
 
+    @Override
+    public List<Event> searchEvents(String keywords, int count, int offset) {
+        return List.of();
+    }
+
 }

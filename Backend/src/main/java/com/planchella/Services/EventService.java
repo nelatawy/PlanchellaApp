@@ -35,14 +35,6 @@ public class EventService {
         return eventRepo.getEvent(eventId);
     }
 
-    public List<Event> getEventsByAuthor(Long userId, int count, int offset) {
-        return eventRepo.getEventsByAuthor(userId, count, offset);
-    }
-
-    public List<Event> getEventsByCommunity(Long communityId, int count, int offset) {
-        return eventRepo.getEventsByCommunity(communityId, count, offset);
-    }
-
     public void updateEvent(Long eventId, Long userId, Event newEventData) {
         User user = userService.getUser(userId);
         Event event = eventRepo.getEvent(eventId);
