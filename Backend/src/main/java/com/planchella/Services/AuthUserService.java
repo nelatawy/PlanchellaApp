@@ -2,10 +2,8 @@ package com.planchella.Services;
 
 import com.planchella.domain.User;
 import com.planchella.enums.AuthProvider;
-import com.planchella.mappers.UserMapper;
 import com.planchella.repositories.users.DBUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -17,9 +15,7 @@ import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.json.gson.GsonFactory;
 import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.Map;
-import java.util.concurrent.ExecutionException;
 
 import com.planchella.entities.AuthUserEntity;
 import com.planchella.repositories.users.AuthUserRepository;
@@ -93,10 +89,11 @@ public class AuthUserService {
                 .authenticate(new UsernamePasswordAuthenticationToken(user.getUsername(), user.getPassword()));
 
         if (authentication.isAuthenticated()) {
-            Map<String, String> result = new java.util.HashMap<>();
-            result.put("token", jwtService.generateToken(user.getUsername()));
-
             AuthUserEntity fullAuthUser = authRepo.findByUsername(user.getUsername());
+            Map<String, String> result = new java.util.HashMap<>();
+            // Use userId as the universal identifier for JWT sub claim
+            result.put("token", jwtService.generateToken(String.valueOf(fullAuthUser.getUserId())));
+
             if (fullAuthUser != null) {
                 result.put("userId", String.valueOf(fullAuthUser.getUserId()));
             }
@@ -132,7 +129,8 @@ public class AuthUserService {
             userData.setPicUrl(picture);
 
             Map<String, String> result = new java.util.HashMap<>();
-            result.put("token", jwtService.generateToken(googleId));
+            // Use userId instead of email for the sub claim
+            result.put("token", jwtService.generateToken(String.valueOf(authUserData.getUserId())));
             result.put("userId", String.valueOf(authUserData.getUserId()));
             return result;
             // accept
@@ -176,6 +174,7 @@ public class AuthUserService {
         authUserData.setId(IdGenerator.generateId()); // Generate ID for AuthUserEntity
         authUserData.setPassword(null);
         authUserData.setEmail(email);
+        // Keep the original display name as the username
         authUserData.setUsername(name);
         authUserData.setProvider(AuthProvider.GOOGLE);
         authUserData.setProviderId(googleId);
@@ -183,10 +182,8 @@ public class AuthUserService {
 
         authRepo.save(authUserData);
 
-        System.out.println(email);
-        System.out.println(name);
-
-        return jwtService.generateToken(googleId);
+        // Generate token using userId as the subject
+        return jwtService.generateToken(String.valueOf(id));
 
     }
 }

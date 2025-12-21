@@ -45,17 +45,14 @@ public class UserRoutes {
         // Get JWT token
         String token = authHeader.substring(7); // Remove "Bearer " prefix
 
-        // Get the google id
-        String googleId = jwtService.extractUsername(token); // This gets the 'sub' (Google ID)
+        // Get the userId from the token's 'sub' claim
+        String userIdStr = jwtService.extractUsername(token);
+        Long userId = Long.parseLong(userIdStr);
 
-        // Load the authentication data of the user using the google id
-        AuthUserEntity authUser = authUserRepository.findByProviderId(googleId);
+        // Load the authentication data of the user using the userId
+        AuthUserEntity authUser = authUserRepository.findByUserId(userId);
         if (authUser == null) {
-            // Try by username if not found by provider ID
-            authUser = authUserRepository.findByUsername(googleId);
-            if (authUser == null) {
-                throw new RuntimeException("User not found");
-            }
+            throw new RuntimeException("User not found for userId: " + userId);
         }
 
         User user = this.userService.getUser(authUser.getUserId());
@@ -70,7 +67,7 @@ public class UserRoutes {
 
     @GetMapping("/{user_id}/events")
     public List<EventDTO> getUserEvents(@PathVariable Long user_id, @RequestParam int count, @RequestParam int offset,
-                                        @RequestHeader("Authorization") String authHeader) {
+            @RequestHeader("Authorization") String authHeader) {
         Long requestingUserId = authHelper.extractUserId(authHeader);
         List<Event> events = userService.getUserEvents(user_id, count, offset);
         return userSpecificEventService.enrichEventsForUser(events, requestingUserId);

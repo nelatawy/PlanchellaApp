@@ -17,12 +17,22 @@ public class UserDetailsServices implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        AuthUserEntity users = userRepo.findByUsername(username);
-        if (users == null) {
-            users = userRepo.findByProviderId(username);
-            if (users == null)
-                throw new UsernameNotFoundException(username + " not found");
+        // The "username" here is actually the userId string from the JWT sub claim
+        try {
+            Long userId = Long.parseLong(username);
+            AuthUserEntity user = userRepo.findByUserId(userId);
+            if (user != null) {
+                return new UserPrincipal(user);
+            }
+        } catch (NumberFormatException e) {
+            // Fallback for local logins where actual username might be used during initial
+            // authentication
+            AuthUserEntity userByUsername = userRepo.findByUsername(username);
+            if (userByUsername != null) {
+                return new UserPrincipal(userByUsername);
+            }
         }
-        return new UserPrincipal(users);
+
+        throw new UsernameNotFoundException(username + " not found");
     }
 }

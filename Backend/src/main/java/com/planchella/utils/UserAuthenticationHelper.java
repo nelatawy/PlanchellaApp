@@ -37,9 +37,7 @@ public class UserAuthenticationHelper {
         // Extract the identifier from the token (Google ID or username)
         String identifier = jwtService.extractUsername(token);
 
-        // Find the auth user by provider ID (for Google auth) or username (for local
-        // auth)
-        AuthUserEntity authUser = authUserRepository.findByProviderId(identifier);
+        AuthUserEntity authUser = authUserRepository.findByUserId(Long.parseLong(identifier));
         if (authUser == null) {
             // Try by username if not found by provider ID (for local authentication)
             authUser = authUserRepository.findByUsername(identifier);
