@@ -6,6 +6,8 @@ import { EventType } from '../models/Enums';
 import { EventData } from '../models/event-data';
 import { EventDisplayData } from '../models/event-display-data';
 import { Router } from '@angular/router';
+import { EventDataService } from '../services/event-data-service';
+import { ToastService } from '../services/toast.service';
 
 @Component({
   selector: 'app-event-card',
@@ -24,9 +26,12 @@ export class EventCard implements OnInit {
 
   @Output() cardClick = new EventEmitter<number>();
 
-  constructor(private elementRef: ElementRef, private router: Router) {
-
-  }
+  constructor(
+    private elementRef: ElementRef,
+    private router: Router,
+    private eventDataService: EventDataService,
+    private toastService: ToastService
+  ) { }
 
   navigateToDetails() {
     if (this.displayData?.event.id) {
@@ -35,12 +40,10 @@ export class EventCard implements OnInit {
     }
   }
 
-
-
-
   upVote: number = 0;
   downVote: number = 0;
   star: boolean = false;
+  userVoteState: 'upvote' | 'downvote' | 'none' = 'none';
 
   @Input()
   displayData?: EventDisplayData = undefined;
@@ -54,23 +57,73 @@ export class EventCard implements OnInit {
     }
   }
 
-
-
   protected readonly EventSize = EventSize;
 
-  upvote() {
-    this.upVote++;
+  async upvote() {
+    if (!this.displayData?.event.id) return;
+
+    try {
+      // If already upvoted, remove the vote
+      if (this.userVoteState === 'upvote') {
+        await this.eventDataService.unvoteEvent(this.displayData.event.id);
+        this.upVote--;
+        this.userVoteState = 'none';
+        this.toastService.info('Vote removed');
+      } else {
+        // If downvoted, first remove downvote
+        if (this.userVoteState === 'downvote') {
+          this.downVote--;
+        }
+
+        await this.eventDataService.upvoteEvent(this.displayData.event.id);
+        this.upVote++;
+        this.userVoteState = 'upvote';
+        this.toastService.success('Upvoted!');
+      }
+    } catch (error) {
+      console.error('Error upvoting event:', error);
+      this.toastService.error('Failed to upvote event');
+    }
   }
 
-  downvote() {
-    this.downVote++;
+  async downvote() {
+    if (!this.displayData?.event.id) return;
+
+    try {
+      // If already downvoted, remove the vote
+      if (this.userVoteState === 'downvote') {
+        await this.eventDataService.unvoteEvent(this.displayData.event.id);
+        this.downVote--;
+        this.userVoteState = 'none';
+        this.toastService.info('Vote removed');
+      } else {
+        // If upvoted, first remove upvote
+        if (this.userVoteState === 'upvote') {
+          this.upVote--;
+        }
+
+        await this.eventDataService.downvoteEvent(this.displayData.event.id);
+        this.downVote++;
+        this.userVoteState = 'downvote';
+        this.toastService.success('Downvoted!');
+      }
+    } catch (error) {
+      console.error('Error downvoting event:', error);
+      this.toastService.error('Failed to downvote event');
+    }
   }
 
-  addStar() {
-    this.star = !this.star;
-  }
-  removeStar() {
-    this.star = !this.star;
+  async toggleStar() {
+    if (!this.displayData?.event.id) return;
+
+    try {
+      await this.eventDataService.toggleStarEvent(this.displayData.event.id);
+      this.star = !this.star;
+      this.toastService.success(this.star ? 'Event starred!' : 'Star removed');
+    } catch (error) {
+      console.error('Error toggling star:', error);
+      this.toastService.error('Failed to star event');
+    }
   }
 
   onPointerEnter() {
@@ -111,25 +164,3 @@ export class EventCard implements OnInit {
 
   }
 }
-// @Input()
-// eventSize: string = 'MID';
-// // eventSize: EventSize = EventSizentSize.MID; // dynamic input
-//
-// @Input()
-// eventType : string = EventType.HACKATHON;
-//
-// @Input()
-// title: string = 'Event';
-//
-// @Input()
-// creationDate: string = '2 days ago';
-//
-// @Input()
-// userName: string = 'Mazen';
-//
-// @Input()
-// profile_pic_url: string = "" ;
-//
-// @Input()
-// description: string = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.";
-//

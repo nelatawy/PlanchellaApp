@@ -33,13 +33,9 @@
       <i class="fa-solid fa-arrow-down"></i>
       <span class="count">{{ downVote }}</span>
     </button>
-    @if (star) {
-    <button class="btn btn-outline-warning btn-lg fa-star fa-solid"
-      (click)="addStar(); $event.stopPropagation()"></button>
-    } @else {
-    <button class="btn btn-outline-warning btn-lg fa-star fa-regular"
-      (click)="removeStar(); $event.stopPropagation()"></button>
-    }
+    <button class="btn btn-outline-warning btn-lg" [class.fa-solid]="star" [class.fa-regular]="!star" class="fa-star"
+      (click)="toggleStar(); $event.stopPropagation()">
+    </button>
   </div>
 
 </div>

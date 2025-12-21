@@ -97,4 +97,68 @@ export class EventDataService {
       throw err;
     }
   }
+
+  // Upvote event (POST)
+  async upvoteEvent(eventId: number): Promise<any> {
+    try {
+      const result = await firstValueFrom(
+        this.http.post(`${this.apiUrl}/${eventId}/upvote`, {}, {
+          headers: this.getHeaders()
+        })
+      );
+      console.log('Event upvoted successfully:', result);
+      return result;
+    } catch (err) {
+      console.error('Error upvoting event:', err);
+      throw err;
+    }
+  }
+
+  // Downvote event (POST)
+  async downvoteEvent(eventId: number): Promise<any> {
+    try {
+      const result = await firstValueFrom(
+        this.http.post(`${this.apiUrl}/${eventId}/downvote`, {}, {
+          headers: this.getHeaders()
+        })
+      );
+      console.log('Event downvoted successfully:', result);
+      return result;
+    } catch (err) {
+      console.error('Error downvoting event:', err);
+      throw err;
+    }
+  }
+
+  // Remove vote from event (POST)
+  async unvoteEvent(eventId: number): Promise<any> {
+    try {
+      const result = await firstValueFrom(
+        this.http.post(`${this.apiUrl}/${eventId}/unvote`, {}, {
+          headers: this.getHeaders()
+        })
+      );
+      console.log('Vote removed successfully:', result);
+      return result;
+    } catch (err) {
+      console.error('Error removing vote:', err);
+      throw err;
+    }
+  }
+
+  // Toggle star on event (POST)
+  async toggleStarEvent(eventId: number): Promise<any> {
+    try {
+      const result = await firstValueFrom(
+        this.http.post(`${this.apiUrl}/${eventId}/star`, {}, {
+          headers: this.getHeaders()
+        })
+      );
+      console.log('Event star toggled successfully:', result);
+      return result;
+    } catch (err) {
+      console.error('Error toggling star:', err);
+      throw err;
+    }
+  }
 }
