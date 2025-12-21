@@ -87,18 +87,17 @@
 
 :host.small {
   flex: 1;
-  /*grid-column: span 3;*/
-  /*min-width: 50rem;*/
+  min-width: 300px;
+  max-width: 400px;
 }
 
 :host.medium {
   flex: 2;
-  /*min-width: 50rem;*/
-  /*grid-column: span 2;*/
+  min-width: 450px;
+  max-width: 600px;
 }
 
 :host.large {
-  flex: 5;
-  /*min-width: 50rem;*/
-  /*grid-column: span 1;*/
+  flex: 3;
+  min-width: 650px;
 }

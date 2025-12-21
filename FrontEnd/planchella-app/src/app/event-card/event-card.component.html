@@ -25,10 +25,14 @@
   </div>
 
   <div class="bottom-bar">
-    <button class="btn btn-outline-primary btn-lg fa-solid fa-thumbs-up" (click)="$event.stopPropagation()"> {{ upVote
-      }}</button>
-    <button class="btn btn-outline-danger btn-lg fa-solid fa-thumbs-down" (click)="$event.stopPropagation()"> {{
-      downVote }}</button>
+    <button class="btn btn-outline-primary btn-lg" (click)="upvote(); $event.stopPropagation()">
+      <i class="fa-solid fa-arrow-up"></i>
+      <span class="count">{{ upVote }}</span>
+    </button>
+    <button class="btn btn-outline-danger btn-lg" (click)="downvote(); $event.stopPropagation()">
+      <i class="fa-solid fa-arrow-down"></i>
+      <span class="count">{{ downVote }}</span>
+    </button>
     @if (star) {
     <button class="btn btn-outline-warning btn-lg fa-star fa-solid"
       (click)="addStar(); $event.stopPropagation()"></button>

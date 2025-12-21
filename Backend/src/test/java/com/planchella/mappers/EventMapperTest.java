@@ -41,15 +41,8 @@ public class EventMapperTest {
         attachments.add(new AttachmentMetadata("att2", "file2.png", null, 200));
 
         Event domainEvent = new Event(
-                10L,
-                EventType.HACKATHON,
-                EventSize.SMALL,
-                1L,
-                2L,
-                "Title",
-                "Description",
-                "2023-10-10",
-                attachments);
+
+        );
 
         // Act
         EventEntity entity = EventMapper.domainToEntity(domainEvent, session);

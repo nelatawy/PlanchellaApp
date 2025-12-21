@@ -58,6 +58,14 @@ export class EventCard implements OnInit {
 
   protected readonly EventSize = EventSize;
 
+  upvote() {
+    this.upVote++;
+  }
+
+  downvote() {
+    this.downVote++;
+  }
+
   addStar() {
     this.star = !this.star;
   }
