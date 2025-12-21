@@ -41,6 +41,7 @@ public class MockEventRepository implements IEventRepository {
                 3L,
                 "title",
                 "description",
+                "mock-url",
                 now,
                 now,
                 0L,

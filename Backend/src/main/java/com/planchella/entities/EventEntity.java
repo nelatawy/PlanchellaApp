@@ -44,6 +44,9 @@ public class EventEntity {
     @Column(name = "description")
     private String description;
 
+    @Column(name = "custom_url")
+    private String customUrl;
+
     @Column(name = "creation_date")
     private String creationDate;
 
@@ -77,7 +80,7 @@ public class EventEntity {
     private List<AttachmentEntity> attachments;
 
     public EventEntity(EventType eventType, EventSize eventSize, UserEntity author,
-            String title, String description,
+            String title, String description, String customUrl,
             String creationDate, String expirationTime, Long upvoteCount, Long downvoteCount,
             boolean hasTime, String eventStartDate, String eventEndDate,
             boolean hasLocation, String location,
@@ -88,6 +91,7 @@ public class EventEntity {
         this.title = title;
         this.author = author;
         this.description = description;
+        this.customUrl = customUrl;
         this.creationDate = creationDate;
         this.upvoteCount = upvoteCount;
         this.downvoteCount = downvoteCount;
@@ -115,6 +119,7 @@ public class EventEntity {
                 ", community=" + community +
                 ", title='" + title + '\'' +
                 ", description='" + description + '\'' +
+                ", customUrl='" + customUrl + '\'' +
                 ", creationDate='" + creationDate + '\'' +
                 ", upvoteCount=" + upvoteCount +
                 ", downvoteCount=" + downvoteCount +

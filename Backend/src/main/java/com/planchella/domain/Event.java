@@ -27,6 +27,8 @@ public class Event {
 
     private String description;
 
+    private String customUrl;
+
     private String creationDate;
 
     private String expirationDate;
@@ -48,7 +50,7 @@ public class Event {
     private List<AttachmentMetadata> attachments;
 
     public Event(Long id, EventType eventType, EventSize eventSize, Long authorId, Long communityId,
-            String title, String description,
+            String title, String description, String customUrl,
             String creationDate, String expirationDate,
             Long upvoteCount, Long downvoteCount,
             boolean hasTime, String eventStartDate, String eventEndDate,
@@ -60,6 +62,7 @@ public class Event {
         this.title = title;
         this.authorId = authorId;
         this.description = description;
+        this.customUrl = customUrl;
         this.creationDate = creationDate;
         this.expirationDate = expirationDate;
         this.communityId = communityId;
@@ -82,6 +85,7 @@ public class Event {
         this.eventSize = event.eventSize != null ? event.eventSize : this.eventSize;
         this.title = event.title != null ? event.title : this.title;
         this.description = event.description != null ? event.description : this.description;
+        this.customUrl = event.customUrl != null ? event.customUrl : this.customUrl;
         this.attachments = event.attachments != null ? event.attachments : this.attachments;
         this.eventStartDate = event.eventStartDate != null ? event.eventStartDate : this.eventStartDate;
         this.eventEndDate = event.eventEndDate != null ? event.eventEndDate : this.eventEndDate;
@@ -96,6 +100,7 @@ public class Event {
                 1L,
                 "sample test",
                 "Description",
+                "custom-url",
                 now,
                 now,
                 10L,
@@ -118,6 +123,7 @@ public class Event {
                 ", communityId=" + communityId +
                 ", title='" + title + '\'' +
                 ", description='" + description + '\'' +
+                ", customUrl='" + customUrl + '\'' +
                 ", creationDate='" + creationDate + '\'' +
                 ", expirationDate='" + expirationDate + '\'' +
                 ", upvoteCount=" + upvoteCount +

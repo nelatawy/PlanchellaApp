@@ -17,6 +17,7 @@ public class EventDTO {
     public String title;
 
     public String description;
+    public String customUrl;
     public String creationDate;
     public String expirationDate;
 
@@ -38,7 +39,8 @@ public class EventDTO {
     public List<AttachmentMetadata> attachments;
 
     public EventDTO(Long id, EventType eventType, EventSize eventSize, Long author_id, Long community_id, String title,
-            String description, String creationDate, String expirationDate, Long upvoteCount, Long downvoteCount,
+            String description, String customUrl, String creationDate, String expirationDate, Long upvoteCount,
+            Long downvoteCount,
             boolean hasTime, String eventStartDate, String eventEndDate,
             boolean hasLocation, String location,
             boolean isStarred, boolean isUpvoted, boolean isDownVoted,
@@ -50,6 +52,7 @@ public class EventDTO {
         this.communityId = community_id;
         this.title = title;
         this.description = description;
+        this.customUrl = customUrl;
         this.creationDate = creationDate;
         this.expirationDate = expirationDate;
         this.upvoteCount = upvoteCount;

@@ -20,6 +20,7 @@ public class EventMapper {
         e.setAuthor(session.getReference(UserEntity.class, event.getAuthorId()));
         e.setCommunity(session.getReference(CommunityEntity.class, event.getCommunityId()));
         e.setTitle(event.getTitle());
+        e.setCustomUrl(event.getCustomUrl());
         e.setCreationDate(event.getCreationDate());
         e.setExpirationTime(event.getExpirationDate());
         e.setEventSize(event.getEventSize());
@@ -52,6 +53,7 @@ public class EventMapper {
                 e.getCommunity().getId(),
                 e.getTitle(),
                 e.getDescription(),
+                e.getCustomUrl(),
                 e.getCreationDate(),
                 e.getExpirationTime(),
                 e.getUpvoteCount(),
@@ -75,6 +77,7 @@ public class EventMapper {
                 event.getCommunityId(),
                 event.getTitle(),
                 event.getDescription(),
+                event.getCustomUrl(),
                 event.getCreationDate(),
                 event.getExpirationDate(),
                 event.getUpvoteCount(),
@@ -98,6 +101,7 @@ public class EventMapper {
                 e.communityId,
                 e.title,
                 e.description,
+                e.customUrl,
                 e.creationDate,
                 e.expirationDate,
                 e.upvoteCount,
