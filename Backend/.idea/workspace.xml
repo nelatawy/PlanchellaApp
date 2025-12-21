@@ -5,74 +5,86 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="cb617cee-55b1-4383-8683-df2e1630516a" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/application.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/planchella/Configs/BeanConfig.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/planchella/Configs/BeanConfig.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/planchella/Configs/HibernateUtil.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/planchella/Configs/HibernateUtil.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/planchella/Configs/SecurityConfig.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/planchella/Configs/SecurityConfig.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/planchella/DTOs/CommunityDTO.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/planchella/DTOs/CommunityDTO.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/planchella/DTOs/EventDTO.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/planchella/DTOs/EventDTO.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/planchella/DTOs/UserDTO.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/planchella/DTOs/UserDTO.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/planchella/PlanchellaApplication.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/planchella/PlanchellaApplication.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/planchella/Services/AttachmentService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/planchella/Services/AttachmentService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/planchella/Services/AuthUserService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/planchella/Services/AuthUserService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/planchella/Services/CommunityService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/planchella/Services/CommunityService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/planchella/Services/EventService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/planchella/Services/EventService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/planchella/Services/JWTService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/planchella/Services/JWTService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/planchella/Services/UserDetailsServices.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/planchella/Services/UserDetailsServices.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/planchella/Services/UserService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/planchella/Services/UserService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/planchella/domain/AttachmentMetadata.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/planchella/domain/AttachmentMetadata.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/planchella/domain/Community.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/planchella/domain/Community.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/planchella/domain/Event.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/planchella/domain/Event.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/planchella/domain/User.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/planchella/domain/User.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/planchella/domain/UserPrincipal.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/planchella/domain/UserPrincipal.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/planchella/encryption/EncryptedFilesManager.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/planchella/encryption/EncryptedFilesManager.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/planchella/encryption/EncryptedInputStream.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/planchella/encryption/EncryptedInputStream.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/planchella/encryption/EncryptedOutputStream.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/planchella/encryption/EncryptedOutputStream.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/planchella/entities/AttachmentEntity.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/planchella/entities/AttachmentEntity.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/planchella/entities/AuthUserEntity.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/planchella/entities/AuthUserEntity.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/planchella/entities/CommunityEntity.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/planchella/entities/CommunityEntity.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/planchella/entities/EventEntity.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/planchella/entities/EventEntity.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/planchella/entities/MembershipEntity.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/planchella/entities/MembershipEntity.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/planchella/entities/UserEntity.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/planchella/entities/UserEntity.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/planchella/enums/AuthProvider.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/planchella/enums/AuthProvider.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/planchella/enums/EventSize.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/planchella/enums/EventSize.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/planchella/enums/EventType.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/planchella/enums/EventType.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/planchella/enums/MembershipType.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/planchella/enums/MembershipType.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/planchella/enums/MimeType.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/planchella/enums/MimeType.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/planchella/mappers/AttachmentMapper.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/planchella/mappers/AttachmentMapper.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/planchella/mappers/CommunityMapper.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/planchella/mappers/CommunityMapper.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/planchella/mappers/EventMapper.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/planchella/mappers/EventMapper.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/planchella/mappers/UserMapper.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/planchella/mappers/UserMapper.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/planchella/registration/authentication/IAuthenticator.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/planchella/registration/authentication/IAuthenticator.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/planchella/registration/validation/IValidator.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/planchella/registration/validation/IValidator.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/planchella/registration/validation/MockValidator.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/planchella/registration/validation/MockValidator.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/planchella/registration/validation/SimpleValidator.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/planchella/registration/validation/SimpleValidator.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/planchella/registration/validation/ValidationErrors.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/planchella/registration/validation/ValidationErrors.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/planchella/registration/validation/ValidationResult.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/planchella/registration/validation/ValidationResult.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/planchella/repositories/attachments/AttachmentRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/planchella/repositories/attachments/AttachmentRepository.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/planchella/repositories/communities/DBCommunityRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/planchella/repositories/communities/DBCommunityRepository.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/planchella/repositories/communities/ICommunityRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/planchella/repositories/communities/ICommunityRepository.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/planchella/repositories/communities/MockCommunityRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/planchella/repositories/communities/MockCommunityRepository.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/planchella/repositories/events/DBEventRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/planchella/repositories/events/DBEventRepository.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/planchella/repositories/events/IEventRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/planchella/repositories/events/IEventRepository.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/planchella/repositories/events/MockEventRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/planchella/repositories/events/MockEventRepository.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/planchella/repositories/memberships/DBMembershipRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/planchella/repositories/memberships/DBMembershipRepository.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/planchella/repositories/memberships/IMembershipRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/planchella/repositories/memberships/IMembershipRepository.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/planchella/repositories/users/AuthUserRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/planchella/repositories/users/AuthUserRepository.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/planchella/repositories/users/DBUserRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/planchella/repositories/users/DBUserRepository.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/planchella/repositories/users/IUserRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/planchella/repositories/users/IUserRepository.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/planchella/repositories/users/MockUserRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/planchella/repositories/users/MockUserRepository.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/planchella/routes/AttachmentRoutes.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/planchella/routes/AttachmentRoutes.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/planchella/routes/CommunityRoutes.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/planchella/routes/CommunityRoutes.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/planchella/routes/EventRoutes.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/planchella/routes/EventRoutes.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/planchella/routes/MembershipRoutes.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/planchella/routes/MembershipRoutes.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/planchella/routes/UserRoutes.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/planchella/routes/UserRoutes.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/planchella/utils/UserAuthenticationHelper.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/planchella/utils/UserAuthenticationHelper.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/test-classes/com/planchella/PlanchellaApplicationTests.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/test-classes/com/planchella/mappers/EventMapperTest.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/application.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/planchella/Configs/BeanConfig.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/planchella/Configs/HibernateUtil.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/planchella/Configs/SecurityConfig.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/planchella/DTOs/CommunityDTO.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/planchella/DTOs/EventDTO.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/planchella/DTOs/UserDTO.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/planchella/Filters/JWTFilter.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/planchella/PlanchellaApplication.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/planchella/Services/AttachmentService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/planchella/Services/AuthUserService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/planchella/Services/CommunityService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/planchella/Services/EventService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/planchella/Services/JWTService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/planchella/Services/MembershipService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/planchella/Services/SearchService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/planchella/Services/UserDetailsServices.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/planchella/Services/UserService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/planchella/Services/UserSpecificEventService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/planchella/domain/AttachmentMetadata.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/planchella/domain/Community.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/planchella/domain/Event.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/planchella/domain/Membership.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/planchella/domain/User.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/planchella/domain/UserPrincipal.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/planchella/encryption/EncryptedFilesManager.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/planchella/encryption/EncryptedInputStream.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/planchella/encryption/EncryptedOutputStream.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/planchella/entities/AttachmentEntity.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/planchella/entities/AuthUserEntity.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/planchella/entities/CommunityEntity.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/planchella/entities/EventEntity.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/planchella/entities/MembershipEntity.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/planchella/entities/StarEntity.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/planchella/entities/UserEntity.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/planchella/entities/VoteEntity.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/planchella/enums/AuthProvider.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/planchella/enums/EventSize.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/planchella/enums/EventType.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/planchella/enums/MembershipType.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/planchella/enums/MimeType.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/planchella/enums/VoteType.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/planchella/mappers/AttachmentMapper.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/planchella/mappers/CommunityMapper.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/planchella/mappers/EventMapper.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/planchella/mappers/MembershipMapper.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/planchella/mappers/UserMapper.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/planchella/registration/authentication/IAuthenticator.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/planchella/registration/validation/IValidator.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/planchella/registration/validation/MockValidator.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/planchella/registration/validation/SimpleValidator.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/planchella/registration/validation/ValidationErrors.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/planchella/registration/validation/ValidationResult.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/planchella/repositories/attachments/AttachmentRepository.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/planchella/repositories/communities/DBCommunityRepository.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/planchella/repositories/communities/ICommunityRepository.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/planchella/repositories/communities/MockCommunityRepository.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/planchella/repositories/events/DBEventRepository.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/planchella/repositories/events/IEventRepository.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/planchella/repositories/events/MockEventRepository.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/planchella/repositories/events/StarRepository.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/planchella/repositories/events/VoteRepository.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/planchella/repositories/memberships/DBMembershipRepository.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/planchella/repositories/memberships/IMembershipRepository.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/planchella/repositories/users/AuthUserRepository.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/planchella/repositories/users/DBUserRepository.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/planchella/repositories/users/IUserRepository.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/planchella/repositories/users/MockUserRepository.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/planchella/routes/AttachmentRoutes.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/planchella/routes/AuthUserRoutes.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/planchella/routes/CommunityRoutes.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/planchella/routes/EventRoutes.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/planchella/routes/MembershipRoutes.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/planchella/routes/SearchRoutes.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/planchella/routes/UserRoutes.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/planchella/utils/IdGenerator.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/planchella/utils/UserAuthenticationHelper.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/hibernate.cfg.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" />
     </list>
     <list id="450383f9-995f-4420-bba2-b13459a5b348" name="Changes by Moham" comment="" />
     <option name="SHOW_DIALOG" value="false" />
@@ -167,7 +179,7 @@
       <workItem from="1766184339759" duration="6780000" />
       <workItem from="1766228237811" duration="18287000" />
       <workItem from="1766273384616" duration="6198000" />
-      <workItem from="1766310556883" duration="30833000" />
+      <workItem from="1766310556883" duration="31390000" />
     </task>
     <servers />
   </component>
