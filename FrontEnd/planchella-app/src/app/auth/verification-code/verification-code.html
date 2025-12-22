@@ -4,25 +4,16 @@
     <h2>Verification Code</h2>
     <form #f="ngForm" (ngSubmit)="onSubmit(f)" id="formVer">
 
-            <label for="verificationCode"
-                   id="labelVerification" class="inputLabel" style="margin-top: 1.5rem; text-align: center">
-              We have sent verification code to you email
-            </label>
+        <label for="verificationCode" id="labelVerification" class="inputLabel"
+            style="margin-top: 1.5rem; text-align: center">
+            We have sent verification code to you email
+        </label>
 
-            <input type="text"
-                   class="inputField form-control"
-                   id="verificationCode"
-                   name="verificationCode"
-                   [(ngModel)]="code"
-                   required
-                   placeholder="Enter Verification Code Here"
-                   style="margin-bottom: 1.5rem;"
-            >
+        <input type="text" class="inputField form-control" id="verificationCode" name="verificationCode"
+            [(ngModel)]="code" required placeholder="Enter Verification Code Here" style="margin-bottom: 1.5rem;">
 
-        <button type="submit"
-                [disabled]="isCodeNotValid(f)"
-                class="commonButtonTheme">
-                Submit
+        <button type="submit" [disabled]="isCodeNotValid(f)" class="commonButtonTheme">
+            Submit
         </button>
     </form>
 </div>

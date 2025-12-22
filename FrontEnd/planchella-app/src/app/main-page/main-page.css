@@ -17,9 +17,11 @@
 .page-content {
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: flex-start;
+  /* Ensure they touch */
   width: 100vw;
   flex: 1;
+  background: var(--bg-white);
   /* Take remaining height instead of fixed 100vh */
   overflow: hidden;
   /* Prevent spillover */

@@ -116,7 +116,7 @@
 }
 
 .event-title {
-  font-size: var(--font-size-x-lg);
+  font-size: var(--font-size-lg);
   font-family: var(--font-wide-bold);
   color: var(--primary-color-dark);
   margin: 0;

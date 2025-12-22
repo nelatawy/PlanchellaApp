@@ -15,24 +15,36 @@
   font-weight: bold;
 }
 
+.bottom-bar {
+  justify-content: space-between;
+  gap: var(--gap-sm);
+  padding: var(--padding-lg);
+}
+
+.action-group {
+  display: flex;
+  gap: var(--gap-sm);
+  align-items: center;
+}
+
 .bottom-bar button {
   cursor: pointer;
-  width: 100%;
-  padding: var(--padding-med);
-  margin: 0.25rem;
+  width: fit-content;
+  padding: var(--padding-sm) var(--padding-med);
+  margin: 0;
   border: 2px solid transparent;
   background: transparent;
   transition: all 0.2s ease;
   border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 /* Upvote button */
 .upvote-btn {
   color: #6c757d;
-  display: flex;
-  align-items: center;
   gap: 0.5rem;
-  text-align: center;
 }
 
 .upvote-btn:hover,
@@ -45,10 +57,7 @@
 /* Downvote button */
 .downvote-btn {
   color: #6c757d;
-  display: flex;
-  align-items: center;
   gap: 0.5rem;
-  text-align: center;
 }
 
 .downvote-btn:hover,
@@ -71,36 +80,25 @@
 }
 
 .external-link {
-  position: absolute;
-  top: 10px;
-  right: 175px;
-  /* Adjust based on profile pic and padding */
-  font-size: 1.4rem;
-  color: var(--text-color-light);
+  font-size: 2.5rem;
+  color: whitesmoke;
   transition: all 0.2s ease;
   z-index: 10;
-  padding: 5px;
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.1);
+  padding: var(--padding-lg);
+  background-color: var(--secondary-color-mid);
+  border-radius: 30%;
+  text-decoration: none;
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 35px;
-  height: 35px;
+  width: 50px;
+  height: 50px;
 }
 
 .external-link:hover {
   color: var(--accent-color);
   background: rgba(255, 255, 255, 0.2);
   transform: scale(1.1);
-}
-
-.LARGE .external-link {
-  right: 190px;
-}
-
-.MID .external-link {
-  right: 180px;
 }
 
 .card {
@@ -115,12 +113,13 @@
   box-shadow: var(--card-shadow);
   overflow: hidden;
   will-change: transform;
-  min-width: 25rem;
+  width: 100%;
 }
 
 .card:hover {
   opacity: 100%;
 }
+
 
 .card-title {
   font-family: var(--font-wide-bold), sans-serif;
@@ -146,12 +145,13 @@
 .creation-date {
   font-size: var(--font-size-sm);
   margin: 0;
-  color: var(--secondary-color-mid);
+  color: var(--secondary-color-muted);
 }
 
 .remaining-time {
-  font-size: var(--font-size-sm);
-  color: #ffc107;
+  font-size: var(--font-size-xs);
+  color: #D97706;
+  /* Amber-600 */
   font-weight: bold;
 }
 
@@ -167,14 +167,14 @@
 
 .image-container {
   width: 100%;
-  max-width: 200px;
-  height: 120px;
+  max-width: 300px;
+  height: 180px;
   overflow: hidden;
-  border-radius: var(--radius-sm);
+  border-radius: var(--radius-med);
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: var(--secondary-color-light);
+  background-color: var(--bg-gray);
   margin-bottom: var(--padding-sm);
 }
 
@@ -183,19 +183,19 @@
   height: 100%;
   object-fit: contain;
   display: block;
-  background-color: var(--bg-gray);
-  border-radius: var(--radius-med);
 }
 
 .event-bar {
   font-family: var(--font-wide-bold), sans-serif;
-  color: rgba(245, 245, 245, 0.68);
-  font-size: var(--event-type-font-size);
-  font-weight: 300;
+  color: rgba(245, 245, 245, 0.85);
+  font-size: var(--font-size-xs);
+  font-weight: 600;
   width: 100%;
   text-align: start;
-  padding: var(--padding-x-sm);
-  border-radius: 0 0 1.5rem 0;
+  padding: 0.25rem 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  border-radius: 0 0 1rem 0;
 }
 
 .hackathon {
@@ -211,19 +211,30 @@
 }
 
 :host.small {
-  flex: 1 1 calc(33.333% - var(--gap-md));
-  min-width: 300px;
+  flex: 1 1 300px;
   max-width: 400px;
 }
 
 :host.medium {
-  flex: 1 1 calc(50% - var(--gap-md));
-  min-width: 450px;
-  max-width: 600px;
+  flex: 2 1 500px;
+  max-width: 800px;
 }
 
 :host.large {
-  flex: 1 1 100%;
-  min-width: 650px;
-  width: 100%;
+  flex: 3 1 100%;
+  max-width: 1200px;
+}
+
+@media (max-width: 768px) {
+
+  :host.small,
+  :host.medium,
+  :host.large {
+    flex: 1 1 100%;
+    max-width: 100%;
+  }
+
+  .image-container {
+    height: 150px;
+  }
 }

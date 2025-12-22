@@ -10,7 +10,7 @@
   /* Full width */
   margin: 0 auto;
   min-height: calc(100vh - 4rem);
-  background: linear-gradient(to bottom, #FAFBFC 0%, #F3F4F6 100%);
+  background: transparent;
 }
 
 /* Billboard Title */

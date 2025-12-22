@@ -9,6 +9,7 @@ import { CommunityData } from '../models/community-data';
 import { CommunityBuilder } from '../community-builder/community-builder';
 import { EventComponent } from '../event/event';
 import { EventData } from '../models/event-data';
+import { ToastService } from '../services/toast.service';
 
 @Component({
   selector: 'app-main-page',
@@ -33,7 +34,7 @@ export class MainPage {
   selectedEventId: number | undefined = undefined;
   isEventDetailsOpen = false;
 
-  constructor(private sidebarService: SidebarService) {
+  constructor(private sidebarService: SidebarService, private toastService: ToastService) {
     this.sidebarService.open$.subscribe(
       (isOpen: boolean) => {
         this.isOpen = isOpen;
@@ -42,6 +43,10 @@ export class MainPage {
   }
 
   show_creation_page() {
+    if (!this.communityData || !this.communityData.id) {
+      this.toastService.warning("Please select a community first");
+      return;
+    }
     this.overlay.nativeElement.style.opacity = "1";
     this.overlay.nativeElement.style.zIndex = "1000";
     this.eventBuilderElement.nativeElement.style.transform = "translateY(0)";

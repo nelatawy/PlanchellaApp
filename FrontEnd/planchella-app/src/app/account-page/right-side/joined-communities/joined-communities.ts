@@ -21,7 +21,7 @@ export class JoinedCommunitiesPage implements OnInit {
   constructor(
     private userDataService: UserDataService,
     private communityDataService: CommunityDataService
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.loadJoinedCommunities();
@@ -31,18 +31,19 @@ export class JoinedCommunitiesPage implements OnInit {
     try {
       this.loading = true;
       this.error = '';
-      
+
       const userId = Number(localStorage.getItem('userId'));
       this.userId = userId;
 
       // Fetch memberships to see which communities the user joined
       const memberships = await this.userDataService.fetch_user_communities(100, 0, userId);
-      
+      console.log(memberships);
+
       // Fetch community details for each membership
       const communityPromises = memberships.map(membership =>
         this.communityDataService.getCommunity(membership.communityId)
       );
-      
+
       this.communities = await Promise.all(communityPromises);
       this.loading = false;
     } catch (err) {

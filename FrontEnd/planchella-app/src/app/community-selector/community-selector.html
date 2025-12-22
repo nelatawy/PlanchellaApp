@@ -1,58 +1,56 @@
 <div class="container">
-  <div class="container">
-    <div class="header">
-      <div class="title-row">
-        <h2 class="title">Communities</h2>
-      </div>
-      <div class="search-wrapper">
-        <input class="search-input" type="text" placeholder="Search communities..." (input)="onSearch($event)">
-        <button class="search-btn">
-          <i class="fa-solid fa-magnifying-glass"></i>
-        </button>
-      </div>
+  <div class="header">
+    <div class="title-row">
+      <h2 class="title">Communities</h2>
     </div>
-    <div class="communities">
+    <div class="search-wrapper">
+      <input class="search-input" type="text" placeholder="Search communities..." (input)="onSearch($event)">
+      <button class="search-btn">
+        <i class="fa-solid fa-magnifying-glass"></i>
+      </button>
+    </div>
+  </div>
+  <div class="communities">
 
-      @if (isLoading && communities.length === 0) {
-      <div class="loading-state">
-        <div class="spinner"></div>
-        <p>Loading communities...</p>
-      </div>
-      }
+    @if (isLoading && communities.length === 0) {
+    <div class="loading-state">
+      <div class="spinner"></div>
+      <p>Loading communities...</p>
+    </div>
+    }
 
-      <!-- Empty State -->
-      @if (!isLoading && communities.length === 0) {
-      <div class="empty-state">
-        <i class="fa-regular fa-calendar-xmark empty-icon"></i>
-        <h2>No Communities Yet</h2>
-        <p class="empty-subtitle">Check back later for updates!</p>
-      </div>
-      }
+    <!-- Empty State -->
+    @if (!isLoading && communities.length === 0) {
+    <div class="empty-state">
+      <i class="fa-regular fa-calendar-xmark empty-icon"></i>
+      <h2>No Communities Yet</h2>
+      <p class="empty-subtitle">Check back later for updates!</p>
+    </div>
+    }
 
-      <div class="events-grid">
-        <!-- Add Community Placeholder Card -->
-        <div class="add-community-card" (click)="toggleCommunityBuilder()">
-          <div class="dashed-border">
-            <i class="fa-solid fa-plus plus-icon"></i>
-            <span class="add-text">Create New Community</span>
-          </div>
+    <div class="events-grid">
+      <!-- Add Community Placeholder Card -->
+      <div class="add-community-card" (click)="toggleCommunityBuilder()">
+        <div class="dashed-border">
+          <i class="fa-solid fa-plus plus-icon"></i>
+          <span class="add-text">Create New Community</span>
         </div>
-
-        @if (communities.length > 0) {
-        @for (communityData of communities; track $index) {
-        <app-community-card class="comm-card" [cardData]="communityData"
-          (selection)="emit_selection($event)"></app-community-card>
-        }
-        }
       </div>
 
-      @if (isLoading) {
-      <div class="loading-more">
-        <div class="spinner-small"></div>
-        <span>Loading more communities...</span>
-      </div>
+      @if (communities.length > 0) {
+      @for (communityData of communities; track $index) {
+      <app-community-card class="comm-card" [cardData]="communityData"
+        (selection)="emit_selection($event)"></app-community-card>
       }
-
+      }
     </div>
+
+    @if (isLoading) {
+    <div class="loading-more">
+      <div class="spinner-small"></div>
+      <span>Loading more communities...</span>
+    </div>
+    }
+
   </div>
 </div>

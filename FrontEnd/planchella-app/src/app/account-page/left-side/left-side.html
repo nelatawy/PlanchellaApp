@@ -4,17 +4,17 @@
   <div class="user-info">
     <h2>{{ user!.name }}</h2>
     <h3>{{ user!.bio }}</h3>
-    
+
     <div class="icon-text">
       <img ngSrc="/organization-icon.svg" alt="Education" height="16" width="16">
       <span>{{ user!.education }}</span>
     </div>
-    
+
     <div class="icon-text">
       <img ngSrc="/location-icon.svg" alt="Location" height="16" width="16">
       <span>{{ user!.address }}</span>
     </div>
-    
+
     <div class="icon-text">
       <img ngSrc="/email-icon.svg" alt="Email" height="16" width="16">
       <span>{{ user!.email }}</span>
@@ -23,7 +23,6 @@
 </div>
 
 <button class="logout-button" (click)="logout()">
-  <span class="icon">🚪</span>
+  <i class="fa-solid fa-right-from-bracket"></i>
   <span>Logout</span>
 </button>
-

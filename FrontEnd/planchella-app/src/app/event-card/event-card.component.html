@@ -13,13 +13,6 @@
     </div>
     <app-profile-pic [hover_text]="displayData.author.name" [pic_href]="displayData.author.picUrl"
       [userId]="displayData.author.id"></app-profile-pic>
-
-    @if (displayData.event.customUrl) {
-    <a [href]="displayData.event.customUrl" target="_blank" class="external-link" (click)="$event.stopPropagation()"
-      title="Open external link">
-      <i [class]="getExternalLinkIcon()"></i>
-    </a>
-    }
   </div>
 
   <div class="content card-body">
@@ -40,19 +33,28 @@
   </div>
 
   <div class="bottom-bar">
-    <button class="btn btn-lg upvote-btn" [class.active]="userVoteState === 'upvote'"
-      (click)="upvote(); $event.stopPropagation()">
-      <i class="fa-solid fa-arrow-up"></i>
-      <span class="count">{{ upVote }}</span>
-    </button>
-    <button class="btn btn-lg downvote-btn" [class.active]="userVoteState === 'downvote'"
-      (click)="downvote(); $event.stopPropagation()">
-      <i class="fa-solid fa-arrow-down"></i>
-      <span class="count">{{ downVote }}</span>
-    </button>
-    <button class="btn btn-lg star-btn" [class.active]="star" (click)="toggleStar(); $event.stopPropagation()">
-      <i [class.fa-solid]="star" [class.fa-regular]="!star" class="fa-star"></i>
-    </button>
+    <div class="action-group">
+      <button class="btn btn-lg upvote-btn" [class.active]="userVoteState === 'upvote'"
+        (click)="upvote(); $event.stopPropagation()">
+        <i class="fa-solid fa-arrow-up"></i>
+        <span class="count">{{ upVote }}</span>
+      </button>
+      <button class="btn btn-lg downvote-btn" [class.active]="userVoteState === 'downvote'"
+        (click)="downvote(); $event.stopPropagation()">
+        <i class="fa-solid fa-arrow-down"></i>
+        <span class="count">{{ downVote }}</span>
+      </button>
+      <button class="btn btn-lg star-btn" [class.active]="star" (click)="toggleStar(); $event.stopPropagation()">
+        <i [class.fa-solid]="star" [class.fa-regular]="!star" class="fa-star"></i>
+      </button>
+    </div>
+
+    @if (displayData.event.customUrl) {
+    <a [href]="displayData.event.customUrl" target="_blank" class="external-link" (click)="$event.stopPropagation()"
+      title="Open external link">
+      <i [class]="getExternalLinkIcon()"></i>
+    </a>
+    }
   </div>
 
 </div>
