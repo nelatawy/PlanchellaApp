@@ -15,17 +15,16 @@ export class DialogService {
 
     confirm(options: { title: string, message: string, confirmLabel?: string, type?: 'primary' | 'danger' }): Promise<boolean> {
         return new Promise((resolve) => {
-            // Create component
+
             const factory = this.componentFactoryResolver.resolveComponentFactory(ConfirmationDialogComponent);
             this.dialogComponentRef = factory.create(this.injector);
 
-            // Set inputs
+
             this.dialogComponentRef.instance.title = options.title;
             this.dialogComponentRef.instance.message = options.message;
             if (options.confirmLabel) this.dialogComponentRef.instance.confirmLabel = options.confirmLabel;
             this.dialogComponentRef.instance.themeClass = options.type === 'danger' ? 'btn-danger' : 'btn-primary';
 
-            // Handle events
             this.dialogComponentRef.instance.confirm.subscribe(() => {
                 this.removeDialog();
                 resolve(true);
@@ -36,7 +35,6 @@ export class DialogService {
                 resolve(false);
             });
 
-            // Attach to DOM
             this.appRef.attachView(this.dialogComponentRef.hostView);
             const domElem = (this.dialogComponentRef.hostView as EmbeddedViewRef<any>).rootNodes[0] as HTMLElement;
             document.body.appendChild(domElem);
