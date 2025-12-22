@@ -31,6 +31,9 @@ public class EventMapper {
         e.setHasTime(event.isHasTime());
         e.setEventStartDate(event.getEventStartDate());
         e.setEventEndDate(event.getEventEndDate());
+        e.setLatitude(event.getLatitude());
+        e.setLongitude(event.getLongitude());
+        e.setLocation(event.getLocation());
 
         if (event.getAttachments() != null) {
             e.setAttachments(event.getAttachments().stream()
@@ -64,6 +67,8 @@ public class EventMapper {
                 e.getEventStartDate(),
                 e.getEventEndDate(),
                 e.isHasLocation(),
+                e.getLatitude(),
+                e.getLongitude(),
                 e.getLocation(),
                 e.getAttachments() == null ? null
                         : e.getAttachments().stream()
@@ -88,6 +93,8 @@ public class EventMapper {
                 event.getEventStartDate(),
                 event.getEventEndDate(),
                 event.isHasLocation(),
+                event.getLatitude(),
+                event.getLongitude(),
                 event.getLocation(),
                 false,
                 false,
@@ -112,6 +119,8 @@ public class EventMapper {
                 e.eventStartDate,
                 e.eventEndDate,
                 e.hasLocation,
+                e.latitude,
+                e.longitude,
                 e.location,
                 e.attachments);
     }

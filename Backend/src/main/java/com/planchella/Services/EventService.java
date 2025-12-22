@@ -101,10 +101,9 @@ public class EventService {
             event.setHasTime(false);
         }
 
-        if (event.getLocation() != null) {
-            event.setHasLocation(true);
-        } else {
-            event.setHasLocation(false);
+        if (!event.isHasLocation()) {
+            event.setLatitude(null);
+            event.setLongitude(null);
         }
         System.out.println(event);
         eventRepo.saveEvent(event);

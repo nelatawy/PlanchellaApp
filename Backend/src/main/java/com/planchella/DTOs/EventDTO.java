@@ -29,6 +29,8 @@ public class EventDTO {
     public String eventEndDate;
 
     public boolean hasLocation;
+    public Double latitude;
+    public Double longitude;
     public String location;
 
     public boolean isStarred;
@@ -42,7 +44,7 @@ public class EventDTO {
             String description, String customUrl, String creationDate, String expirationDate, Long upvoteCount,
             Long downvoteCount,
             boolean hasTime, String eventStartDate, String eventEndDate,
-            boolean hasLocation, String location,
+            boolean hasLocation, Double latitude, Double longitude, String location,
             boolean isStarred, boolean isUpvoted, boolean isDownVoted,
             List<AttachmentMetadata> attachments) {
         this.id = id;
@@ -63,6 +65,8 @@ public class EventDTO {
         this.eventEndDate = eventEndDate;
 
         this.hasLocation = hasLocation;
+        this.latitude = latitude;
+        this.longitude = longitude;
         this.location = location;
 
         this.isStarred = isStarred;

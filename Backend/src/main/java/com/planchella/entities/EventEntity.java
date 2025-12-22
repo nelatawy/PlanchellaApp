@@ -73,6 +73,12 @@ public class EventEntity {
     @Column(name = "has_location")
     private boolean hasLocation;
 
+    @Column(name = "latitude")
+    private Double latitude;
+
+    @Column(name = "longitude")
+    private Double longitude;
+
     @Column(name = "location")
     private String location;
 
@@ -83,7 +89,7 @@ public class EventEntity {
             String title, String description, String customUrl,
             String creationDate, String expirationTime, Long upvoteCount, Long downvoteCount,
             boolean hasTime, String eventStartDate, String eventEndDate,
-            boolean hasLocation, String location,
+            boolean hasLocation, Double latitude, Double longitude, String location,
             CommunityEntity community) {
 
         this.eventType = eventType;
@@ -101,6 +107,8 @@ public class EventEntity {
         this.eventEndDate = eventEndDate;
 
         this.hasLocation = hasLocation;
+        this.latitude = latitude;
+        this.longitude = longitude;
         this.location = location;
 
         this.community = community;

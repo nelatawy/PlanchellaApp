@@ -10,6 +10,8 @@ import { CommunityData } from '../models/community-data';
 import { AttachmentService } from '../services/attachment-service';
 import { lastValueFrom } from 'rxjs';
 import { ToastService } from '../services/toast.service';
+import { MapService } from '../services/map.service';
+import * as L from 'leaflet';
 
 @Component({
   selector: 'app-event-builder',
@@ -23,7 +25,8 @@ export class EventBuilder {
   constructor(
     private eventDataService: EventDataService,
     private attachmentService: AttachmentService,
-    private toastService: ToastService
+    private toastService: ToastService,
+    private mapService: MapService
   ) { }
 
   MimeTypeUtils = MimeTypeUtils;
@@ -40,6 +43,12 @@ export class EventBuilder {
   attachments: EventAttachment[] = [];
   selectedFiles: File[] = [];
   customUrl: string = '';
+  latitude?: number;
+  longitude?: number;
+  hasLocation: boolean = false;
+  showMap: boolean = false;
+  private map?: L.Map;
+  private marker?: L.Marker;
 
   isDropdownOpen: boolean = false;
   isSizeDropdownOpen: boolean = false;
@@ -58,6 +67,64 @@ export class EventBuilder {
   selectSize(size: EventSize) { this.selectedSize = size; this.isSizeDropdownOpen = false; }
 
   closeDropdown() { this.isDropdownOpen = false; this.isSizeDropdownOpen = false; }
+
+  onHasLocationToggle() {
+    if (!this.hasLocation) {
+      this.latitude = undefined;
+      this.longitude = undefined;
+      this.showMap = false;
+      if (this.marker) {
+        this.marker.remove();
+        this.marker = undefined;
+      }
+    }
+  }
+
+  toggleMap() {
+    if (!this.hasLocation) return;
+    this.showMap = !this.showMap;
+    if (this.showMap) {
+      setTimeout(() => {
+        this.initMap();
+      }, 100);
+    }
+  }
+
+  private async initMap() {
+    if (this.map) return;
+
+    let initialCenter: [number, number] = [30.0444, 31.2357]; // Default to Cairo as a more regional default if needed, or keep London [51.505, -0.09]
+
+    // Try to get user location if no latitude/longitude is set
+    if (!this.latitude || !this.longitude) {
+      try {
+        initialCenter = await this.mapService.getCurrentLocation();
+      } catch (error) {
+        console.warn('Geolocation failed, defaulting to Cairo.', error);
+        // initialCenter remains default
+      }
+    } else {
+      initialCenter = [this.latitude, this.longitude];
+    }
+
+    this.map = this.mapService.initMap('map-container', initialCenter);
+
+    this.map.on('click', (e: L.LeafletMouseEvent) => {
+      const { lat, lng } = e.latlng;
+      this.latitude = lat;
+      this.longitude = lng;
+
+      if (this.marker) {
+        this.marker.setLatLng(e.latlng);
+      } else {
+        this.marker = this.mapService.addMarker(this.map!, [lat, lng], 'Event Location');
+      }
+    });
+
+    if (this.latitude && this.longitude) {
+      this.marker = this.mapService.addMarker(this.map, [this.latitude, this.longitude], 'Event Location');
+    }
+  }
 
   closeBuilder() {
     this.close.emit();
@@ -130,6 +197,9 @@ export class EventBuilder {
       expirationDate: this.hasTime ? new Date(this.endDate) : undefined,
       hasTime: this.hasTime,
       customUrl: this.customUrl ? UrlUtils.normalize(this.customUrl) : undefined,
+      latitude: this.latitude,
+      longitude: this.longitude,
+      hasLocation: this.hasLocation,
       attachments: this.attachments
     };
 

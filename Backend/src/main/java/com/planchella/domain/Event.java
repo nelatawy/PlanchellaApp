@@ -44,7 +44,8 @@ public class Event {
     private String eventEndDate;
 
     private boolean hasLocation;
-
+    private Double latitude;
+    private Double longitude;
     private String location;
 
     private List<AttachmentMetadata> attachments;
@@ -54,7 +55,7 @@ public class Event {
             String creationDate, String expirationDate,
             Long upvoteCount, Long downvoteCount,
             boolean hasTime, String eventStartDate, String eventEndDate,
-            boolean hasLocation, String location,
+            boolean hasLocation, Double latitude, Double longitude, String location,
             List<AttachmentMetadata> attachments) {
         this.id = id;
         this.eventType = eventType;
@@ -73,6 +74,8 @@ public class Event {
         this.eventStartDate = eventStartDate;
         this.eventEndDate = eventEndDate;
         this.hasLocation = hasLocation;
+        this.latitude = latitude;
+        this.longitude = longitude;
         this.location = location;
     }
 
@@ -89,6 +92,10 @@ public class Event {
         this.attachments = event.attachments != null ? event.attachments : this.attachments;
         this.eventStartDate = event.eventStartDate != null ? event.eventStartDate : this.eventStartDate;
         this.eventEndDate = event.eventEndDate != null ? event.eventEndDate : this.eventEndDate;
+        this.hasLocation = event.hasLocation;
+        this.latitude = event.latitude;
+        this.longitude = event.longitude;
+        this.location = event.location != null ? event.location : this.location;
     }
 
     public static Event getMockData() {
@@ -109,6 +116,8 @@ public class Event {
                 new Date().toString(),
                 new Date().toString(),
                 true,
+                null,
+                null,
                 null,
                 List.of(new AttachmentMetadata()));
     }
@@ -132,6 +141,8 @@ public class Event {
                 ", eventStartDate='" + eventStartDate + '\'' +
                 ", eventEndDate='" + eventEndDate + '\'' +
                 ", hasLocation=" + hasLocation +
+                ", latitude=" + latitude +
+                ", longitude=" + longitude +
                 ", location='" + location + '\'' +
                 ", attachments=" + attachments +
                 '}';

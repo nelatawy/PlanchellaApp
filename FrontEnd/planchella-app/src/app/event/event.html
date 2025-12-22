@@ -36,6 +36,13 @@
     </div>
 
     <p class="event-description">{{ displayData?.event?.description }}</p>
+
+    @if (displayData?.event?.hasLocation) {
+    <div class="event-location-section">
+      <h3 class="location-title">📍 Event Location</h3>
+      <div id="event-location-map" class="event-map-container"></div>
+    </div>
+    }
   </div>
 
   @if (displayData?.event?.attachments?.length) {

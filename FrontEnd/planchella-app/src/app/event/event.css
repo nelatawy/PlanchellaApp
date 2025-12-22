@@ -1,6 +1,8 @@
+@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css');
+
 /* =====================================================
    EVENT CONTAINER
-===================================================== */
+   ===================================================== */
 .event-container {
   width: 100%;
   background: var(--bg-white);
@@ -169,6 +171,28 @@
 .date-value {
   color: var(--primary-color-dark);
   font-weight: 600;
+}
+
+.event-location-section {
+  margin-top: 1.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--border-color-light);
+}
+
+.location-title {
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  color: var(--text-color-dark);
+}
+
+.event-map-container {
+  height: 300px;
+  width: 100%;
+  border-radius: var(--radius-med);
+  border: 1px solid var(--border-color-light);
+  box-shadow: var(--shadow-sm);
+  overflow: hidden;
 }
 
 .event-description {
@@ -492,7 +516,7 @@
 }
 
 /* Fade-in */
-.attachment-preview>* {
+.attachment-preview > * {
   animation: fadeIn 0.4s ease;
 }
 

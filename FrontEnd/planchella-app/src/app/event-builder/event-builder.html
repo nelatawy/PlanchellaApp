@@ -91,6 +91,29 @@
     </div>
     }
 
+    <!-- Map Section -->
+    <div class="form-row">
+      <label class="checkbox-container">
+        <input type="checkbox" [(ngModel)]="hasLocation" name="hasLocation" (change)="onHasLocationToggle()">
+        <span class="checkbox-label">Include Location</span>
+      </label>
+    </div>
+
+    @if (hasLocation) {
+      <div class="form-row">
+        <button type="button" class="commonButtonTheme location-toggle-btn" (click)="toggleMap()">
+          {{ showMap ? 'Hide Map' : 'Set Location' }}
+        </button>
+        @if (latitude && longitude) {
+          <span class="location-coords">
+            ✓ Added Location
+          </span>
+        }
+      </div>
+
+      <div id="map-container" [hidden]="!showMap" class="map-container"></div>
+    }
+
     <!-- Bottom Buttons -->
     <div class="event-bottom">
       <label class="commonButtonTheme add-image-btn">

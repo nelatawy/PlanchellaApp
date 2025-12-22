@@ -37,5 +37,8 @@ export interface EventData {
   hasTime?: boolean,
   expirationDate?: Date,
   customUrl?: string,
+  latitude?: number,
+  longitude?: number,
+  hasLocation?: boolean,
   attachments?: EventAttachment[]
 }

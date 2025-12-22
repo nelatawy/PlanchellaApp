@@ -51,6 +51,8 @@ public class MockEventRepository implements IEventRepository {
                 now,
                 true,
                 null,
+                null,
+                null,
                 List.of());
     }
 

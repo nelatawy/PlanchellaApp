@@ -12,6 +12,8 @@ import { MimeTypeUtils, UrlUtils } from '../services/utils';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { EventDataService } from '../services/event-data-service';
 import { ToastService } from '../services/toast.service';
+import { MapService } from '../services/map.service';
+import * as L from 'leaflet';
 
 interface AttachmentState {
   url: SafeUrl | null;
@@ -116,7 +118,8 @@ export class EventComponent implements OnInit, OnDestroy {
     private userDataService: UserDataService,
     private route: ActivatedRoute,
     private eventDataService: EventDataService,
-    private toastService: ToastService
+    private toastService: ToastService,
+    private mapService: MapService
   ) { }
 
   async ngOnInit() {
@@ -152,9 +155,26 @@ export class EventComponent implements OnInit, OnDestroy {
         this.isStarred = event.isStarred || false;
 
         this.initAttachments();
+        this.initMap();
       }
     } catch (error) {
       console.error('Error loading event:', error);
+    }
+  }
+
+  private map?: L.Map;
+
+  initMap() {
+    if (this.displayData?.event.hasLocation && this.displayData.event.latitude && this.displayData.event.longitude) {
+      setTimeout(() => {
+        if (this.map) {
+          this.map.remove();
+        }
+        this.map = this.mapService.initMap('event-location-map', [this.displayData!.event.latitude!, this.displayData!.event.longitude!]);
+        this.mapService.addMarker(this.map, [this.displayData!.event.latitude!, this.displayData!.event.longitude!], this.displayData!.event.title);
+
+        // Interaction is enabled by default in Leaflet
+      }, 100);
     }
   }
 
