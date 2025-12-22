@@ -32,6 +32,7 @@ export class EventBuilder {
   MimeTypeUtils = MimeTypeUtils;
 
   @Output() close = new EventEmitter<void>();
+  @Output() eventCreated = new EventEmitter<void>();
 
   title: string = '';
   description: string = '';
@@ -207,6 +208,7 @@ export class EventBuilder {
       const response = await this.eventDataService.createEvent(eventData);
       console.log('Event created successfully:', response);
       this.toastService.success('Event created successfully!');
+      this.eventCreated.emit();
 
       // Reset form
       form.resetForm();

@@ -14,7 +14,7 @@
 
   <div #overlay class="overlay" (click)="hide_creation_page()">
     <app-event-builder [currentlySelectedCommunity]="communityData" #builder class="builder event"
-      (click)="onBuilderClick($event)" (close)="hide_creation_page()"></app-event-builder>
+      (click)="onBuilderClick($event)" (close)="hide_creation_page()" (eventCreated)="onEventCreated()"></app-event-builder>
   </div>
 
   <div #communityOverlay class="overlay" (click)="hide_community_builder()">

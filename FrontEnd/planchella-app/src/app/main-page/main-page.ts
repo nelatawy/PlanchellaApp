@@ -1,4 +1,4 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { Component, ElementRef, ViewChild, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TopBar } from '../general/top-bar/top-bar';
 import { Billboard } from '../billboard/billboard';
@@ -10,6 +10,8 @@ import { CommunityBuilder } from '../community-builder/community-builder';
 import { EventComponent } from '../event/event';
 import { EventData } from '../models/event-data';
 import { ToastService } from '../services/toast.service';
+import { ActivatedRoute } from '@angular/router';
+import { CommunityDataService } from '../services/community-data-service';
 
 @Component({
   selector: 'app-main-page',
@@ -18,7 +20,7 @@ import { ToastService } from '../services/toast.service';
   templateUrl: './main-page.html',
   styleUrl: './main-page.css'
 })
-export class MainPage {
+export class MainPage implements OnInit {
   @ViewChild("builder", { read: ElementRef }) eventBuilderElement!: ElementRef;
   @ViewChild("overlay") overlay!: ElementRef;
 
@@ -34,12 +36,33 @@ export class MainPage {
   selectedEventId: number | undefined = undefined;
   isEventDetailsOpen = false;
 
-  constructor(private sidebarService: SidebarService, private toastService: ToastService) {
+  constructor(
+    private sidebarService: SidebarService,
+    private toastService: ToastService,
+    private route: ActivatedRoute,
+    private communityDataService: CommunityDataService
+  ) {
     this.sidebarService.open$.subscribe(
       (isOpen: boolean) => {
         this.isOpen = isOpen;
       }
     );
+  }
+
+  ngOnInit() {
+    this.route.queryParams.subscribe(async params => {
+      const communityId = params['communityId'];
+      if (communityId) {
+        try {
+          const community = await this.communityDataService.getCommunity(Number(communityId));
+          if (community) {
+            this.communityData = community;
+          }
+        } catch (error) {
+          console.error('Error selecting community from query param:', error);
+        }
+      }
+    });
   }
 
   show_creation_page() {
@@ -80,6 +103,12 @@ export class MainPage {
   onCommunityCreated() {
     this.hide_community_builder();
     this.communitySelector.refreshList();
+  }
+
+  onEventCreated() {
+    if (this.billboard) {
+      this.billboard.refreshList();
+    }
   }
 
   show_event_details(id: number) {

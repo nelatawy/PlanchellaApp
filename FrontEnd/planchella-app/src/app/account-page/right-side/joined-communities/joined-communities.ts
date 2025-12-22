@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { UserDataService } from '../../../services/user-data-service';
 import { CommunityDataService } from '../../../services/community-data-service';
@@ -20,7 +21,8 @@ export class JoinedCommunitiesPage implements OnInit {
 
   constructor(
     private userDataService: UserDataService,
-    private communityDataService: CommunityDataService
+    private communityDataService: CommunityDataService,
+    private router: Router
   ) { }
 
   ngOnInit() {
@@ -54,7 +56,6 @@ export class JoinedCommunitiesPage implements OnInit {
   }
 
   navigateToCommunity(communityId: number) {
-    // TODO: Implement navigation to community page
-    window.location.href = `/community/${communityId}`;
+    this.router.navigate(['/main'], { queryParams: { communityId: communityId } });
   }
 }

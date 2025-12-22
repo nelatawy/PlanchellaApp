@@ -146,6 +146,12 @@ export class Billboard {
     }
   }
 
+  async refreshList() {
+    this.cards = [];
+    this.offset = 0;
+    await this.add_events(10);
+  }
+
   async refreshEvent(eventId: number) {
     try {
       const updatedEvent = await this.eventDataService.getEvent(eventId);
