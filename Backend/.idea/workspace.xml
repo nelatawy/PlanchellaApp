@@ -5,67 +5,90 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="cb617cee-55b1-4383-8683-df2e1630516a" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/data/attachment/12915073-c0c3-4178-8140-a3e13e413f54.bin" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/data/attachment/199cc92e-244f-4c03-8039-12542552d5a4.bin" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/data/attachment/93d0cb03-13da-4623-a7df-c002e283eec3.bin" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/data/attachment/ac3ae4af-a8cd-4ed9-a95d-2a63df4b6185.bin" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/data/attachment/c36ef357-52a3-4b2a-9979-181435ddac26.bin" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/data/attachment/d2019684-2a1e-4a35-93db-cfcebe5d0369.bin" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/data/attachment/d699e1ec-689e-47c0-904b-ecb7aba31b73.bin" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/data/attachment/f590fdeb-aba5-44fb-994d-5e6a145debf6.bin" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/data/attachment/fcfd7224-527d-4272-b928-9d4bb721ff12.bin" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/planchella/Services/SearchService.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/planchella/Services/UserSpecificEventService.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/planchella/entities/StarEntity.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/planchella/entities/VoteEntity.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/planchella/enums/VoteType.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/planchella/repositories/events/StarRepository.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/planchella/repositories/events/VoteRepository.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/planchella/routes/SearchRoutes.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../FrontEnd/planchella-app/src/app/services/signed-guard.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/planchella/Services/GoogleIntegrations.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/email_template.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/planchella/routes/SearchRoutes.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/planchella/routes/SearchRoutes.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/planchella/mappers/EventMapperTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/planchella/mappers/EventMapperTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../FrontEnd/planchella-app/src/app/account-page/account-page.css" beforeDir="false" afterPath="$PROJECT_DIR$/../FrontEnd/planchella-app/src/app/account-page/account-page.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../FrontEnd/planchella-app/src/app/account-page/account-page.html" beforeDir="false" afterPath="$PROJECT_DIR$/../FrontEnd/planchella-app/src/app/account-page/account-page.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../FrontEnd/planchella-app/src/app/account-page/account-page.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../FrontEnd/planchella-app/src/app/account-page/account-page.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../FrontEnd/planchella-app/src/app/account-page/left-side/left-side.css" beforeDir="false" afterPath="$PROJECT_DIR$/../FrontEnd/planchella-app/src/app/account-page/left-side/left-side.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../FrontEnd/planchella-app/src/app/account-page/left-side/left-side.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../FrontEnd/planchella-app/src/app/account-page/left-side/left-side.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../FrontEnd/planchella-app/src/app/account-page/right-side/right-side.css" beforeDir="false" afterPath="$PROJECT_DIR$/../FrontEnd/planchella-app/src/app/account-page/right-side/right-side.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../FrontEnd/planchella-app/src/app/account-page/right-side/right-side.html" beforeDir="false" afterPath="$PROJECT_DIR$/../FrontEnd/planchella-app/src/app/account-page/right-side/right-side.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../FrontEnd/planchella-app/src/app/account-page/right-side/right-side.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../FrontEnd/planchella-app/src/app/account-page/right-side/right-side.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../FrontEnd/planchella-app/src/app/app.routes.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../FrontEnd/planchella-app/src/app/app.routes.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../FrontEnd/planchella-app/src/app/billboard/billboard.css" beforeDir="false" afterPath="$PROJECT_DIR$/../FrontEnd/planchella-app/src/app/billboard/billboard.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../FrontEnd/planchella-app/src/app/billboard/billboard.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../FrontEnd/planchella-app/src/app/billboard/billboard.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../FrontEnd/planchella-app/src/app/community-selector/community-selector.css" beforeDir="false" afterPath="$PROJECT_DIR$/../FrontEnd/planchella-app/src/app/community-selector/community-selector.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../FrontEnd/planchella-app/src/app/community-selector/community-selector.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../FrontEnd/planchella-app/src/app/community-selector/community-selector.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../FrontEnd/planchella-app/src/app/event-builder/event-builder.css" beforeDir="false" afterPath="$PROJECT_DIR$/../FrontEnd/planchella-app/src/app/event-builder/event-builder.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../FrontEnd/planchella-app/src/app/event-builder/event-builder.html" beforeDir="false" afterPath="$PROJECT_DIR$/../FrontEnd/planchella-app/src/app/event-builder/event-builder.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../FrontEnd/planchella-app/src/app/event-builder/event-builder.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../FrontEnd/planchella-app/src/app/event-builder/event-builder.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../FrontEnd/planchella-app/src/app/event-card/event-card.component.css" beforeDir="false" afterPath="$PROJECT_DIR$/../FrontEnd/planchella-app/src/app/event-card/event-card.component.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../FrontEnd/planchella-app/src/app/event-card/event-card.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/../FrontEnd/planchella-app/src/app/event-card/event-card.component.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../FrontEnd/planchella-app/src/app/event-card/event-card.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../FrontEnd/planchella-app/src/app/event-card/event-card.component.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../FrontEnd/planchella-app/src/app/event/event.css" beforeDir="false" afterPath="$PROJECT_DIR$/../FrontEnd/planchella-app/src/app/event/event.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../FrontEnd/planchella-app/src/app/event/event.html" beforeDir="false" afterPath="$PROJECT_DIR$/../FrontEnd/planchella-app/src/app/event/event.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../FrontEnd/planchella-app/src/app/event/event.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../FrontEnd/planchella-app/src/app/event/event.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../FrontEnd/planchella-app/src/app/general/profile-pic/profile-pic.html" beforeDir="false" afterPath="$PROJECT_DIR$/../FrontEnd/planchella-app/src/app/general/profile-pic/profile-pic.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../FrontEnd/planchella-app/src/app/general/profile-pic/profile-pic.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../FrontEnd/planchella-app/src/app/general/profile-pic/profile-pic.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../FrontEnd/planchella-app/src/app/general/search-box-main/search-box-main.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../FrontEnd/planchella-app/src/app/general/search-box-main/search-box-main.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../FrontEnd/planchella-app/src/app/general/top-bar/top-bar.css" beforeDir="false" afterPath="$PROJECT_DIR$/../FrontEnd/planchella-app/src/app/general/top-bar/top-bar.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../FrontEnd/planchella-app/src/app/general/top-bar/top-bar.html" beforeDir="false" afterPath="$PROJECT_DIR$/../FrontEnd/planchella-app/src/app/general/top-bar/top-bar.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../FrontEnd/planchella-app/src/app/general/top-bar/top-bar.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../FrontEnd/planchella-app/src/app/general/top-bar/top-bar.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../FrontEnd/planchella-app/src/app/main-page/main-page.css" beforeDir="false" afterPath="$PROJECT_DIR$/../FrontEnd/planchella-app/src/app/main-page/main-page.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../FrontEnd/planchella-app/src/app/main-page/main-page.html" beforeDir="false" afterPath="$PROJECT_DIR$/../FrontEnd/planchella-app/src/app/main-page/main-page.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../FrontEnd/planchella-app/src/app/main-page/main-page.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../FrontEnd/planchella-app/src/app/main-page/main-page.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../FrontEnd/planchella-app/src/app/models/event-data.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../FrontEnd/planchella-app/src/app/models/event-data.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../FrontEnd/planchella-app/src/app/services/auth-guard.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../FrontEnd/planchella-app/src/app/services/auth-guard.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../FrontEnd/planchella-app/src/app/services/auth-service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../FrontEnd/planchella-app/src/app/services/auth-service.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../FrontEnd/planchella-app/src/app/services/event-data-service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../FrontEnd/planchella-app/src/app/services/event-data-service.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../FrontEnd/planchella-app/src/app/services/search.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../FrontEnd/planchella-app/src/app/services/search.service.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../FrontEnd/planchella-app/src/app/services/utils.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../FrontEnd/planchella-app/src/app/services/utils.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../FrontEnd/planchella-app/src/app/styles/loading-states.css" beforeDir="false" afterPath="$PROJECT_DIR$/../FrontEnd/planchella-app/src/app/styles/loading-states.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../FrontEnd/planchella-app/src/styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/../FrontEnd/planchella-app/src/styles.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/planchella/Services/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/planchella/Services/UserService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/planchella/routes/UserRoutes.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/planchella/routes/UserRoutes.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/hibernate.cfg.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/hibernate.cfg.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/planchella/Configs/BeanConfig.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/planchella/Configs/BeanConfig.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/planchella/Configs/HibernateUtil.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/planchella/Configs/HibernateUtil.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/planchella/Configs/SecurityConfig.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/planchella/Configs/SecurityConfig.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/planchella/DTOs/CommunityDTO.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/planchella/DTOs/CommunityDTO.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/planchella/DTOs/EventDTO.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/planchella/DTOs/EventDTO.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/planchella/DTOs/UserDTO.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/planchella/DTOs/UserDTO.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/planchella/Filters/JWTFilter.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/planchella/Filters/JWTFilter.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/planchella/PlanchellaApplication.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/planchella/PlanchellaApplication.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/planchella/Services/AttachmentService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/planchella/Services/AttachmentService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/planchella/Services/AuthUserService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/planchella/Services/AuthUserService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/planchella/Services/EventService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/planchella/Services/EventService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/planchella/Services/JWTService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/planchella/Services/JWTService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/planchella/Services/MembershipService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/planchella/Services/MembershipService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/planchella/Services/SearchService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/planchella/Services/SearchService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/planchella/Services/UserDetailsServices.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/planchella/Services/UserDetailsServices.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/planchella/Services/UserService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/planchella/Services/UserService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/planchella/Services/UserSpecificEventService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/planchella/Services/UserSpecificEventService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/planchella/domain/AttachmentMetadata.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/planchella/domain/AttachmentMetadata.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/planchella/domain/Community.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/planchella/domain/Community.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/planchella/domain/Event.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/planchella/domain/Event.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/planchella/domain/Membership.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/planchella/domain/Membership.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/planchella/domain/User.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/planchella/domain/User.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/planchella/domain/UserPrincipal.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/planchella/domain/UserPrincipal.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/planchella/encryption/EncryptedFilesManager.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/planchella/encryption/EncryptedFilesManager.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/planchella/encryption/EncryptedInputStream.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/planchella/encryption/EncryptedInputStream.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/planchella/encryption/EncryptedOutputStream.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/planchella/encryption/EncryptedOutputStream.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/planchella/entities/AttachmentEntity.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/planchella/entities/AttachmentEntity.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/planchella/entities/AuthUserEntity.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/planchella/entities/AuthUserEntity.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/planchella/entities/CommunityEntity.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/planchella/entities/CommunityEntity.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/planchella/entities/EventEntity.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/planchella/entities/EventEntity.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/planchella/entities/MembershipEntity.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/planchella/entities/MembershipEntity.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/planchella/entities/StarEntity.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/planchella/entities/StarEntity.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/planchella/entities/UserEntity.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/planchella/entities/UserEntity.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/planchella/entities/VoteEntity.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/planchella/entities/VoteEntity.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/planchella/enums/AuthProvider.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/planchella/enums/AuthProvider.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/planchella/enums/EventSize.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/planchella/enums/EventSize.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/planchella/enums/EventType.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/planchella/enums/EventType.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/planchella/enums/MembershipType.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/planchella/enums/MembershipType.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/planchella/enums/MimeType.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/planchella/enums/MimeType.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/planchella/enums/VoteType.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/planchella/enums/VoteType.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/planchella/mappers/AttachmentMapper.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/planchella/mappers/AttachmentMapper.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/planchella/mappers/CommunityMapper.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/planchella/mappers/CommunityMapper.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/planchella/mappers/EventMapper.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/planchella/mappers/EventMapper.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/planchella/mappers/MembershipMapper.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/planchella/mappers/MembershipMapper.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/planchella/mappers/UserMapper.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/planchella/mappers/UserMapper.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/planchella/registration/authentication/IAuthenticator.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/planchella/registration/authentication/IAuthenticator.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/planchella/registration/validation/IValidator.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/planchella/registration/validation/IValidator.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/planchella/registration/validation/MockValidator.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/planchella/registration/validation/MockValidator.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/planchella/registration/validation/SimpleValidator.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/planchella/registration/validation/SimpleValidator.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/planchella/registration/validation/ValidationErrors.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/planchella/registration/validation/ValidationErrors.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/planchella/registration/validation/ValidationResult.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/planchella/registration/validation/ValidationResult.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/planchella/repositories/attachments/AttachmentRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/planchella/repositories/attachments/AttachmentRepository.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/planchella/repositories/communities/DBCommunityRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/planchella/repositories/communities/DBCommunityRepository.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/planchella/repositories/communities/ICommunityRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/planchella/repositories/communities/ICommunityRepository.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/planchella/repositories/communities/MockCommunityRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/planchella/repositories/communities/MockCommunityRepository.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/planchella/repositories/events/DBEventRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/planchella/repositories/events/DBEventRepository.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/planchella/repositories/events/IEventRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/planchella/repositories/events/IEventRepository.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/planchella/repositories/events/MockEventRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/planchella/repositories/events/MockEventRepository.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/planchella/repositories/events/StarRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/planchella/repositories/events/StarRepository.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/planchella/repositories/events/VoteRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/planchella/repositories/events/VoteRepository.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/planchella/repositories/memberships/DBMembershipRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/planchella/repositories/memberships/DBMembershipRepository.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/planchella/repositories/memberships/IMembershipRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/planchella/repositories/memberships/IMembershipRepository.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/planchella/repositories/users/AuthUserRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/planchella/repositories/users/AuthUserRepository.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/planchella/repositories/users/DBUserRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/planchella/repositories/users/DBUserRepository.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/planchella/repositories/users/IUserRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/planchella/repositories/users/IUserRepository.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/planchella/repositories/users/MockUserRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/planchella/repositories/users/MockUserRepository.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/planchella/routes/AttachmentRoutes.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/planchella/routes/AttachmentRoutes.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/planchella/routes/AuthUserRoutes.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/planchella/routes/AuthUserRoutes.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/planchella/routes/CommunityRoutes.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/planchella/routes/CommunityRoutes.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/planchella/routes/EventRoutes.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/planchella/routes/EventRoutes.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/planchella/routes/SearchRoutes.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/planchella/routes/SearchRoutes.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/planchella/routes/UserRoutes.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/planchella/routes/UserRoutes.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/planchella/utils/IdGenerator.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/planchella/utils/IdGenerator.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/planchella/utils/UserAuthenticationHelper.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/planchella/utils/UserAuthenticationHelper.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/hibernate.cfg.xml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/hibernate.cfg.xml" afterDir="false" />
     </list>
     <list id="450383f9-995f-4420-bba2-b13459a5b348" name="Changes by Moham" comment="" />
     <option name="SHOW_DIALOG" value="false" />
@@ -78,6 +101,7 @@
       <list>
         <option value="Interface" />
         <option value="Class" />
+        <option value="HTML File" />
       </list>
     </option>
   </component>
@@ -106,6 +130,8 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "Application.GoogleIntegrations.executor": "Run",
+    "DefaultHtmlFileTemplate": "HTML File",
     "ModuleVcsDetector.initialDetectionPerformed": "true",
     "RequestMappingsPanelOrder0": "0",
     "RequestMappingsPanelOrder1": "1",
@@ -116,7 +142,7 @@
     "RunOnceActivity.git.unshallow": "true",
     "RunOnceActivity.typescript.service.memoryLimit.init": "true",
     "Spring Boot.PlanchellaApplication.executor": "Run",
-    "git-widget-placeholder": "Merging dev",
+    "git-widget-placeholder": "dev",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "/home/nelatawy/Planchella/Backend",
     "nodejs_package_manager_path": "npm",
@@ -126,10 +152,24 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/main/resources" />
       <recent name="$PROJECT_DIR$/src/main/java/com/planchella" />
     </key>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Spring Boot.PlanchellaApplication">
+    <configuration name="GoogleIntegrations" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.planchella.Services.GoogleIntegrations" />
+      <module name="demo" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.planchella.Services.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="PlanchellaApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
       <module name="demo" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="com.planchella.PlanchellaApplication" />
@@ -137,6 +177,11 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.GoogleIntegrations" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SharedIndexes">
     <attachedChunks>

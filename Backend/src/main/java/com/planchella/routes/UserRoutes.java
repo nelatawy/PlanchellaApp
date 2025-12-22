@@ -109,4 +109,16 @@ public class UserRoutes {
         this.userService.deleteUser(requestingUserId);
     }
 
+    @PostMapping("/eventmail/{event_id}")
+    public void addEventMail(@PathVariable Long event_id, @RequestBody EventDTO data,
+                             @RequestHeader("Authorization") String authHeader) {
+        Long requestingUserId = authHelper.extractUserId(authHeader);
+        try {
+            this.userService.sendEventMailToUser(requestingUserId, event_id);
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+        }
+
+    }
+
 }
