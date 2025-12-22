@@ -1,58 +1,108 @@
 import { Injectable } from '@angular/core';
-import { CommunityDataService } from './community-data-service';
-import { EventDataService } from './event-data-service';
-import { Observable, from } from 'rxjs';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import { firstValueFrom } from 'rxjs';
 import { CommunityData } from '../models/community-data';
 import { EventData } from '../models/event-data';
+import { User } from '../models/user';
 
 @Injectable({
     providedIn: 'root'
 })
 export class SearchService {
+    private apiUrl = 'http://localhost:8080/api/search';
 
-    constructor(
-        private communityService: CommunityDataService,
-        private eventService: EventDataService
-    ) { }
+    constructor(private http: HttpClient) { }
 
-    /**
-     * Search for communities by name query.
-     * Leverages CommunityDataService.fetch_communities (mocking filtering if API doesn't support it yet)
-     */
-    async searchCommunities(query: string): Promise<CommunityData[]> {
-        return Array<CommunityData>();
-        // In a real app, pass 'query' to the API. 
-        // fetch_communities currently takes (count, username). 
-        // We might need to adjust fetch_communities or just filter client-side for now if the API is rigid.
-        // Assuming for now we fetch a batch and filter client-side since API signatures vary.
-
-        const count = 20; // Default fetch size for search
-        // const allCommunities = await this.communityService.fetch_communities(count, "");
-
-        // if (!query) return allCommunities || [];
-
-        // return (allCommunities || []).filter(c =>
-        //     c.name.toLowerCase().includes(query.toLowerCase()) ||
-        //     c.description?.toLowerCase().includes(query.toLowerCase())
-        // );
+    private getHeaders(): HttpHeaders {
+        const token = localStorage.getItem('authToken');
+        return new HttpHeaders({
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`,
+            'ngrok-skip-browser-warning': 'true',
+        });
     }
 
     /**
-     * Search for events by query.
+     * Search for events by keywords
+     * @param keywords Search query
+     * @param count Number of results to return (default: 20)
+     * @param offset Pagination offset (default: 0)
+     * @returns Promise with array of events
      */
-    async searchEvents(query: string): Promise<EventData[]> {
-        return Array<EventData>();
-        // Similarly, EventDataService.fetch_events takes (count, communityName).
-        // We'll fetch broadly and filter client-side for this MVP step.
+    async searchEvents(keywords: string, count: number = 20, offset: number = 0): Promise<EventData[]> {
+        try {
+            const params = new HttpParams()
+                .set('keywords', keywords)
+                .set('count', count.toString())
+                .set('offset', offset.toString());
 
-        // const count = 20;
-        // const allEvents = await this.eventService.fetch_events(count, "");
+            const result = await firstValueFrom(
+                this.http.get<EventData[]>(`${this.apiUrl}/events`, {
+                    headers: this.getHeaders(),
+                    params: params
+                })
+            );
+            console.log('Events search results:', result);
+            return result;
+        } catch (err) {
+            console.error('Error searching events:', err);
+            throw err;
+        }
+    }
 
-        // if (!query) return allEvents || [];
+    /**
+     * Search for communities by keywords
+     * @param keywords Search query
+     * @param count Number of results to return (default: 20)
+     * @param offset Pagination offset (default: 0)
+     * @returns Promise with array of communities
+     */
+    async searchCommunities(keywords: string, count: number = 20, offset: number = 0): Promise<CommunityData[]> {
+        try {
+            const params = new HttpParams()
+                .set('keywords', keywords)
+                .set('count', count.toString())
+                .set('offset', offset.toString());
 
-        // return (allEvents || []).filter(e =>
-        //     e.title.toLowerCase().includes(query.toLowerCase()) ||
-        //     e.description.toLowerCase().includes(query.toLowerCase())
-        // );
+            const result = await firstValueFrom(
+                this.http.get<CommunityData[]>(`${this.apiUrl}/communities`, {
+                    headers: this.getHeaders(),
+                    params: params
+                })
+            );
+            console.log('Communities search results:', result);
+            return result;
+        } catch (err) {
+            console.error('Error searching communities:', err);
+            throw err;
+        }
+    }
+
+    /**
+     * Search for users by keywords
+     * @param keywords Search query
+     * @param count Number of results to return (default: 20)
+     * @param offset Pagination offset (default: 0)
+     * @returns Promise with array of users
+     */
+    async searchUsers(keywords: string, count: number = 20, offset: number = 0): Promise<User[]> {
+        try {
+            const params = new HttpParams()
+                .set('keywords', keywords)
+                .set('count', count.toString())
+                .set('offset', offset.toString());
+
+            const result = await firstValueFrom(
+                this.http.get<User[]>(`${this.apiUrl}/users`, {
+                    headers: this.getHeaders(),
+                    params: params
+                })
+            );
+            console.log('Users search results:', result);
+            return result;
+        } catch (err) {
+            console.error('Error searching users:', err);
+            throw err;
+        }
     }
 }

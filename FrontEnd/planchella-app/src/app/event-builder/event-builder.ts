@@ -4,7 +4,7 @@ import { FormsModule, NgForm } from '@angular/forms';
 import { EventData } from '../models/event-data';
 import { EventType, EventSize } from '../models/Enums';
 import { EventAttachment } from '../models/event-attachment';
-import { MimeTypeUtils } from '../services/utils';
+import { MimeTypeUtils, UrlUtils } from '../services/utils';
 import { EventDataService } from '../services/event-data-service';
 import { CommunityData } from '../models/community-data';
 import { AttachmentService } from '../services/attachment-service';
@@ -36,12 +36,14 @@ export class EventBuilder {
   selectedSize: EventSize = EventSize.MID;
   startDate: string = '';
   endDate: string = '';
+  hasTime: boolean = false;
   attachments: EventAttachment[] = [];
   selectedFiles: File[] = [];
+  customUrl: string = '';
 
   isDropdownOpen: boolean = false;
   isSizeDropdownOpen: boolean = false;
-  flares: string[] = ['Hackathon', 'Contest', 'Release'];
+  flares: string[] = ['Hackathon', 'Contest', 'Release', 'Other'];
 
   sizes: EventSize[] = [EventSize.SMALL, EventSize.MID, EventSize.LARGE];
 
@@ -100,8 +102,13 @@ export class EventBuilder {
   }
 
   async onSubmit(form: NgForm) {
-    if (!this.title || !this.description || !this.selectedFlare || !this.startDate || !this.endDate) {
-      this.toastService.warning('Please fill all fields and select a flare.');
+    if (!this.title || !this.description || !this.selectedFlare) {
+      this.toastService.warning('Please fill title, description and select a flare.');
+      return;
+    }
+
+    if (this.hasTime && (!this.startDate || !this.endDate)) {
+      this.toastService.warning('Please select start and end dates for timed events.');
       return;
     }
 
@@ -118,8 +125,11 @@ export class EventBuilder {
       title: this.title,
       description: this.description,
       creationDate: new Date(),
-      eventStartDate: new Date(this.startDate),
-      eventEndDate: new Date(this.endDate),
+      eventStartDate: this.hasTime ? new Date(this.startDate) : new Date(),
+      eventEndDate: this.hasTime ? new Date(this.endDate) : new Date(),
+      expirationDate: this.hasTime ? new Date(this.endDate) : undefined,
+      hasTime: this.hasTime,
+      customUrl: this.customUrl ? UrlUtils.normalize(this.customUrl) : undefined,
       attachments: this.attachments
     };
 
@@ -133,6 +143,8 @@ export class EventBuilder {
       this.attachments = [];
       this.selectedFlare = '';
       this.selectedSize = EventSize.MID;
+      this.hasTime = false;
+      this.customUrl = '';
       this.isSubmitting = false;
 
       // Close builder

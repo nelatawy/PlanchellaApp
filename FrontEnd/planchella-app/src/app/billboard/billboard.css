@@ -1,27 +1,33 @@
 @import '../styles/loading-states.css';
 
-/* Billboard Container */
+/* Billboard Container - Full width */
 .billboard-container {
   display: flex;
   flex-direction: column;
   gap: var(--gap-xl);
   padding: var(--padding-x-lg);
-  max-width: 1400px;
+  width: 100%;
+  /* Full width */
   margin: 0 auto;
   min-height: calc(100vh - 4rem);
-  background: linear-gradient(to bottom, var(--bg-light) 0%, var(--bg-gray) 100%);
+  background: linear-gradient(to bottom, #FAFBFC 0%, #F3F4F6 100%);
 }
 
 /* Billboard Title */
 .billboard-title {
-  font-size: var(--font-size-3xl);
-  font-weight: 800;
+  font-size: var(--font-size-2xl);
+  /* 40px */
+  font-weight: 900;
   text-align: center;
-  color: var(--text-color-dark);
-  margin: 0 0 var(--padding-sm) 0;
-  letter-spacing: -0.02em;
+  background: var(--gradient-primary);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin: var(--padding-lg) 0 var(--padding-sm) 0;
+  letter-spacing: -0.03em;
   position: relative;
   padding-bottom: var(--padding-lg);
+  text-transform: capitalize;
 }
 
 .billboard-title::after {
@@ -31,16 +37,19 @@
   bottom: 0;
   left: 50%;
   transform: translateX(-50%);
-  width: 120px;
-  height: 4px;
-  background: linear-gradient(90deg, var(--primary-color-light) 0%, var(--primary-color-dark) 100%);
-  border-radius: 2px;
+  width: 150px;
+  height: 5px;
+  background: var(--gradient-primary);
+  border-radius: var(--circular-radius);
+  box-shadow: 0 2px 8px rgba(126, 48, 225, 0.3);
 }
 
 /* Events Grid */
 .events-grid {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: stretch;
   gap: var(--gap-md);
   width: 100%;
 }

@@ -96,12 +96,59 @@
   color: var(--text-color-muted);
 }
 
+.remaining-time-badge {
+  background: #ffc107;
+  color: #000;
+  padding: 0.2rem 0.6rem;
+  border-radius: 2rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.title-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  width: 100%;
+}
+
 .event-title {
   font-size: var(--font-size-x-lg);
   font-family: var(--font-wide-bold);
   color: var(--primary-color-dark);
   margin: 0;
   line-height: 1.2;
+}
+
+.external-link-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.6rem 1.2rem;
+  background: var(--bg-gray);
+  color: var(--primary-color-dark);
+  text-decoration: none;
+  border-radius: var(--radius-med);
+  font-weight: 600;
+  font-size: 0.9rem;
+  transition: all 0.2s ease;
+  border: 1px solid var(--border-color-light);
+  white-space: nowrap;
+}
+
+.external-link-btn i {
+  font-size: 1.2rem;
+}
+
+.external-link-btn:hover {
+  background: var(--primary-color-light);
+  color: white;
+  border-color: var(--primary-color-dark);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .event-dates {
@@ -189,38 +236,34 @@
 }
 
 .vote-btn.upvote:hover {
-  border-color: #10B981;
-  /* Green */
-  color: #059669;
-  background: #ECFDF5;
-  /* Light green tint */
+  border-color: #0d6efd;
+  color: #0d6efd;
+  background: rgba(13, 110, 253, 0.1);
 }
 
 .vote-btn.downvote:hover {
-  border-color: #EF4444;
-  /* Red */
-  color: #B91C1C;
-  background: #FEF2F2;
-  /* Light red tint */
+  border-color: #dc3545;
+  color: #dc3545;
+  background: rgba(220, 53, 69, 0.1);
 }
 
 .vote-btn.star-btn {
   margin-left: 0;
   /* Reset auto margin since we use flex: 1 */
-  border-color: #FCD34D;
+  border-color: transparent;
 }
 
 .vote-btn.star-btn:hover {
-  background: #FFFBEB;
-  border-color: #F59E0B;
-  color: #D97706;
+  background: rgba(255, 193, 7, 0.1);
+  border-color: #ffc107;
+  color: #ffc107;
 }
 
 .vote-btn.star-btn.starred {
-  background: #FDF6B2;
+  background: rgba(255, 193, 7, 0.2);
   /* Stronger yellow when actually starred */
-  border-color: #F59E0B;
-  color: #D97706;
+  border-color: #ffc107;
+  color: #ffc107;
 }
 
 /* =====================================================

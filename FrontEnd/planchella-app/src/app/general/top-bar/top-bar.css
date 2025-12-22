@@ -35,16 +35,19 @@
 }
 
 .hamburger {
-  font-size: var(--top-bar-btn-font-size);
+  font-size: var(--font-size-xl);
   color: var(--primary-color-dark);
   border: none;
   background-color: transparent;
   cursor: pointer;
-  transition: all 0.3s ease-in-out;
+  transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+  padding: 0.5rem;
+  border-radius: var(--radius-med);
 }
 
 .hamburger:hover {
-  transform: scale(1.04);
+  transform: scale(1.1);
+  background: linear-gradient(135deg, rgba(126, 48, 225, 0.1) 0%, rgba(107, 22, 214, 0.15) 100%);
 }
 
 .profile {

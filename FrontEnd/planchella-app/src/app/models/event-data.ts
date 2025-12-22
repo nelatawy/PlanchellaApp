@@ -31,5 +31,11 @@ export interface EventData {
   downvoteCount?: number,
   eventStartDate: Date | string | number,
   eventEndDate: Date | string | number,
+  isUpvoted?: boolean,
+  isDownVoted?: boolean,
+  isStarred?: boolean,
+  hasTime?: boolean,
+  expirationDate?: Date,
+  customUrl?: string,
   attachments?: EventAttachment[]
 }

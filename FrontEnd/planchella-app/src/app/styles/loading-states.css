@@ -1,45 +1,74 @@
 /* Loading and Empty State Styles */
 /* Shared across components like billboard, community-selector, etc. */
 
-/* Empty State */
+/* Empty State - Optimized for speed */
 .empty-state {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: var(--gap-sm);
+    gap: var(--gap-md);
     padding: var(--billboard-padding) var(--padding-x-lg);
     text-align: center;
-    background: var(--bg-white);
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(250, 251, 252, 0.9) 100%);
     border-radius: var(--radius-lg);
-    border: 2px dashed var(--border-color-light);
+    border: none;
     margin: var(--padding-x-lg) 0;
+    box-shadow: var(--shadow-md);
+    position: relative;
+    overflow: hidden;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    /* Faster! */
+}
+
+.empty-state::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: var(--gradient-primary);
+}
+
+.empty-state:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-lg);
 }
 
 .empty-icon {
     font-size: 4rem;
-    color: var(--text-color-muted);
+    background: var(--gradient-accent);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
     margin-bottom: var(--padding-sm);
+    /* Removed slow 3s float animation - too sluggish! */
 }
 
 .empty-state h2 {
-    font-size: 1.75rem;
+    font-size: var(--font-size-xl);
+    /* 32px */
     font-weight: 700;
-    color: var(--text-color-medium);
+    color: var(--text-color-dark);
     margin: 0;
+    letter-spacing: -0.02em;
 }
 
 .empty-state p {
-    font-size: 1.125rem;
-    color: var(--text-color-light);
+    font-size: var(--font-size-base);
+    /* 16px */
+    color: var(--text-color-medium);
     margin: 0.25rem 0;
     max-width: 500px;
+    line-height: 1.6;
 }
 
 .empty-subtitle {
-    font-size: 1rem !important;
-    color: var(--text-color-muted) !important;
-    font-style: italic;
+    font-size: var(--font-size-sm) !important;
+    /* 14px */
+    color: var(--text-color-light) !important;
+    font-weight: 500;
 }
 
 /* Loading State */

@@ -1,5 +1,5 @@
 import { Component, Input, Output } from '@angular/core';
-import {RouterLink} from '@angular/router';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-profile-pic',
@@ -10,13 +10,14 @@ import {RouterLink} from '@angular/router';
   styleUrl: './profile-pic.css',
 })
 export class ProfilePic {
+  @Input() userId: number | undefined;
 
-  private _pic_href : string = "/profile_placeholder.png";
-  private _href : string = "";
+  private _pic_href: string = "/profile_placeholder.png";
+  private _href: string = "";
 
   @Input()
-  set href(value : string) {
-    if(value != "" ) this._href = value;
+  set href(value: string) {
+    if (value != "") this._href = value;
   }
 
   get href() {
@@ -27,8 +28,8 @@ export class ProfilePic {
   hover_text: string = "";
 
   @Input()
-  set pic_href(value : string) {
-    if(value != "" ) this._pic_href = value;
+  set pic_href(value: string) {
+    if (value != "") this._pic_href = value;
   }
 
   get pic_href() {

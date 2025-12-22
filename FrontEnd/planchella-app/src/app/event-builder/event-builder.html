@@ -1,4 +1,4 @@
-<div id="event-builder" class="commonContainer">
+<div id="event-builder" class="commonContainer" [class.wide-builder]="!hasTime">
   <button class="close-btn" (click)="closeBuilder()">×</button>
   <h2>Add Your Event to {{ currentlySelectedCommunity?.name }}</h2>
 
@@ -6,6 +6,12 @@
 
     <!-- Title -->
     <input type="text" class="inputField title-input" [(ngModel)]="title" name="title" placeholder="Event Title">
+
+    <!-- External Link -->
+    <div class="form-row">
+      <input type="text" class="inputField" [(ngModel)]="customUrl" name="customUrl"
+        placeholder="External Link (Optional: GitHub, YouTube, etc.)">
+    </div>
 
     <!-- Flare & Size Row -->
     <div class="form-row">
@@ -44,7 +50,16 @@
       </div>
     </div>
 
-    <!-- Start / End Dates Row -->
+    <!-- Timed Event Toggle -->
+    <div class="form-row">
+      <label class="checkbox-container">
+        <input type="checkbox" [(ngModel)]="hasTime" name="hasTime">
+        <span class="checkbox-label">Timed Event</span>
+      </label>
+    </div>
+
+    <!-- Start / End Dates Row (Conditional) -->
+    @if (hasTime) {
     <div class="form-row">
       <div class="date-group">
         <label for="startDate">Starts</label>
@@ -56,6 +71,7 @@
         <input id="endDate" type="datetime-local" class="inputField" [(ngModel)]="endDate" name="endDate" required>
       </div>
     </div>
+    }
 
     <!-- Description -->
     <textarea class="inputField description-field" placeholder="Write the Description" [(ngModel)]="description"

@@ -8,9 +8,10 @@ import { AttachmentService } from '../services/attachment-service';
 import { EventAttachment } from '../models/event-attachment';
 import { EventType, EventSize, MimeType } from '../models/Enums';
 import { firstValueFrom } from 'rxjs';
-import { MimeTypeUtils } from '../services/utils';
-import { ActivatedRoute } from '@angular/router';
+import { MimeTypeUtils, UrlUtils } from '../services/utils';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 import { EventDataService } from '../services/event-data-service';
+import { ToastService } from '../services/toast.service';
 
 interface AttachmentState {
   url: SafeUrl | null;
@@ -21,7 +22,7 @@ interface AttachmentState {
 @Component({
   selector: 'app-event',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, RouterLink],
   templateUrl: './event.html',
   styleUrls: ['./event.css'],
 })
@@ -34,11 +35,77 @@ export class EventComponent implements OnInit, OnDestroy {
   @Input() eventId: number | undefined;
 
   isStarred: boolean = false;
+  userVoteState: 'upvote' | 'downvote' | 'none' = 'none';
 
-  toggleStar() {
-    this.isStarred = !this.isStarred;
-    // In a real app, this would call a service to update the 'eventStarred' interaction
-    console.log(`Event ${this.displayData?.event.id} starred: ${this.isStarred}`);
+  async upvote() {
+    if (!this.displayData?.event.id) return;
+
+    try {
+      // If already upvoted, remove the vote
+      if (this.userVoteState === 'upvote') {
+        await this.eventDataService.unvoteEvent(this.displayData.event.id);
+        if (this.displayData.event.upvoteCount) {
+          this.displayData.event.upvoteCount--;
+        }
+        this.userVoteState = 'none';
+        this.toastService.info('Vote removed');
+      } else {
+        // If downvoted, adjust downvote count
+        if (this.userVoteState === 'downvote' && this.displayData.event.downvoteCount) {
+          this.displayData.event.downvoteCount--;
+        }
+
+        await this.eventDataService.upvoteEvent(this.displayData.event.id);
+        this.displayData.event.upvoteCount = (this.displayData.event.upvoteCount || 0) + 1;
+        this.userVoteState = 'upvote';
+        this.toastService.success('Upvoted!');
+      }
+    } catch (error) {
+      console.error('Error upvoting event:', error);
+      this.toastService.error('Failed to upvote event');
+    }
+  }
+
+  async downvote() {
+    if (!this.displayData?.event.id) return;
+
+    try {
+      // If already downvoted, remove the vote
+      if (this.userVoteState === 'downvote') {
+        await this.eventDataService.unvoteEvent(this.displayData.event.id);
+        if (this.displayData.event.downvoteCount) {
+          this.displayData.event.downvoteCount--;
+        }
+        this.userVoteState = 'none';
+        this.toastService.info('Vote removed');
+      } else {
+        // If upvoted, adjust upvote count
+        if (this.userVoteState === 'upvote' && this.displayData.event.upvoteCount) {
+          this.displayData.event.upvoteCount--;
+        }
+
+        await this.eventDataService.downvoteEvent(this.displayData.event.id);
+        this.displayData.event.downvoteCount = (this.displayData.event.downvoteCount || 0) + 1;
+        this.userVoteState = 'downvote';
+        this.toastService.success('Downvoted!');
+      }
+    } catch (error) {
+      console.error('Error downvoting event:', error);
+      this.toastService.error('Failed to downvote event');
+    }
+  }
+
+  async toggleStar() {
+    if (!this.displayData?.event.id) return;
+
+    try {
+      await this.eventDataService.toggleStarEvent(this.displayData.event.id);
+      this.isStarred = !this.isStarred;
+      this.toastService.success(this.isStarred ? 'Event starred!' : 'Star removed');
+    } catch (error) {
+      console.error('Error toggling star:', error);
+      this.toastService.error('Failed to star event');
+    }
   }
 
   attachmentStates = new Map<string, AttachmentState>();
@@ -48,7 +115,8 @@ export class EventComponent implements OnInit, OnDestroy {
     private attachmentService: AttachmentService,
     private userDataService: UserDataService,
     private route: ActivatedRoute,
-    private eventDataService: EventDataService
+    private eventDataService: EventDataService,
+    private toastService: ToastService
   ) { }
 
   async ngOnInit() {
@@ -72,6 +140,17 @@ export class EventComponent implements OnInit, OnDestroy {
       if (event) {
         const author = await firstValueFrom(this.userDataService.getUserById(event.authorId));
         this.displayData = { event, author };
+
+        // Initialize vote and star state from event data
+        if (event.isUpvoted) {
+          this.userVoteState = 'upvote';
+        } else if (event.isDownVoted) {
+          this.userVoteState = 'downvote';
+        } else {
+          this.userVoteState = 'none';
+        }
+        this.isStarred = event.isStarred || false;
+
         this.initAttachments();
       }
     } catch (error) {
@@ -174,6 +253,30 @@ export class EventComponent implements OnInit, OnDestroy {
 
   formatFileSize(bytes: number): string {
     return MimeTypeUtils.formatSize(bytes);
+  }
+
+  getRemainingTime(): string {
+    if (!this.displayData?.event.hasTime || !this.displayData.event.eventEndDate) return '';
+
+    const now = new Date();
+    const end = new Date(this.displayData.event.eventEndDate);
+    const diff = end.getTime() - now.getTime();
+
+    if (diff <= 0) return 'Expired';
+
+    const hours = Math.floor(diff / (1000 * 60 * 60));
+    const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+
+    if (hours > 24) {
+      const days = Math.floor(hours / 24);
+      return `${days}d ${hours % 24}h remaining`;
+    }
+
+    return `${hours}h ${minutes}m remaining`;
+  }
+
+  getExternalLinkIcon(): string {
+    return UrlUtils.getIconForUrl(this.displayData?.event.customUrl);
   }
 
   getVisibleAttachments(): EventAttachment[] {

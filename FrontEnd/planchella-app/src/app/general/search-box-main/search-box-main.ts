@@ -1,5 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { SearchService } from '../../services/search.service';
+import { EventData } from '../../models/event-data';
+import { CommunityData } from '../../models/community-data';
 
 @Component({
   selector: 'search-box-main',
@@ -8,13 +10,22 @@ import { SearchService } from '../../services/search.service';
   standalone: true
 })
 export class SearchBoxMain {
+  @Output() eventSearch = new EventEmitter<EventData[]>();
+  @Output() communitySearch = new EventEmitter<CommunityData[]>();
+
   constructor(private searchService: SearchService) { }
 
   async search(input: string) {
     console.log('Searching for events:', input);
-    // For now, we just log the results as we need a way to display them (e.g. update main feed)
-    const results = await this.searchService.searchEvents(input);
-    console.log('Found events:', results);
-    // Future: Emit results or update a shared service to refresh the event feed
+
+    // Search for events and emit results
+    const eventResults = await this.searchService.searchEvents(input);
+    console.log('Found events:', eventResults);
+    this.eventSearch.emit(eventResults);
+
+    // Search for communities and emit results
+    const communityResults = await this.searchService.searchCommunities(input);
+    console.log('Found communities:', communityResults);
+    this.communitySearch.emit(communityResults);
   }
 }

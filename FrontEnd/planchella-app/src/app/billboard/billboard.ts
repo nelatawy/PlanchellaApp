@@ -24,6 +24,7 @@ export class Billboard {
 
   cards: Array<EventDisplayData> = [];
   isLoading: boolean = false;
+  isLoadingSearch: boolean = false;
   offset: number = 0;
 
   @Input()
@@ -60,7 +61,14 @@ export class Billboard {
         });
 
         const newCards = await Promise.all(displayDataPromises);
-        this.cards.push(...newCards);
+
+        // Filter out expired timed events
+        const now = new Date();
+        const activeCards = newCards.filter(card =>
+          !card.event.hasTime || new Date(card.event.eventEndDate) > now
+        );
+
+        this.cards.push(...activeCards);
       }
 
       this.offset += count;
@@ -99,6 +107,58 @@ export class Billboard {
 
   onCardClick(id: number) {
     this.eventSelected.emit(id);
+  }
+
+  async loadSearchResults(events: EventData[]) {
+    // Prevent concurrent search operations
+    if (this.isLoadingSearch) {
+      console.log('Already loading, skipping search request');
+      return;
+    }
+
+    // Clear current cards and load search results
+    this.cards = [];
+    this.offset = 0;
+
+    if (!events || events.length === 0) {
+      console.log('No search results to display');
+      return;
+    }
+
+    this.isLoadingSearch = true;
+    try {
+      const displayDataPromises = events.map(async (event) => {
+        const author = await firstValueFrom(this.userDataService.getUserById(event.authorId));
+        return { event, author } as EventDisplayData;
+      });
+
+      const newCards = await Promise.all(displayDataPromises);
+
+      // Filter out expired timed events
+      const now = new Date();
+      this.cards = newCards.filter(card =>
+        !card.event.hasTime || new Date(card.event.eventEndDate) > now
+      );
+    } catch (error) {
+      console.error('Error loading search results:', error);
+    } finally {
+      this.isLoadingSearch = false;
+    }
+  }
+
+  async refreshEvent(eventId: number) {
+    try {
+      const updatedEvent = await this.eventDataService.getEvent(eventId);
+      if (updatedEvent) {
+        const author = await firstValueFrom(this.userDataService.getUserById(updatedEvent.authorId));
+        const index = this.cards.findIndex(card => card.event.id === eventId);
+        if (index !== -1) {
+          this.cards[index] = { event: updatedEvent, author };
+        }
+      }
+    } catch (error) {
+      console.error('Error refreshing single event:', error);
+    }
   }
 
   private loadNewConfig(newId: any) {

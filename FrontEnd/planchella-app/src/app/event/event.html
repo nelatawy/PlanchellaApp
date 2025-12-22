@@ -2,20 +2,31 @@
   <div class="event-header">
     <div class="event-meta-top">
       <div class="author-info">
-        <a [href]="displayData?.author?.accountUrl || '#'" target="_blank" class="author-link" title="Visit profile">
+        <a [routerLink]="['/account-page', displayData?.author?.id]" class="author-link" title="Visit profile">
           <img [src]="displayData?.author?.picUrl || 'assets/default-user.png'" class="author-pic" alt="Author">
         </a>
-        <a [href]="displayData?.author?.accountUrl || '#'" target="_blank" class="author-link-text">
+        <a [routerLink]="['/account-page', displayData?.author?.id]" class="author-link-text">
           <span class="author-name">{{ displayData?.author?.name }}</span>
         </a>
       </div>
       <div class="meta-right">
         <span class="event-type-badge">{{ displayData?.event?.eventType }}</span>
         <span class="creation-date">{{ displayData?.event?.creationDate | date:'mediumDate' }}</span>
+        @if (displayData?.event?.hasTime) {
+        <span class="remaining-time-badge">{{ getRemainingTime() }}</span>
+        }
       </div>
     </div>
 
-    <h2 class="event-title">{{ displayData?.event?.title }}</h2>
+    <div class="title-row">
+      <h2 class="event-title">{{ displayData?.event?.title }}</h2>
+      @if (displayData?.event?.customUrl) {
+      <a [href]="displayData?.event?.customUrl" target="_blank" class="external-link-btn" title="Open external link">
+        <i [class]="getExternalLinkIcon()"></i>
+        Visit Link
+      </a>
+      }
+    </div>
 
     <div class="event-dates">
       <span class="date-label">📅 </span>
@@ -55,11 +66,11 @@
   }
 
   <div class="vote-controls">
-    <button class="vote-btn upvote">
+    <button class="vote-btn upvote" (click)="upvote()">
       <i class="fa-solid fa-arrow-up icon"></i>
       <span class="count">{{ displayData?.event?.upvoteCount }}</span>
     </button>
-    <button class="vote-btn downvote">
+    <button class="vote-btn downvote" (click)="downvote()">
       <i class="fa-solid fa-arrow-down icon"></i>
       <span class="count">{{ displayData?.event?.downvoteCount }}</span>
     </button>

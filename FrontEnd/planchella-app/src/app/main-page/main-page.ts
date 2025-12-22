@@ -8,6 +8,7 @@ import { EventBuilder } from '../event-builder/event-builder';
 import { CommunityData } from '../models/community-data';
 import { CommunityBuilder } from '../community-builder/community-builder';
 import { EventComponent } from '../event/event';
+import { EventData } from '../models/event-data';
 
 @Component({
   selector: 'app-main-page',
@@ -24,6 +25,7 @@ export class MainPage {
   @ViewChild("communityOverlay") communityOverlay!: ElementRef;
 
   @ViewChild(CommunitySelector) communitySelector!: CommunitySelector;
+  @ViewChild(Billboard) billboard!: Billboard;
 
   isOpen = false;
 
@@ -50,7 +52,6 @@ export class MainPage {
     this.overlay.nativeElement.style.zIndex = "-1";
     this.eventBuilderElement.nativeElement.style.transform = "translateY(100vh)";
   }
-
 
   onBuilderClick(event: MouseEvent) {
     event.stopPropagation();
@@ -82,7 +83,24 @@ export class MainPage {
   }
 
   hide_event_details() {
+    if (this.selectedEventId && this.billboard) {
+      this.billboard.refreshEvent(this.selectedEventId);
+    }
     this.isEventDetailsOpen = false;
     this.selectedEventId = undefined;
+  }
+
+  async onEventSearch(events: EventData[]) {
+    console.log('Received event search results:', events);
+    if (this.billboard) {
+      await this.billboard.loadSearchResults(events);
+    }
+  }
+
+  onCommunitySearch(communities: CommunityData[]) {
+    console.log('Received community search results:', communities);
+    if (this.communitySelector) {
+      this.communitySelector.loadSearchResults(communities);
+    }
   }
 }

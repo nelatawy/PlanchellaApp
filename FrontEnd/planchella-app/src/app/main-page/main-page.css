@@ -62,22 +62,26 @@
   position: fixed;
   bottom: 4rem;
   right: 4rem;
-  width: 6rem;
+  width: 6.5rem;
   aspect-ratio: 1;
-  font-size: var(--font-size-x-lg);
+  font-size: var(--font-size-xl);
   padding: var(--padding-lg);
   border-radius: var(--circular-radius);
-  background-color: var(--card-color-light);
-  color: var(--primary-color-dark);
-  transition: transform 0.2s ease-in-out, border 0.2s ease-in-out;
-  box-shadow: var(--dark-shadow);
-  border: var(--button-border);
+  background: var(--gradient-primary);
+  color: white;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  /* Faster! */
+  box-shadow: var(--shadow-xl), 0 0 0 0 rgba(126, 48, 225, 0.5);
+  border: none;
+  cursor: pointer;
+  z-index: 999;
 }
 
 .new_event:hover {
-  transform: scale(1.05);
-  border: var(--button-border-hover);
-  animation: pulsing 2s infinite;
+  transform: scale(1.08) translateY(-4px);
+  box-shadow: var(--shadow-xl), var(--shadow-glow);
+  animation: pulsing 0.8s ease-in-out infinite;
+  /* Much faster! */
 }
 
 .overlay {
@@ -87,24 +91,28 @@
   width: 100vw;
   height: 100vh;
   backdrop-filter: blur(4px);
-  background-color: rgba(0, 0, 0, 0.42);
+  /* Reduced for performance */
+  background-color: rgba(0, 0, 0, 0.5);
   z-index: -1;
   display: flex;
   justify-content: center;
   align-items: center;
-  transition: all 0.2s ease-in-out;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  /* Faster! */
   opacity: 0;
 }
 
 .builder {
   transform: translateY(100vh);
-  transition: all 0.35s ease-in-out;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  /* Faster! */
 }
 
 /* Event Builder sliding from bottom */
 .builder.event {
   transform: translateY(100vh);
-  transition: all 0.35s ease-in-out;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  /* Faster! */
 }
 
 /* Community builder modal (centered) */
@@ -131,9 +139,16 @@
   background: var(--bg-white);
   border-radius: var(--radius-lg);
   overflow-y: auto;
-  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+  box-shadow: var(--shadow-xl);
   position: relative;
   z-index: 2001;
+  transform: scale(0.95);
+  transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  /* Faster! */
+}
+
+.overlay.visible .event-details-container {
+  transform: scale(1);
 }
 
 @media (max-width: 1000px) {

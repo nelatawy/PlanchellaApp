@@ -1,51 +1,47 @@
 <div class="nav-bar">
-  <button class="nav-button"
-          (click)="selectTab('posts')"
-          [class.active]="selectedTab === 'posts'">
+  <button class="nav-button" (click)="selectTab('posts')" [class.active]="selectedTab === 'posts'">
     <!-- Icon: File/Document -->
     <img src="/my-post-icon.svg" alt="" width="18" height="18">
     <span>Events</span>
   </button>
 
-  <button class="nav-button"
-          (click)="selectTab('settings')"
-          [class.active]="selectedTab === 'settings'">
+  @if (isOwnProfile) {
+  <button class="nav-button" (click)="selectTab('settings')" [class.active]="selectedTab === 'settings'">
     <!-- Icon: Settings/Cog -->
     <img src="/settings-icon.svg" width="18" height="18" alt="">
     <span>Settings</span>
   </button>
+  }
 
-  <button class="nav-button"
-          (click)="selectTab('stared')"
-          [class.active]="selectedTab === 'stared'">
+  <button class="nav-button" (click)="selectTab('stared')" [class.active]="selectedTab === 'stared'">
     <!-- Icon: Star -->
     <img src="/star-icon.svg" alt="" width="18" height="18">
     <span>Stared Posts</span>
   </button>
 
-  <button class="nav-button"
-          (click)="selectTab('communities')"
-          [class.active]="selectedTab === 'communities'">
+  <button class="nav-button" (click)="selectTab('communities')" [class.active]="selectedTab === 'communities'">
     <!-- Icon: Organization/Community -->
     <img src="/organization-icon.svg" alt="" width="18" height="18">
     <span>Joined Communities</span>
   </button>
 </div>
 
-  @switch (selectedTab){
-    @case ("posts"){
-      <app-posts-page></app-posts-page>
-    }
+@switch (selectedTab){
+@case ("posts"){
+<app-posts-page></app-posts-page>
+}
 
-    @case ("settings"){
-      <app-settings-page></app-settings-page>
-    }
+@case ("settings"){
+@if (isOwnProfile) {
+<app-settings-page></app-settings-page>
+}
+}
 
-    @case ("stared"){
-      <app-stared-posts-page></app-stared-posts-page>
-    }
+@case ("stared"){
+<app-stared-posts-page></app-stared-posts-page>
+}
 
-    @case ("communities"){
-      <app-joined-communities></app-joined-communities>
-    }
-  }
+@case ("communities"){
+<app-joined-communities></app-joined-communities>
+}
+}

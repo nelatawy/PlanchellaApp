@@ -11,14 +11,27 @@ import { EventBuilder } from './event-builder/event-builder';
 import { EventComponent } from './event/event';
 import { CommunityBuilder } from './community-builder/community-builder';
 import { authGuard } from './services/auth-guard';
+import { signedGuard } from './services/signed-guard';
 
 export const routes: Routes = [
   { path: '', redirectTo: '/signin', pathMatch: 'full' }, // default route
 
 
-  { path: 'signin', component: SignIn },
-  { path: 'register', component: Registration },
-  { path: 'set-email', component: SetEmail },
+  {
+    path: 'signin',
+    component: SignIn,
+    canActivate: [signedGuard]
+  },
+  {
+    path: 'register'
+    , component: Registration
+    , canActivate: [signedGuard]
+  },
+  {
+    path: 'set-email',
+    component: SetEmail,
+    canActivate: [signedGuard]
+  },
   {
     path: 'main',
     component: MainPage,
@@ -29,8 +42,16 @@ export const routes: Routes = [
     component: MainPage,
     canActivate: [authGuard]
   },
-  { path: 'verification-code', component: VerificationCode },
-  { path: 'reset-password', component: ResetPassword },
+  {
+    path: 'verification-code',
+    component: VerificationCode,
+    canActivate: [signedGuard]
+  },
+  {
+    path: 'reset-password',
+    component: ResetPassword,
+    canActivate: [signedGuard]
+  },
   {
     path: 'event-builder',
     component: EventBuilder,
@@ -38,6 +59,11 @@ export const routes: Routes = [
   },
   {
     path: 'account-page',
+    component: AccountPage,
+    canActivate: [authGuard]
+  },
+  {
+    path: 'account-page/:id',
     component: AccountPage,
     canActivate: [authGuard]
   },

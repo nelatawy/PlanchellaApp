@@ -110,18 +110,22 @@ export class AuthService {
   }
 
   getCurrentUserId(): number | null {
+    // Priority 1: Check localStorage directly for stored userId
+    const storedUserId = localStorage.getItem("userId");
+    if (storedUserId) {
+      const id = Number(storedUserId);
+      if (!isNaN(id)) return id;
+    }
+
+    // Priority 2: Fallback to decoding the JWT token
     const token = this.getToken();
     if (!token) return null;
 
     try {
-      // atob() is used to decode the JWT token
       const payload = JSON.parse(atob(token.split('.')[1]));
-
-      // Debug: See what's actually in the token
       console.log('JWT Payload:', payload);
-
-      // Try common field names for user ID
-      return payload.userId || payload.sub || payload.id || payload.user_id || null;
+      const idFromToken = payload.userId || payload.sub || payload.id || payload.user_id;
+      return idFromToken ? Number(idFromToken) : null;
     } catch (error) {
       console.error('Error decoding token:', error);
       return null;
