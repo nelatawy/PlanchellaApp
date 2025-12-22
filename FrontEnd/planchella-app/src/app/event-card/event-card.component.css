@@ -120,7 +120,6 @@
   opacity: 100%;
 }
 
-
 .card-title {
   font-family: var(--font-wide-bold), sans-serif;
   font-weight: 400;
@@ -146,6 +145,18 @@
   font-size: var(--font-size-sm);
   margin: 0;
   color: var(--secondary-color-muted);
+}
+
+.location-icon {
+  color: #3b82f6; /* A nice blue color */
+  font-size: 0.9rem;
+  opacity: 0.8;
+  transition: all 0.2s ease;
+}
+
+.card:hover .location-icon {
+  opacity: 1;
+  transform: scale(1.1);
 }
 
 .remaining-time {
@@ -230,7 +241,6 @@
 }
 
 @media (max-width: 768px) {
-
   :host.small,
   :host.medium,
   :host.large {

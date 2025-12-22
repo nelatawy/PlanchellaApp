@@ -11,6 +11,9 @@
       <p class="card-title">{{displayData.event.title}}</p>
       <div class="meta-info">
         <p class="creation-date">{{getFormattedDate()}}</p>
+        @if (displayData.event.hasLocation) {
+        <i class="fa-solid fa-location-dot location-icon" title="This event has a location"></i>
+        }
       </div>
     </div>
     <app-profile-pic [hover_text]="displayData.author.name" [pic_href]="displayData.author.picUrl"
