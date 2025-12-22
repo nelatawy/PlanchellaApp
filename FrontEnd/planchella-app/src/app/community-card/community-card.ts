@@ -1,16 +1,16 @@
-import { Component, ElementRef, EventEmitter, Input, Output, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { CommunityData } from '../models/community-data';
 import { CommunityCardData } from '../models/community-card';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-community-card',
   standalone: true,
+  imports: [CommonModule],
   templateUrl: './community-card.html',
   styleUrl: './community-card.css',
 })
 export class CommunityCard {
-  @ViewChild('card', { static: false }) card!: ElementRef<HTMLDivElement>;
-  @ViewChild('highlight', { static: false }) highlight_text!: ElementRef<HTMLDivElement>;
 
   @Input()
   cardData?: CommunityCardData = undefined;
@@ -18,8 +18,17 @@ export class CommunityCard {
   @Input()
   currentlySelected: boolean = false;
 
+  @Input()
+  isMember: boolean = false;
+
   @Output("selection")
   selection_emitter: EventEmitter<CommunityData> = new EventEmitter<CommunityData>();
+
+  @Output()
+  join: EventEmitter<number> = new EventEmitter<number>();
+
+  @Output()
+  leave: EventEmitter<number> = new EventEmitter<number>();
 
   emit_selection() {
     if (this.cardData && this.cardData.communityData) {
@@ -27,14 +36,17 @@ export class CommunityCard {
     }
   }
 
-
-  show() {
-    this.highlight_text.nativeElement.style.opacity = '0.5';
+  onJoin(event: Event) {
+    event.stopPropagation();
+    if (this.cardData?.communityData?.id) {
+      this.join.emit(this.cardData.communityData.id);
+    }
   }
-  hide() {
-    this.highlight_text.nativeElement.style.opacity = '0';
-  }
-  redirect() {
 
+  onLeave(event: Event) {
+    event.stopPropagation();
+    if (this.cardData?.communityData?.id) {
+      this.leave.emit(this.cardData.communityData.id);
+    }
   }
 }

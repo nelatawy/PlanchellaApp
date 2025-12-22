@@ -3,6 +3,17 @@
   <h1 class="billboard-title">
     {{ communityData?.name || 'Community Events' }}
   </h1>
+  @if (communityData?.description) {
+  <div class="billboard-description">
+    <p>{{ communityData?.description }}</p>
+    @if (communityData?.memberCount !== undefined) {
+    <span class="member-tag">
+      <i class="fa-solid fa-users"></i>
+      {{ communityData?.memberCount }} members
+    </span>
+    }
+  </div>
+  }
 
 
   <!-- Loading State -->
@@ -12,6 +23,8 @@
     <p>Loading events...</p>
   </div>
   }
+
+
 
   <!-- Empty State -->
   @if (!isLoading && cards.length === 0) {

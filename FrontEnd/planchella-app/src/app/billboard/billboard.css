@@ -44,6 +44,36 @@
   box-shadow: 0 2px 8px rgba(126, 48, 225, 0.3);
 }
 
+.billboard-description {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--gap-sm);
+  font-size: var(--font-size-med);
+  text-align: center;
+  background: var(--bg-light);
+  padding: var(--padding-lg);
+  border-radius: var(--radius-lg);
+  color: var(--text-color-medium);
+  border: 3px dashed rgba(174, 174, 174, 0.538);
+}
+
+.billboard-description p {
+  margin: 0;
+}
+
+.member-tag {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: var(--font-size-xs);
+  color: var(--primary-color-mid);
+  background: rgba(126, 48, 225, 0.05);
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-weight: 600;
+}
+
 /* Events Grid */
 .events-grid {
   display: flex;

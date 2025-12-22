@@ -100,4 +100,32 @@ export class CommunityDataService {
       throw err;
     }
   }
+
+  // Join community
+  async joinCommunity(communityId: number, type: 'guest' | 'member' = 'member'): Promise<void> {
+    try {
+      await firstValueFrom(
+        this.http.post(`http://localhost:8080/api/memberships/join/${communityId}/${type}`, {}, {
+          headers: this.getHeaders()
+        })
+      );
+    } catch (err) {
+      console.error('Error joining community:', err);
+      throw err;
+    }
+  }
+
+  // Leave community
+  async leaveCommunity(communityId: number): Promise<void> {
+    try {
+      await firstValueFrom(
+        this.http.post(`http://localhost:8080/api/memberships/leave/${communityId}`, {}, {
+          headers: this.getHeaders()
+        })
+      );
+    } catch (err) {
+      console.error('Error leaving community:', err);
+      throw err;
+    }
+  }
 }

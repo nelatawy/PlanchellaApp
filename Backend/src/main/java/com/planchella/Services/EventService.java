@@ -97,9 +97,14 @@ public class EventService {
         event.setExpirationDate(expirationTime.toString());
         if (event.getEventStartDate() != null || event.getEventEndDate() != null) {
             event.setHasTime(true);
+        } else {
+            event.setHasTime(false);
         }
+
         if (event.getLocation() != null) {
             event.setHasLocation(true);
+        } else {
+            event.setHasLocation(false);
         }
         System.out.println(event);
         eventRepo.saveEvent(event);

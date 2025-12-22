@@ -1,14 +1,16 @@
 @if (displayData) {
 <div #card class="card" (pointermove)="onPointerMove($event)" (pointerleave)="onLeave()"
   (pointerenter)="onPointerEnter()" (click)="navigateToDetails()">
-  <div class="event-bar" [class]="displayData.event.eventType">{{displayData.event.eventType}}</div>
+  <div class="event-bar" [class]="displayData.event.eventType">
+    {{displayData.event.eventType}}
+    <p class="remaining-time">{{getExpirationTime()}}</p>
+  </div>
 
   <div class="top-bar">
     <div class="title-group">
       <p class="card-title">{{displayData.event.title}}</p>
       <div class="meta-info">
         <p class="creation-date">{{getFormattedDate()}}</p>
-        <p class="remaining-time">{{getExpirationTime()}}</p>
       </div>
     </div>
     <app-profile-pic [hover_text]="displayData.author.name" [pic_href]="displayData.author.picUrl"

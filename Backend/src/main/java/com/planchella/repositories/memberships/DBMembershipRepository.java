@@ -80,25 +80,35 @@ public class DBMembershipRepository implements IMembershipRepository {
     public void saveMembership(Membership membership) {
         Session session = this.sessionFactory.openSession();
         Transaction tx = session.beginTransaction();
-        MembershipEntity entity = MembershipMapper.domainToEntity(membership, session);
-        if (session.get(MembershipEntity.class, entity.getId()) == null) {
-            session.persist(entity);
-        } else {
+        try {
+            MembershipEntity entity = MembershipMapper.domainToEntity(membership, session);
             session.merge(entity);
+            tx.commit();
+        } catch (Exception e) {
+            if (tx != null)
+                tx.rollback();
+            throw e;
+        } finally {
+            session.close();
         }
-        tx.commit();
-        session.close();
     }
 
     public void deleteMembership(Membership membership) {
         Session session = this.sessionFactory.openSession();
         Transaction tx = session.beginTransaction();
-        MembershipEntity entity = MembershipMapper.domainToEntity(membership, session);
-        if (session.get(MembershipEntity.class, entity.getId()) == null) {
-            session.remove(entity);
+        try {
+            MembershipEntity managedEntity = session.get(MembershipEntity.class, membership.getId());
+            if (managedEntity != null) {
+                session.remove(managedEntity);
+            }
+            tx.commit();
+        } catch (Exception e) {
+            if (tx != null)
+                tx.rollback();
+            throw e;
+        } finally {
+            session.close();
         }
-        tx.commit();
-        session.close();
     }
 
 }

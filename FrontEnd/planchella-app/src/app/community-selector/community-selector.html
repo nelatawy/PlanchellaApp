@@ -40,6 +40,7 @@
       @if (communities.length > 0) {
       @for (communityData of communities; track $index) {
       <app-community-card class="comm-card" [cardData]="communityData"
+        [isMember]="checkMembership(communityData.communityData?.id)" (join)="onJoin($event)" (leave)="onLeave($event)"
         (selection)="emit_selection($event)"></app-community-card>
       }
       }

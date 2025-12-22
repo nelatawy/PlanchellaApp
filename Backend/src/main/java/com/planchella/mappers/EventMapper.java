@@ -27,6 +27,8 @@ public class EventMapper {
         e.setEventType(event.getEventType());
         e.setUpvoteCount(event.getUpvoteCount());
         e.setDownvoteCount(event.getDownvoteCount());
+        e.setHasLocation(event.isHasLocation());
+        e.setHasTime(event.isHasTime());
         e.setEventStartDate(event.getEventStartDate());
         e.setEventEndDate(event.getEventEndDate());
 

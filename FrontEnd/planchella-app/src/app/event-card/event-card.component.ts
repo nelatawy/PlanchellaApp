@@ -181,23 +181,23 @@ export class EventCard implements OnInit, OnChanges {
   }
 
   getExpirationTime(): string {
-    if (!this.displayData?.event.hasTime || !this.displayData.event.expirationDate) return '';
+    if (!this.displayData?.event || !this.displayData.event.expirationDate) return '';
 
     const now = new Date();
     const end = new Date(this.displayData.event.expirationDate);
     const diff = end.getTime() - now.getTime();
 
-    if (diff <= 0) return 'Expired';
+    if (diff <= 0) return 'Removed';
 
     const hours = Math.floor(diff / (1000 * 60 * 60));
     const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
 
     if (hours > 24) {
       const days = Math.floor(hours / 24);
-      return `Expires in ${days}d ${hours % 24}h`;
+      return `Removed in ${days}d ${hours % 24}h`;
     }
 
-    return `Expires in ${hours}h ${minutes}m`;
+    return `Removed in ${hours}h ${minutes}m`;
   }
 
   getFormattedDate(): string {

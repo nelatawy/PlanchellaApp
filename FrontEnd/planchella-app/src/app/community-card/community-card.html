@@ -1,5 +1,5 @@
 @if (cardData && cardData.communityData) {
-<div #card class="card" (mouseover)="show()" (mouseleave)="hide()" (click)="emit_selection()">
+<div class="card" (click)="emit_selection()">
   <div class="content">
     <div class="main-info">
       <h2 class="name">{{cardData.communityData.name}}</h2>
@@ -7,12 +7,20 @@
       <span class="member-count">{{cardData.communityData.memberCount}} members</span>
       }
     </div>
-    <h2 #highlight class="highlight_text">VISIT</h2>
+
+    <div class="actions">
+      @if (!isMember) {
+      <button class="membership-btn join-btn" (click)="onJoin($event)">Join</button>
+      } @else {
+      <button class="membership-btn leave-btn" (click)="onLeave($event)">Leave</button>
+      }
+    </div>
   </div>
   @if (cardData.currentlySelected) {
-  <div class="selected">You are here</div>
+  <div class="selected">
+    You are here
+  </div>
   }
-  <!--    <div class="notifications">{{cardData.communityData.notificationCount}}</div>-->
 </div>
 
 }

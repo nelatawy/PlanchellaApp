@@ -10,6 +10,7 @@ import { SearchService } from '../services/search.service';
 
 import { CommunityBuilder } from '../community-builder/community-builder';
 import { UserDataService } from '../services/user-data-service';
+import { DialogService } from '../services/dialog.service';
 
 @Component({
   selector: 'app-community-selector',
@@ -32,14 +33,17 @@ export class CommunitySelector {
   };
 
   offset: number = 0;
+  searchOffset: number = 0;
   isLoading: boolean = false;
   searchQuery: string = '';
   isCreatingCommunity: boolean = false;
+  myCommunityIds: Set<number> = new Set();
 
   constructor(
     private communityDataService: CommunityDataService,
     private searchService: SearchService,
-    private userDataService: UserDataService
+    private userDataService: UserDataService,
+    private dialogService: DialogService
   ) {
   }
 
@@ -49,18 +53,35 @@ export class CommunitySelector {
   }
 
   async onSearch(event: any) {
-    this.searchQuery = event.target.value;
+    const query = event.target.value;
+    if (this.searchQuery === query) return;
+
+    this.searchQuery = query;
+    this.searchOffset = 0;
+    this.communities = [];
+
+    if (!this.searchQuery.trim()) {
+      this.offset = 0;
+      await this.add_communities(14);
+      return;
+    }
+
+    await this.add_search_results(14);
+  }
+
+  async add_search_results(count: number) {
+    if (this.isLoading) return;
     this.isLoading = true;
     try {
-      const results = await this.searchService.searchCommunities(this.searchQuery);
-      this.communities = []; // Clear current list
+      const results = await this.searchService.searchCommunities(this.searchQuery, count, this.searchOffset);
       results.forEach((communityData) => {
         this.communities.push({
-          id: "id",
+          id: String(communityData.id),
           communityData: communityData,
-          currentlySelected: communityData.name === this.selected_community?.name
+          currentlySelected: communityData.id === this.selected_community?.id
         });
       });
+      this.searchOffset += count;
     } catch (error) {
       console.error('Search error:', error);
     } finally {
@@ -100,11 +121,10 @@ export class CommunitySelector {
 
       if (memberships) {
         for (const membership of memberships) {
+          this.myCommunityIds.add(membership.communityId);
           try {
-            console.log('Fetching community data for membership:', membership);
             const communityData = await this.communityDataService.getCommunity(membership.communityId);
             if (communityData) {
-              console.log('Fetched community data:', communityData);
               this.communities.push({
                 id: String(communityData.id),
                 communityData: communityData,
@@ -128,11 +148,55 @@ export class CommunitySelector {
   async onScroll(e: any) {
     const el = e.target;
     if (el.scrollTop >= el.scrollHeight - el.clientHeight - 10) {
-      await this.add_communities(4);
+      if (this.searchQuery.trim()) {
+        await this.add_search_results(10);
+      } else {
+        await this.add_communities(4);
+      }
     }
   }
 
-  // Load search results from external search trigger
+  async onJoin(communityId: number) {
+    const confirmed = await this.dialogService.confirm({
+      title: 'Join Community',
+      message: 'Are you sure you want to join this community?',
+      confirmLabel: 'Join'
+    });
+
+    if (!confirmed) return;
+
+    try {
+      await this.communityDataService.joinCommunity(communityId);
+      this.myCommunityIds.add(communityId);
+      if (!this.searchQuery.trim()) {
+        await this.refreshList();
+      }
+    } catch (error) {
+      console.error('Error joining community:', error);
+    }
+  }
+
+  async onLeave(communityId: number) {
+    const confirmed = await this.dialogService.confirm({
+      title: 'Leave Community',
+      message: 'Are you sure you want to leave this community?',
+      confirmLabel: 'Leave',
+      type: 'danger'
+    });
+
+    if (!confirmed) return;
+
+    try {
+      await this.communityDataService.leaveCommunity(communityId);
+      this.myCommunityIds.delete(communityId);
+      if (!this.searchQuery.trim()) {
+        this.communities = this.communities.filter(c => c.communityData?.id !== communityId);
+      }
+    } catch (error) {
+      console.error('Error leaving community:', error);
+    }
+  }
+
   loadSearchResults(results: CommunityData[]) {
     this.communities = [];
     results.forEach((communityData) => {
@@ -142,6 +206,10 @@ export class CommunitySelector {
         currentlySelected: communityData.id === this.selected_community?.id
       });
     });
+  }
+
+  checkMembership(communityId: number | undefined): boolean {
+    return communityId !== undefined && this.myCommunityIds.has(communityId);
   }
 
 }

@@ -103,18 +103,18 @@ public class MembershipService {
 
         Membership membership = new Membership(IdGenerator.generateId(), user.getId(), community.getId(), type);
         saveMembership(membership);
-
-        // Invalidate caches (write-through)
-        invalidateUserCache(user.getId());
-        invalidateCommunityCache(community.getId());
     }
 
     public void removeMembership(Membership membership) {
         membershipRepository.deleteMembership(membership);
+        invalidateUserCache(membership.getUserId());
+        invalidateCommunityCache(membership.getCommunityId());
     }
 
     private void saveMembership(Membership membership) {
         membershipRepository.saveMembership(membership);
+        invalidateUserCache(membership.getUserId());
+        invalidateCommunityCache(membership.getCommunityId());
     }
 
     // Cache management

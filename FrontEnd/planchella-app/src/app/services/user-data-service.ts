@@ -82,6 +82,29 @@ export class UserDataService {
     }
   }
 
+  async fetch_starred_events(count: number, offset: number, user_id: number): Promise<Array<EventData>> {
+    try {
+      const result = await firstValueFrom(
+        this.http.get(`${this.baseUrl}/${user_id}/starred?count=${count}&offset=${offset}`, {
+          headers: this.getHeaders()
+        })
+      );
+      return result as Array<EventData>;
+    } catch (err) {
+      console.error('Error fetching starred events:', err);
+      throw err;
+    }
+  }
+
+  async fetch_my_starred_events(count: number, offset: number): Promise<Array<EventData>> {
+    try {
+      return await this.fetch_starred_events(count, offset, Number(localStorage.getItem('userId')));
+    } catch (err) {
+      console.error('Error fetching my starred events:', err);
+      throw err;
+    }
+  }
+
   async getCurrentUserData(): Promise<User> {
     try {
       const result = await firstValueFrom(
