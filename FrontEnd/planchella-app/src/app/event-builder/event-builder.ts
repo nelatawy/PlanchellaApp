@@ -1,5 +1,6 @@
 import { Component, Output, EventEmitter, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { FormsModule, NgForm } from '@angular/forms';
 import { EventData } from '../models/event-data';
 import { EventType, EventSize } from '../models/Enums';
@@ -26,7 +27,8 @@ export class EventBuilder {
     private eventDataService: EventDataService,
     private attachmentService: AttachmentService,
     private toastService: ToastService,
-    private mapService: MapService
+    private mapService: MapService,
+    private sanitizer: DomSanitizer
   ) { }
 
   MimeTypeUtils = MimeTypeUtils;
@@ -42,6 +44,8 @@ export class EventBuilder {
   endDate: string = '';
   hasTime: boolean = false;
   attachments: EventAttachment[] = [];
+  attachmentPreviews: (SafeUrl | null)[] = [];
+  blobUrls: string[] = []; // Keep track of literal strings to revoke them
   selectedFiles: File[] = [];
   customUrl: string = '';
   latitude?: number;
@@ -94,14 +98,18 @@ export class EventBuilder {
   private async initMap() {
     if (this.map) return;
 
-    let initialCenter: [number, number] = [30.0444, 31.2357]; // Default to Cairo as a more regional default if needed, or keep London [51.505, -0.09]
+    let initialCenter: [number, number] = [31.2001, 29.9187]; // Default to Alexandria, Egypt
 
     // Try to get user location if no latitude/longitude is set
     if (!this.latitude || !this.longitude) {
       try {
-        initialCenter = await this.mapService.getCurrentLocation();
+        const [lat, lng] = await this.mapService.getCurrentLocation();
+        initialCenter = [lat, lng];
+        this.latitude = lat;
+        this.longitude = lng;
+        console.log('Geolocation successful:', lat, lng);
       } catch (error) {
-        console.warn('Geolocation failed, defaulting to Cairo.', error);
+        console.warn('Geolocation failed, defaulting to Alexandria.', error);
         // initialCenter remains default
       }
     } else {
@@ -142,12 +150,13 @@ export class EventBuilder {
     const ids: string[] = await lastValueFrom(this.attachmentService.uploadAttachments(this.selectedFiles));
     console.log(ids);
 
-    Array.from(input.files).forEach((file, idx) => {
+    for (let idx = 0; idx < Array.from(input.files).length; idx++) {
+      const file = Array.from(input.files)[idx];
       // Check for duplicates
       const isDuplicate = this.attachments.some(att => att.fileName === file.name && att.size === file.size);
       if (isDuplicate) {
         console.warn(`Skipping duplicate file: ${file.name}`);
-        return;
+        continue;
       }
 
       const mimeType = file.type || MimeTypeUtils.fromFileExtension(file.name.split('.').pop() || '');
@@ -159,14 +168,31 @@ export class EventBuilder {
       };
 
       this.attachments.push(attachment);
+
+      // Generate preview for images
+      if (MimeTypeUtils.isImage(mimeType)) {
+        const url = URL.createObjectURL(file);
+        this.blobUrls.push(url);
+        this.attachmentPreviews.push(this.sanitizer.bypassSecurityTrustUrl(url));
+      } else {
+        this.blobUrls.push('');
+        this.attachmentPreviews.push(null);
+      }
+
       console.log('Added attachment:', attachment);
-    });
+    }
     this.selectedFiles = Array.from(input.files);
     input.value = '';
   }
 
   removeAttachment(index: number) {
+    const url = this.blobUrls[index];
+    if (url) {
+      URL.revokeObjectURL(url);
+    }
     this.attachments.splice(index, 1);
+    this.attachmentPreviews.splice(index, 1);
+    this.blobUrls.splice(index, 1);
   }
 
   async onSubmit(form: NgForm) {
@@ -212,11 +238,22 @@ export class EventBuilder {
 
       // Reset form
       form.resetForm();
+      this.blobUrls.forEach(url => url && URL.revokeObjectURL(url));
       this.attachments = [];
+      this.attachmentPreviews = [];
+      this.blobUrls = [];
       this.selectedFlare = '';
       this.selectedSize = EventSize.MID;
       this.hasTime = false;
       this.customUrl = '';
+      this.latitude = undefined;
+      this.longitude = undefined;
+      this.hasLocation = false;
+      this.showMap = false;
+      if (this.marker) {
+        this.marker.remove();
+        this.marker = undefined;
+      }
       this.isSubmitting = false;
 
       // Close builder

@@ -77,20 +77,7 @@
     <textarea class="inputField description-field" placeholder="Write the Description" [(ngModel)]="description"
       name="description" required rows="3">
     </textarea>
-
-    <!-- Attachments -->
-    @if (attachments.length) {
-    <div class="attachments-preview">
-      @for (att of attachments; track att.id; let i = $index) {
-      <div class="attachment-card-preview">
-        <span>{{ MimeTypeUtils.getIcon(att.mimeType) }}</span>
-        <span>{{ att.fileName }} ({{ MimeTypeUtils.formatSize(att.size) }})</span>
-        <button type="button" class="remove-att-btn" (click)="removeAttachment(i)" title="Remove">×</button>
-      </div>
-      }
-    </div>
-    }
-
+    
     <!-- Map Section -->
     <div class="form-row">
       <label class="checkbox-container">
@@ -112,6 +99,26 @@
       </div>
 
       <div id="map-container" [hidden]="!showMap" class="map-container"></div>
+    }
+
+    <!-- Attachments -->
+    @if (attachments.length) {
+    <div class="attachments-preview">
+      @for (att of attachments; track att.id; let i = $index) {
+      <div class="attachment-card-preview" [class.image-card]="MimeTypeUtils.isImage(att.mimeType)">
+        @if (attachmentPreviews[i]) {
+          <img [src]="attachmentPreviews[i]" class="thumbnail-preview" alt="Preview">
+        } @else {
+          <span class="file-icon">{{ MimeTypeUtils.getIcon(att.mimeType) }}</span>
+        }
+        <div class="attachment-info">
+          <span class="file-name">{{ att.fileName }}</span>
+          <span class="file-size">{{ MimeTypeUtils.formatSize(att.size) }}</span>
+        </div>
+        <button type="button" class="remove-att-btn" (click)="removeAttachment(i)" title="Remove">×</button>
+      </div>
+      }
+    </div>
     }
 
     <!-- Bottom Buttons -->

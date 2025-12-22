@@ -25,6 +25,7 @@ export class Billboard {
   cards: Array<EventDisplayData> = [];
   isLoading: boolean = false;
   isLoadingSearch: boolean = false;
+  hasMore: boolean = true;
   offset: number = 0;
 
   @Input()
@@ -54,7 +55,7 @@ export class Billboard {
       }
       let events: EventData[] | undefined = await this.communityDataService.fetch_community_events(count, this.offset, this.communityData.id);
 
-      if (events) {
+      if (events && events.length > 0) {
         const displayDataPromises = events.map(async (event) => {
           const author = await firstValueFrom(this.userDataService.getUserById(event.authorId));
           return { event, author } as EventDisplayData;
@@ -69,6 +70,8 @@ export class Billboard {
         );
 
         this.cards.push(...activeCards);
+      } else {
+        this.hasMore = false;
       }
 
       this.offset += count;
@@ -88,13 +91,14 @@ export class Billboard {
     if (changes['communityData']) {
       this.cards = [];
       this.offset = 0; // Reset offset to start from the beginning
+      this.hasMore = true;
       await this.add_events(10);
     }
   }
 
   @HostListener('scroll', ['$event'])
   async onScroll(e: any) {
-    if (this.isLoading) return; // Prevent multiple simultaneous requests
+    if (this.isLoading || !this.hasMore) return; // Prevent multiple simultaneous requests or unnecessary ones
 
     const el = e.target;
     if (el.scrollTop >= el.scrollHeight - el.clientHeight - 10) {
@@ -149,6 +153,7 @@ export class Billboard {
   async refreshList() {
     this.cards = [];
     this.offset = 0;
+    this.hasMore = true;
     await this.add_events(10);
   }
 

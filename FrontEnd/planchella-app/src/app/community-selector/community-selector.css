@@ -2,7 +2,7 @@
 
 .container {
   padding: var(--padding-x-lg);
-  background: transparent;
+  background: var(--bg-white);
   max-width: 50rem;
   display: flex;
   flex-direction: column;
@@ -170,10 +170,6 @@
   flex-direction: column;
   gap: var(--gap-sm);
 }
-
-
-
-
 
 .spinner-mini {
   width: 16px;
