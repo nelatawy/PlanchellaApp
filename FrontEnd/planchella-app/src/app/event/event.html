@@ -43,6 +43,10 @@
       <div id="event-location-map" class="event-map-container"></div>
     </div>
     }
+    <button class="email-share-btn" (click)="sendEventMail()">
+      <i class="fa-solid fa-envelope"></i>
+      Send to your Email
+    </button>
   </div>
 
   @if (displayData?.event?.attachments?.length) {

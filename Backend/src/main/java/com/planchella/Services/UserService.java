@@ -88,7 +88,7 @@ public class UserService {
         String eventTimeHtml = Files
                 .readString(Path.of(ClassLoader.getSystemResource("static/email_time_snippet.html").getPath()));
 
-        String geoapifyKey = "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxMTY3MjgxMDUwIiwiaWF0IjoxNzY2NDUwMzIxLCJleHAiOjE3NjY0NTU1MDV9.vA2qAVdr1WpDZNbEuVdBF56X37XdEZYNrZZZoqsRFY9mYqwxttqTjynJWMcJ4DQPdtmFoASVaYMOITyClkPUsw";
+        String geoapifyKey = "ec4ccd53f12b439f8a36fb6fe8b739a5";
         String formattedCreationDate = com.planchella.utils.DateUtils.formatIsoDate(event.getCreationDate());
 
         String bodyContent = htmlBase
@@ -103,10 +103,14 @@ public class UserService {
             eventLocationHtml = eventLocationHtml
                     .replace("{{event_location}}", event.getLatitude() + ", " + event.getLongitude());
 
-            String mapUrl = "https://maps.geoapify.com/v1/staticmap?style=osm-carto&width=600&height=300&center=lonlat:"
-                    + event.getLongitude() + "," + event.getLatitude()
-                    + "&zoom=15&marker=lonlat:" + event.getLongitude() + "," + event.getLatitude()
-                    + ";color:%23ff0000;size:large&apiKey=" + geoapifyKey;
+            String mapUrl = "https://maps.geoapify.com/v1/staticmap"
+                    + "?style=osm-carto"
+                    + "&width=600&height=300"
+                    + "&center=lonlat:" + event.getLongitude() + "," + event.getLatitude()
+                    + "&zoom=15"
+                    + "&marker=lonlat:" + event.getLongitude() + "," + event.getLatitude()
+                    + ";color:%23ff0000;size:large"
+                    + "&apiKey=" + geoapifyKey;
             eventLocationHtml = eventLocationHtml.replace("{{map_url}}", mapUrl);
 
             String googleMapsUrl = "https://www.google.com/maps/search/?api=1&query="
@@ -143,11 +147,8 @@ public class UserService {
             String icsString = googleIntegrations.generateIcsString(event, user.getEmail());
 
             googleIntegrations.sendEmail(user.getEmail(), "Planchella : " + event.getTitle(), bodyContent, icsString);
-            // System.out.println(bodyContent);
-
         } catch (Exception e) {
             System.err.println(e.getMessage());
-            System.out.println(bodyContent);
         }
     }
 

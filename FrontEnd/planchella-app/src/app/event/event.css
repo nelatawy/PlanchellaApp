@@ -516,7 +516,7 @@
 }
 
 /* Fade-in */
-.attachment-preview > * {
+.attachment-preview>* {
   animation: fadeIn 0.4s ease;
 }
 
@@ -798,6 +798,42 @@
 
 .upload-info.warning .upload-progress-fill {
   background: linear-gradient(90deg, #ffc107, #ff9800);
+}
+
+.email-share-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--padding-med);
+  background: var(--bg-white);
+  color: var(--primary-color-dark);
+  border: 2px solid var(--primary-color-dark);
+  padding: var(--padding-sm) var(--padding-lg);
+  border-radius: var(--radius-med);
+  font-family: inherit;
+  font-size: var(--font-size-base);
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  width: fit-content;
+  margin: var(--gap-lg) auto 0 auto;
+}
+
+.email-share-btn i {
+  color: inherit;
+  font-size: var(--font-size-base);
+}
+
+.email-share-btn:hover {
+  background: var(--primary-color-light);
+  color: white;
+  border-color: var(--primary-color-light);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-sm);
+}
+
+.email-share-btn:active {
+  transform: translateY(0);
 }
 
 .upload-info.error .upload-progress-fill {

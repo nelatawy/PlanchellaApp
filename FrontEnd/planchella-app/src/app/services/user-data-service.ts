@@ -133,5 +133,19 @@ export class UserDataService {
     }
   }
 
+  async sendEventMail(eventId: number) {
+    try {
+      await firstValueFrom(
+        this.http.post<void>(`${this.baseUrl}/eventmail/${eventId}`, {}, {
+          headers: this.getHeaders()
+        })
+      );
+      console.log('Event mail sent successfully');
+    } catch (err) {
+      console.error('Error sending event mail:', err);
+      throw err;
+    }
+  }
+
 }
 

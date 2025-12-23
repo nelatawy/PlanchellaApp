@@ -162,6 +162,16 @@ export class EventComponent implements OnInit, OnDestroy {
     }
   }
 
+  async sendEventMail() {
+    try {
+      await this.userDataService.sendEventMail(this.eventId!);
+      this.toastService.success('Event mail sent successfully');
+    } catch (error) {
+      console.error('Error sending event mail:', error);
+      this.toastService.error('Failed to send event mail');
+    }
+  }
+
   private map?: L.Map;
 
   initMap() {
