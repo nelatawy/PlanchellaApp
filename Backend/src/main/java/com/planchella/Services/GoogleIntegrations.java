@@ -26,13 +26,20 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Collections;
 import java.util.Properties;
+import java.util.UUID;
+
+import com.planchella.domain.Event;
+import com.planchella.utils.DateUtils;
+import jakarta.activation.DataHandler;
 import jakarta.mail.MessagingException;
 import jakarta.mail.Session;
 import jakarta.mail.internet.InternetAddress;
+import jakarta.mail.internet.MimeBodyPart;
 import jakarta.mail.internet.MimeMessage;
+import jakarta.mail.internet.MimeMultipart;
+import jakarta.mail.util.ByteArrayDataSource;
 import org.apache.commons.codec.binary.Base64;
 import org.springframework.stereotype.Service;
-
 
 @Service
 public class GoogleIntegrations {
@@ -63,29 +70,50 @@ public class GoogleIntegrations {
                 .setApplicationName("Planchella")
                 .build();
 
-
     }
 
     /**
      * Send an email from the user's mailbox to its recipient.
      *
-     * @param toEmailAddress   - Email address of the recipient
+     * @param toEmailAddress - Email address of the recipient
      * @throws MessagingException - if a wrongly formatted address is encountered.
      * @throws IOException        - if service account credentials file not found.
      */
 
-    public Message sendEmail(String toEmailAddress, String subject, String body) throws MessagingException, IOException {
+    public Message sendEmail(String toEmailAddress, String subject, String body, String icsContent)
+            throws MessagingException, IOException {
 
         // Encode as MIME message
         Properties props = new Properties();
         Session session = Session.getDefaultInstance(props, null);
 
         MimeMessage email = new MimeMessage(session);
+
+        MimeMultipart multipart = new MimeMultipart("mixed");
+
+        MimeMultipart alternativePart = new MimeMultipart("alternative");
+        MimeBodyPart htmlPart = new MimeBodyPart();
+        htmlPart.setContent(body, "text/html; charset=utf-8");
+        alternativePart.addBodyPart(htmlPart);
+
+        MimeBodyPart alternativeBodyPart = new MimeBodyPart();
+        alternativeBodyPart.setContent(alternativePart);
+        multipart.addBodyPart(alternativeBodyPart);
+
+        if (icsContent != null) {
+            MimeBodyPart calendarPart = new MimeBodyPart();
+            calendarPart.setHeader("Content-Class", "urn:content-classes:calendarmessage");
+            calendarPart.setHeader("Content-ID", "calendar_display");
+            calendarPart.setDataHandler(new DataHandler(
+                    new ByteArrayDataSource(icsContent, "text/calendar;method=REQUEST;name=\"invite.ics\"")));
+            multipart.addBodyPart(calendarPart);
+        }
+
         email.setFrom(new InternetAddress(this.fromEmail));
         email.addRecipient(jakarta.mail.Message.RecipientType.TO,
                 new InternetAddress(toEmailAddress));
         email.setSubject(subject);
-        email.setContent(body, "text/html; charset=utf-8");
+        email.setContent(multipart);
 
         ByteArrayOutputStream buffer = new ByteArrayOutputStream();
         email.writeTo(buffer);
@@ -111,8 +139,36 @@ public class GoogleIntegrations {
         return null;
     }
 
+    public String generateIcsString(Event event, String recipientEmail) {
+        // dates must be in the format: yyyyMMdd'T'HHmmss'Z'
+        String start = DateUtils.cleanToIcsDate(event.getEventStartDate());
+        String end = DateUtils.cleanToIcsDate(event.getEventEndDate());
+        String now = java.time.format.DateTimeFormatter.ofPattern("yyyyMMdd'T'HHmmss'Z'")
+                .format(java.time.ZonedDateTime.now(java.time.ZoneOffset.UTC));
+
+        return "BEGIN:VCALENDAR\r\n" +
+                "VERSION:2.0\r\n" +
+                "PROID:-//Planchella//Event//EN\r\n" +
+                "METHOD:REQUEST\r\n" +
+                "BEGIN:VEVENT\r\n" +
+                "UID:" + UUID.randomUUID().toString() + "\r\n" +
+                "DTSTAMP:" + now + "\r\n" +
+                "ORGANIZER;CN=Planchella:mailto:" + fromEmail + "\r\n" +
+                "ATTENDEE;ROLE=REQ-PARTICIPANT;PARTSTAT=NEEDS-ACTION;RSVP=TRUE;CN=" + recipientEmail + ":mailto:"
+                + recipientEmail + "\r\n" +
+                "DTSTART:" + start + "\r\n" +
+                "DTEND:" + end + "\r\n" +
+                "SUMMARY:" + event.getTitle() + "\r\n" +
+                "DESCRIPTION:" + event.getDescription() + "\r\n" +
+                "LOCATION:" + (event.isHasLocation() ? event.getLatitude() + "," + event.getLongitude() : "Online")
+                + "\r\n" +
+                "STATUS:CONFIRMED\r\n" +
+                "END:VEVENT\r\n" +
+                "END:VCALENDAR";
+    }
+
     public static void main() throws MessagingException, IOException {
         GoogleIntegrations google = new GoogleIntegrations();
-        google.sendEmail("nour.atawy2015@gmail.com","test","test");
+        google.sendEmail("nour.atawy2015@gmail.com", "test", "test", null);
     }
 }

@@ -88,6 +88,7 @@ public class UserService {
         String eventTimeHtml = Files
                 .readString(Path.of(ClassLoader.getSystemResource("static/email_time_snippet.html").getPath()));
 
+        String geoapifyKey = "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxMTY3MjgxMDUwIiwiaWF0IjoxNzY2NDUwMzIxLCJleHAiOjE3NjY0NTU1MDV9.vA2qAVdr1WpDZNbEuVdBF56X37XdEZYNrZZZoqsRFY9mYqwxttqTjynJWMcJ4DQPdtmFoASVaYMOITyClkPUsw";
         String formattedCreationDate = com.planchella.utils.DateUtils.formatIsoDate(event.getCreationDate());
 
         String bodyContent = htmlBase
@@ -101,6 +102,17 @@ public class UserService {
         if (event.isHasLocation()) {
             eventLocationHtml = eventLocationHtml
                     .replace("{{event_location}}", event.getLatitude() + ", " + event.getLongitude());
+
+            String mapUrl = "https://maps.geoapify.com/v1/staticmap?style=osm-carto&width=600&height=300&center=lonlat:"
+                    + event.getLongitude() + "," + event.getLatitude()
+                    + "&zoom=15&marker=lonlat:" + event.getLongitude() + "," + event.getLatitude()
+                    + ";color:%23ff0000;size:large&apiKey=" + geoapifyKey;
+            eventLocationHtml = eventLocationHtml.replace("{{map_url}}", mapUrl);
+
+            String googleMapsUrl = "https://www.google.com/maps/search/?api=1&query="
+                    + String.valueOf(event.getLatitude()) + "," + String.valueOf(event.getLongitude());
+            eventLocationHtml = eventLocationHtml.replace("{{google_maps_url}}", googleMapsUrl);
+
             bodyContent = bodyContent.replace("{{location_html}}", eventLocationHtml);
         } else {
             bodyContent = bodyContent.replace("{{location_html}}", "");
@@ -115,63 +127,10 @@ public class UserService {
                     .replace("{{start_date}}", formattedStart)
                     .replace("{{end_date}}", formattedEnd);
 
-            try {
-                com.fasterxml.jackson.databind.ObjectMapper mapper = new com.fasterxml.jackson.databind.ObjectMapper();
-                java.util.Map<String, Object> schemaMap = new java.util.HashMap<>();
-
-                schemaMap.put("@context", "https://schema.org");
-                schemaMap.put("@type", "Event");
-                schemaMap.put("name", event.getTitle());
-                schemaMap.put("startDate", event.getEventStartDate()); // Assuming these are already valid ISO strings
-                schemaMap.put("endDate", event.getEventEndDate());
-                schemaMap.put("description", event.getDescription());
-                schemaMap.put("eventStatus", "https://schema.org/EventScheduled");
-
-                if (event.isHasLocation()) {
-                    schemaMap.put("eventAttendanceMode", "https://schema.org/OfflineEventAttendanceMode");
-
-                    java.util.Map<String, Object> locationMap = new java.util.HashMap<>();
-                    locationMap.put("@type", "Place");
-                    locationMap.put("name", "Event Location"); // Fallback name
-
-                    java.util.Map<String, Object> addressMap = new java.util.HashMap<>();
-                    addressMap.put("@type", "PostalAddress");
-                    addressMap.put("streetAddress", "Unknown Address"); // Fallback address
-                    locationMap.put("address", addressMap);
-
-                    java.util.Map<String, Object> geoMap = new java.util.HashMap<>();
-                    geoMap.put("@type", "GeoCoordinates");
-                    geoMap.put("latitude", event.getLatitude());
-                    geoMap.put("longitude", event.getLongitude());
-                    locationMap.put("geo", geoMap);
-
-                    schemaMap.put("location", locationMap);
-                } else {
-                    schemaMap.put("eventAttendanceMode", "https://schema.org/OnlineEventAttendanceMode");
-
-                    java.util.Map<String, Object> locationMap = new java.util.HashMap<>();
-                    locationMap.put("@type", "Place");
-                    locationMap.put("name", "Online Event");
-                    schemaMap.put("location", locationMap);
-                }
-
-                if (event.getCustomUrl() != null && !event.getCustomUrl().isEmpty()) {
-                    schemaMap.put("url", event.getCustomUrl());
-                }
-
-                String schemaJson = mapper.writeValueAsString(schemaMap);
-                bodyContent = bodyContent.replace("{{schema_json}}", schemaJson);
-
-            } catch (Exception e) {
-                System.err.println("JSON-LD Generation Error: " + e.getMessage());
-                bodyContent = bodyContent.replace("{{schema_json}}", "");
-            }
-
             bodyContent = bodyContent.replace("{{time_html}}", eventTimeHtml);
 
         } else {
             bodyContent = bodyContent.replace("{{time_html}}", "");
-            bodyContent = bodyContent.replace("{{schema_json}}", "");
         }
 
         if (event.getCustomUrl() != null && !event.getCustomUrl().isEmpty()) {
@@ -181,7 +140,10 @@ public class UserService {
             bodyContent = bodyContent.replace("{{visit_button_html}}", "");
         }
         try {
-            googleIntegrations.sendEmail(user.getEmail(), "Check this event out!!", bodyContent);
+            String icsString = googleIntegrations.generateIcsString(event, user.getEmail());
+
+            googleIntegrations.sendEmail(user.getEmail(), "Planchella : " + event.getTitle(), bodyContent, icsString);
+            // System.out.println(bodyContent);
 
         } catch (Exception e) {
             System.err.println(e.getMessage());

@@ -1,6 +1,7 @@
 package com.planchella.utils;
 
 import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class DateUtils {
@@ -17,5 +18,10 @@ public class DateUtils {
         } catch (Exception e) {
             return isoDateString; // Return original if parsing fails
         }
+    }
+
+    public static String cleanToIcsDate(String isoDate) {
+        if (isoDate == null) return "";
+        return isoDate.replaceAll("[-:]", "").replaceAll("\\.\\d{3}", "");
     }
 }
