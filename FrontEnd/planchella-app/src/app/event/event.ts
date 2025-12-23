@@ -14,6 +14,7 @@ import { EventDataService } from '../services/event-data-service';
 import { ToastService } from '../services/toast.service';
 import { MapService } from '../services/map.service';
 import * as L from 'leaflet';
+import { ElementRef, ViewChild } from '@angular/core';
 
 interface AttachmentState {
   url: SafeUrl | null;
@@ -32,7 +33,6 @@ export class EventComponent implements OnInit, OnDestroy {
 
   isModalOpen = false;
   maxVisibleAttachments = 5;
-
   @Input() displayData: EventDisplayData | undefined;
   @Input() eventId: number | undefined;
 
@@ -328,6 +328,9 @@ export class EventComponent implements OnInit, OnDestroy {
     this.isModalOpen = false;
     document.body.style.overflow = 'auto';
   }
+
+
+
 
   ngOnDestroy() {
     // Clean up blob URLs to prevent memory leaks

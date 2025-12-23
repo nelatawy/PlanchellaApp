@@ -172,9 +172,6 @@ export class EventCard implements OnInit, OnChanges {
     }
   }
 
-  onPointerEnter() {
-    setTimeout(() => { this.card.nativeElement.style.transition = ''; }, 300);
-  }
 
   getRemainingTime(): string {
     return this.getExpirationTime();
@@ -241,6 +238,9 @@ export class EventCard implements OnInit, OnChanges {
     return UrlUtils.getIconForUrl(this.displayData?.event.customUrl);
   }
 
+  onPointerEnter() {
+    setTimeout(() => { this.card.nativeElement.style.transition = ''; }, 300);
+  }
   onPointerMove(e: PointerEvent) {
     if (!this.card) return;
 
@@ -256,14 +256,11 @@ export class EventCard implements OnInit, OnChanges {
     const normX = (x - centerX) / centerX;
     const normY = (y - centerY) / centerY;
 
-    const rotateX = normY * 8;
-    const rotateY = normX * -7;
+    const rotateX = normY * -8;
+    const rotateY = normX * 7;
 
-
-    el.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+    el.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.01, 1.01, 1.01)`;
     el.style.boxShadow = `${normX * -6}px ${normY * -6}px 10px var(--card-shadow-hover-color)`;
-
-
   }
 
 

@@ -63,13 +63,8 @@ export class Billboard {
 
         const newCards = await Promise.all(displayDataPromises);
 
-        // Filter out expired timed events
-        const now = new Date();
-        const activeCards = newCards.filter(card =>
-          !card.event.hasTime || new Date(card.event.eventEndDate) > now
-        );
 
-        this.cards.push(...activeCards);
+        this.cards.push(...newCards);
       } else {
         this.hasMore = false;
       }

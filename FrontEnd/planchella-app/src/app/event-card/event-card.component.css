@@ -1,5 +1,6 @@
 :host {
   flex: 1;
+  perspective: 1500px;
 }
 
 .top-bar,
@@ -148,7 +149,8 @@
 }
 
 .location-icon {
-  color: #3b82f6; /* A nice blue color */
+  color: #3b82f6;
+  /* A nice blue color */
   font-size: 0.9rem;
   opacity: 0.8;
   transition: all 0.2s ease;
@@ -241,6 +243,7 @@
 }
 
 @media (max-width: 768px) {
+
   :host.small,
   :host.medium,
   :host.large {
